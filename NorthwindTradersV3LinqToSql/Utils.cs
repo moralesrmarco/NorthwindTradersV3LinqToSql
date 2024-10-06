@@ -8,6 +8,19 @@ namespace NorthwindTradersV3LinqToSql
 {
     internal class Utils
     {
+        #region VariablesGlobales
+        public static string clbdd = "Consultando la base de datos... ";
+        public static string oueclbdd = "Ocurrio un error con la base de datos:\n";
+        public static string oue = "Ocurrio un error:\n";
+        public static string nwtr = "Northwind Traders Ver 3 Linq to Sql.";
+        public static string preguntaCerrar = "¿Esta seguro de querer cerrar el formulario?, si responde SI, se perderan los datos no guardados";
+        public static string insertandoRegistro = "Insertando registro en la base de datos...";
+        public static string modificandoRegistro = "Modificando registro en la base de datos...";
+        public static string eliminandoRegistro = "Eliminando registro en la base de datos...";
+        public static string errorRestriccionCF = "Error: No se puede eliminar el registro debido a una restricción de clave foránea";
+        public static string errorClaveDuplicada = "Error: No se puede insertar una clave duplicada en el objeto. Infracción de la restricción PRIMARY KEY";
+        #endregion
+
         public static void ValidaTxtBIdIni(TextBox txtBIdIni, TextBox txtBIdFin)
         {
             int numBIdIni = 0, numBIdFin = 0;
@@ -146,6 +159,18 @@ namespace NorthwindTradersV3LinqToSql
             Utils.ActualizarBarraDeEstado(form);
         }
 
+        public static void MsgCatchErrorRestriccionCF(Form form)
+        {
+            MessageBox.Show(Utils.errorRestriccionCF, Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Utils.ActualizarBarraDeEstado(form);
+        }
+
+        public static void MsgCatchErrorClaveDuplicada(Form form)
+        {
+            MessageBox.Show(Utils.errorClaveDuplicada, Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Utils.ActualizarBarraDeEstado(form);
+        }
+
         public static void ActualizarBarraDeEstado(Form form, string mensaje = "Activo.", bool error = false)
         {
             // se requiere en el archivo MDIPrincipal.cs declarar la propiedad:
@@ -240,11 +265,5 @@ namespace NorthwindTradersV3LinqToSql
 
         }
 
-        #region VariablesGlobales
-        public static string clbdd = "Consultando la base de datos... ";
-        public static string oueclbdd = "Ocurrio un error con la base de datos:\n";
-        public static string oue = "Ocurrio un error:\n";
-        public static string nwtr = "Northwind Traders Ver 3 Linq to Sql.";
-        #endregion
     }
 }

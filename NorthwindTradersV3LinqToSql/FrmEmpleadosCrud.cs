@@ -18,6 +18,22 @@ namespace NorthwindTradersV3LinqToSql
         {
             InitializeComponent();
             WindowState = FormWindowState.Maximized;
+            DefineMaxLength();
+        }
+
+        public void DefineMaxLength()
+        {
+            txtBIdIni.MaxLength = txtBIdFin.MaxLength = txtId.MaxLength = 10;
+            txtBNombres.MaxLength = txtNombres.MaxLength = 10;
+            txtBApellidos.MaxLength = txtApellidos.MaxLength = 20;
+            txtBTitulo.MaxLength = txtTitulo.MaxLength = 30;
+            txtTitCortesia.MaxLength = 25;
+            txtBDomicilio.MaxLength = txtDomicilio.MaxLength = 60;
+            txtBCiudad.MaxLength = txtCiudad.MaxLength = txtBRegion.MaxLength = txtRegion.MaxLength = 15;
+            txtBCodigoP.MaxLength = txtCodigoP.MaxLength = 10;
+            txtPais.MaxLength = 15;
+            txtBTelefono.MaxLength = txtTelefono.MaxLength = 24;
+            txtExtension.MaxLength = 4;
         }
 
         private void grbPaint(object sender, PaintEventArgs e)
@@ -362,7 +378,7 @@ namespace NorthwindTradersV3LinqToSql
             if (tabcOperacion.SelectedTab != tbpListar)
                 if (txtId.Text != "" || txtNombres.Text != "" || txtApellidos.Text != "" || txtTitulo.Text != "" || txtTitCortesia.Text != "" || txtDomicilio.Text != "" || txtCiudad.Text != "" || txtRegion.Text != "" || txtCodigoP.Text != "" || txtPais.Text != "" || txtTelefono.Text != "" || txtExtension.Text != "" || dtpFNacimiento.Value != dtpFNacimiento.MinDate || dtpFContratacion.Value != dtpFContratacion.MinDate ||  txtNotas.Text.Trim() != "" || cboReportaA.SelectedIndex > 0)
                 {
-                    DialogResult respuesta = MessageBox.Show("¿Esta seguro de querer cerrar el formulario?, si responde Si, se perderan los datos no guardados", Utils.nwtr, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    DialogResult respuesta = MessageBox.Show(Utils.preguntaCerrar, Utils.nwtr, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                     if (respuesta == DialogResult.No)
                         e.Cancel = true;
                 }
@@ -510,7 +526,7 @@ namespace NorthwindTradersV3LinqToSql
             {
                 if (ValidarControles())
                 {
-                    Utils.ActualizarBarraDeEstado(this, "Insertando registro en la base de datos...");
+                    Utils.ActualizarBarraDeEstado(this, Utils.insertandoRegistro);
                     DeshabilitarControles();
                     btnOperacion.Enabled = false;
                     byte[] byteFoto = null;
@@ -569,7 +585,7 @@ namespace NorthwindTradersV3LinqToSql
             {
                 if (ValidarControles())
                 {
-                    Utils.ActualizarBarraDeEstado(this, "Modificando registro en la base de datos...");
+                    Utils.ActualizarBarraDeEstado(this, Utils.modificandoRegistro);
                     DeshabilitarControles();
                     btnOperacion.Enabled = false;
                     byte[] byteFoto = null;
@@ -632,7 +648,7 @@ namespace NorthwindTradersV3LinqToSql
                 if (respuesta == DialogResult.Yes)
                 {
                     btnOperacion.Enabled = false;
-                    Utils.ActualizarBarraDeEstado(this, "Eliminando registro en la base de datos...");
+                    Utils.ActualizarBarraDeEstado(this, Utils.eliminandoRegistro);
                     try
                     {
                         using (NorthwindTradersDataContext context = new NorthwindTradersDataContext())
@@ -643,6 +659,10 @@ namespace NorthwindTradersV3LinqToSql
                             MessageBox.Show($"El empleado con Id: {txtId.Text} y Nombre: {txtNombres.Text} {txtApellidos.Text} se eliminó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
                             MessageBox.Show($"El empleado con Id: {txtId.Text} y Nombre: {txtNombres.Text} {txtApellidos.Text} NO se eliminó en la base de datos", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (SqlException ex) when (ex.Number == 547)
+                    {
+                        Utils.MsgCatchErrorRestriccionCF(this);
                     }
                     catch (SqlException ex)
                     {

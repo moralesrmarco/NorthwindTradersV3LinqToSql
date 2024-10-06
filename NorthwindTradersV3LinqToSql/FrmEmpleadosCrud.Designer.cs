@@ -904,7 +904,7 @@
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Name = "FrmEmpleadosCrud";
-            this.Text = "Mantenimiento de empleados";
+            this.Text = "» Mantenimiento de empleados «";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmEmpleadosCrud_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmEmpleadosCrud_FormClosed);
             this.Load += new System.EventHandler(this.FrmEmpleadosCrud_Load);

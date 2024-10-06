@@ -281,4 +281,86 @@
     <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.SP_CLIENTES_PAIS" Method="SP_CLIENTES_PAIS">
+    <ElementType Name="SP_CLIENTES_PAISResult">
+      <Column Name="Id" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="País" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_CLIENTES_LISTAR" Method="SP_CLIENTES_LISTAR">
+    <Parameter Name="top100" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="SP_CLIENTES_LISTARResult">
+      <Column Name="Id" Type="System.String" DbType="NChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="[Nombre de compañía]" Member="Nombre_de_compañía" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="[Nombre de contacto]" Member="Nombre_de_contacto" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="[Título de contacto]" Member="Título_de_contacto" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Domicilio" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Ciudad" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Región" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="[Código postal]" Member="Código_postal" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="País" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Teléfono" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_CLIENTES_BUSCAR" Method="SP_CLIENTES_BUSCAR">
+    <Parameter Name="Id" Parameter="id" Type="System.String" DbType="NVarChar(5)" />
+    <Parameter Name="Compañia" Parameter="compañia" Type="System.String" DbType="NVarChar(40)" />
+    <Parameter Name="Contacto" Parameter="contacto" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="Domicilio" Parameter="domicilio" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="Ciudad" Parameter="ciudad" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Region" Parameter="region" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="CodigoP" Parameter="codigoP" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Pais" Parameter="pais" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Telefono" Parameter="telefono" Type="System.String" DbType="NVarChar(24)" />
+    <Parameter Name="Fax" Parameter="fax" Type="System.String" DbType="NVarChar(24)" />
+    <ElementType Name="SP_CLIENTES_BUSCARResult">
+      <Column Name="Id" Type="System.String" DbType="NChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="[Nombre de compañía]" Member="Nombre_de_compañía" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="[Nombre de contacto]" Member="Nombre_de_contacto" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="[Título de contacto]" Member="Título_de_contacto" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Domicilio" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Ciudad" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Región" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="[Código postal]" Member="Código_postal" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="País" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Teléfono" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_CLIENTES_INSERTAR_V2" Method="SP_CLIENTES_INSERTAR_V2">
+    <Parameter Name="Id" Parameter="id" Type="System.String" DbType="NChar(5)" />
+    <Parameter Name="Compañia" Parameter="compañia" Type="System.String" DbType="NVarChar(40)" />
+    <Parameter Name="Contacto" Parameter="contacto" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="Titulo" Parameter="titulo" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="Domicilio" Parameter="domicilio" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="Ciudad" Parameter="ciudad" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Region" Parameter="region" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="CodigoP" Parameter="codigoP" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Pais" Parameter="pais" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Telefono" Parameter="telefono" Type="System.String" DbType="NVarChar(24)" />
+    <Parameter Name="Fax" Parameter="fax" Type="System.String" DbType="NVarChar(24)" />
+    <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_CLIENTES_ACTUALIZAR_V2" Method="SP_CLIENTES_ACTUALIZAR_V2">
+    <Parameter Name="Id" Parameter="id" Type="System.String" DbType="NChar(5)" />
+    <Parameter Name="Compañia" Parameter="compañia" Type="System.String" DbType="NVarChar(40)" />
+    <Parameter Name="Contacto" Parameter="contacto" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="Titulo" Parameter="titulo" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="Domicilio" Parameter="domicilio" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="Ciudad" Parameter="ciudad" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Region" Parameter="region" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="CodigoP" Parameter="codigoP" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Pais" Parameter="pais" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Telefono" Parameter="telefono" Type="System.String" DbType="NVarChar(24)" />
+    <Parameter Name="Fax" Parameter="fax" Type="System.String" DbType="NVarChar(24)" />
+    <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_CLIENTES_ELIMINAR_V2" Method="SP_CLIENTES_ELIMINAR_V2">
+    <Parameter Name="Id" Parameter="id" Type="System.String" DbType="NChar(5)" />
+    <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

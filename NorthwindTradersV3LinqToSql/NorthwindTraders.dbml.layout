@@ -101,7 +101,7 @@
         <classShapeMoniker Id="1e2ecad5-c1db-42ff-b446-c514e46a91b7" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 10.0969962565104); (9.26041666666667 : 10.0969962565104 : JumpStart); (9.42708333333333 : 10.0969962565104 : JumpEnd); (12.25 : 10.0969962565104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.75 : 10.0969962565104); (12.25 : 10.0969962565104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/NorthwindTradersDataContext/Employees/Employees_EmployeeTerritories" />
       <nodes>
         <classShapeMoniker Id="1e2ecad5-c1db-42ff-b446-c514e46a91b7" />
