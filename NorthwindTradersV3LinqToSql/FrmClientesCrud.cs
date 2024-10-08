@@ -246,7 +246,7 @@ namespace NorthwindTradersV3LinqToSql
         {
             BorrarDatosCliente();
             BorrarMensajesError();
-            if (tabcOperacion.SelectedTab != tbpRegistrar)
+            if (tabcOperacion.SelectedTab == tbpRegistrar)
             {
                 if (EventoCargado)
                 {
@@ -296,11 +296,14 @@ namespace NorthwindTradersV3LinqToSql
                 txtTitulo.Text = dgvr.Cells["Título_de_contacto"].Value.ToString();
                 txtDomicilio.Text = dgvr.Cells["Domicilio"].Value.ToString();
                 txtCiudad.Text = dgvr.Cells["Ciudad"].Value.ToString();
-                txtRegion.Text = dgvr.Cells["Región"].Value.ToString();
-                txtCodigoP.Text = dgvr.Cells["Código_postal"].Value.ToString();
+                if (dgvr.Cells["Región"].Value == null) txtRegion.Text = "";
+                else txtRegion.Text = dgvr.Cells["Región"].Value.ToString();
+                if (dgvr.Cells["Código_postal"].Value == null) txtCodigoP.Text = "";
+                else txtCodigoP.Text = dgvr.Cells["Código_postal"].Value.ToString();
                 txtPais.Text = dgvr.Cells["País"].Value.ToString();
                 txtTelefono.Text = dgvr.Cells["Teléfono"].Value.ToString();
-                txtFax.Text = dgvr.Cells["Fax"].Value.ToString();
+                if (dgvr.Cells["Fax"].Value == null) txtFax.Text = "";
+                else txtFax.Text = dgvr.Cells["Fax"].Value.ToString();
                 if (tabcOperacion.SelectedTab == tbpModificar)
                 {
                     HabilitarControles();
@@ -318,7 +321,6 @@ namespace NorthwindTradersV3LinqToSql
         private void btnOperacion_Click(object sender, EventArgs e)
         {
             int? numRegs = 0;
-            string strId = "";
             BorrarMensajesError();
             if (tabcOperacion.SelectedTab == tbpRegistrar)
             {
@@ -363,10 +365,7 @@ namespace NorthwindTradersV3LinqToSql
                     HabilitarControles();
                     btnOperacion.Enabled = true;
                     if (numRegs > 0)
-                    {
-                        btnLimpiar.PerformClick();
-                        LlenarDgv(null);
-                    }
+                        BuscaReg();
                 }
             }
             else if (tabcOperacion.SelectedTab == tbpModificar)
@@ -406,12 +405,7 @@ namespace NorthwindTradersV3LinqToSql
                     }
                     LlenarCboPais();
                     if (numRegs > 0)
-                    {
-                        BorrarDatosBusqueda();
-                        txtBId.Text = txtId.Text;
-                        btnBuscar.PerformClick();
-                        btnLimpiar.PerformClick();
-                    }
+                        BuscaReg();
                 }
             }
             else if (tabcOperacion.SelectedTab == tbpEliminar)
@@ -451,14 +445,17 @@ namespace NorthwindTradersV3LinqToSql
                     }
                     LlenarCboPais();
                     if (numRegs > 0)
-                    {
-                        BorrarDatosBusqueda();
-                        txtBId.Text = txtBId.Text;
-                        btnBuscar.PerformClick();
-                        btnLimpiar.PerformClick();
-                    }
+                        BuscaReg();
                 }
             }
+        }
+
+        private void BuscaReg()
+        {
+            BorrarDatosBusqueda();
+            txtBId.Text = txtId.Text;
+            btnBuscar.PerformClick();
+            btnLimpiar.PerformClick();
         }
     }
 }
