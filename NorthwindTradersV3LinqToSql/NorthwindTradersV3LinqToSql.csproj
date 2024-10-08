@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StoreProcedures\Sp_Clientes.cs" />
     <Compile Include="StoreProcedures\Sp_Empleados.cs" />
     <Compile Include="Utils.cs" />
     <EmbeddedResource Include="FrmClientesCrud.resx">
