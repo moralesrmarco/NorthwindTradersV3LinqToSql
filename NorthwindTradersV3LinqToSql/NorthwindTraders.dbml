@@ -166,6 +166,34 @@
       <Association Name="Suppliers_Products" Member="Products" ThisKey="SupplierID" OtherKey="SupplierID" Type="Products" />
     </Type>
   </Table>
+  <Table Name="dbo.VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD" Member="VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD">
+    <Type Name="VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD">
+      <Column Name="Ciudad" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="País" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="[Nombre de compañía]" Member="Nombre_de_compañía" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="[Nombre de contacto]" Member="Nombre_de_contacto" Type="System.String" DbType="NVarChar(62)" CanBeNull="true" />
+      <Column Name="Relación" Type="System.String" DbType="VarChar(9) NOT NULL" CanBeNull="false" />
+      <Column Name="Teléfono" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+      <Column Name="Domicilio" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Región" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="[Código postal]" Member="Código_postal" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS" Member="VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS">
+    <Type Name="VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS">
+      <Column Name="País" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Ciudad" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="[Nombre de compañía]" Member="Nombre_de_compañía" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="[Nombre de contacto]" Member="Nombre_de_contacto" Type="System.String" DbType="NVarChar(62)" CanBeNull="true" />
+      <Column Name="Relación" Type="System.String" DbType="VarChar(9) NOT NULL" CanBeNull="false" />
+      <Column Name="Teléfono" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+      <Column Name="Domicilio" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Región" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="[Código postal]" Member="Código_postal" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.SP_EMPLEADOS_PAIS" Method="SP_EMPLEADOS_PAIS">
     <ElementType Name="SP_EMPLEADOS_PAISResult">
       <Column Name="Id" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
@@ -362,5 +390,17 @@
     <Parameter Name="Id" Parameter="id" Type="System.String" DbType="NChar(5)" />
     <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_CLIENTESPROVEEDORES_CIUDAD" Method="SP_CLIENTESPROVEEDORES_CIUDAD">
+    <ElementType Name="SP_CLIENTESPROVEEDORES_CIUDADResult">
+      <Column Name="Ciudad" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="CiudadPaís" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_CLIENTESPROVEEDORES_PAIS" Method="SP_CLIENTESPROVEEDORES_PAIS">
+    <ElementType Name="SP_CLIENTESPROVEEDORES_PAISResult">
+      <Column Name="IdPaís" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="País" Type="System.String" DbType="NVarChar(26)" CanBeNull="true" />
+    </ElementType>
   </Function>
 </Database>

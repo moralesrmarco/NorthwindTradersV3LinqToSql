@@ -205,6 +205,22 @@ namespace NorthwindTradersV3LinqToSql
 			}
 		}
 		
+		public System.Data.Linq.Table<VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD> VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD
+		{
+			get
+			{
+				return this.GetTable<VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD>();
+			}
+		}
+		
+		public System.Data.Linq.Table<VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS> VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS
+		{
+			get
+			{
+				return this.GetTable<VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EMPLEADOS_PAIS")]
 		public ISingleResult<SP_EMPLEADOS_PAISResult> SP_EMPLEADOS_PAIS()
 		{
@@ -337,6 +353,20 @@ namespace NorthwindTradersV3LinqToSql
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, numRegs);
 			numRegs = ((System.Nullable<int>)(result.GetParameterValue(1)));
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_CLIENTESPROVEEDORES_CIUDAD")]
+		public ISingleResult<SP_CLIENTESPROVEEDORES_CIUDADResult> SP_CLIENTESPROVEEDORES_CIUDAD()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<SP_CLIENTESPROVEEDORES_CIUDADResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_CLIENTESPROVEEDORES_PAIS")]
+		public ISingleResult<SP_CLIENTESPROVEEDORES_PAISResult> SP_CLIENTESPROVEEDORES_PAIS()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<SP_CLIENTESPROVEEDORES_PAISResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -3843,6 +3873,384 @@ namespace NorthwindTradersV3LinqToSql
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD")]
+	public partial class VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD
+	{
+		
+		private string _Ciudad;
+		
+		private string _País;
+		
+		private string _Nombre_de_compañía;
+		
+		private string _Nombre_de_contacto;
+		
+		private string _Relación;
+		
+		private string _Teléfono;
+		
+		private string _Domicilio;
+		
+		private string _Región;
+		
+		private string _Código_postal;
+		
+		private string _Fax;
+		
+		public VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ciudad", DbType="NVarChar(15)")]
+		public string Ciudad
+		{
+			get
+			{
+				return this._Ciudad;
+			}
+			set
+			{
+				if ((this._Ciudad != value))
+				{
+					this._Ciudad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_País", DbType="NVarChar(15)")]
+		public string País
+		{
+			get
+			{
+				return this._País;
+			}
+			set
+			{
+				if ((this._País != value))
+				{
+					this._País = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Nombre de compañía]", Storage="_Nombre_de_compañía", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string Nombre_de_compañía
+		{
+			get
+			{
+				return this._Nombre_de_compañía;
+			}
+			set
+			{
+				if ((this._Nombre_de_compañía != value))
+				{
+					this._Nombre_de_compañía = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Nombre de contacto]", Storage="_Nombre_de_contacto", DbType="NVarChar(62)")]
+		public string Nombre_de_contacto
+		{
+			get
+			{
+				return this._Nombre_de_contacto;
+			}
+			set
+			{
+				if ((this._Nombre_de_contacto != value))
+				{
+					this._Nombre_de_contacto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Relación", DbType="VarChar(9) NOT NULL", CanBeNull=false)]
+		public string Relación
+		{
+			get
+			{
+				return this._Relación;
+			}
+			set
+			{
+				if ((this._Relación != value))
+				{
+					this._Relación = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Teléfono", DbType="NVarChar(24)")]
+		public string Teléfono
+		{
+			get
+			{
+				return this._Teléfono;
+			}
+			set
+			{
+				if ((this._Teléfono != value))
+				{
+					this._Teléfono = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Domicilio", DbType="NVarChar(60)")]
+		public string Domicilio
+		{
+			get
+			{
+				return this._Domicilio;
+			}
+			set
+			{
+				if ((this._Domicilio != value))
+				{
+					this._Domicilio = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Región", DbType="NVarChar(15)")]
+		public string Región
+		{
+			get
+			{
+				return this._Región;
+			}
+			set
+			{
+				if ((this._Región != value))
+				{
+					this._Región = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Código postal]", Storage="_Código_postal", DbType="NVarChar(10)")]
+		public string Código_postal
+		{
+			get
+			{
+				return this._Código_postal;
+			}
+			set
+			{
+				if ((this._Código_postal != value))
+				{
+					this._Código_postal = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fax", DbType="NVarChar(24)")]
+		public string Fax
+		{
+			get
+			{
+				return this._Fax;
+			}
+			set
+			{
+				if ((this._Fax != value))
+				{
+					this._Fax = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS")]
+	public partial class VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS
+	{
+		
+		private string _País;
+		
+		private string _Ciudad;
+		
+		private string _Nombre_de_compañía;
+		
+		private string _Nombre_de_contacto;
+		
+		private string _Relación;
+		
+		private string _Teléfono;
+		
+		private string _Domicilio;
+		
+		private string _Región;
+		
+		private string _Código_postal;
+		
+		private string _Fax;
+		
+		public VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_País", DbType="NVarChar(15)")]
+		public string País
+		{
+			get
+			{
+				return this._País;
+			}
+			set
+			{
+				if ((this._País != value))
+				{
+					this._País = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ciudad", DbType="NVarChar(15)")]
+		public string Ciudad
+		{
+			get
+			{
+				return this._Ciudad;
+			}
+			set
+			{
+				if ((this._Ciudad != value))
+				{
+					this._Ciudad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Nombre de compañía]", Storage="_Nombre_de_compañía", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string Nombre_de_compañía
+		{
+			get
+			{
+				return this._Nombre_de_compañía;
+			}
+			set
+			{
+				if ((this._Nombre_de_compañía != value))
+				{
+					this._Nombre_de_compañía = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Nombre de contacto]", Storage="_Nombre_de_contacto", DbType="NVarChar(62)")]
+		public string Nombre_de_contacto
+		{
+			get
+			{
+				return this._Nombre_de_contacto;
+			}
+			set
+			{
+				if ((this._Nombre_de_contacto != value))
+				{
+					this._Nombre_de_contacto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Relación", DbType="VarChar(9) NOT NULL", CanBeNull=false)]
+		public string Relación
+		{
+			get
+			{
+				return this._Relación;
+			}
+			set
+			{
+				if ((this._Relación != value))
+				{
+					this._Relación = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Teléfono", DbType="NVarChar(24)")]
+		public string Teléfono
+		{
+			get
+			{
+				return this._Teléfono;
+			}
+			set
+			{
+				if ((this._Teléfono != value))
+				{
+					this._Teléfono = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Domicilio", DbType="NVarChar(60)")]
+		public string Domicilio
+		{
+			get
+			{
+				return this._Domicilio;
+			}
+			set
+			{
+				if ((this._Domicilio != value))
+				{
+					this._Domicilio = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Región", DbType="NVarChar(15)")]
+		public string Región
+		{
+			get
+			{
+				return this._Región;
+			}
+			set
+			{
+				if ((this._Región != value))
+				{
+					this._Región = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Código postal]", Storage="_Código_postal", DbType="NVarChar(10)")]
+		public string Código_postal
+		{
+			get
+			{
+				return this._Código_postal;
+			}
+			set
+			{
+				if ((this._Código_postal != value))
+				{
+					this._Código_postal = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fax", DbType="NVarChar(24)")]
+		public string Fax
+		{
+			get
+			{
+				return this._Fax;
+			}
+			set
+			{
+				if ((this._Fax != value))
+				{
+					this._Fax = value;
+				}
+			}
+		}
+	}
+	
 	public partial class SP_EMPLEADOS_PAISResult
 	{
 		
@@ -5046,6 +5454,94 @@ namespace NorthwindTradersV3LinqToSql
 				if ((this._Fax != value))
 				{
 					this._Fax = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_CLIENTESPROVEEDORES_CIUDADResult
+	{
+		
+		private string _Ciudad;
+		
+		private string _CiudadPaís;
+		
+		public SP_CLIENTESPROVEEDORES_CIUDADResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ciudad", DbType="NVarChar(15)")]
+		public string Ciudad
+		{
+			get
+			{
+				return this._Ciudad;
+			}
+			set
+			{
+				if ((this._Ciudad != value))
+				{
+					this._Ciudad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CiudadPaís", DbType="NVarChar(32)")]
+		public string CiudadPaís
+		{
+			get
+			{
+				return this._CiudadPaís;
+			}
+			set
+			{
+				if ((this._CiudadPaís != value))
+				{
+					this._CiudadPaís = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_CLIENTESPROVEEDORES_PAISResult
+	{
+		
+		private string _IdPaís;
+		
+		private string _País;
+		
+		public SP_CLIENTESPROVEEDORES_PAISResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPaís", DbType="NVarChar(15)")]
+		public string IdPaís
+		{
+			get
+			{
+				return this._IdPaís;
+			}
+			set
+			{
+				if ((this._IdPaís != value))
+				{
+					this._IdPaís = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_País", DbType="NVarChar(26)")]
+		public string País
+		{
+			get
+			{
+				return this._País;
+			}
+			set
+			{
+				if ((this._País != value))
+				{
+					this._País = value;
 				}
 			}
 		}
