@@ -71,6 +71,12 @@
     <Compile Include="FrmEmpleadosCrud.designer.cs">
       <DependentUpon>FrmEmpleadosCrud.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmProveedoresCrud.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmProveedoresCrud.Designer.cs">
+      <DependentUpon>FrmProveedoresCrud.cs</DependentUpon>
+    </Compile>
     <Compile Include="MDIPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,7 @@
     <Compile Include="StoreProcedures\Sp_ClientesProveedores_Ciudad.cs" />
     <Compile Include="StoreProcedures\Sp_ClientesProveedores_Pais.cs" />
     <Compile Include="StoreProcedures\Sp_Empleados.cs" />
+    <Compile Include="StoreProcedures\Sp_Proveedores.cs" />
     <Compile Include="StoreProcedures\Vw_ClientesProveedores_DirectorioPorCiudad.cs" />
     <Compile Include="StoreProcedures\Vw_ClientesProveedores_DirectorioPorPais.cs" />
     <Compile Include="Utils.cs" />
@@ -102,6 +109,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmEmpleadosCrud.resx">
       <DependentUpon>FrmEmpleadosCrud.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmProveedoresCrud.resx">
+      <DependentUpon>FrmProveedoresCrud.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MDIPrincipal.resx">
       <DependentUpon>MDIPrincipal.cs</DependentUpon>

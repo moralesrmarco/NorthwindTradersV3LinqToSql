@@ -171,7 +171,7 @@ namespace NorthwindTradersV3LinqToSql
             Utils.ActualizarBarraDeEstado(form);
         }
 
-        public static void ActualizarBarraDeEstado(Form form, string mensaje = "Activo.", bool error = false)
+        public static void ActualizarBarraDeEstado(Form form, string mensaje = "Listo.", bool error = false)
         {
             // se requiere en el archivo MDIPrincipal.cs declarar la propiedad:
             //public ToolStripStatusLabel ToolStripEstado
@@ -182,7 +182,7 @@ namespace NorthwindTradersV3LinqToSql
             MDIPrincipal mDIPrincipal = (MDIPrincipal)form.MdiParent;
             if (mDIPrincipal != null) // esta comprobación se requiere para que no marque error en los formularios heredados en el tiempo de diseño.
             {
-                if (mensaje != "Activo.")
+                if (mensaje != "Listo.")
                     if (error)
                         mDIPrincipal.ToolStripEstado.BackColor = Color.Red;
                     else
@@ -211,7 +211,7 @@ namespace NorthwindTradersV3LinqToSql
             if (mDIPrincipal != null)
             {
                 mDIPrincipal.ToolStripEstado.BackColor = SystemColors.Control;
-                mDIPrincipal.ToolStripEstado.Text = "Activo.";
+                mDIPrincipal.ToolStripEstado.Text = "Listo.";
                 mDIPrincipal.Refresh();
             }
         }

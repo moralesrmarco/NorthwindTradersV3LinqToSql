@@ -368,6 +368,52 @@ namespace NorthwindTradersV3LinqToSql
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
 			return ((ISingleResult<SP_CLIENTESPROVEEDORES_PAISResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PROVEEDORES_PAIS")]
+		public ISingleResult<SP_PROVEEDORES_PAISResult> SP_PROVEEDORES_PAIS()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<SP_PROVEEDORES_PAISResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PROVEEDORES_LISTAR")]
+		public ISingleResult<SP_PROVEEDORES_LISTARResult> SP_PROVEEDORES_LISTAR([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> top100)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), top100);
+			return ((ISingleResult<SP_PROVEEDORES_LISTARResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PROVEEDORES_BUSCAR_V2")]
+		public ISingleResult<SP_PROVEEDORES_BUSCAR_V2Result> SP_PROVEEDORES_BUSCAR_V2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdIni", DbType="Int")] System.Nullable<int> idIni, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdFin", DbType="Int")] System.Nullable<int> idFin, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Compañia", DbType="NVarChar(40)")] string compañia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Contacto", DbType="NVarChar(30)")] string contacto, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Domicilio", DbType="NVarChar(60)")] string domicilio, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Ciudad", DbType="NVarChar(15)")] string ciudad, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Region", DbType="NVarChar(15)")] string region, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CodigoP", DbType="NVarChar(10)")] string codigoP, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Pais", DbType="NVarChar(15)")] string pais, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefono", DbType="NVarChar(24)")] string telefono, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Fax", DbType="NVarChar(24)")] string fax)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idIni, idFin, compañia, contacto, domicilio, ciudad, region, codigoP, pais, telefono, fax);
+			return ((ISingleResult<SP_PROVEEDORES_BUSCAR_V2Result>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PROVEEDORES_INSERTAR_V2")]
+		public int SP_PROVEEDORES_INSERTAR_V2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Compañia", DbType="NVarChar(40)")] string compañia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Contacto", DbType="NVarChar(30)")] string contacto, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Titulo", DbType="NVarChar(30)")] string titulo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Domicilio", DbType="NVarChar(60)")] string domicilio, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Ciudad", DbType="NVarChar(15)")] string ciudad, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Region", DbType="NVarChar(15)")] string region, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CodigoP", DbType="NVarChar(10)")] string codigoP, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Pais", DbType="NVarChar(15)")] string pais, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefono", DbType="NVarChar(24)")] string telefono, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Fax", DbType="NVarChar(24)")] string fax, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] ref System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), compañia, contacto, titulo, domicilio, ciudad, region, codigoP, pais, telefono, fax, id, numRegs);
+			id = ((System.Nullable<int>)(result.GetParameterValue(10)));
+			numRegs = ((System.Nullable<int>)(result.GetParameterValue(11)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PROVEEDORES_ACTUALIZAR_V2")]
+		public int SP_PROVEEDORES_ACTUALIZAR_V2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Compañia", DbType="NVarChar(40)")] string compañia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Contacto", DbType="NVarChar(30)")] string contacto, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Titulo", DbType="NVarChar(30)")] string titulo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Domicilio", DbType="NVarChar(60)")] string domicilio, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Ciudad", DbType="NVarChar(15)")] string ciudad, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Region", DbType="NVarChar(15)")] string region, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CodigoP", DbType="NVarChar(10)")] string codigoP, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Pais", DbType="NVarChar(15)")] string pais, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefono", DbType="NVarChar(24)")] string telefono, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Fax", DbType="NVarChar(24)")] string fax, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, compañia, contacto, titulo, domicilio, ciudad, region, codigoP, pais, telefono, fax, numRegs);
+			numRegs = ((System.Nullable<int>)(result.GetParameterValue(11)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PROVEEDORES_ELIMINAR_V2")]
+		public int SP_PROVEEDORES_ELIMINAR_V2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, numRegs);
+			numRegs = ((System.Nullable<int>)(result.GetParameterValue(1)));
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Categories")]
@@ -5542,6 +5588,462 @@ namespace NorthwindTradersV3LinqToSql
 				if ((this._País != value))
 				{
 					this._País = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_PROVEEDORES_PAISResult
+	{
+		
+		private string _Id;
+		
+		private string _País;
+		
+		public SP_PROVEEDORES_PAISResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="NVarChar(15)")]
+		public string Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_País", DbType="NVarChar(20)")]
+		public string País
+		{
+			get
+			{
+				return this._País;
+			}
+			set
+			{
+				if ((this._País != value))
+				{
+					this._País = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_PROVEEDORES_LISTARResult
+	{
+		
+		private int _Id;
+		
+		private string _Nombre_de_compañía;
+		
+		private string _Nombre_de_contacto;
+		
+		private string _Título_de_contacto;
+		
+		private string _Domicilio;
+		
+		private string _Ciudad;
+		
+		private string _Región;
+		
+		private string _Código_postal;
+		
+		private string _País;
+		
+		private string _Teléfono;
+		
+		private string _Fax;
+		
+		public SP_PROVEEDORES_LISTARResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Nombre de compañía]", Storage="_Nombre_de_compañía", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string Nombre_de_compañía
+		{
+			get
+			{
+				return this._Nombre_de_compañía;
+			}
+			set
+			{
+				if ((this._Nombre_de_compañía != value))
+				{
+					this._Nombre_de_compañía = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Nombre de contacto]", Storage="_Nombre_de_contacto", DbType="NVarChar(30)")]
+		public string Nombre_de_contacto
+		{
+			get
+			{
+				return this._Nombre_de_contacto;
+			}
+			set
+			{
+				if ((this._Nombre_de_contacto != value))
+				{
+					this._Nombre_de_contacto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Título de contacto]", Storage="_Título_de_contacto", DbType="NVarChar(30)")]
+		public string Título_de_contacto
+		{
+			get
+			{
+				return this._Título_de_contacto;
+			}
+			set
+			{
+				if ((this._Título_de_contacto != value))
+				{
+					this._Título_de_contacto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Domicilio", DbType="NVarChar(60)")]
+		public string Domicilio
+		{
+			get
+			{
+				return this._Domicilio;
+			}
+			set
+			{
+				if ((this._Domicilio != value))
+				{
+					this._Domicilio = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ciudad", DbType="NVarChar(15)")]
+		public string Ciudad
+		{
+			get
+			{
+				return this._Ciudad;
+			}
+			set
+			{
+				if ((this._Ciudad != value))
+				{
+					this._Ciudad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Región", DbType="NVarChar(15)")]
+		public string Región
+		{
+			get
+			{
+				return this._Región;
+			}
+			set
+			{
+				if ((this._Región != value))
+				{
+					this._Región = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Código postal]", Storage="_Código_postal", DbType="NVarChar(10)")]
+		public string Código_postal
+		{
+			get
+			{
+				return this._Código_postal;
+			}
+			set
+			{
+				if ((this._Código_postal != value))
+				{
+					this._Código_postal = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_País", DbType="NVarChar(15)")]
+		public string País
+		{
+			get
+			{
+				return this._País;
+			}
+			set
+			{
+				if ((this._País != value))
+				{
+					this._País = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Teléfono", DbType="NVarChar(24)")]
+		public string Teléfono
+		{
+			get
+			{
+				return this._Teléfono;
+			}
+			set
+			{
+				if ((this._Teléfono != value))
+				{
+					this._Teléfono = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fax", DbType="NVarChar(24)")]
+		public string Fax
+		{
+			get
+			{
+				return this._Fax;
+			}
+			set
+			{
+				if ((this._Fax != value))
+				{
+					this._Fax = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_PROVEEDORES_BUSCAR_V2Result
+	{
+		
+		private int _Id;
+		
+		private string _Nombre_de_compañía;
+		
+		private string _Nombre_de_contacto;
+		
+		private string _Título_de_contacto;
+		
+		private string _Domicilio;
+		
+		private string _Ciudad;
+		
+		private string _Región;
+		
+		private string _Código_postal;
+		
+		private string _País;
+		
+		private string _Teléfono;
+		
+		private string _Fax;
+		
+		public SP_PROVEEDORES_BUSCAR_V2Result()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Nombre de compañía]", Storage="_Nombre_de_compañía", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string Nombre_de_compañía
+		{
+			get
+			{
+				return this._Nombre_de_compañía;
+			}
+			set
+			{
+				if ((this._Nombre_de_compañía != value))
+				{
+					this._Nombre_de_compañía = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Nombre de contacto]", Storage="_Nombre_de_contacto", DbType="NVarChar(30)")]
+		public string Nombre_de_contacto
+		{
+			get
+			{
+				return this._Nombre_de_contacto;
+			}
+			set
+			{
+				if ((this._Nombre_de_contacto != value))
+				{
+					this._Nombre_de_contacto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Título de contacto]", Storage="_Título_de_contacto", DbType="NVarChar(30)")]
+		public string Título_de_contacto
+		{
+			get
+			{
+				return this._Título_de_contacto;
+			}
+			set
+			{
+				if ((this._Título_de_contacto != value))
+				{
+					this._Título_de_contacto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Domicilio", DbType="NVarChar(60)")]
+		public string Domicilio
+		{
+			get
+			{
+				return this._Domicilio;
+			}
+			set
+			{
+				if ((this._Domicilio != value))
+				{
+					this._Domicilio = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ciudad", DbType="NVarChar(15)")]
+		public string Ciudad
+		{
+			get
+			{
+				return this._Ciudad;
+			}
+			set
+			{
+				if ((this._Ciudad != value))
+				{
+					this._Ciudad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Región", DbType="NVarChar(15)")]
+		public string Región
+		{
+			get
+			{
+				return this._Región;
+			}
+			set
+			{
+				if ((this._Región != value))
+				{
+					this._Región = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Código postal]", Storage="_Código_postal", DbType="NVarChar(10)")]
+		public string Código_postal
+		{
+			get
+			{
+				return this._Código_postal;
+			}
+			set
+			{
+				if ((this._Código_postal != value))
+				{
+					this._Código_postal = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_País", DbType="NVarChar(15)")]
+		public string País
+		{
+			get
+			{
+				return this._País;
+			}
+			set
+			{
+				if ((this._País != value))
+				{
+					this._País = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Teléfono", DbType="NVarChar(24)")]
+		public string Teléfono
+		{
+			get
+			{
+				return this._Teléfono;
+			}
+			set
+			{
+				if ((this._Teléfono != value))
+				{
+					this._Teléfono = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fax", DbType="NVarChar(24)")]
+		public string Fax
+		{
+			get
+			{
+				return this._Fax;
+			}
+			set
+			{
+				if ((this._Fax != value))
+				{
+					this._Fax = value;
 				}
 			}
 		}
