@@ -421,6 +421,45 @@ namespace NorthwindTradersV3LinqToSql
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), top100);
 			return ((ISingleResult<SP_PRODUCTOS_ALLResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_CATEGORIAS_LISTAR")]
+		public ISingleResult<SP_CATEGORIAS_LISTARResult> SP_CATEGORIAS_LISTAR([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> top100)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), top100);
+			return ((ISingleResult<SP_CATEGORIAS_LISTARResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_CATEGORIAS_BUSCAR_V2")]
+		public ISingleResult<SP_CATEGORIAS_BUSCAR_V2Result> SP_CATEGORIAS_BUSCAR_V2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdIni", DbType="Int")] System.Nullable<int> idIni, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdFin", DbType="Int")] System.Nullable<int> idFin, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Categoria", DbType="NVarChar(15)")] string categoria)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idIni, idFin, categoria);
+			return ((ISingleResult<SP_CATEGORIAS_BUSCAR_V2Result>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_CATEGORIAS_INSERTAR_V2")]
+		public int SP_CATEGORIAS_INSERTAR_V2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Categoria", DbType="NVarChar(15)")] string categoria, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descripcion", DbType="NVarChar(MAX)")] string descripcion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Foto", DbType="Image")] System.Data.Linq.Binary foto, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] ref System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), categoria, descripcion, foto, id, numRegs);
+			id = ((System.Nullable<int>)(result.GetParameterValue(3)));
+			numRegs = ((System.Nullable<int>)(result.GetParameterValue(4)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_CATEGORIAS_ACTUALIZAR_V2")]
+		public int SP_CATEGORIAS_ACTUALIZAR_V2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Categoria", DbType="NVarChar(15)")] string categoria, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descripcion", DbType="NVarChar(MAX)")] string descripcion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Foto", DbType="Image")] System.Data.Linq.Binary foto, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, categoria, descripcion, foto, numRegs);
+			numRegs = ((System.Nullable<int>)(result.GetParameterValue(4)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_CATEGORIAS_ELIMINAR_V2")]
+		public int SP_CATEGORIAS_ELIMINAR_V2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, numRegs);
+			numRegs = ((System.Nullable<int>)(result.GetParameterValue(1)));
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Categories")]
@@ -6293,6 +6332,166 @@ namespace NorthwindTradersV3LinqToSql
 				if ((this._IdProveedor != value))
 				{
 					this._IdProveedor = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_CATEGORIAS_LISTARResult
+	{
+		
+		private int _Id;
+		
+		private string _Categoría;
+		
+		private string _Descripción;
+		
+		private System.Data.Linq.Binary _Foto;
+		
+		public SP_CATEGORIAS_LISTARResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoría", DbType="NVarChar(15) NOT NULL", CanBeNull=false)]
+		public string Categoría
+		{
+			get
+			{
+				return this._Categoría;
+			}
+			set
+			{
+				if ((this._Categoría != value))
+				{
+					this._Categoría = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripción", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string Descripción
+		{
+			get
+			{
+				return this._Descripción;
+			}
+			set
+			{
+				if ((this._Descripción != value))
+				{
+					this._Descripción = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Foto", DbType="Image")]
+		public System.Data.Linq.Binary Foto
+		{
+			get
+			{
+				return this._Foto;
+			}
+			set
+			{
+				if ((this._Foto != value))
+				{
+					this._Foto = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_CATEGORIAS_BUSCAR_V2Result
+	{
+		
+		private int _Id;
+		
+		private string _Categoría;
+		
+		private string _Descripción;
+		
+		private System.Data.Linq.Binary _Foto;
+		
+		public SP_CATEGORIAS_BUSCAR_V2Result()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoría", DbType="NVarChar(15) NOT NULL", CanBeNull=false)]
+		public string Categoría
+		{
+			get
+			{
+				return this._Categoría;
+			}
+			set
+			{
+				if ((this._Categoría != value))
+				{
+					this._Categoría = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripción", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string Descripción
+		{
+			get
+			{
+				return this._Descripción;
+			}
+			set
+			{
+				if ((this._Descripción != value))
+				{
+					this._Descripción = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Foto", DbType="Image")]
+		public System.Data.Linq.Binary Foto
+		{
+			get
+			{
+				return this._Foto;
+			}
+			set
+			{
+				if ((this._Foto != value))
+				{
+					this._Foto = value;
 				}
 			}
 		}

@@ -61,6 +61,11 @@
             this.tsmiMantenimientoDeClientes = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDirectorioDeClientesYProveedoresPorCiudad = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDirectorioDeClientesYProveedoresPorPais = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiProveedores = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMantenimientoDeProveedores = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiProveedoresProductos = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi2DirectorioDeClientesYProveedoresPorCiudad = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi2DirectorioDeClientesYProveedoresPorPais = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,11 +96,10 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslEstado = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.tsmiProveedores = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiMantenimientoDeProveedores = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiProveedoresProductos = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmi2DirectorioDeClientesYProveedoresPorCiudad = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmi2DirectorioDeClientesYProveedoresPorPais = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCategorias = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMantenimientoDeCategorías = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCategoriasProductos = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi2ListadoDeProductosPorCategorías = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -110,6 +114,7 @@
             this.tsmiEmpleados,
             this.tsmiClientes,
             this.tsmiProveedores,
+            this.tsmiCategorias,
             this.toolsMenu,
             this.windowsMenu,
             this.helpMenu});
@@ -375,6 +380,45 @@
             this.tsmiDirectorioDeClientesYProveedoresPorPais.Text = "Directorio de clientes y proveedores por país";
             this.tsmiDirectorioDeClientesYProveedoresPorPais.Click += new System.EventHandler(this.tsmiDirectorioDeClientesYProveedoresPorPais_Click);
             // 
+            // tsmiProveedores
+            // 
+            this.tsmiProveedores.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiMantenimientoDeProveedores,
+            this.tsmiProveedoresProductos,
+            this.tsmi2DirectorioDeClientesYProveedoresPorCiudad,
+            this.tsmi2DirectorioDeClientesYProveedoresPorPais});
+            this.tsmiProveedores.Name = "tsmiProveedores";
+            this.tsmiProveedores.Size = new System.Drawing.Size(84, 20);
+            this.tsmiProveedores.Text = "Proveedores";
+            // 
+            // tsmiMantenimientoDeProveedores
+            // 
+            this.tsmiMantenimientoDeProveedores.Name = "tsmiMantenimientoDeProveedores";
+            this.tsmiMantenimientoDeProveedores.Size = new System.Drawing.Size(322, 22);
+            this.tsmiMantenimientoDeProveedores.Text = "Mantenimiento de proveedores";
+            this.tsmiMantenimientoDeProveedores.Click += new System.EventHandler(this.tsmiMantenimientoDeProveedores_Click);
+            // 
+            // tsmiProveedoresProductos
+            // 
+            this.tsmiProveedoresProductos.Name = "tsmiProveedoresProductos";
+            this.tsmiProveedoresProductos.Size = new System.Drawing.Size(322, 22);
+            this.tsmiProveedoresProductos.Text = "Consulta de productos por proveedor";
+            this.tsmiProveedoresProductos.Click += new System.EventHandler(this.tsmiProveedoresProductos_Click);
+            // 
+            // tsmi2DirectorioDeClientesYProveedoresPorCiudad
+            // 
+            this.tsmi2DirectorioDeClientesYProveedoresPorCiudad.Name = "tsmi2DirectorioDeClientesYProveedoresPorCiudad";
+            this.tsmi2DirectorioDeClientesYProveedoresPorCiudad.Size = new System.Drawing.Size(322, 22);
+            this.tsmi2DirectorioDeClientesYProveedoresPorCiudad.Text = "Directorio de clientes y proveedores por ciudad";
+            this.tsmi2DirectorioDeClientesYProveedoresPorCiudad.Click += new System.EventHandler(this.tsmi2DirectorioDeClientesYProveedoresPorCiudad_Click);
+            // 
+            // tsmi2DirectorioDeClientesYProveedoresPorPais
+            // 
+            this.tsmi2DirectorioDeClientesYProveedoresPorPais.Name = "tsmi2DirectorioDeClientesYProveedoresPorPais";
+            this.tsmi2DirectorioDeClientesYProveedoresPorPais.Size = new System.Drawing.Size(322, 22);
+            this.tsmi2DirectorioDeClientesYProveedoresPorPais.Text = "Directorio de clientes y proveedores por país";
+            this.tsmi2DirectorioDeClientesYProveedoresPorPais.Click += new System.EventHandler(this.tsmi2DirectorioDeClientesYProveedoresPorPais_Click);
+            // 
             // toolsMenu
             // 
             this.toolsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -614,44 +658,36 @@
             this.tsslEstado.Size = new System.Drawing.Size(44, 17);
             this.tsslEstado.Text = "Activo.";
             // 
-            // tsmiProveedores
+            // tsmiCategorias
             // 
-            this.tsmiProveedores.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiMantenimientoDeProveedores,
-            this.tsmiProveedoresProductos,
-            this.tsmi2DirectorioDeClientesYProveedoresPorCiudad,
-            this.tsmi2DirectorioDeClientesYProveedoresPorPais});
-            this.tsmiProveedores.Name = "tsmiProveedores";
-            this.tsmiProveedores.Size = new System.Drawing.Size(84, 20);
-            this.tsmiProveedores.Text = "Proveedores";
+            this.tsmiCategorias.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiMantenimientoDeCategorías,
+            this.tsmiCategoriasProductos,
+            this.tsmi2ListadoDeProductosPorCategorías});
+            this.tsmiCategorias.Name = "tsmiCategorias";
+            this.tsmiCategorias.Size = new System.Drawing.Size(75, 20);
+            this.tsmiCategorias.Text = "Categorías";
             // 
-            // tsmiMantenimientoDeProveedores
+            // tsmiMantenimientoDeCategorías
             // 
-            this.tsmiMantenimientoDeProveedores.Name = "tsmiMantenimientoDeProveedores";
-            this.tsmiMantenimientoDeProveedores.Size = new System.Drawing.Size(322, 22);
-            this.tsmiMantenimientoDeProveedores.Text = "Mantenimiento de proveedores";
-            this.tsmiMantenimientoDeProveedores.Click += new System.EventHandler(this.tsmiMantenimientoDeProveedores_Click);
+            this.tsmiMantenimientoDeCategorías.Name = "tsmiMantenimientoDeCategorías";
+            this.tsmiMantenimientoDeCategorías.Size = new System.Drawing.Size(267, 22);
+            this.tsmiMantenimientoDeCategorías.Text = "Mantenimiento de categorías";
+            this.tsmiMantenimientoDeCategorías.Click += new System.EventHandler(this.tsmiMantenimientoDeCategorías_Click);
             // 
-            // tsmiProveedoresProductos
+            // tsmiCategoriasProductos
             // 
-            this.tsmiProveedoresProductos.Name = "tsmiProveedoresProductos";
-            this.tsmiProveedoresProductos.Size = new System.Drawing.Size(322, 22);
-            this.tsmiProveedoresProductos.Text = "Consulta de productos por proveedor";
-            this.tsmiProveedoresProductos.Click += new System.EventHandler(this.tsmiProveedoresProductos_Click);
+            this.tsmiCategoriasProductos.Name = "tsmiCategoriasProductos";
+            this.tsmiCategoriasProductos.Size = new System.Drawing.Size(267, 22);
+            this.tsmiCategoriasProductos.Text = "Consulta de productos por categoría";
+            this.tsmiCategoriasProductos.Click += new System.EventHandler(this.tsmiCategoriasProductos_Click);
             // 
-            // tsmi2DirectorioDeClientesYProveedoresPorCiudad
+            // tsmi2ListadoDeProductosPorCategorías
             // 
-            this.tsmi2DirectorioDeClientesYProveedoresPorCiudad.Name = "tsmi2DirectorioDeClientesYProveedoresPorCiudad";
-            this.tsmi2DirectorioDeClientesYProveedoresPorCiudad.Size = new System.Drawing.Size(322, 22);
-            this.tsmi2DirectorioDeClientesYProveedoresPorCiudad.Text = "Directorio de clientes y proveedores por ciudad";
-            this.tsmi2DirectorioDeClientesYProveedoresPorCiudad.Click += new System.EventHandler(this.tsmi2DirectorioDeClientesYProveedoresPorCiudad_Click);
-            // 
-            // tsmi2DirectorioDeClientesYProveedoresPorPais
-            // 
-            this.tsmi2DirectorioDeClientesYProveedoresPorPais.Name = "tsmi2DirectorioDeClientesYProveedoresPorPais";
-            this.tsmi2DirectorioDeClientesYProveedoresPorPais.Size = new System.Drawing.Size(322, 22);
-            this.tsmi2DirectorioDeClientesYProveedoresPorPais.Text = "Directorio de clientes y proveedores por país";
-            this.tsmi2DirectorioDeClientesYProveedoresPorPais.Click += new System.EventHandler(this.tsmi2DirectorioDeClientesYProveedoresPorPais_Click);
+            this.tsmi2ListadoDeProductosPorCategorías.Name = "tsmi2ListadoDeProductosPorCategorías";
+            this.tsmi2ListadoDeProductosPorCategorías.Size = new System.Drawing.Size(267, 22);
+            this.tsmi2ListadoDeProductosPorCategorías.Text = "Listado de productos por categorías";
+            this.tsmi2ListadoDeProductosPorCategorías.Click += new System.EventHandler(this.tsmi2ListadoDeProductosPorCategorías_Click);
             // 
             // MDIPrincipal
             // 
@@ -746,6 +782,10 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiProveedoresProductos;
         private System.Windows.Forms.ToolStripMenuItem tsmi2DirectorioDeClientesYProveedoresPorCiudad;
         private System.Windows.Forms.ToolStripMenuItem tsmi2DirectorioDeClientesYProveedoresPorPais;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCategorias;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMantenimientoDeCategorías;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCategoriasProductos;
+        private System.Windows.Forms.ToolStripMenuItem tsmi2ListadoDeProductosPorCategorías;
     }
 }
 

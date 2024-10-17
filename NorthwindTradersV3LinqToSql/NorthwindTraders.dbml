@@ -504,4 +504,45 @@
       <Column Name="IdProveedor" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.SP_CATEGORIAS_LISTAR" Method="SP_CATEGORIAS_LISTAR">
+    <Parameter Name="top100" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="SP_CATEGORIAS_LISTARResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Categoría" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripción" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Foto" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_CATEGORIAS_BUSCAR_V2" Method="SP_CATEGORIAS_BUSCAR_V2">
+    <Parameter Name="IdIni" Parameter="idIni" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IdFin" Parameter="idFin" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Categoria" Parameter="categoria" Type="System.String" DbType="NVarChar(15)" />
+    <ElementType Name="SP_CATEGORIAS_BUSCAR_V2Result">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Categoría" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripción" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Foto" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_CATEGORIAS_INSERTAR_V2" Method="SP_CATEGORIAS_INSERTAR_V2">
+    <Parameter Name="Categoria" Parameter="categoria" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Descripcion" Parameter="descripcion" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Foto" Parameter="foto" Type="System.Data.Linq.Binary" DbType="Image" />
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_CATEGORIAS_ACTUALIZAR_V2" Method="SP_CATEGORIAS_ACTUALIZAR_V2">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Categoria" Parameter="categoria" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Descripcion" Parameter="descripcion" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="Foto" Parameter="foto" Type="System.Data.Linq.Binary" DbType="Image" />
+    <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_CATEGORIAS_ELIMINAR_V2" Method="SP_CATEGORIAS_ELIMINAR_V2">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>
