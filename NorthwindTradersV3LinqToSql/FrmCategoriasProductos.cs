@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NorthwindTradersV3LinqToSql
@@ -29,6 +24,7 @@ namespace NorthwindTradersV3LinqToSql
 
         private void LoadData()
         {
+            Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
             //var categorias = from cat in context.SP_CATEGORIAS_LISTAR(true)
             //                 select new
             //                 {
@@ -72,6 +68,7 @@ namespace NorthwindTradersV3LinqToSql
         {
             if (dgvCategorias.CurrentRow != null)
             {
+                Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
                 int categoriaId = (int)dgvCategorias.CurrentRow.Cells["Id"].Value;
 
                 //var productos = context.Products.Where(p => p.CategoryID == categoriaId).ToList();
@@ -96,6 +93,7 @@ namespace NorthwindTradersV3LinqToSql
                 dgvProductos.DataSource = productos;
                 Utils.ConfDgv(dgvProductos);
                 ConfDgvProductos();
+                Utils.ActualizarBarraDeEstado(this, $"Se encontraron {dgvCategorias.RowCount} registros en categorías y {dgvProductos.RowCount} registros de productos, en la categoría {dgvCategorias.CurrentRow.Cells["Categoría"].Value}");
             }
         }
 
@@ -124,6 +122,11 @@ namespace NorthwindTradersV3LinqToSql
             dgvProductos.Columns["Unidades_en_inventario"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvProductos.Columns["Unidades_en_pedido"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvProductos.Columns["Punto_de_pedido"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        }
+
+        private void FrmCategoriasProductos_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Utils.ActualizarBarraDeEstado(this);
         }
     }
 }

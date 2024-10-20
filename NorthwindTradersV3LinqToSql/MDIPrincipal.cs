@@ -217,7 +217,12 @@ namespace NorthwindTradersV3LinqToSql
 
         private void tsmi2ListadoDeProductosPorCategorías_Click(object sender, EventArgs e)
         {
-
+            Utils.CerrarFormularios();
+            FrmProductosPorCategoriasListado frmProductosPorCategoriasListado = new FrmProductosPorCategoriasListado
+            {
+                MdiParent = this
+            };
+            frmProductosPorCategoriasListado.Show();
         }
     }
 }

@@ -30,16 +30,16 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvCategorias = new System.Windows.Forms.DataGridView();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvProductos = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategorias)).BeginInit();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,6 +76,16 @@
             this.groupBox1.Text = "»   Categorías:   «";
             this.groupBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.GrbPaint);
             // 
+            // dgvCategorias
+            // 
+            this.dgvCategorias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCategorias.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvCategorias.Location = new System.Drawing.Point(3, 16);
+            this.dgvCategorias.Name = "dgvCategorias";
+            this.dgvCategorias.Size = new System.Drawing.Size(958, 285);
+            this.dgvCategorias.TabIndex = 0;
+            this.dgvCategorias.SelectionChanged += new System.EventHandler(this.dgvCategorias_SelectionChanged);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dgvProductos);
@@ -88,16 +98,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "»   Productos:   «";
             this.groupBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.GrbPaint);
-            // 
-            // dgvCategorias
-            // 
-            this.dgvCategorias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCategorias.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvCategorias.Location = new System.Drawing.Point(3, 16);
-            this.dgvCategorias.Name = "dgvCategorias";
-            this.dgvCategorias.Size = new System.Drawing.Size(958, 285);
-            this.dgvCategorias.TabIndex = 0;
-            this.dgvCategorias.SelectionChanged += new System.EventHandler(this.dgvCategorias_SelectionChanged);
             // 
             // dgvProductos
             // 
@@ -117,13 +117,14 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "FrmCategoriasProductos";
             this.Text = "» Consulta de productos por categoría «";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmCategoriasProductos_FormClosed);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategorias)).EndInit();
+            this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             this.ResumeLayout(false);
 

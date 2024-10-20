@@ -221,6 +221,14 @@ namespace NorthwindTradersV3LinqToSql
 			}
 		}
 		
+		public System.Data.Linq.Table<VW_PRODUCTOSPORCATEGORIALISTADO> VW_PRODUCTOSPORCATEGORIALISTADO
+		{
+			get
+			{
+				return this.GetTable<VW_PRODUCTOSPORCATEGORIALISTADO>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EMPLEADOS_PAIS")]
 		public ISingleResult<SP_EMPLEADOS_PAISResult> SP_EMPLEADOS_PAIS()
 		{
@@ -4338,6 +4346,195 @@ namespace NorthwindTradersV3LinqToSql
 				if ((this._Fax != value))
 				{
 					this._Fax = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VW_PRODUCTOSPORCATEGORIALISTADO")]
+	public partial class VW_PRODUCTOSPORCATEGORIALISTADO
+	{
+		
+		private string _Categoría;
+		
+		private string _Producto;
+		
+		private System.Nullable<int> _Id_Producto;
+		
+		private string _Cantidad_por_unidad;
+		
+		private System.Nullable<decimal> _Precio;
+		
+		private System.Nullable<short> _Unidades_en_inventario;
+		
+		private System.Nullable<short> _Unidades_en_pedido;
+		
+		private System.Nullable<short> _Punto_de_pedido;
+		
+		private System.Nullable<bool> _Descontinuado;
+		
+		private string _Proveedor;
+		
+		public VW_PRODUCTOSPORCATEGORIALISTADO()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoría", DbType="NVarChar(15) NOT NULL", CanBeNull=false)]
+		public string Categoría
+		{
+			get
+			{
+				return this._Categoría;
+			}
+			set
+			{
+				if ((this._Categoría != value))
+				{
+					this._Categoría = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Producto", DbType="NVarChar(40)")]
+		public string Producto
+		{
+			get
+			{
+				return this._Producto;
+			}
+			set
+			{
+				if ((this._Producto != value))
+				{
+					this._Producto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Id Producto]", Storage="_Id_Producto", DbType="Int")]
+		public System.Nullable<int> Id_Producto
+		{
+			get
+			{
+				return this._Id_Producto;
+			}
+			set
+			{
+				if ((this._Id_Producto != value))
+				{
+					this._Id_Producto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Cantidad por unidad]", Storage="_Cantidad_por_unidad", DbType="NVarChar(20)")]
+		public string Cantidad_por_unidad
+		{
+			get
+			{
+				return this._Cantidad_por_unidad;
+			}
+			set
+			{
+				if ((this._Cantidad_por_unidad != value))
+				{
+					this._Cantidad_por_unidad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Precio", DbType="Money")]
+		public System.Nullable<decimal> Precio
+		{
+			get
+			{
+				return this._Precio;
+			}
+			set
+			{
+				if ((this._Precio != value))
+				{
+					this._Precio = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Unidades en inventario]", Storage="_Unidades_en_inventario", DbType="SmallInt")]
+		public System.Nullable<short> Unidades_en_inventario
+		{
+			get
+			{
+				return this._Unidades_en_inventario;
+			}
+			set
+			{
+				if ((this._Unidades_en_inventario != value))
+				{
+					this._Unidades_en_inventario = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Unidades en pedido]", Storage="_Unidades_en_pedido", DbType="SmallInt")]
+		public System.Nullable<short> Unidades_en_pedido
+		{
+			get
+			{
+				return this._Unidades_en_pedido;
+			}
+			set
+			{
+				if ((this._Unidades_en_pedido != value))
+				{
+					this._Unidades_en_pedido = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Punto de pedido]", Storage="_Punto_de_pedido", DbType="SmallInt")]
+		public System.Nullable<short> Punto_de_pedido
+		{
+			get
+			{
+				return this._Punto_de_pedido;
+			}
+			set
+			{
+				if ((this._Punto_de_pedido != value))
+				{
+					this._Punto_de_pedido = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descontinuado", DbType="Bit")]
+		public System.Nullable<bool> Descontinuado
+		{
+			get
+			{
+				return this._Descontinuado;
+			}
+			set
+			{
+				if ((this._Descontinuado != value))
+				{
+					this._Descontinuado = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Proveedor", DbType="NVarChar(40)")]
+		public string Proveedor
+		{
+			get
+			{
+				return this._Proveedor;
+			}
+			set
+			{
+				if ((this._Proveedor != value))
+				{
+					this._Proveedor = value;
 				}
 			}
 		}
