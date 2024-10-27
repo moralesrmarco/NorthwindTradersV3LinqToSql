@@ -559,4 +559,71 @@
     <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.SP_CATEGORIAS_SELECCIONAR_V2" Method="SP_CATEGORIAS_SELECCIONAR_V2">
+    <ElementType Name="SP_CATEGORIAS_SELECCIONAR_V2Result">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Categoria" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_PROVEEDORES_SELECCIONAR" Method="SP_PROVEEDORES_SELECCIONAR">
+    <ElementType Name="SP_PROVEEDORES_SELECCIONARResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Proveedor" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_PRODUCTOS_BUSCAR_V2" Method="SP_PRODUCTOS_BUSCAR_V2">
+    <Parameter Name="IdIni" Parameter="idIni" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IdFin" Parameter="idFin" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Producto" Parameter="producto" Type="System.String" DbType="NVarChar(40)" />
+    <Parameter Name="Categoria" Parameter="categoria" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Proveedor" Parameter="proveedor" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_PRODUCTOS_BUSCAR_V2Result">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Producto" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="[Cantidad por unidad]" Member="Cantidad_por_unidad" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Precio" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Unidades en inventario]" Member="Unidades_en_inventario" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="[Unidades en pedido]" Member="Unidades_en_pedido" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="[Punto de pedido]" Member="Punto_de_pedido" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Descontinuado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Categoría" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="[Descripción de categoría]" Member="Descripción_de_categoría" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Proveedor" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="IdCategoria" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdProveedor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_PRODUCTOS_INSERTAR_V2" Method="SP_PRODUCTOS_INSERTAR_V2">
+    <Parameter Name="Categoria" Parameter="categoria" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Proveedor" Parameter="proveedor" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Producto" Parameter="producto" Type="System.String" DbType="NVarChar(40)" />
+    <Parameter Name="Cantidad" Parameter="cantidad" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Precio" Parameter="precio" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="UInventario" Parameter="uInventario" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="UPedido" Parameter="uPedido" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="PPedido" Parameter="pPedido" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="Descontinuado" Parameter="descontinuado" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_PRODUCTOS_ELIMINAR_V2" Method="SP_PRODUCTOS_ELIMINAR_V2">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_PRODUCTOS_ACTUALIZAR_V2" Method="SP_PRODUCTOS_ACTUALIZAR_V2">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Producto" Parameter="producto" Type="System.String" DbType="VarChar(40)" />
+    <Parameter Name="Proveedor" Parameter="proveedor" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Categoria" Parameter="categoria" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Cantidad" Parameter="cantidad" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="Precio" Parameter="precio" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="UInventario" Parameter="uInventario" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="UPedido" Parameter="uPedido" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="PPedido" Parameter="pPedido" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="Descontinuado" Parameter="descontinuado" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

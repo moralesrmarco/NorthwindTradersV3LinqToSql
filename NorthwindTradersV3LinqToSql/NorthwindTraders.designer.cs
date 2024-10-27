@@ -468,6 +468,52 @@ namespace NorthwindTradersV3LinqToSql
 			numRegs = ((System.Nullable<int>)(result.GetParameterValue(1)));
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_CATEGORIAS_SELECCIONAR_V2")]
+		public ISingleResult<SP_CATEGORIAS_SELECCIONAR_V2Result> SP_CATEGORIAS_SELECCIONAR_V2()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<SP_CATEGORIAS_SELECCIONAR_V2Result>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PROVEEDORES_SELECCIONAR")]
+		public ISingleResult<SP_PROVEEDORES_SELECCIONARResult> SP_PROVEEDORES_SELECCIONAR()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<SP_PROVEEDORES_SELECCIONARResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PRODUCTOS_BUSCAR_V2")]
+		public ISingleResult<SP_PRODUCTOS_BUSCAR_V2Result> SP_PRODUCTOS_BUSCAR_V2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdIni", DbType="Int")] System.Nullable<int> idIni, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdFin", DbType="Int")] System.Nullable<int> idFin, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Producto", DbType="NVarChar(40)")] string producto, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Categoria", DbType="Int")] System.Nullable<int> categoria, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Proveedor", DbType="Int")] System.Nullable<int> proveedor)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idIni, idFin, producto, categoria, proveedor);
+			return ((ISingleResult<SP_PRODUCTOS_BUSCAR_V2Result>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PRODUCTOS_INSERTAR_V2")]
+		public int SP_PRODUCTOS_INSERTAR_V2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Categoria", DbType="Int")] System.Nullable<int> categoria, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Proveedor", DbType="Int")] System.Nullable<int> proveedor, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Producto", DbType="NVarChar(40)")] string producto, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Cantidad", DbType="NVarChar(20)")] string cantidad, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Precio", DbType="Money")] System.Nullable<decimal> precio, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UInventario", DbType="SmallInt")] System.Nullable<short> uInventario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UPedido", DbType="SmallInt")] System.Nullable<short> uPedido, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PPedido", DbType="SmallInt")] System.Nullable<short> pPedido, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descontinuado", DbType="Bit")] System.Nullable<bool> descontinuado, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] ref System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), categoria, proveedor, producto, cantidad, precio, uInventario, uPedido, pPedido, descontinuado, id, numRegs);
+			id = ((System.Nullable<int>)(result.GetParameterValue(9)));
+			numRegs = ((System.Nullable<int>)(result.GetParameterValue(10)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PRODUCTOS_ELIMINAR_V2")]
+		public int SP_PRODUCTOS_ELIMINAR_V2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, numRegs);
+			numRegs = ((System.Nullable<int>)(result.GetParameterValue(1)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PRODUCTOS_ACTUALIZAR_V2")]
+		public int SP_PRODUCTOS_ACTUALIZAR_V2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Producto", DbType="VarChar(40)")] string producto, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Proveedor", DbType="Int")] System.Nullable<int> proveedor, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Categoria", DbType="Int")] System.Nullable<int> categoria, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Cantidad", DbType="VarChar(20)")] string cantidad, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Precio", DbType="Money")] System.Nullable<decimal> precio, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UInventario", DbType="SmallInt")] System.Nullable<short> uInventario, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UPedido", DbType="SmallInt")] System.Nullable<short> uPedido, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="PPedido", DbType="SmallInt")] System.Nullable<short> pPedido, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Descontinuado", DbType="Bit")] System.Nullable<bool> descontinuado, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, producto, proveedor, categoria, cantidad, precio, uInventario, uPedido, pPedido, descontinuado, numRegs);
+			numRegs = ((System.Nullable<int>)(result.GetParameterValue(10)));
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Categories")]
@@ -6689,6 +6735,336 @@ namespace NorthwindTradersV3LinqToSql
 				if ((this._Foto != value))
 				{
 					this._Foto = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_CATEGORIAS_SELECCIONAR_V2Result
+	{
+		
+		private int _Id;
+		
+		private string _Categoria;
+		
+		public SP_CATEGORIAS_SELECCIONAR_V2Result()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoria", DbType="NVarChar(20) NOT NULL", CanBeNull=false)]
+		public string Categoria
+		{
+			get
+			{
+				return this._Categoria;
+			}
+			set
+			{
+				if ((this._Categoria != value))
+				{
+					this._Categoria = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_PROVEEDORES_SELECCIONARResult
+	{
+		
+		private int _Id;
+		
+		private string _Proveedor;
+		
+		public SP_PROVEEDORES_SELECCIONARResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Proveedor", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string Proveedor
+		{
+			get
+			{
+				return this._Proveedor;
+			}
+			set
+			{
+				if ((this._Proveedor != value))
+				{
+					this._Proveedor = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_PRODUCTOS_BUSCAR_V2Result
+	{
+		
+		private int _Id;
+		
+		private string _Producto;
+		
+		private string _Cantidad_por_unidad;
+		
+		private System.Nullable<decimal> _Precio;
+		
+		private System.Nullable<short> _Unidades_en_inventario;
+		
+		private System.Nullable<short> _Unidades_en_pedido;
+		
+		private System.Nullable<short> _Punto_de_pedido;
+		
+		private bool _Descontinuado;
+		
+		private string _Categoría;
+		
+		private string _Descripción_de_categoría;
+		
+		private string _Proveedor;
+		
+		private System.Nullable<int> _IdCategoria;
+		
+		private System.Nullable<int> _IdProveedor;
+		
+		public SP_PRODUCTOS_BUSCAR_V2Result()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Producto", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string Producto
+		{
+			get
+			{
+				return this._Producto;
+			}
+			set
+			{
+				if ((this._Producto != value))
+				{
+					this._Producto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Cantidad por unidad]", Storage="_Cantidad_por_unidad", DbType="NVarChar(20)")]
+		public string Cantidad_por_unidad
+		{
+			get
+			{
+				return this._Cantidad_por_unidad;
+			}
+			set
+			{
+				if ((this._Cantidad_por_unidad != value))
+				{
+					this._Cantidad_por_unidad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Precio", DbType="Money")]
+		public System.Nullable<decimal> Precio
+		{
+			get
+			{
+				return this._Precio;
+			}
+			set
+			{
+				if ((this._Precio != value))
+				{
+					this._Precio = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Unidades en inventario]", Storage="_Unidades_en_inventario", DbType="SmallInt")]
+		public System.Nullable<short> Unidades_en_inventario
+		{
+			get
+			{
+				return this._Unidades_en_inventario;
+			}
+			set
+			{
+				if ((this._Unidades_en_inventario != value))
+				{
+					this._Unidades_en_inventario = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Unidades en pedido]", Storage="_Unidades_en_pedido", DbType="SmallInt")]
+		public System.Nullable<short> Unidades_en_pedido
+		{
+			get
+			{
+				return this._Unidades_en_pedido;
+			}
+			set
+			{
+				if ((this._Unidades_en_pedido != value))
+				{
+					this._Unidades_en_pedido = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Punto de pedido]", Storage="_Punto_de_pedido", DbType="SmallInt")]
+		public System.Nullable<short> Punto_de_pedido
+		{
+			get
+			{
+				return this._Punto_de_pedido;
+			}
+			set
+			{
+				if ((this._Punto_de_pedido != value))
+				{
+					this._Punto_de_pedido = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descontinuado", DbType="Bit NOT NULL")]
+		public bool Descontinuado
+		{
+			get
+			{
+				return this._Descontinuado;
+			}
+			set
+			{
+				if ((this._Descontinuado != value))
+				{
+					this._Descontinuado = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoría", DbType="NVarChar(15)")]
+		public string Categoría
+		{
+			get
+			{
+				return this._Categoría;
+			}
+			set
+			{
+				if ((this._Categoría != value))
+				{
+					this._Categoría = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Descripción de categoría]", Storage="_Descripción_de_categoría", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string Descripción_de_categoría
+		{
+			get
+			{
+				return this._Descripción_de_categoría;
+			}
+			set
+			{
+				if ((this._Descripción_de_categoría != value))
+				{
+					this._Descripción_de_categoría = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Proveedor", DbType="NVarChar(40)")]
+		public string Proveedor
+		{
+			get
+			{
+				return this._Proveedor;
+			}
+			set
+			{
+				if ((this._Proveedor != value))
+				{
+					this._Proveedor = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCategoria", DbType="Int")]
+		public System.Nullable<int> IdCategoria
+		{
+			get
+			{
+				return this._IdCategoria;
+			}
+			set
+			{
+				if ((this._IdCategoria != value))
+				{
+					this._IdCategoria = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdProveedor", DbType="Int")]
+		public System.Nullable<int> IdProveedor
+		{
+			get
+			{
+				return this._IdProveedor;
+			}
+			set
+			{
+				if ((this._IdProveedor != value))
+				{
+					this._IdProveedor = value;
 				}
 			}
 		}
