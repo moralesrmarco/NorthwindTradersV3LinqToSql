@@ -70,6 +70,14 @@
             this.tsmiMantenimientoDeCategorías = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCategoriasProductos = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi2ListadoDeProductosPorCategorías = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMantenimientoDeProductos = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiConsultasProductos = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiConsultaDeProductosPorCategoría = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiConsultaDeProductosPorProveedor = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiConsultaAlfabeticaDeProductos = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiListadoDeProductosPorCategorias = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiProductosPorEncimaPrecioProm = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,14 +108,6 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslEstado = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiMantenimientoDeProductos = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiConsultasProductos = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiConsultaDeProductosPorCategoría = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiConsultaDeProductosPorProveedor = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiConsultaAlfabeticaDeProductos = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiListadoDeProductosPorCategorias = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiProductosPorEncimaPrecioProm = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -459,6 +459,68 @@
             this.tsmi2ListadoDeProductosPorCategorías.Text = "Listado de productos por categorías";
             this.tsmi2ListadoDeProductosPorCategorías.Click += new System.EventHandler(this.tsmi2ListadoDeProductosPorCategorías_Click);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiMantenimientoDeProductos,
+            this.tsmiConsultasProductos});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(73, 20);
+            this.toolStripMenuItem1.Text = "Productos";
+            // 
+            // tsmiMantenimientoDeProductos
+            // 
+            this.tsmiMantenimientoDeProductos.Name = "tsmiMantenimientoDeProductos";
+            this.tsmiMantenimientoDeProductos.Size = new System.Drawing.Size(229, 22);
+            this.tsmiMantenimientoDeProductos.Text = "Mantenimiento de productos";
+            this.tsmiMantenimientoDeProductos.Click += new System.EventHandler(this.tsmiMantenimientoDeProductos_Click);
+            // 
+            // tsmiConsultasProductos
+            // 
+            this.tsmiConsultasProductos.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiConsultaDeProductosPorCategoría,
+            this.tsmiConsultaDeProductosPorProveedor,
+            this.tsmiConsultaAlfabeticaDeProductos,
+            this.tsmiListadoDeProductosPorCategorias,
+            this.tsmiProductosPorEncimaPrecioProm});
+            this.tsmiConsultasProductos.Name = "tsmiConsultasProductos";
+            this.tsmiConsultasProductos.Size = new System.Drawing.Size(229, 22);
+            this.tsmiConsultasProductos.Text = "Consultas";
+            // 
+            // tsmiConsultaDeProductosPorCategoría
+            // 
+            this.tsmiConsultaDeProductosPorCategoría.Name = "tsmiConsultaDeProductosPorCategoría";
+            this.tsmiConsultaDeProductosPorCategoría.Size = new System.Drawing.Size(301, 22);
+            this.tsmiConsultaDeProductosPorCategoría.Text = "Consulta de productos por categoría";
+            this.tsmiConsultaDeProductosPorCategoría.Click += new System.EventHandler(this.tsmiConsultaDeProductosPorCategoría_Click);
+            // 
+            // tsmiConsultaDeProductosPorProveedor
+            // 
+            this.tsmiConsultaDeProductosPorProveedor.Name = "tsmiConsultaDeProductosPorProveedor";
+            this.tsmiConsultaDeProductosPorProveedor.Size = new System.Drawing.Size(301, 22);
+            this.tsmiConsultaDeProductosPorProveedor.Text = "Consulta de productos por proveedor";
+            this.tsmiConsultaDeProductosPorProveedor.Click += new System.EventHandler(this.tsmiConsultaDeProductosPorProveedor_Click);
+            // 
+            // tsmiConsultaAlfabeticaDeProductos
+            // 
+            this.tsmiConsultaAlfabeticaDeProductos.Name = "tsmiConsultaAlfabeticaDeProductos";
+            this.tsmiConsultaAlfabeticaDeProductos.Size = new System.Drawing.Size(301, 22);
+            this.tsmiConsultaAlfabeticaDeProductos.Text = "Consulta alfabética de productos";
+            this.tsmiConsultaAlfabeticaDeProductos.Click += new System.EventHandler(this.tsmiConsultaAlfabeticaDeProductos_Click);
+            // 
+            // tsmiListadoDeProductosPorCategorias
+            // 
+            this.tsmiListadoDeProductosPorCategorias.Name = "tsmiListadoDeProductosPorCategorias";
+            this.tsmiListadoDeProductosPorCategorias.Size = new System.Drawing.Size(301, 22);
+            this.tsmiListadoDeProductosPorCategorias.Text = "Listado de productos por categorías";
+            this.tsmiListadoDeProductosPorCategorias.Click += new System.EventHandler(this.tsmiListadoDeProductosPorCategorias_Click);
+            // 
+            // tsmiProductosPorEncimaPrecioProm
+            // 
+            this.tsmiProductosPorEncimaPrecioProm.Name = "tsmiProductosPorEncimaPrecioProm";
+            this.tsmiProductosPorEncimaPrecioProm.Size = new System.Drawing.Size(301, 22);
+            this.tsmiProductosPorEncimaPrecioProm.Text = "Productos por encima del precio promedio";
+            // 
             // toolsMenu
             // 
             this.toolsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -470,7 +532,7 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.optionsToolStripMenuItem.Text = "&Opciones";
             // 
             // windowsMenu
@@ -697,64 +759,6 @@
             this.tsslEstado.Name = "tsslEstado";
             this.tsslEstado.Size = new System.Drawing.Size(35, 17);
             this.tsslEstado.Text = "Listo.";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiMantenimientoDeProductos,
-            this.tsmiConsultasProductos});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(73, 20);
-            this.toolStripMenuItem1.Text = "Productos";
-            // 
-            // tsmiMantenimientoDeProductos
-            // 
-            this.tsmiMantenimientoDeProductos.Name = "tsmiMantenimientoDeProductos";
-            this.tsmiMantenimientoDeProductos.Size = new System.Drawing.Size(229, 22);
-            this.tsmiMantenimientoDeProductos.Text = "Mantenimiento de productos";
-            this.tsmiMantenimientoDeProductos.Click += new System.EventHandler(this.tsmiMantenimientoDeProductos_Click);
-            // 
-            // tsmiConsultasProductos
-            // 
-            this.tsmiConsultasProductos.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiConsultaDeProductosPorCategoría,
-            this.tsmiConsultaDeProductosPorProveedor,
-            this.tsmiConsultaAlfabeticaDeProductos,
-            this.tsmiListadoDeProductosPorCategorias,
-            this.tsmiProductosPorEncimaPrecioProm});
-            this.tsmiConsultasProductos.Name = "tsmiConsultasProductos";
-            this.tsmiConsultasProductos.Size = new System.Drawing.Size(229, 22);
-            this.tsmiConsultasProductos.Text = "Consultas";
-            // 
-            // tsmiConsultaDeProductosPorCategoría
-            // 
-            this.tsmiConsultaDeProductosPorCategoría.Name = "tsmiConsultaDeProductosPorCategoría";
-            this.tsmiConsultaDeProductosPorCategoría.Size = new System.Drawing.Size(301, 22);
-            this.tsmiConsultaDeProductosPorCategoría.Text = "Consulta de productos por categoría";
-            // 
-            // tsmiConsultaDeProductosPorProveedor
-            // 
-            this.tsmiConsultaDeProductosPorProveedor.Name = "tsmiConsultaDeProductosPorProveedor";
-            this.tsmiConsultaDeProductosPorProveedor.Size = new System.Drawing.Size(301, 22);
-            this.tsmiConsultaDeProductosPorProveedor.Text = "Consulta de productos por proveedor";
-            // 
-            // tsmiConsultaAlfabeticaDeProductos
-            // 
-            this.tsmiConsultaAlfabeticaDeProductos.Name = "tsmiConsultaAlfabeticaDeProductos";
-            this.tsmiConsultaAlfabeticaDeProductos.Size = new System.Drawing.Size(301, 22);
-            this.tsmiConsultaAlfabeticaDeProductos.Text = "Consulta alfabetica de productos";
-            // 
-            // tsmiListadoDeProductosPorCategorias
-            // 
-            this.tsmiListadoDeProductosPorCategorias.Name = "tsmiListadoDeProductosPorCategorias";
-            this.tsmiListadoDeProductosPorCategorias.Size = new System.Drawing.Size(301, 22);
-            this.tsmiListadoDeProductosPorCategorias.Text = "Listado de productos por categorías";
-            // 
-            // tsmiProductosPorEncimaPrecioProm
-            // 
-            this.tsmiProductosPorEncimaPrecioProm.Name = "tsmiProductosPorEncimaPrecioProm";
-            this.tsmiProductosPorEncimaPrecioProm.Size = new System.Drawing.Size(301, 22);
-            this.tsmiProductosPorEncimaPrecioProm.Text = "Productos por encima del precio promedio";
             // 
             // MDIPrincipal
             // 

@@ -30,8 +30,10 @@ namespace NorthwindTradersV3LinqToSql
         private void LlenarDgv()
         {
             Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
-            var listadoProductosPorCategorias = context.VW_PRODUCTOSPORCATEGORIALISTADO.ToList();
-            DgvListado.DataSource = listadoProductosPorCategorias;
+            var listadoProductosPorCategorias = from cat_prod in context.VW_PRODUCTOSPORCATEGORIALISTADO
+                                                orderby cat_prod.Categoría, cat_prod.Producto
+                                                select cat_prod;
+                                              DgvListado.DataSource = listadoProductosPorCategorias.ToList();
             AddCheckboxColumn();
             Utils.ActualizarBarraDeEstado(this, $"Se encontraron {DgvListado.RowCount} registros");
         }

@@ -208,6 +208,22 @@
       <Column Name="Proveedor" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.VW_PRODUCTOSLISTAALFABETICA" Member="VW_PRODUCTOSLISTAALFABETICA">
+    <Type Name="VW_PRODUCTOSLISTAALFABETICA">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Producto" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="IdProveedor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdCategoria" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Cantidad por unidad]" Member="Cantidad_por_unidad" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Precio" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="[Unidades en inventario]" Member="Unidades_en_inventario" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="[Unidades en pedido]" Member="Unidades_en_pedido" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="[Punto de pedido]" Member="Punto_de_pedido" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Descontinuado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Categoría" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Proveedor" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.SP_EMPLEADOS_PAIS" Method="SP_EMPLEADOS_PAIS">
     <ElementType Name="SP_EMPLEADOS_PAISResult">
       <Column Name="Id" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
