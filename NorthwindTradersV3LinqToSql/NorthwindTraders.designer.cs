@@ -237,6 +237,14 @@ namespace NorthwindTradersV3LinqToSql
 			}
 		}
 		
+		public System.Data.Linq.Table<VW_PRODUCTOSPORENCIMADELPRECIOPROMEDIO> VW_PRODUCTOSPORENCIMADELPRECIOPROMEDIO
+		{
+			get
+			{
+				return this.GetTable<VW_PRODUCTOSPORENCIMADELPRECIOPROMEDIO>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EMPLEADOS_PAIS")]
 		public ISingleResult<SP_EMPLEADOS_PAISResult> SP_EMPLEADOS_PAIS()
 		{
@@ -4814,6 +4822,69 @@ namespace NorthwindTradersV3LinqToSql
 				if ((this._Proveedor != value))
 				{
 					this._Proveedor = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VW_PRODUCTOSPORENCIMADELPRECIOPROMEDIO")]
+	public partial class VW_PRODUCTOSPORENCIMADELPRECIOPROMEDIO
+	{
+		
+		private System.Nullable<long> _Fila;
+		
+		private string _Producto;
+		
+		private System.Nullable<decimal> _Precio;
+		
+		public VW_PRODUCTOSPORENCIMADELPRECIOPROMEDIO()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fila", DbType="BigInt")]
+		public System.Nullable<long> Fila
+		{
+			get
+			{
+				return this._Fila;
+			}
+			set
+			{
+				if ((this._Fila != value))
+				{
+					this._Fila = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Producto", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string Producto
+		{
+			get
+			{
+				return this._Producto;
+			}
+			set
+			{
+				if ((this._Producto != value))
+				{
+					this._Producto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Precio", DbType="Money")]
+		public System.Nullable<decimal> Precio
+		{
+			get
+			{
+				return this._Precio;
+			}
+			set
+			{
+				if ((this._Precio != value))
+				{
+					this._Precio = value;
 				}
 			}
 		}

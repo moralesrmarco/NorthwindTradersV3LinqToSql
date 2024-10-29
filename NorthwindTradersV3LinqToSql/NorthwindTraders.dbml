@@ -224,6 +224,13 @@
       <Column Name="Proveedor" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.VW_PRODUCTOSPORENCIMADELPRECIOPROMEDIO" Member="VW_PRODUCTOSPORENCIMADELPRECIOPROMEDIO">
+    <Type Name="VW_PRODUCTOSPORENCIMADELPRECIOPROMEDIO">
+      <Column Name="Fila" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Producto" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="Precio" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.SP_EMPLEADOS_PAIS" Method="SP_EMPLEADOS_PAIS">
     <ElementType Name="SP_EMPLEADOS_PAISResult">
       <Column Name="Id" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />

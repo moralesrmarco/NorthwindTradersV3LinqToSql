@@ -520,6 +520,7 @@
             this.tsmiProductosPorEncimaPrecioProm.Name = "tsmiProductosPorEncimaPrecioProm";
             this.tsmiProductosPorEncimaPrecioProm.Size = new System.Drawing.Size(301, 22);
             this.tsmiProductosPorEncimaPrecioProm.Text = "Productos por encima del precio promedio";
+            this.tsmiProductosPorEncimaPrecioProm.Click += new System.EventHandler(this.tsmiProductosPorEncimaPrecioProm_Click);
             // 
             // toolsMenu
             // 
