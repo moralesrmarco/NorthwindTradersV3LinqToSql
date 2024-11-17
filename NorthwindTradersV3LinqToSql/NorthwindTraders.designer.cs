@@ -530,6 +530,34 @@ namespace NorthwindTradersV3LinqToSql
 			numRegs = ((System.Nullable<int>)(result.GetParameterValue(10)));
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_CLIENTES_SELECCIONAR")]
+		public ISingleResult<SP_CLIENTES_SELECCIONARResult> SP_CLIENTES_SELECCIONAR()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<SP_CLIENTES_SELECCIONARResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EMPLEADOS_SELECCIONAR")]
+		public ISingleResult<SP_EMPLEADOS_SELECCIONARResult> SP_EMPLEADOS_SELECCIONAR()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<SP_EMPLEADOS_SELECCIONARResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_TRANSPORTISTAS_SELECCIONAR")]
+		public ISingleResult<SP_TRANSPORTISTAS_SELECCIONARResult> SP_TRANSPORTISTAS_SELECCIONAR()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<SP_TRANSPORTISTAS_SELECCIONARResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_CATEGORIAS_SELECCIONAR")]
+		public ISingleResult<SP_CATEGORIAS_SELECCIONARResult> SP_CATEGORIAS_SELECCIONAR()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<SP_CATEGORIAS_SELECCIONARResult>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Categories")]
@@ -7369,6 +7397,182 @@ namespace NorthwindTradersV3LinqToSql
 				if ((this._IdProveedor != value))
 				{
 					this._IdProveedor = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_CLIENTES_SELECCIONARResult
+	{
+		
+		private string _Id;
+		
+		private string _Cliente;
+		
+		public SP_CLIENTES_SELECCIONARResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="NVarChar(5) NOT NULL", CanBeNull=false)]
+		public string Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cliente", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string Cliente
+		{
+			get
+			{
+				return this._Cliente;
+			}
+			set
+			{
+				if ((this._Cliente != value))
+				{
+					this._Cliente = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_EMPLEADOS_SELECCIONARResult
+	{
+		
+		private int _Id;
+		
+		private string _Empleado;
+		
+		public SP_EMPLEADOS_SELECCIONARResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Empleado", DbType="NVarChar(32) NOT NULL", CanBeNull=false)]
+		public string Empleado
+		{
+			get
+			{
+				return this._Empleado;
+			}
+			set
+			{
+				if ((this._Empleado != value))
+				{
+					this._Empleado = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_TRANSPORTISTAS_SELECCIONARResult
+	{
+		
+		private int _Id;
+		
+		private string _Transportista;
+		
+		public SP_TRANSPORTISTAS_SELECCIONARResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Transportista", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string Transportista
+		{
+			get
+			{
+				return this._Transportista;
+			}
+			set
+			{
+				if ((this._Transportista != value))
+				{
+					this._Transportista = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_CATEGORIAS_SELECCIONARResult
+	{
+		
+		private int _Id;
+		
+		private string _Categoria;
+		
+		public SP_CATEGORIAS_SELECCIONARResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoria", DbType="NVarChar(75)")]
+		public string Categoria
+		{
+			get
+			{
+				return this._Categoria;
+			}
+			set
+			{
+				if ((this._Categoria != value))
+				{
+					this._Categoria = value;
 				}
 			}
 		}

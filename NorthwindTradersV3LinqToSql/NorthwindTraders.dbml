@@ -649,4 +649,28 @@
     <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.SP_CLIENTES_SELECCIONAR" Method="SP_CLIENTES_SELECCIONAR">
+    <ElementType Name="SP_CLIENTES_SELECCIONARResult">
+      <Column Name="Id" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="Cliente" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_EMPLEADOS_SELECCIONAR" Method="SP_EMPLEADOS_SELECCIONAR">
+    <ElementType Name="SP_EMPLEADOS_SELECCIONARResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Empleado" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_TRANSPORTISTAS_SELECCIONAR" Method="SP_TRANSPORTISTAS_SELECCIONAR">
+    <ElementType Name="SP_TRANSPORTISTAS_SELECCIONARResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Transportista" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_CATEGORIAS_SELECCIONAR" Method="SP_CATEGORIAS_SELECCIONAR">
+    <ElementType Name="SP_CATEGORIAS_SELECCIONARResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Categoria" Type="System.String" DbType="NVarChar(75)" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>
