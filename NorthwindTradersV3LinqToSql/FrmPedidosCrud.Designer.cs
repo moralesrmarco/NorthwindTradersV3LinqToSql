@@ -213,6 +213,9 @@
             this.txtFlete.Size = new System.Drawing.Size(128, 20);
             this.txtFlete.TabIndex = 7;
             this.txtFlete.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtFlete.Enter += new System.EventHandler(this.txtFlete_Enter);
+            this.txtFlete.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFlete_KeyPress);
+            this.txtFlete.Leave += new System.EventHandler(this.txtFlete_Leave);
             // 
             // txtCP
             // 
@@ -773,6 +776,7 @@
             this.dtpEnvio.ShowCheckBox = true;
             this.dtpEnvio.Size = new System.Drawing.Size(134, 20);
             this.dtpEnvio.TabIndex = 7;
+            this.dtpEnvio.ValueChanged += new System.EventHandler(this.dtpEnvio_ValueChanged);
             // 
             // label28
             // 
@@ -794,6 +798,7 @@
             this.dtpRequerido.ShowCheckBox = true;
             this.dtpRequerido.Size = new System.Drawing.Size(134, 20);
             this.dtpRequerido.TabIndex = 5;
+            this.dtpRequerido.ValueChanged += new System.EventHandler(this.dtpRequerido_ValueChanged);
             // 
             // errorProvider1
             // 
@@ -893,6 +898,7 @@
             this.tabcOperacion.SelectedIndex = 0;
             this.tabcOperacion.Size = new System.Drawing.Size(1141, 56);
             this.tabcOperacion.TabIndex = 0;
+            this.tabcOperacion.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabcOperacion_Selected);
             // 
             // dgvPedidos
             // 
@@ -902,6 +908,7 @@
             this.dgvPedidos.Name = "dgvPedidos";
             this.dgvPedidos.Size = new System.Drawing.Size(1134, 221);
             this.dgvPedidos.TabIndex = 0;
+            this.dgvPedidos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPedidos_CellClick);
             // 
             // grbPedidos
             // 
@@ -1002,6 +1009,9 @@
             this.txtDescuento.Size = new System.Drawing.Size(50, 20);
             this.txtDescuento.TabIndex = 4;
             this.txtDescuento.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDescuento.Enter += new System.EventHandler(this.txtDescuento_Enter);
+            this.txtDescuento.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescuento_KeyPress);
+            this.txtDescuento.Leave += new System.EventHandler(this.txtDescuento_Leave);
             // 
             // txtCantidad
             // 
@@ -1012,6 +1022,9 @@
             this.txtCantidad.Size = new System.Drawing.Size(80, 20);
             this.txtCantidad.TabIndex = 3;
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidad_KeyPress);
+            this.txtCantidad.Leave += new System.EventHandler(this.txtCantidad_Leave);
+            this.txtCantidad.Validating += new System.ComponentModel.CancelEventHandler(this.txtCantidad_Validating);
             // 
             // txtPrecio
             // 
@@ -1033,6 +1046,7 @@
             this.cboProducto.Name = "cboProducto";
             this.cboProducto.Size = new System.Drawing.Size(304, 21);
             this.cboProducto.TabIndex = 1;
+            this.cboProducto.SelectedIndexChanged += new System.EventHandler(this.cboProducto_SelectedIndexChanged);
             // 
             // cboCategoria
             // 
@@ -1054,6 +1068,7 @@
             this.btnAgregar.TabIndex = 5;
             this.btnAgregar.Text = "+";
             this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // label41
             // 
@@ -1110,6 +1125,7 @@
             this.dtpPedido.ShowCheckBox = true;
             this.dtpPedido.Size = new System.Drawing.Size(134, 20);
             this.dtpPedido.TabIndex = 3;
+            this.dtpPedido.ValueChanged += new System.EventHandler(this.dtpPedido_ValueChanged);
             // 
             // label23
             // 
@@ -1307,6 +1323,8 @@
             this.dgvDetalle.Name = "dgvDetalle";
             this.dgvDetalle.Size = new System.Drawing.Size(819, 226);
             this.dgvDetalle.TabIndex = 0;
+            this.dgvDetalle.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalle_CellClick);
+            this.dgvDetalle.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDetalle_CellFormatting);
             // 
             // Id
             // 

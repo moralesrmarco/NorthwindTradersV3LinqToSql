@@ -597,6 +597,13 @@ namespace NorthwindTradersV3LinqToSql
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), categoria);
 			return ((ISingleResult<SP_PRODUCTOS_SELECCIONARResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PEDIDOS_LISTAR1")]
+		public ISingleResult<SP_PEDIDOS_LISTAR1Result> SP_PEDIDOS_LISTAR1([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PedidoId", DbType="Int")] System.Nullable<int> pedidoId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pedidoId);
+			return ((ISingleResult<SP_PEDIDOS_LISTAR1Result>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Categories")]
@@ -7996,6 +8003,248 @@ namespace NorthwindTradersV3LinqToSql
 				if ((this._Producto != value))
 				{
 					this._Producto = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_PEDIDOS_LISTAR1Result
+	{
+		
+		private string _CustomerID;
+		
+		private System.Nullable<int> _EmployeeID;
+		
+		private System.Nullable<System.DateTime> _OrderDate;
+		
+		private System.Nullable<System.DateTime> _RequiredDate;
+		
+		private System.Nullable<System.DateTime> _ShippedDate;
+		
+		private System.Nullable<int> _ShipVia;
+		
+		private System.Nullable<decimal> _Freight;
+		
+		private string _ShipName;
+		
+		private string _ShipAddress;
+		
+		private string _ShipCity;
+		
+		private string _ShipRegion;
+		
+		private string _ShipPostalCode;
+		
+		private string _ShipCountry;
+		
+		public SP_PEDIDOS_LISTAR1Result()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerID", DbType="NChar(5)")]
+		public string CustomerID
+		{
+			get
+			{
+				return this._CustomerID;
+			}
+			set
+			{
+				if ((this._CustomerID != value))
+				{
+					this._CustomerID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeID", DbType="Int")]
+		public System.Nullable<int> EmployeeID
+		{
+			get
+			{
+				return this._EmployeeID;
+			}
+			set
+			{
+				if ((this._EmployeeID != value))
+				{
+					this._EmployeeID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> OrderDate
+		{
+			get
+			{
+				return this._OrderDate;
+			}
+			set
+			{
+				if ((this._OrderDate != value))
+				{
+					this._OrderDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequiredDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> RequiredDate
+		{
+			get
+			{
+				return this._RequiredDate;
+			}
+			set
+			{
+				if ((this._RequiredDate != value))
+				{
+					this._RequiredDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippedDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ShippedDate
+		{
+			get
+			{
+				return this._ShippedDate;
+			}
+			set
+			{
+				if ((this._ShippedDate != value))
+				{
+					this._ShippedDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipVia", DbType="Int")]
+		public System.Nullable<int> ShipVia
+		{
+			get
+			{
+				return this._ShipVia;
+			}
+			set
+			{
+				if ((this._ShipVia != value))
+				{
+					this._ShipVia = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Freight", DbType="Money")]
+		public System.Nullable<decimal> Freight
+		{
+			get
+			{
+				return this._Freight;
+			}
+			set
+			{
+				if ((this._Freight != value))
+				{
+					this._Freight = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipName", DbType="NVarChar(40)")]
+		public string ShipName
+		{
+			get
+			{
+				return this._ShipName;
+			}
+			set
+			{
+				if ((this._ShipName != value))
+				{
+					this._ShipName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipAddress", DbType="NVarChar(60)")]
+		public string ShipAddress
+		{
+			get
+			{
+				return this._ShipAddress;
+			}
+			set
+			{
+				if ((this._ShipAddress != value))
+				{
+					this._ShipAddress = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipCity", DbType="NVarChar(15)")]
+		public string ShipCity
+		{
+			get
+			{
+				return this._ShipCity;
+			}
+			set
+			{
+				if ((this._ShipCity != value))
+				{
+					this._ShipCity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipRegion", DbType="NVarChar(15)")]
+		public string ShipRegion
+		{
+			get
+			{
+				return this._ShipRegion;
+			}
+			set
+			{
+				if ((this._ShipRegion != value))
+				{
+					this._ShipRegion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipPostalCode", DbType="NVarChar(10)")]
+		public string ShipPostalCode
+		{
+			get
+			{
+				return this._ShipPostalCode;
+			}
+			set
+			{
+				if ((this._ShipPostalCode != value))
+				{
+					this._ShipPostalCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipCountry", DbType="NVarChar(15)")]
+		public string ShipCountry
+		{
+			get
+			{
+				return this._ShipCountry;
+			}
+			set
+			{
+				if ((this._ShipCountry != value))
+				{
+					this._ShipCountry = value;
 				}
 			}
 		}
