@@ -673,4 +673,55 @@
       <Column Name="Categoria" Type="System.String" DbType="NVarChar(75)" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.SP_PEDIDOS_LISTAR20" Method="SP_PEDIDOS_LISTAR20">
+    <ElementType Name="SP_PEDIDOS_LISTAR20Result">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Cliente" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="[Nombre de contacto]" Member="Nombre_de_contacto" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="[Fecha de pedido]" Member="Fecha_de_pedido" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Fecha requerido]" Member="Fecha_requerido" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Fecha de envío]" Member="Fecha_de_envío" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Vendedor" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="[Compañía transportista]" Member="Compañía_transportista" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="[Dirigido a]" Member="Dirigido_a" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_PEDIDOS_BUSCAR" Method="SP_PEDIDOS_BUSCAR">
+    <Parameter Name="IdInicial" Parameter="idInicial" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IdFinal" Parameter="idFinal" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Cliente" Parameter="cliente" Type="System.String" DbType="NVarChar(40)" />
+    <Parameter Name="FPedido" Parameter="fPedido" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="FPedidoNull" Parameter="fPedidoNull" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="FPedidoIni" Parameter="fPedidoIni" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FPedidoFin" Parameter="fPedidoFin" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FRequerido" Parameter="fRequerido" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="FRequeridoNull" Parameter="fRequeridoNull" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="FRequeridoIni" Parameter="fRequeridoIni" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FRequeridoFin" Parameter="fRequeridoFin" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FEnvio" Parameter="fEnvio" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="FEnvioNull" Parameter="fEnvioNull" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="FEnvioIni" Parameter="fEnvioIni" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FEnvioFin" Parameter="fEnvioFin" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Empleado" Parameter="empleado" Type="System.String" DbType="NVarChar(31)" />
+    <Parameter Name="CompañiaT" Parameter="compañiaT" Type="System.String" DbType="NVarChar(40)" />
+    <Parameter Name="Dirigidoa" Parameter="dirigidoa" Type="System.String" DbType="NVarChar(40)" />
+    <ElementType Name="SP_PEDIDOS_BUSCARResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Cliente" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="[Nombre de contacto]" Member="Nombre_de_contacto" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="[Fecha de pedido]" Member="Fecha_de_pedido" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Fecha requerido]" Member="Fecha_requerido" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Fecha de envío]" Member="Fecha_de_envío" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Empleado" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="[Compañía transportista]" Member="Compañía_transportista" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="[Dirigido a]" Member="Dirigido_a" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_PRODUCTOS_SELECCIONAR" Method="SP_PRODUCTOS_SELECCIONAR">
+    <Parameter Name="Categoria" Parameter="categoria" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_PRODUCTOS_SELECCIONARResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Producto" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
 </Database>

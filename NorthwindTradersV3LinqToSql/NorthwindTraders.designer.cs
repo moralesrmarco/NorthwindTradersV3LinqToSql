@@ -558,6 +558,45 @@ namespace NorthwindTradersV3LinqToSql
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
 			return ((ISingleResult<SP_CATEGORIAS_SELECCIONARResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PEDIDOS_LISTAR20")]
+		public ISingleResult<SP_PEDIDOS_LISTAR20Result> SP_PEDIDOS_LISTAR20()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<SP_PEDIDOS_LISTAR20Result>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PEDIDOS_BUSCAR")]
+		public ISingleResult<SP_PEDIDOS_BUSCARResult> SP_PEDIDOS_BUSCAR(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdInicial", DbType="Int")] System.Nullable<int> idInicial, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdFinal", DbType="Int")] System.Nullable<int> idFinal, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Cliente", DbType="NVarChar(40)")] string cliente, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FPedido", DbType="Bit")] System.Nullable<bool> fPedido, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FPedidoNull", DbType="Bit")] System.Nullable<bool> fPedidoNull, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FPedidoIni", DbType="DateTime")] System.Nullable<System.DateTime> fPedidoIni, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FPedidoFin", DbType="DateTime")] System.Nullable<System.DateTime> fPedidoFin, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FRequerido", DbType="Bit")] System.Nullable<bool> fRequerido, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FRequeridoNull", DbType="Bit")] System.Nullable<bool> fRequeridoNull, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FRequeridoIni", DbType="DateTime")] System.Nullable<System.DateTime> fRequeridoIni, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FRequeridoFin", DbType="DateTime")] System.Nullable<System.DateTime> fRequeridoFin, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FEnvio", DbType="Bit")] System.Nullable<bool> fEnvio, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FEnvioNull", DbType="Bit")] System.Nullable<bool> fEnvioNull, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FEnvioIni", DbType="DateTime")] System.Nullable<System.DateTime> fEnvioIni, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FEnvioFin", DbType="DateTime")] System.Nullable<System.DateTime> fEnvioFin, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Empleado", DbType="NVarChar(31)")] string empleado, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="CompañiaT", DbType="NVarChar(40)")] string compañiaT, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Dirigidoa", DbType="NVarChar(40)")] string dirigidoa)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idInicial, idFinal, cliente, fPedido, fPedidoNull, fPedidoIni, fPedidoFin, fRequerido, fRequeridoNull, fRequeridoIni, fRequeridoFin, fEnvio, fEnvioNull, fEnvioIni, fEnvioFin, empleado, compañiaT, dirigidoa);
+			return ((ISingleResult<SP_PEDIDOS_BUSCARResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PRODUCTOS_SELECCIONAR")]
+		public ISingleResult<SP_PRODUCTOS_SELECCIONARResult> SP_PRODUCTOS_SELECCIONAR([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Categoria", DbType="Int")] System.Nullable<int> categoria)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), categoria);
+			return ((ISingleResult<SP_PRODUCTOS_SELECCIONARResult>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Categories")]
@@ -7573,6 +7612,390 @@ namespace NorthwindTradersV3LinqToSql
 				if ((this._Categoria != value))
 				{
 					this._Categoria = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_PEDIDOS_LISTAR20Result
+	{
+		
+		private int _Id;
+		
+		private string _Cliente;
+		
+		private string _Nombre_de_contacto;
+		
+		private System.Nullable<System.DateTime> _Fecha_de_pedido;
+		
+		private System.Nullable<System.DateTime> _Fecha_requerido;
+		
+		private System.Nullable<System.DateTime> _Fecha_de_envío;
+		
+		private string _Vendedor;
+		
+		private string _Compañía_transportista;
+		
+		private string _Dirigido_a;
+		
+		public SP_PEDIDOS_LISTAR20Result()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cliente", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string Cliente
+		{
+			get
+			{
+				return this._Cliente;
+			}
+			set
+			{
+				if ((this._Cliente != value))
+				{
+					this._Cliente = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Nombre de contacto]", Storage="_Nombre_de_contacto", DbType="NVarChar(30)")]
+		public string Nombre_de_contacto
+		{
+			get
+			{
+				return this._Nombre_de_contacto;
+			}
+			set
+			{
+				if ((this._Nombre_de_contacto != value))
+				{
+					this._Nombre_de_contacto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Fecha de pedido]", Storage="_Fecha_de_pedido", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Fecha_de_pedido
+		{
+			get
+			{
+				return this._Fecha_de_pedido;
+			}
+			set
+			{
+				if ((this._Fecha_de_pedido != value))
+				{
+					this._Fecha_de_pedido = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Fecha requerido]", Storage="_Fecha_requerido", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Fecha_requerido
+		{
+			get
+			{
+				return this._Fecha_requerido;
+			}
+			set
+			{
+				if ((this._Fecha_requerido != value))
+				{
+					this._Fecha_requerido = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Fecha de envío]", Storage="_Fecha_de_envío", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Fecha_de_envío
+		{
+			get
+			{
+				return this._Fecha_de_envío;
+			}
+			set
+			{
+				if ((this._Fecha_de_envío != value))
+				{
+					this._Fecha_de_envío = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vendedor", DbType="NVarChar(32) NOT NULL", CanBeNull=false)]
+		public string Vendedor
+		{
+			get
+			{
+				return this._Vendedor;
+			}
+			set
+			{
+				if ((this._Vendedor != value))
+				{
+					this._Vendedor = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Compañía transportista]", Storage="_Compañía_transportista", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string Compañía_transportista
+		{
+			get
+			{
+				return this._Compañía_transportista;
+			}
+			set
+			{
+				if ((this._Compañía_transportista != value))
+				{
+					this._Compañía_transportista = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Dirigido a]", Storage="_Dirigido_a", DbType="NVarChar(40)")]
+		public string Dirigido_a
+		{
+			get
+			{
+				return this._Dirigido_a;
+			}
+			set
+			{
+				if ((this._Dirigido_a != value))
+				{
+					this._Dirigido_a = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_PEDIDOS_BUSCARResult
+	{
+		
+		private int _Id;
+		
+		private string _Cliente;
+		
+		private string _Nombre_de_contacto;
+		
+		private System.Nullable<System.DateTime> _Fecha_de_pedido;
+		
+		private System.Nullable<System.DateTime> _Fecha_requerido;
+		
+		private System.Nullable<System.DateTime> _Fecha_de_envío;
+		
+		private string _Empleado;
+		
+		private string _Compañía_transportista;
+		
+		private string _Dirigido_a;
+		
+		public SP_PEDIDOS_BUSCARResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cliente", DbType="NVarChar(40)")]
+		public string Cliente
+		{
+			get
+			{
+				return this._Cliente;
+			}
+			set
+			{
+				if ((this._Cliente != value))
+				{
+					this._Cliente = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Nombre de contacto]", Storage="_Nombre_de_contacto", DbType="NVarChar(30)")]
+		public string Nombre_de_contacto
+		{
+			get
+			{
+				return this._Nombre_de_contacto;
+			}
+			set
+			{
+				if ((this._Nombre_de_contacto != value))
+				{
+					this._Nombre_de_contacto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Fecha de pedido]", Storage="_Fecha_de_pedido", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Fecha_de_pedido
+		{
+			get
+			{
+				return this._Fecha_de_pedido;
+			}
+			set
+			{
+				if ((this._Fecha_de_pedido != value))
+				{
+					this._Fecha_de_pedido = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Fecha requerido]", Storage="_Fecha_requerido", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Fecha_requerido
+		{
+			get
+			{
+				return this._Fecha_requerido;
+			}
+			set
+			{
+				if ((this._Fecha_requerido != value))
+				{
+					this._Fecha_requerido = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Fecha de envío]", Storage="_Fecha_de_envío", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Fecha_de_envío
+		{
+			get
+			{
+				return this._Fecha_de_envío;
+			}
+			set
+			{
+				if ((this._Fecha_de_envío != value))
+				{
+					this._Fecha_de_envío = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Empleado", DbType="NVarChar(32)")]
+		public string Empleado
+		{
+			get
+			{
+				return this._Empleado;
+			}
+			set
+			{
+				if ((this._Empleado != value))
+				{
+					this._Empleado = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Compañía transportista]", Storage="_Compañía_transportista", DbType="NVarChar(40)")]
+		public string Compañía_transportista
+		{
+			get
+			{
+				return this._Compañía_transportista;
+			}
+			set
+			{
+				if ((this._Compañía_transportista != value))
+				{
+					this._Compañía_transportista = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Dirigido a]", Storage="_Dirigido_a", DbType="NVarChar(40)")]
+		public string Dirigido_a
+		{
+			get
+			{
+				return this._Dirigido_a;
+			}
+			set
+			{
+				if ((this._Dirigido_a != value))
+				{
+					this._Dirigido_a = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_PRODUCTOS_SELECCIONARResult
+	{
+		
+		private int _Id;
+		
+		private string _Producto;
+		
+		public SP_PRODUCTOS_SELECCIONARResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Producto", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string Producto
+		{
+			get
+			{
+				return this._Producto;
+			}
+			set
+			{
+				if ((this._Producto != value))
+				{
+					this._Producto = value;
 				}
 			}
 		}

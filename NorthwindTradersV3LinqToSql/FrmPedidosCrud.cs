@@ -221,14 +221,23 @@ namespace NorthwindTradersV3LinqToSql
         private void ConfDgvPedidos()
         {
             dgvPedidos.Columns["Id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dgvPedidos.Columns["Fecha de pedido"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvPedidos.Columns["Fecha requerido"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvPedidos.Columns["Fecha de envío"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvPedidos.Columns["Compañía transportista"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dgvPedidos.Columns["Fecha_de_pedido"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvPedidos.Columns["Fecha_requerido"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvPedidos.Columns["Fecha_de_envío"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvPedidos.Columns["Compañía_transportista"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvPedidos.Columns["Vendedor"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvPedidos.Columns["Fecha de pedido"].DefaultCellStyle.Format = "ddd dd\" de \"MMM\" de \"yyyy\n hh:mm:ss tt";
-            dgvPedidos.Columns["Fecha requerido"].DefaultCellStyle.Format = "ddd dd\" de \"MMM\" de \"yyyy\n hh:mm:ss tt";
-            dgvPedidos.Columns["Fecha de envío"].DefaultCellStyle.Format = "ddd dd\" de \"MMM\" de \"yyyy\n hh:mm:ss tt";
+
+            dgvPedidos.Columns["Fecha_de_pedido"].DefaultCellStyle.Format = "ddd dd\" de \"MMM\" de \"yyyy\n hh:mm:ss tt";
+            dgvPedidos.Columns["Fecha_requerido"].DefaultCellStyle.Format = "ddd dd\" de \"MMM\" de \"yyyy\n hh:mm:ss tt";
+            dgvPedidos.Columns["Fecha_de_envío"].DefaultCellStyle.Format = "ddd dd\" de \"MMM\" de \"yyyy\n hh:mm:ss tt";
+
+            dgvPedidos.Columns["Nombre_de_contacto"].HeaderText = "Nombre de contacto";
+            dgvPedidos.Columns["Fecha_de_pedido"].HeaderText = "Fecha de pedido";
+            dgvPedidos.Columns["Fecha_requerido"].HeaderText = "Fecha requerido";
+            dgvPedidos.Columns["Fecha_de_envío"].HeaderText = "Fecha de envío";
+            dgvPedidos.Columns["Compañía_transportista"].HeaderText = "Compañía transportista";
+            dgvPedidos.Columns["Dirigido_a"].HeaderText = "Dirigido a";
         }
 
         private void ConfDgvDetalle()
@@ -241,6 +250,335 @@ namespace NorthwindTradersV3LinqToSql
         }
 
         private void LlenarDgvPedidos(object sender)
+        {
+            Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
+            try
+            {
+                if (sender == null)
+                {
+                    dgvPedidos.DataSource = context.SP_PEDIDOS_LISTAR20().ToList();
+                }
+                else
+                {
+                    int intBIdIni = 0, intBIdFin = 0;
+                    bool boolFPedido = false, boolFRequerido = false, boolFEnvio = false;
+                    DateTime? FPedidoIni, FPedidoFin, FRequeridoIni, FRequeridoFin, FEnvioIni, FEnvioFin;
+                    if (txtBIdInicial.Text != "") intBIdIni = int.Parse(txtBIdInicial.Text);
+                    if (txtBIdFinal.Text != "") intBIdFin = int.Parse(txtBIdFinal.Text);
+                    if (dtpBFPedidoIni.Checked && dtpBFPedidoFin.Checked)
+                    {
+                        boolFPedido = true; // este parametro es requerido para que funcione el store procedure con la misma logica que he venido usando en las demas busquedas
+                        dtpBFPedidoIni.Value = Convert.ToDateTime(dtpBFPedidoIni.Value.ToShortDateString() + " 00:00:00.000");
+                        dtpBFPedidoFin.Value = Convert.ToDateTime(dtpBFPedidoFin.Value.ToShortDateString() + " 23:59:59.998"); // se usa .998 porque lo redondea a .997 por la presición de los campos tipo datetime de sql server, el cual es el maximo valor de milesimas de segundo que puede guardarse en la db. Si se usa .999 lo redondea al segundo 0.000 del siquiente dia e incluye los datos del siguiente día que es un comportamiento que no se quiere por que solo se deben mostrar los datos de la fecha indicada. Ya se comprobo el comportamiento en la base de datos.
+                        FPedidoIni = dtpBFPedidoIni.Value;
+                        FPedidoFin = dtpBFPedidoFin.Value;
+                    }
+                    else
+                    {
+                        boolFPedido = false;
+                        FPedidoIni = null;
+                        FPedidoFin = null;
+                    }
+                    if (dtpBFRequeridoIni.Checked && dtpBFRequeridoFin.Checked)
+                    {
+                        boolFRequerido = true;
+                        dtpBFRequeridoIni.Value = Convert.ToDateTime(dtpBFRequeridoIni.Value.ToShortDateString() + " 00:00:00.000");
+                        dtpBFRequeridoFin.Value = Convert.ToDateTime(dtpBFRequeridoFin.Value.ToShortDateString() + " 23:59:59.998");
+                        FRequeridoIni = dtpBFRequeridoIni.Value;
+                        FRequeridoFin = dtpBFRequeridoFin.Value;
+                    }
+                    else
+                    {
+                        boolFRequerido = false;
+                        FRequeridoIni = null;
+                        FRequeridoFin = null;
+                    }
+                    if (dtpBFEnvioIni.Checked && dtpBFEnvioFin.Checked)
+                    {
+                        boolFEnvio = true;
+                        dtpBFEnvioIni.Value = Convert.ToDateTime(dtpBFEnvioIni.Value.ToShortDateString() + " 00:00:00.000");
+                        dtpBFEnvioFin.Value = Convert.ToDateTime(dtpBFEnvioFin.Value.ToShortDateString() + " 23:59:59:998");
+                        FEnvioIni = dtpBFEnvioIni.Value;
+                        FEnvioFin = dtpBFEnvioFin.Value;
+                    }
+                    else
+                    {
+                        boolFEnvio = false;
+                        FEnvioIni = null;
+                        FEnvioFin = null;
+                    }
+                    dgvPedidos.DataSource = context.SP_PEDIDOS_BUSCAR(intBIdIni, intBIdFin, txtBCliente.Text, boolFPedido, chkBFPedidoNull.Checked, FPedidoIni, FPedidoFin, boolFRequerido, chkBFRequeridoNull.Checked, FRequeridoIni, FRequeridoFin, boolFEnvio, chkBFEnvioNull.Checked, FEnvioIni, FEnvioFin, txtBEmpleado.Text, txtBCompañiaT.Text, txtBDirigidoa.Text).ToList();
+
+                }
+                if (sender == null)
+                    Utils.ActualizarBarraDeEstado(this, $"Se muestran los últimos {dgvPedidos.RowCount} pedidos registrados");
+                else
+                    Utils.ActualizarBarraDeEstado(this, $"Se encontraron {dgvPedidos.RowCount} registros");
+            }
+            catch (SqlException ex)
+            {
+                Utils.MsgCatchOueclbdd(this, ex);
+            }
+            catch (Exception ex)
+            {
+                Utils.MsgCatchOue(this, ex);
+            }
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            BorrarDatosPedido();
+            BorrarMensajesError();
+            BorrarDatosBusqueda();
+            if (tabcOperacion.SelectedTab != tabpRegistrar)
+                DeshabilitarControles();
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            BorrarDatosPedido();
+            BorrarMensajesError();
+            if (tabcOperacion.SelectedTab != tabpRegistrar)
+                DeshabilitarControles();
+            LlenarDgvPedidos(sender);
+
+        }
+
+        private void BorrarDatosPedido()
+        {
+            txtId.Text = "";
+            cboCliente.SelectedIndex = cboEmpleado.SelectedIndex = cboTransportista.SelectedIndex = cboCategoria.SelectedIndex = 0;
+            cboProducto.DataSource = null;
+            dtpPedido.Value = dtpRequerido.Value = dtpEnvio.Value = DateTime.Now;
+            dtpHoraPedido.Value = DateTime.Now;
+            dtpHoraRequerido.Value = dtpHoraEnvio.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
+            dtpRequerido.Checked = dtpEnvio.Checked = false;
+            txtDirigidoa.Text = txtDomicilio.Text = txtCiudad.Text = txtRegion.Text = txtCP.Text = txtPais.Text = "";
+            txtFlete.Text = txtPrecio.Text = "$0.00";
+            txtCantidad.Text = txtUInventario.Text = "0";
+            txtDescuento.Text = "0.00";
+            txtTotal.Text = "$0.00";
+            dgvDetalle.Rows.Clear();
+        }
+
+        private void BorrarMensajesError()
+        {
+            errorProvider1.SetError(cboCategoria, "");
+            errorProvider1.SetError(cboProducto, "");
+            errorProvider1.SetError(txtCantidad, "");
+            errorProvider1.SetError(txtDescuento, "");
+            errorProvider1.SetError(cboCliente, "");
+            errorProvider1.SetError(cboEmpleado, "");
+            errorProvider1.SetError(dtpPedido, "");
+            errorProvider1.SetError(cboTransportista, "");
+            errorProvider1.SetError(btnAgregar, "");
+        }
+
+        private void BorrarDatosBusqueda()
+        {
+            txtBIdInicial.Text = txtBIdFinal.Text = txtBCliente.Text = txtBEmpleado.Text = txtBCompañiaT.Text = txtBDirigidoa.Text = "";
+            dtpBFPedidoIni.Value = dtpBFPedidoFin.Value = dtpBFRequeridoIni.Value = dtpBFRequeridoFin.Value = dtpBFEnvioIni.Value = dtpBFEnvioFin.Value = DateTime.Today;
+            dtpBFPedidoIni.Checked = dtpBFPedidoFin.Checked = dtpBFRequeridoIni.Checked = dtpBFRequeridoFin.Checked = dtpBFEnvioIni.Checked = dtpBFEnvioFin.Checked = false;
+            chkBFPedidoNull.Checked = chkBFRequeridoNull.Checked = chkBFEnvioNull.Checked = false;
+        }
+
+        private void txtBIdInicial_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.ValidarDigitosSinPunto(sender, e);
+        }
+
+        private void txtBIdFinal_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.ValidarDigitosSinPunto(sender, e);
+        }
+
+        private void txtBIdInicial_Leave(object sender, EventArgs e)
+        {
+            Utils.ValidaTxtBIdIni(txtBIdInicial, txtBIdFinal);
+        }
+
+        private void txtBIdFinal_Leave(object sender, EventArgs e)
+        {
+            Utils.ValidaTxtBIdFin(txtBIdInicial, txtBIdFinal);
+        }
+
+        private void dtpBFPedidoIni_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpBFPedidoIni.Checked)
+            {
+                dtpBFPedidoFin.Checked = true;
+                chkBFPedidoNull.Checked = false;
+            }
+            else
+                dtpBFPedidoFin.Checked = false;
+        }
+
+        private void dtpBFPedidoFin_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpBFPedidoFin.Checked)
+            {
+                dtpBFPedidoIni.Checked = true;
+                chkBFPedidoNull.Checked = false;
+            }
+            else
+                dtpBFPedidoIni.Checked = false;
+        }
+
+        private void dtpBFRequeridoIni_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpBFRequeridoIni.Checked)
+            {
+                dtpBFRequeridoFin.Checked = true;
+                chkBFRequeridoNull.Checked = false;
+            }
+            else
+                dtpBFRequeridoFin.Checked = false;
+        }
+
+        private void dtpBFRequeridoFin_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpBFRequeridoFin.Checked)
+            {
+                dtpBFRequeridoIni.Checked = true;
+                chkBFRequeridoNull.Checked = false;
+            }
+            else
+                dtpBFRequeridoIni.Checked = false;
+        }
+
+        private void dtpBFEnvioIni_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpBFEnvioIni.Checked)
+            {
+                dtpBFEnvioFin.Checked = true;
+                chkBFEnvioNull.Checked = false;
+            }
+            else
+                dtpBFEnvioFin.Checked = false;
+        }
+
+        private void dtpBFEnvioFin_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpBFEnvioFin.Checked)
+            {
+                dtpBFEnvioIni.Checked = true;
+                chkBFEnvioNull.Checked = false;
+            }
+            else
+                dtpBFEnvioIni.Checked = false;
+        }
+
+        private void chkBFPedidoNull_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBFPedidoNull.Checked)
+            {
+                dtpBFPedidoIni.Checked = false;
+                dtpBFPedidoFin.Checked = false;
+            }
+        }
+
+        private void chkBFRequeridoNull_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBFRequeridoNull.Checked)
+            {
+                dtpBFRequeridoIni.Checked = false;
+                dtpBFRequeridoFin.Checked = false;
+            }
+        }
+
+        private void chkBFEnvioNull_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBFEnvioNull.Checked)
+            {
+                dtpBFEnvioIni.Checked = false;
+                dtpBFEnvioFin.Checked = false;
+            }
+        }
+
+        private void dtpBFPedidoIni_Leave(object sender, EventArgs e)
+        {
+            if (dtpBFPedidoIni.Checked && dtpBFPedidoFin.Checked)
+                if (dtpBFPedidoFin.Value < dtpBFPedidoIni.Value)
+                    dtpBFPedidoFin.Value = dtpBFPedidoIni.Value;
+        }
+
+        private void dtpBFPedidoFin_Leave(object sender, EventArgs e)
+        {
+            if (dtpBFPedidoIni.Checked && dtpBFPedidoFin.Checked)
+                if (dtpBFPedidoFin.Value < dtpBFPedidoIni.Value)
+                    dtpBFPedidoIni.Value = dtpBFPedidoFin.Value;
+        }
+
+        private void dtpBFRequeridoIni_Leave(object sender, EventArgs e)
+        {
+            if (dtpBFRequeridoIni.Checked && dtpBFRequeridoFin.Checked)
+                if (dtpBFRequeridoFin.Value < dtpBFRequeridoIni.Value)
+                    dtpBFRequeridoFin.Value = dtpBFRequeridoIni.Value;
+        }
+
+        private void dtpBFRequeridoFin_Leave(object sender, EventArgs e)
+        {
+            if (dtpBFRequeridoIni.Checked && dtpBFRequeridoFin.Checked)
+                if (dtpBFRequeridoFin.Value < dtpBFRequeridoIni.Value)
+                    dtpBFRequeridoIni.Value = dtpBFRequeridoFin.Value;
+        }
+
+        private void dtpBFEnvioIni_Leave(object sender, EventArgs e)
+        {
+            if (dtpBFEnvioIni.Checked && dtpBFEnvioFin.Checked)
+                if (dtpBFEnvioFin.Value < dtpBFEnvioIni.Value)
+                    dtpBFEnvioFin.Value = dtpBFEnvioIni.Value;
+        }
+
+        private void dtpBFEnvioFin_Leave(object sender, EventArgs e)
+        {
+            if (dtpBFEnvioIni.Checked && dtpBFEnvioFin.Checked)
+                if (dtpBFEnvioFin.Value < dtpBFEnvioIni.Value)
+                    dtpBFEnvioIni.Value = dtpBFEnvioFin.Value;
+        }
+
+        private void cboCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtPrecio.Text = "$0.00";
+            txtUInventario.Text = "0";
+            txtCantidad.Text = "0";
+            if (cboCategoria.SelectedIndex > 0)
+            {
+                try
+                {
+                    Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
+                    cboProducto.DataSource = context.SP_PRODUCTOS_SELECCIONAR(int.Parse(cboCategoria.SelectedValue.ToString()));
+                    cboProducto.DisplayMember = "Producto";
+                    cboProducto.ValueMember = "Id";
+                    Utils.ActualizarBarraDeEstado(this, $"Se muestran {dgvPedidos.RowCount} registros en pedidos");
+                }
+                catch (SqlException ex)
+                {
+                    Utils.MsgCatchOueclbdd(this, ex);
+                }
+                catch (Exception ex)
+                {
+                    Utils.MsgCatchOue(this, ex);
+                }
+            }
+            else
+            {
+                Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
+                DataTable tbl = new DataTable();
+                tbl.Columns.Add("Id", typeof(int));
+                tbl.Columns.Add("Producto", typeof(string));
+                DataRow dr = tbl.NewRow();
+                dr["Id"] = 0;
+                dr["Producto"] = "«--- Seleccione ---»";
+                tbl.Rows.Add(dr);
+                cboProducto.DataSource = tbl;
+                cboProducto.DisplayMember = "Producto";
+                cboProducto.ValueMember = "Id";
+                Utils.ActualizarBarraDeEstado(this, $"Se muestran {dgvPedidos.RowCount} registros en pedidos");
+            }
+        }
+
+        private void cboCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
