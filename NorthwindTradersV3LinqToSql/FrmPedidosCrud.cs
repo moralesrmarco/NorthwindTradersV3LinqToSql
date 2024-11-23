@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
+using NorthwindTradersV3LinqToSql;
 
 namespace NorthwindTradersV3LinqToSql
 {
@@ -948,10 +950,33 @@ namespace NorthwindTradersV3LinqToSql
                     txtCP.Text = resultado.ShipPostalCode;
                     txtPais.Text = resultado.ShipCountry;
                     txtFlete.Text = string.Format("{0:c}", resultado.Freight.ToString());
-                }
-                else
-                {
-
+                    //checar aqui procedimiento
+                    decimal flete;
+                    if (decimal.TryParse(txtFlete.Text, out flete))
+                        txtFlete.Text = flete.ToString();
+                    // hasta aqui
+                    DateTime fecha;
+                    if (DateTime.TryParse(resultado.OrderDate.ToString(), out fecha))
+                        dtpPedido.Value = dtpHoraPedido.Value = fecha;
+                    else
+                    {
+                        dtpPedido.Value = dtpHoraPedido.Value = dtpPedido.MinDate;
+                        dtpPedido.Checked = false;
+                    }
+                    if (DateTime.TryParse(resultado.RequiredDate.ToString(), out fecha))
+                        dtpRequerido.Value = dtpHoraRequerido.Value = fecha;
+                    else
+                    {
+                        dtpRequerido.Value = dtpHoraRequerido.Value = dtpRequerido.MinDate;
+                        dtpRequerido.Checked = false;
+                    }
+                    if (DateTime.TryParse(resultado.ShippedDate.ToString(), out fecha))
+                        dtpEnvio.Value = dtpHoraEnvio.Value = fecha;
+                    else
+                    {
+                        dtpEnvio.Value = dtpHoraEnvio.Value = dtpEnvio.MinDate;
+                        dtpEnvio.Checked = false;
+                    }
                 }
                 Utils.ActualizarBarraDeEstado(this, $"Se muestran {dgvPedidos.RowCount} registros en pedidos");
             }
@@ -962,6 +987,225 @@ namespace NorthwindTradersV3LinqToSql
             catch (Exception ex)
             {
                 Utils.MsgCatchOue(this, ex);
+            }
+        }
+
+        private void LlenarDatosDetallePedido()
+        {
+            try
+            {
+                IdDetalle = 1;
+                Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
+                var resultado = context.SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1(int.Parse(txtId.Text));
+                if (resultado != null && resultado.Any())
+                {
+                    //Order_Details pedidoDetalle;
+                    foreach (var pd in resultado)
+                    {
+                        var pedidoDetalle = new Order_Details()
+                        {
+                            ProductID = pd.Id_Producto,
+                            //pedidoDetalle.productName = pd.Producto;
+                            UnitPrice = pd.Precio,
+                            Quantity = pd.Cantidad,
+                            Discount = float.Parse(pd.Descuento.ToString())
+                        };
+                        string productName = pd.Producto;
+                        float total = float.Parse(pedidoDetalle.UnitPrice.ToString()) * float.Parse(pedidoDetalle.Quantity.ToString()) * (1 - pedidoDetalle.Discount);
+                        dgvDetalle.Rows.Add(new object[] { IdDetalle, productName, pedidoDetalle.UnitPrice, pedidoDetalle.Quantity, pedidoDetalle.Discount, total, "Eliminar", pedidoDetalle.ProductID });
+                        ++IdDetalle;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No se encontraron detalles para el pedido especificado", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                CalcularTotal();
+                Utils.ActualizarBarraDeEstado(this, $"Se muestran {dgvPedidos.RowCount} registros en pedidos");
+            }
+            catch (SqlException ex)
+            {
+                Utils.MsgCatchOueclbdd(this, ex);
+            }
+            catch (Exception ex)
+            {
+                Utils.MsgCatchOue(this, ex);
+            }
+        }
+
+        private class PedidosDB
+        {
+            public int PedidoId { get; set; }
+
+            public byte Add(Form form, Orders pedido, List<Order_Details> lst, TextBox textBox, string cliente)
+            {
+                byte numRegs = 0;
+                using (var context = new NorthwindTradersDataContext())
+                {
+                    using (var transaction = context.Connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            context.Transaction = transaction;
+                            // Creamos una nueva instancia de Order
+                            var nuevoPedido = new Orders()
+                            {
+                                CustomerID = pedido.CustomerID,
+                                EmployeeID = pedido.EmployeeID,
+                                OrderDate = pedido.OrderDate,
+                                RequiredDate = pedido.RequiredDate,
+                                ShippedDate = pedido.ShippedDate,
+                                ShipVia = pedido.ShipVia,
+                                Freight = pedido.Freight,
+                                ShipName = string.IsNullOrWhiteSpace(pedido.ShipName) ? null : pedido.ShipName,
+                                ShipAddress = string.IsNullOrWhiteSpace(pedido.ShipAddress) ? null : pedido.ShipAddress,
+                                ShipCity = string.IsNullOrWhiteSpace(pedido.ShipCity) ? null : pedido.ShipCity,
+                                ShipRegion = string.IsNullOrWhiteSpace(pedido.ShipRegion) ? null : pedido.ShipRegion,
+                                ShipPostalCode = string.IsNullOrWhiteSpace(pedido.ShipPostalCode) ? null : pedido.ShipPostalCode,
+                                ShipCountry = string.IsNullOrWhiteSpace(pedido.ShipCountry) ? null : pedido.ShipCountry
+                            };
+                            // Agregamos el nuevo pedido al contexto
+                            context.Orders.InsertOnSubmit(nuevoPedido);
+                            // Creamos los detalles del pedido y los agregamos al contexto
+                            foreach (var item in lst)
+                            {
+                                var nuevoDetalle = new Order_Details
+                                {
+                                    ProductID = item.ProductID,
+                                    UnitPrice = item.UnitPrice,
+                                    Quantity = item.Quantity,
+                                    Discount = (float)item.Discount,
+                                    Orders = nuevoPedido // Relacionamos el detalle con el pedido
+                                };
+                                context.Order_Details.InsertOnSubmit(nuevoDetalle);
+                                // Guardamos los cambios en la base de datos
+                                context.SubmitChanges();
+                                // Confirma la transacción
+                                transaction.Commit();
+                                // Obtenemos el Id del nuevo pedido
+                                int PedidoId = nuevoPedido.OrderID;
+                                textBox.Text = PedidoId.ToString();
+                                numRegs = 1;
+                                MessageBox.Show($"El pedido con Id: {PedidoId} del Cliente: {cliente}, se registró satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                        catch (SqlException ex)
+                        {
+                            // Si ocurre un error de base de datos, revertimos la transacción
+                            transaction.Rollback();
+                            Utils.MsgCatchOueclbdd(form, ex);
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            Utils.MsgCatchOue(form, ex);
+                        }
+                    }
+                }
+                return numRegs;
+            }
+
+            public byte Update(Form form, Orders pedido, string cliente)
+            {
+                byte numRegs = 0;
+                using (var context = new NorthwindTradersDataContext())
+                {
+                    // Iniciamos una transacción
+                    using (var transaction = context.Connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            context.Transaction = transaction;
+                            // Obtenemos el pedido que queremos actualizar
+                            var ped = context.Orders.SingleOrDefault(o => o.OrderID == pedido.OrderID);
+                            if (ped != null)
+                            {
+                                // Actualizamos los campos del pedido
+                                ped.CustomerID = pedido.CustomerID;
+                                ped.EmployeeID = pedido.EmployeeID;
+                                ped.OrderDate = pedido.OrderDate == null ? (DateTime?)null : pedido.OrderDate;
+                                ped.RequiredDate = pedido.RequiredDate == null ? (DateTime?)null : pedido.RequiredDate;
+                                ped.ShippedDate = pedido.ShippedDate == null ? (DateTime?)null : pedido.ShippedDate;
+                                ped.ShipVia = pedido.ShipVia;
+                                ped.Freight = pedido.Freight;
+                                ped.ShipName = string.IsNullOrWhiteSpace(pedido.ShipName) ? null : pedido.ShipName;
+                                ped.ShipAddress = string.IsNullOrWhiteSpace(pedido.ShipAddress) ? null : pedido.ShipAddress;
+                                ped.ShipCity = string.IsNullOrWhiteSpace(pedido.ShipCity) ? null : pedido.ShipCity;
+                                ped.ShipRegion = string.IsNullOrWhiteSpace(pedido.ShipRegion) ? null : pedido.ShipRegion;
+                                ped.ShipPostalCode = string.IsNullOrWhiteSpace(pedido.ShipPostalCode) ? null : pedido.ShipPostalCode;
+                                ped.ShipCountry = string.IsNullOrWhiteSpace(pedido.ShipCountry) ? null : pedido.ShipCountry;
+                                // Guardamos los cambios en la base de datos
+                                context.SubmitChanges();
+                                // Confirmamos la transacción
+                                transaction.Commit();
+                                numRegs = 1;
+                                MessageBox.Show($"El pedido con Id: {pedido.OrderID} del cliente : {cliente}, se actualizó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                                MessageBox.Show("No se pudo realizar la modificación, es posible que el registro se haya eliminado previamente por otro usuario de la red", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        catch (SqlException ex)
+                        {
+                            // Si ocurre un error, revertimos la transacción
+                            transaction.Rollback();
+                            Utils.MsgCatchOueclbdd(form, ex);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Manejo general de excepciones
+                            transaction.Rollback();
+                            Utils.MsgCatchOue(form, ex);
+                        }
+                    }
+                }
+                return numRegs;
+            }
+
+            public byte Delete(Form form, Orders pedido, string cliente)
+            {
+                byte numRegs = 0;
+                using (var context = new NorthwindTradersDataContext())
+                {
+                    // Iniciamos una transacción
+                    using (var transaction = context.Connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            context.Transaction = transaction;
+                            // Obtenemos el pedido que queremos eliminar
+                            var pedidosAEliminar = context.Orders.SingleOrDefault(o => o.OrderID == pedido.OrderID);
+                            if (pedidosAEliminar != null)
+                            {
+                                // Obtenemos los detalles del pedido que queremos eliminar
+                                var detallesAEliminar = context.Order_Details.Where(d => d.OrderID == pedido.OrderID).ToList();
+                                // Eliminamos los detalles del pedido
+                                context.Order_Details.DeleteAllOnSubmit(detallesAEliminar);
+                                // Eliminamos el pedido
+                                context.Orders.DeleteOnSubmit(pedidosAEliminar);
+                                // Guardamos los cambios en la base de datos
+                                context.SubmitChanges();
+                                // Confirmamos la transacción
+                                transaction.Commit();
+                                numRegs = 1; // suponiendo que un registro ha sido eliminado
+                                MessageBox.Show($"El pedido con Id: {pedido.OrderID} del Cliente, se eliminó satisfactoriamente junto con sus registros de detalle del pedido", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                                MessageBox.Show("No se pudo realizar la eliminación, es posible que el registro haya sido eliminado previamente por otro usuario de la red", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        catch (SqlException ex)
+                        {
+                            // Si ocurre un error, revertimos la transacción
+                            transaction.Rollback();
+                            Utils.MsgCatchOueclbdd(form, ex);
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            Utils.MsgCatchOue(form, ex);
+                        }
+                    }
+                }
+                return numRegs;
             }
         }
     }

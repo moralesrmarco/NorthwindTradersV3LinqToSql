@@ -742,4 +742,14 @@
       <Column Name="ShipCountry" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1" Method="SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1">
+    <Parameter Name="PedidoId" Parameter="pedidoId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result">
+      <Column Name="[Id Producto]" Member="Id_Producto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Producto" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="Precio" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Descuento" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
 </Database>

@@ -604,6 +604,13 @@ namespace NorthwindTradersV3LinqToSql
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pedidoId);
 			return ((ISingleResult<SP_PEDIDOS_LISTAR1Result>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1")]
+		public ISingleResult<SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result> SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PedidoId", DbType="Int")] System.Nullable<int> pedidoId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pedidoId);
+			return ((ISingleResult<SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Categories")]
@@ -8245,6 +8252,104 @@ namespace NorthwindTradersV3LinqToSql
 				if ((this._ShipCountry != value))
 				{
 					this._ShipCountry = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result
+	{
+		
+		private int _Id_Producto;
+		
+		private string _Producto;
+		
+		private decimal _Precio;
+		
+		private short _Cantidad;
+		
+		private float _Descuento;
+		
+		public SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Id Producto]", Storage="_Id_Producto", DbType="Int NOT NULL")]
+		public int Id_Producto
+		{
+			get
+			{
+				return this._Id_Producto;
+			}
+			set
+			{
+				if ((this._Id_Producto != value))
+				{
+					this._Id_Producto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Producto", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string Producto
+		{
+			get
+			{
+				return this._Producto;
+			}
+			set
+			{
+				if ((this._Producto != value))
+				{
+					this._Producto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Precio", DbType="Money NOT NULL")]
+		public decimal Precio
+		{
+			get
+			{
+				return this._Precio;
+			}
+			set
+			{
+				if ((this._Precio != value))
+				{
+					this._Precio = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cantidad", DbType="SmallInt NOT NULL")]
+		public short Cantidad
+		{
+			get
+			{
+				return this._Cantidad;
+			}
+			set
+			{
+				if ((this._Cantidad != value))
+				{
+					this._Cantidad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descuento", DbType="Real NOT NULL")]
+		public float Descuento
+		{
+			get
+			{
+				return this._Descuento;
+			}
+			set
+			{
+				if ((this._Descuento != value))
+				{
+					this._Descuento = value;
 				}
 			}
 		}
