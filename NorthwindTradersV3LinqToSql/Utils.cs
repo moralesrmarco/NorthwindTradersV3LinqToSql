@@ -155,13 +155,13 @@ namespace NorthwindTradersV3LinqToSql
 
         public static void MsgCatchOueclbdd(Form form, SqlException ex)
         {
-            MessageBox.Show(Utils.oueclbdd + ex.Message, Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(Utils.oueclbdd + "\n" + ex.Message + "\n" + ex.StackTrace, Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
             Utils.ActualizarBarraDeEstado(form);
         }
 
         public static void MsgCatchOue(Form form, Exception ex)
         {
-            MessageBox.Show(Utils.oue + ex.Message, Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(Utils.oue + "\n" + ex.Message + "\n" + ex.StackTrace, Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
             Utils.ActualizarBarraDeEstado(form);
         }
 

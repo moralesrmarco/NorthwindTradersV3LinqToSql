@@ -138,6 +138,7 @@
             this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnListar = new System.Windows.Forms.Button();
             this.grbTransportista.SuspendLayout();
             this.grbBuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -414,6 +415,7 @@
             // 
             this.grbBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.grbBuscar.Controls.Add(this.btnListar);
             this.grbBuscar.Controls.Add(this.btnLimpiar);
             this.grbBuscar.Controls.Add(this.btnBuscar);
             this.grbBuscar.Controls.Add(this.label19);
@@ -898,6 +900,7 @@
             this.tabcOperacion.SelectedIndex = 0;
             this.tabcOperacion.Size = new System.Drawing.Size(1141, 56);
             this.tabcOperacion.TabIndex = 0;
+            this.tabcOperacion.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabcOperacion_Selecting);
             this.tabcOperacion.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabcOperacion_Selected);
             // 
             // dgvPedidos
@@ -934,6 +937,7 @@
             this.btnGenerar.Text = "Generar pedido";
             this.btnGenerar.UseVisualStyleBackColor = true;
             this.btnGenerar.Visible = false;
+            this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
             // 
             // txtTotal
             // 
@@ -1353,6 +1357,18 @@
             this.Cantidad.Name = "Cantidad";
             this.Cantidad.Width = 82;
             // 
+            // btnListar
+            // 
+            this.btnListar.AutoSize = true;
+            this.btnListar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnListar.Location = new System.Drawing.Point(48, 408);
+            this.btnListar.Name = "btnListar";
+            this.btnListar.Size = new System.Drawing.Size(243, 23);
+            this.btnListar.TabIndex = 30;
+            this.btnListar.Text = "Listar los últimos 20 pedidos registrados";
+            this.btnListar.UseVisualStyleBackColor = true;
+            this.btnListar.Click += new System.EventHandler(this.btnListar_Click);
+            // 
             // FrmPedidosCrud
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1503,5 +1519,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TabPage tabpEliminar;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnListar;
     }
 }
