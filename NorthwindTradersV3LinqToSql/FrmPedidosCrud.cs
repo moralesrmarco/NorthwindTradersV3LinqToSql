@@ -87,7 +87,6 @@ namespace NorthwindTradersV3LinqToSql
         {
             cboCliente.Enabled = cboEmpleado.Enabled = cboTransportista.Enabled = cboCategoria.Enabled = cboProducto.Enabled = true;
             dtpPedido.Enabled = dtpRequerido.Enabled = dtpEnvio.Enabled = true;
-            //dtpPedido.Enabled = dtpHoraPedido.Enabled = dtpRequerido.Enabled = dtpHoraRequerido.Enabled = dtpEnvio.Enabled = dtpHoraEnvio.Enabled = true;
             txtDirigidoa.ReadOnly = txtDomicilio.ReadOnly = txtCiudad.ReadOnly = txtRegion.ReadOnly = txtCP.ReadOnly = txtPais.ReadOnly = txtFlete.ReadOnly = false;
             btnAgregar.Enabled = btnGenerar.Enabled = true;
         }
@@ -968,11 +967,6 @@ namespace NorthwindTradersV3LinqToSql
                     txtCP.Text = resultado.ShipPostalCode;
                     txtPais.Text = resultado.ShipCountry;
                     txtFlete.Text = $"{resultado.Freight:C2}";
-                    //checar aqui procedimiento
-                    //decimal flete;
-                    //if (decimal.TryParse(txtFlete.Text, out flete))
-                    //    txtFlete.Text = flete.ToString();
-                    // hasta aqui
                     DateTime fecha;
                     if (DateTime.TryParse(resultado.OrderDate.ToString(), out fecha))
                     {
