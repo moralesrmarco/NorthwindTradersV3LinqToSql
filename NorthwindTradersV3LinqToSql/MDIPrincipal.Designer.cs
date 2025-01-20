@@ -556,6 +556,7 @@
             this.tsmiMantenimientoDeDetalleDePedidos.Name = "tsmiMantenimientoDeDetalleDePedidos";
             this.tsmiMantenimientoDeDetalleDePedidos.Size = new System.Drawing.Size(271, 22);
             this.tsmiMantenimientoDeDetalleDePedidos.Text = "Mantenimiento de detalle de pedidos";
+            this.tsmiMantenimientoDeDetalleDePedidos.Click += new System.EventHandler(this.tsmiMantenimientoDeDetalleDePedidos_Click);
             // 
             // toolsMenu
             // 

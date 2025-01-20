@@ -304,5 +304,15 @@ namespace NorthwindTradersV3LinqToSql
             };
             frmPedidosCrud.Show();
         }
+
+        private void tsmiMantenimientoDeDetalleDePedidos_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmPedidosDetalleCrud frmPedidosDetalleCrud = new FrmPedidosDetalleCrud
+            {
+                MdiParent = this
+            };
+            frmPedidosDetalleCrud.Show();
+        }
     }
 }

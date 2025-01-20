@@ -89,6 +89,12 @@
     <Compile Include="FrmPedidosCrud.Designer.cs">
       <DependentUpon>FrmPedidosCrud.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmPedidosDetalleCrud.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPedidosDetalleCrud.Designer.cs">
+      <DependentUpon>FrmPedidosDetalleCrud.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmProductosConsultaAlfabetica.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,21 +150,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StoreProcedures\Sp_Categorias.cs" />
-    <Compile Include="StoreProcedures\Sp_Clientes.cs" />
-    <Compile Include="StoreProcedures\Sp_ClientesProveedores_Ciudad.cs" />
-    <Compile Include="StoreProcedures\Sp_ClientesProveedores_Pais.cs" />
-    <Compile Include="StoreProcedures\Sp_DetallePedidos.cs" />
-    <Compile Include="StoreProcedures\Sp_Empleados.cs" />
-    <Compile Include="StoreProcedures\Sp_Pedidos.cs" />
-    <Compile Include="StoreProcedures\Sp_Productos.cs" />
-    <Compile Include="StoreProcedures\Sp_Proveedores.cs" />
-    <Compile Include="StoreProcedures\Sp_Transportistas.cs" />
-    <Compile Include="StoreProcedures\Vw_ClientesProveedores_DirectorioPorCiudad.cs" />
-    <Compile Include="StoreProcedures\Vw_ClientesProveedores_DirectorioPorPais.cs" />
-    <Compile Include="StoreProcedures\Vw_ProductosListaAlfabetica.cs" />
-    <Compile Include="StoreProcedures\Vw_ProductosPorCategoriaListado.cs" />
-    <Compile Include="StoreProcedures\Vw_ProductosPorEncimaDelPrecioPromedio.cs" />
     <Compile Include="Utils.cs" />
     <EmbeddedResource Include="FrmCategoriasCrud.resx">
       <DependentUpon>FrmCategoriasCrud.cs</DependentUpon>
@@ -180,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPedidosCrud.resx">
       <DependentUpon>FrmPedidosCrud.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPedidosDetalleCrud.resx">
+      <DependentUpon>FrmPedidosDetalleCrud.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmProductosConsultaAlfabetica.resx">
       <DependentUpon>FrmProductosConsultaAlfabetica.cs</DependentUpon>
@@ -244,6 +238,94 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Categorias.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="StoredProcedures\dbo.SP_CATEGORIAS_ACTUALIZAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CATEGORIAS_ACTUALIZAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CATEGORIAS_BUSCAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CATEGORIAS_BUSCAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CATEGORIAS_ELIMINAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CATEGORIAS_ELIMINAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CATEGORIAS_INSERTAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CATEGORIAS_INSERTAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CATEGORIAS_LISTAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CATEGORIAS_SELECCIONAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CATEGORIAS_SELECCIONAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CLIENTESPROVEEDORES_CIUDAD.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CLIENTESPROVEEDORES_PAIS.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CLIENTES_ACTUALIZAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CLIENTES_ACTUALIZAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CLIENTES_BUSCAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CLIENTES_ELIMINAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CLIENTES_ELIMINAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CLIENTES_INSERTAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CLIENTES_INSERTAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CLIENTES_LISTAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CLIENTES_PAIS.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CLIENTES_SELECCIONAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1.sql" />
+    <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_ACTUALIZAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_ACTUALIZAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_BUSCAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_BUSCAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_ELIMINAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_ELIMINAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_FOTOS_TMP.sql" />
+    <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_INSERTAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_INSERTAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_LISTAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_NOMBRES.sql" />
+    <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_NOMBRES_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_PAIS.sql" />
+    <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_SELECCIONAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOSCLIENTE.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOSDETALLE_ACTUALIZAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOSDETALLE_ACTUALIZAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOSDETALLE_ELIMINAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOSDETALLE_ELIMINAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOSDETALLE_INSERTAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOSDETALLE_INSERTAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOSDETALLE_PRODUCTOS.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOSVENDEDOR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOSXCLIENTE.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOSXVENDEDOR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOS_ACTUALIZAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOS_BUSCAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOS_ELIMINAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOS_ELIMINAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOS_INSERTAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOS_INSERTAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOS_LISTAR1.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOS_LISTAR20.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PRODUCTOS_ACTUALIZAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PRODUCTOS_ACTUALIZAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PRODUCTOS_ALL.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PRODUCTOS_BUSCAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PRODUCTOS_BUSCAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PRODUCTOS_ELIMINAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PRODUCTOS_ELIMINAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PRODUCTOS_INSERTAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PRODUCTOS_INSERTAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PRODUCTOS_SELECCIONAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_ACTUALIZAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_ACTUALIZAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_BUSCAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_BUSCAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_ELIMINAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_ELIMINAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_INSERTAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_INSERTAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_LISTAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_PAIS.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_SELECCIONAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_TRANSPORTISTAS_SELECCIONAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_VENDEDORES_LISTAR.sql" />
+    <Content Include="StoredProcedures\dbo.Tipo_OrderDetails.sql" />
+    <Content Include="StoredProcedures\dbo.VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD.sql" />
+    <Content Include="StoredProcedures\dbo.VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS.sql" />
+    <Content Include="StoredProcedures\dbo.VW_PRODUCTOSLISTAALFABETICA.sql" />
+    <Content Include="StoredProcedures\dbo.VW_PRODUCTOSPORCATEGORIALISTADO.sql" />
+    <Content Include="StoredProcedures\dbo.VW_PRODUCTOSPORENCIMADELPRECIOPROMEDIO.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
