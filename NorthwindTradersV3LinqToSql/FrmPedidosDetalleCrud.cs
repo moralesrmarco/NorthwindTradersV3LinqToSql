@@ -52,7 +52,7 @@ namespace NorthwindTradersV3LinqToSql
             Utils.ConfDgv(DgvDetalle);
             ConfDgvPedidos();
             ConfDgvDetalle();
-            InicializarValoresProducto();
+            InicializarValores();
         }
 
         private void DeshabilitarControles()
@@ -70,11 +70,13 @@ namespace NorthwindTradersV3LinqToSql
         private void DeshabilitarControlesProducto()
         {
             txtCantidad.Enabled = txtDescuento.Enabled = false;
+            btnAgregar.Enabled = false;
         }
 
         private void HabilitarControlesProducto()
         {
             txtCantidad.Enabled = txtDescuento.Enabled = true;
+            btnAgregar.Enabled = true;
         }
 
         private void LlenarCboCategoria()
@@ -200,12 +202,17 @@ namespace NorthwindTradersV3LinqToSql
             DgvDetalle.Columns["Importe"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         }
 
+        private void InicializarValores()
+        {
+            txtTotal.Text = "$0.00";
+            InicializarValoresProducto();
+        }
+
         private void InicializarValoresProducto()
         {
+            txtUInventario.Text = txtCantidad.Text = "0";
             txtPrecio.Text = "$0.00";
             txtDescuento.Text = "0.00";
-            txtTotal.Text = "$0.00";
-            txtUInventario.Text = txtCantidad.Text = "0";
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -238,7 +245,7 @@ namespace NorthwindTradersV3LinqToSql
             txtId.Text = txtCliente.Text = "";
             cboCategoria.SelectedIndex = 0;
             cboProducto.DataSource = null;
-            InicializarValoresProducto();
+            InicializarValores();
             DgvDetalle.Rows.Clear();
         }
 
@@ -269,7 +276,7 @@ namespace NorthwindTradersV3LinqToSql
                 valida = false;
                 errorProvider1.SetError(txtCantidad, "Ingrese la cantidad");
             }
-            if (int.Parse(txtCantidad.Text) > int.Parse(txtUInventario.Text))
+            if (int.Parse(txtCantidad.Text) > int.Parse(txtUInventario.Text.Replace(",", "")))
             {
                 valida = false;
                 errorProvider1.SetError(txtCantidad, "La cantidad de productos en el pedido excede el inventario disponible");
@@ -279,7 +286,7 @@ namespace NorthwindTradersV3LinqToSql
                 valida = false;
                 errorProvider1.SetError(txtDescuento, "Ingrese el descuento");
             }
-            if (decimal.Parse(txtDescuento.Text) > 1 || decimal.Parse(txtDescuento.Text) < 0)
+            if (float.Parse(txtDescuento.Text) > 1 || float.Parse(txtDescuento.Text) < 0)
             {
                 valida = false;
                 errorProvider1.SetError(txtDescuento, "El descuento no puede ser mayor que 1 o menor que 0");
@@ -304,12 +311,326 @@ namespace NorthwindTradersV3LinqToSql
             }
             string total = txtTotal.Text;
             total = total.Replace("$", "");
-            if (txtTotal.Text == "" || (decimal.Parse(total) + (decimal.Parse(txtPrecio.Text.Replace("$", "")) * int.Parse(txtCantidad.Text) * (1 - decimal.Parse(txtDescuento.Text))) == 0))
+            if (txtTotal.Text == "" || (float.Parse(total) + (float.Parse(txtPrecio.Text.Replace("$", "")) * int.Parse(txtCantidad.Text) * (1 - float.Parse(txtDescuento.Text))) == 0))
             {
                 valida = false;
                 errorProvider1.SetError(btnAgregar, "Ingrese el detalle del pedido");
             }
             return valida;
+        }
+
+        private void txtBIdInicial_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.ValidarDigitosSinPunto(sender, e);
+        }
+
+        private void txtBIdInicial_Leave(object sender, EventArgs e)
+        {
+            Utils.ValidaTxtBIdIni(txtBIdInicial, txtBIdFinal);
+        }
+
+        private void txtBIdFinal_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Utils.ValidarDigitosSinPunto(sender, e);
+        }
+
+        private void txtBIdFinal_Leave(object sender, EventArgs e)
+        {
+            Utils.ValidaTxtBIdFin(txtBIdInicial, txtBIdFinal);
+        }
+
+        private void dtpBFPedidoIni_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpBFPedidoIni.Checked)
+            {
+                dtpBFPedidoFin.Checked = true;
+                chkBFPedidoNull.Checked = false;
+            }
+            else
+                dtpBFPedidoFin.Checked = false;
+        }
+
+        private void dtpBFPedidoFin_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpBFPedidoFin.Checked)
+            {
+                dtpBFPedidoIni.Checked = true;
+                chkBFPedidoNull.Checked = false;
+            }
+            else
+                dtpBFPedidoIni.Checked = false;
+        }
+
+        private void dtpBFRequeridoIni_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpBFRequeridoIni.Checked)
+            {
+                dtpBFRequeridoFin.Checked = true;
+                chkBFRequeridoNull.Checked = false;
+            }
+            else
+                dtpBFRequeridoFin.Checked = false;
+        }
+
+        private void dtpBFRequeridoFin_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpBFRequeridoFin.Checked)
+            {
+                dtpBFRequeridoIni.Checked = true;
+                chkBFRequeridoNull.Checked = false;
+            }
+            else
+                dtpBFRequeridoIni.Checked = false;
+        }
+
+        private void dtpBFEnvioIni_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpBFEnvioIni.Checked)
+            {
+                dtpBFEnvioFin.Checked = true;
+                chkBFEnvioNull.Checked = false;
+            }
+            else
+                dtpBFEnvioFin.Checked = false;
+        }
+
+        private void dtpBFEnvioFin_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpBFEnvioFin.Checked)
+            {
+                dtpBFEnvioIni.Checked = true;
+                chkBFEnvioNull.Checked = false;
+            }
+            else
+                dtpBFEnvioIni.Checked = false;
+        }
+
+        private void chkBFPedidoNull_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBFPedidoNull.Checked)
+            {
+                dtpBFPedidoIni.Checked = false;
+                dtpBFPedidoFin.Checked = false;
+            }
+        }
+
+        private void chkBFRequeridoNull_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBFRequeridoNull.Checked)
+            {
+                dtpBFRequeridoIni.Checked = false;
+                dtpBFRequeridoFin.Checked = false;
+            }
+        }
+
+        private void chkBFEnvioNull_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBFEnvioNull.Checked)
+            {
+                dtpBFEnvioIni.Checked = false;
+                dtpBFEnvioFin.Checked = false;
+            }
+        }
+
+        private void dtpBFPedidoIni_Leave(object sender, EventArgs e)
+        {
+            if (dtpBFPedidoIni.Checked && dtpBFPedidoFin.Checked)
+                if (dtpBFPedidoFin.Value < dtpBFPedidoIni.Value)
+                    dtpBFPedidoFin.Value = dtpBFPedidoIni.Value;
+        }
+
+        private void dtpBFPedidoFin_Leave(object sender, EventArgs e)
+        {
+            if (dtpBFPedidoIni.Checked && dtpBFPedidoFin.Checked)
+                if (dtpBFPedidoFin.Value < dtpBFPedidoIni.Value)
+                    dtpBFPedidoIni.Value = dtpBFPedidoFin.Value;
+        }
+
+        private void dtpBFRequeridoIni_Leave(object sender, EventArgs e)
+        {
+            if (dtpBFRequeridoIni.Checked && dtpBFRequeridoFin.Checked)
+                if (dtpBFRequeridoFin.Value < dtpBFRequeridoIni.Value)
+                    dtpBFRequeridoFin.Value = dtpBFRequeridoIni.Value;
+        }
+
+        private void dtpBFRequeridoFin_Leave(object sender, EventArgs e)
+        {
+            if (dtpBFRequeridoIni.Checked && dtpBFRequeridoFin.Checked)
+                if (dtpBFRequeridoFin.Value < dtpBFRequeridoIni.Value)
+                    dtpBFRequeridoIni.Value = dtpBFRequeridoFin.Value;
+        }
+
+        private void dtpBFEnvioIni_Leave(object sender, EventArgs e)
+        {
+            if (dtpBFEnvioIni.Checked && dtpBFEnvioFin.Checked)
+                if (dtpBFEnvioFin.Value < dtpBFEnvioIni.Value)
+                    dtpBFEnvioFin.Value = dtpBFEnvioIni.Value;
+        }
+
+        private void dtpBFEnvioFin_Leave(object sender, EventArgs e)
+        {
+            if (dtpBFEnvioIni.Checked && dtpBFEnvioFin.Checked)
+                if (dtpBFEnvioFin.Value < dtpBFEnvioIni.Value)
+                    dtpBFEnvioIni.Value = dtpBFEnvioFin.Value;
+        }
+
+        private void cboCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            InicializarValoresProducto();
+            BorrarMensajesError();
+            if (cboCategoria.SelectedIndex > 0)
+            {
+                try
+                {
+                    Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
+                    cboProducto.DataSource = context.SP_PRODUCTOS_SELECCIONAR(int.Parse(cboCategoria.SelectedValue.ToString()));
+                    cboProducto.ValueMember = "Id";
+                    cboProducto.DisplayMember = "Producto";
+                    cboProducto.Enabled = true;
+                    Utils.ActualizarBarraDeEstado(this, $"Se muestran {DgvPedidos.RowCount} registros en pedidos");
+                }
+                catch (SqlException ex)
+                {
+                    Utils.MsgCatchOueclbdd(this, ex);
+                }
+                catch (Exception ex)
+                {
+                    Utils.MsgCatchOue(this, ex);
+                }
+            }
+            else
+            {
+                Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
+                DataTable tbl = new DataTable();
+                tbl.Columns.Add("Id", typeof(int));
+                tbl.Columns.Add("Producto", typeof(string));
+                DataRow dr = tbl.NewRow();
+                dr["Id"] = 0;
+                dr["Producto"] = "«--- Seleccione ---»";
+                tbl.Rows.Add(dr);
+                cboProducto.DataSource = tbl;
+                cboProducto.ValueMember = "Id";
+                cboProducto.DisplayMember = "Producto";
+                cboProducto.Enabled = false;
+                Utils.ActualizarBarraDeEstado(this, $"Se muestran {DgvPedidos.RowCount} registros en pedidos");
+            }
+        }
+
+        private void cboProducto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            InicializarValoresProducto();
+            BorrarMensajesError();
+            if (cboProducto.SelectedIndex > 0)
+            {
+                try
+                {
+                    Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
+                    var query = context.Products
+                        .Where(p => p.ProductID == int.Parse(cboProducto.SelectedValue.ToString()))
+                        .Select(p => new
+                        {
+                            p.UnitPrice,
+                            p.UnitsInStock
+                        })
+                        .FirstOrDefault();
+                    if (query != null)
+                    {
+                        txtPrecio.Text = $"{query.UnitPrice:c2}";
+                        txtUInventario.Text = short.Parse(query.UnitsInStock.ToString()).ToString("n0");
+                        if (int.Parse(txtUInventario.Text.Replace(",", "")) == 0)
+                        {
+                            DeshabilitarControlesProducto();
+                            MessageBox.Show("No hay este producto en existencia", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            cboProducto.SelectedIndex = 0;
+                        }
+                        else
+                            HabilitarControlesProducto();
+                    }
+                    else
+                        DeshabilitarControlesProducto();
+                    Utils.ActualizarBarraDeEstado(this, $"Se muestran {DgvPedidos.RowCount} registros en pedidos");
+                }
+                catch (SqlException ex)
+                {
+                    Utils.MsgCatchOueclbdd(this, ex);
+                }
+                catch (Exception ex)
+                {
+                    Utils.MsgCatchOue(this, ex);
+                }
+            }
+            else
+                DeshabilitarControlesProducto();
+        }
+
+        private void DgvPedidos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            BorrarDatosPedido();
+            DataGridViewRow dgvr = DgvPedidos.CurrentRow;
+            txtId.Text = dgvr.Cells["Id"].Value.ToString();
+            txtCliente.Text = dgvr.Cells["Cliente"].Value.ToString();
+            LlenarDatosDetallePedido();
+            cboCategoria.Enabled = true;
+        }
+
+        private void LlenarDatosDetallePedido()
+        {
+            try
+            {
+                IdDetalle = 1;
+                Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
+                var query = context.SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1(int.Parse(txtId.Text)).ToList();
+                if (query != null)
+                {
+                    foreach (var pd in query)
+                    {
+                        var pedidoDetalle = new Order_Details()
+                        {
+                            ProductID = pd.Id_Producto,
+                            UnitPrice = pd.Precio,
+                            Quantity = pd.Cantidad,
+                            Discount = pd.Descuento
+                        };
+                        string productName = pd.Producto;
+                        float importe = (float.Parse(pedidoDetalle.UnitPrice.ToString()) * pedidoDetalle.Quantity) * (1 - pedidoDetalle.Discount);
+                        DgvDetalle.Rows.Add(new object[] { IdDetalle, productName, pedidoDetalle.UnitPrice, pedidoDetalle.Quantity, pedidoDetalle.Discount, importe, "Modificar", "Eliminar", pedidoDetalle.ProductID });
+                        ++IdDetalle;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No se encontraron detalles para el pedido especificado", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                CalcularTotal();
+                Utils.ActualizarBarraDeEstado(this, $"Se muestran {DgvPedidos.RowCount} registros en pedidos");
+            }
+            catch (SqlException ex)
+            {
+                Utils.MsgCatchOueclbdd(this, ex);
+            }
+            catch (Exception ex)
+            {
+                Utils.MsgCatchOue(this, ex);
+            }
+        }
+
+        private void DgvDetalle_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 2 && e.Value != null) e.Value = float.Parse(e.Value.ToString()).ToString("c");
+            if (e.ColumnIndex == 3 && e.Value != null) e.Value = int.Parse(e.Value.ToString()).ToString("n0");
+            if (e.ColumnIndex == 4 && e.Value != null) e.Value = float.Parse(e.Value.ToString()).ToString("n2");
+            if (e.ColumnIndex == 5 && e.Value != null) e.Value = float.Parse(e.Value.ToString()).ToString("c");
+        }
+
+        private void CalcularTotal()
+        {
+            float total = 0;
+            foreach(DataGridViewRow dgvr in DgvDetalle.Rows)
+            {
+                float importe = (float)dgvr.Cells["Importe"].Value;
+                total += importe;
+            }
+            txtTotal.Text = string.Format("{0:c}", total);
         }
     }
 }
