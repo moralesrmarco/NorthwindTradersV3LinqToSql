@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NorthwindTradersV3LinqToSql
@@ -309,8 +304,7 @@ namespace NorthwindTradersV3LinqToSql
                     errorProvider1.SetError(cboProducto, "No se puede tener un producto duplicado en el detalle del pedido");
                 }
             }
-            string total = txtTotal.Text;
-            total = total.Replace("$", "");
+            string total = txtTotal.Text.Replace("$", "");
             if (txtTotal.Text == "" || (float.Parse(total) + (float.Parse(txtPrecio.Text.Replace("$", "")) * int.Parse(txtCantidad.Text) * (1 - float.Parse(txtDescuento.Text))) == 0))
             {
                 valida = false;
@@ -580,7 +574,7 @@ namespace NorthwindTradersV3LinqToSql
                 IdDetalle = 1;
                 Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
                 var query = context.SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1(int.Parse(txtId.Text)).ToList();
-                if (query != null)
+                if (query.Count > 0)
                 {
                     foreach (var pd in query)
                     {
@@ -631,6 +625,208 @@ namespace NorthwindTradersV3LinqToSql
                 total += importe;
             }
             txtTotal.Text = string.Format("{0:c}", total);
+        }
+
+        private byte AgregarPedidoDetalle(Order_Details pedidoDetalle)
+        {
+            byte numRegs = 0;
+            using (var context = new NorthwindTradersDataContext())
+            {
+                // Nos aseguramos de que la conexión esté abierta
+                if (context.Connection.State == ConnectionState.Closed)
+                    context.Connection.Open();
+                // Iniciamos una transacción. 
+                using (var transaction = context.Connection.BeginTransaction())
+                {
+                    // las excepciones generadas en este segmento de código son capturadas en un nivel superior, por eso uso throw para relanzar la excepción y se procese en el nivel superior.
+                    try
+                    {
+                        context.Transaction = transaction;
+                        // Verificar la exestencia del producto
+                        var product = context.Products.SingleOrDefault(p => p.ProductID == pedidoDetalle.ProductID);
+                        if (product == null)
+                            throw new InvalidOperationException("Producto no encontrado");
+                        // Verificar si hay suficientes unidades en stock
+                        if (product.UnitsInStock < pedidoDetalle.Quantity)
+                            throw new InvalidOperationException("No hay suficientes unidades en stock");
+                        // Restar Quantity a UnitsInStock en la tabla Products
+                        product.UnitsInStock -= pedidoDetalle.Quantity;
+                        // Insertar el nuevo registro en Order_Details
+                        context.Order_Details.InsertOnSubmit(pedidoDetalle);
+                        context.SubmitChanges();
+                        // Si todo va bien, confirmamos la transacción
+                        transaction.Commit();
+                        numRegs = 1;
+                    }
+                    catch (SqlException)
+                    {
+                        // Si ocurre un error de base de datos, revertimos la transacción
+                        transaction.Rollback();
+                        throw; // se vuelve a lanzar la excepción para que sea procesada en un nivel superior
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+            return numRegs;
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            byte numRegs = 0;
+            BorrarMensajesError();
+            if (ValidarControles())
+            {
+                try
+                {
+                    Utils.ActualizarBarraDeEstado(this, Utils.insertandoRegistro);
+                    cboCategoria.Enabled = false;
+                    DeshabilitarControlesProducto();
+                    Order_Details pedidoDetalle = new Order_Details();
+                    pedidoDetalle.OrderID = int.Parse(txtId.Text);
+                    pedidoDetalle.ProductID = int.Parse(cboProducto.SelectedValue.ToString());
+                    pedidoDetalle.UnitPrice = decimal.Parse(txtPrecio.Text.Replace("$", ""));
+                    pedidoDetalle.Quantity = short.Parse(txtCantidad.Text);
+                    pedidoDetalle.Discount = float.Parse(txtDescuento.Text);
+                    numRegs = AgregarPedidoDetalle(pedidoDetalle);
+                    if (numRegs > 0)
+                        MessageBox.Show($"El producto: {cboProducto.Text} del Pedido: {txtId.Text}, se registró satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MessageBox.Show($"El producto: {cboProducto.Text} del Pedido: {txtId.Text}, NO se registró en la base de datos", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Utils.ActualizarBarraDeEstado(this, $"Se muestran {DgvPedidos.RowCount} registros de pedidos");
+                }
+                catch (SqlException ex) when (ex.Number == 2627)
+                {
+                    MessageBox.Show($"Error, ya existe un registro del producto {cboProducto.Text} en la base de datos, modifique la cantidad del producto de ese registro", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    BorrarDatosAgregarProducto();
+                    cboCategoria.Enabled = true;
+                }
+                catch (SqlException ex)
+                {
+                    Utils.MsgCatchOueclbdd(this, ex);
+                }
+                catch (Exception ex)
+                {
+                    Utils.MsgCatchOue(this, ex);
+                }
+                if (numRegs > 0)
+                {
+                    BorrarDatosDetallePedido();
+                    LlenarDatosDetallePedido();
+                    cboCategoria.Enabled = true;
+                    Utils.ActualizarBarraDeEstado(this, $"Se muestran {DgvPedidos.RowCount} registros de pedidos");
+                    DgvDetalle.Focus();
+                }
+            }
+        }
+
+        private void BorrarDatosAgregarProducto()
+        {
+            cboCategoria.SelectedIndex = 0;
+            cboProducto.DataSource = null;
+            InicializarValoresProducto();
+        }
+
+        private void BorrarDatosDetallePedido()
+        {
+            cboCategoria.SelectedIndex = 0;
+            cboProducto.DataSource = null;
+            InicializarValores();
+            txtTotal.Text = "$0.00";
+            DgvDetalle.Rows.Clear();
+        }
+
+        private void DgvDetalle_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+            if (e.ColumnIndex == DgvDetalle.Columns["Eliminar"].Index)
+            {
+                DataGridViewRow dgvr = DgvDetalle.CurrentRow;
+                string productName = dgvr.Cells["Producto"].Value.ToString();
+                int productId = (int)dgvr.Cells["ProductoId"].Value;
+                int orderId = int.Parse(txtId.Text);
+                EliminarPedidoDetalle(orderId, productId, productName );
+            }
+            if (e.ColumnIndex == DgvDetalle.Columns["Modificar"].Index)
+            {
+
+            }
+            DgvDetalle.Focus();
+        }
+
+        private void EliminarPedidoDetalle(int orderId, int productId, string productName)
+        {
+            byte numRegs = 0;
+            BorrarMensajesError();
+            BorrarDatosAgregarProducto();
+            try
+            {
+                DialogResult respuesta = MessageBox.Show($"¿Esta seguro de eliminar el producto: {productName} del Pedido: {orderId}?", Utils.nwtr, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (respuesta == DialogResult.Yes)
+                {
+                    Utils.ActualizarBarraDeEstado(this, Utils.eliminandoRegistro);
+                    cboCategoria.Enabled = false;
+                    DeshabilitarControlesProducto();
+                    using (var context = new NorthwindTradersDataContext())
+                    {
+                        // Nos aseguramos de que la conexión esté abierta
+                        if (context.Connection.State == ConnectionState.Closed)
+                            context.Connection.Open();
+                        // Iniciamos una transacción
+                        using (var transaction = context.Connection.BeginTransaction())
+                        {
+                            try
+                            {
+                                context.Transaction = transaction;
+                                // Buscar el registro que se va a eliminar
+                                var pedidoDetalle = context.Order_Details.SingleOrDefault(od => od.OrderID == orderId && od.ProductID == productId);
+                                if (pedidoDetalle == null)
+                                    throw new InvalidOperationException("El detalle del pedido no existe, es posible que el registro haya sido eliminado por otro usuario de la red");
+                                // Devolver la cantidad a UnitsInStock en la tabla Products
+                                var product = context.Products.SingleOrDefault(p => p.ProductID == productId);
+                                if (product != null)
+                                    product.UnitsInStock += pedidoDetalle.Quantity;
+                                // Eliminar el registro
+                                context.Order_Details.DeleteOnSubmit(pedidoDetalle);
+                                context.SubmitChanges();
+                                // Confirmar la transacción
+                                transaction.Commit();
+                                numRegs = 1;
+                                MessageBox.Show($"El producto: {productName} del Pedido: {orderId}, se eliminó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            catch (Exception ex)
+                            {
+                                transaction.Rollback();
+                                Utils.MsgCatchOue(this, ex);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex) when (ex.Number == 220)
+            {
+                MessageBox.Show("Al tratar de devolver las unidades vendidas al inventario, la cantidad de unidades excede las 32,767 unidades, rango máximo para un campo tipo smallint", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Utils.ActualizarBarraDeEstado(this);
+            }
+            catch (SqlException ex)
+            {
+                Utils.MsgCatchOueclbdd(this, ex);
+            }
+            catch (Exception ex)
+            {
+                Utils.MsgCatchOue(this, ex);
+            }
+            if (numRegs > 0)
+            {
+                BorrarDatosDetallePedido();
+                LlenarDatosDetallePedido();
+                cboCategoria.Enabled = true;
+                Utils.ActualizarBarraDeEstado(this, $"Se muestran {DgvPedidos.RowCount} registros de pedidos");
+            }
         }
     }
 }

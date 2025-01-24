@@ -729,6 +729,7 @@
             this.DgvDetalle.Name = "DgvDetalle";
             this.DgvDetalle.Size = new System.Drawing.Size(818, 229);
             this.DgvDetalle.TabIndex = 0;
+            this.DgvDetalle.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvDetalle_CellClick);
             this.DgvDetalle.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DgvDetalle_CellFormatting);
             // 
             // Id
@@ -848,6 +849,7 @@
             this.btnAgregar.TabIndex = 4;
             this.btnAgregar.Text = "+";
             this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // txtDescuento
             // 
