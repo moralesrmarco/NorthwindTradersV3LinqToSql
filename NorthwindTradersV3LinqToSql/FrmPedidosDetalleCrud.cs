@@ -753,7 +753,24 @@ namespace NorthwindTradersV3LinqToSql
             }
             if (e.ColumnIndex == DgvDetalle.Columns["Modificar"].Index)
             {
-
+                DataGridViewRow dgvr = DgvDetalle.CurrentRow;
+                using (FrmPedidosDetalleModificar frmPedidosDetalleModificar = new FrmPedidosDetalleModificar())
+                {
+                    frmPedidosDetalleModificar.Owner = this;
+                    frmPedidosDetalleModificar.PedidoId = int.Parse(txtId.Text);
+                    frmPedidosDetalleModificar.ProductoId = int.Parse(dgvr.Cells["ProductoId"].Value.ToString());
+                    frmPedidosDetalleModificar.Producto = dgvr.Cells["Producto"].Value.ToString();
+                    frmPedidosDetalleModificar.Precio = float.Parse(dgvr.Cells["Precio"].Value.ToString());
+                    frmPedidosDetalleModificar.Cantidad = short.Parse(dgvr.Cells["Cantidad"].Value.ToString());
+                    frmPedidosDetalleModificar.Descuento = float.Parse(dgvr.Cells["Descuento"].Value.ToString());
+                    frmPedidosDetalleModificar.Importe = float.Parse(dgvr.Cells["Importe"].Value.ToString());
+                    DialogResult dialogResult = frmPedidosDetalleModificar.ShowDialog();
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        BorrarDatosDetallePedido();
+                        LlenarDatosDetallePedido();
+                    }
+                }
             }
             DgvDetalle.Focus();
         }
@@ -789,7 +806,11 @@ namespace NorthwindTradersV3LinqToSql
                                 // Devolver la cantidad a UnitsInStock en la tabla Products
                                 var product = context.Products.SingleOrDefault(p => p.ProductID == productId);
                                 if (product != null)
-                                    product.UnitsInStock += pedidoDetalle.Quantity;
+                                    // Verificar desbordamiento
+                                    checked
+                                    {
+                                        product.UnitsInStock = (short)(product.UnitsInStock + pedidoDetalle.Quantity);
+                                    }
                                 // Eliminar el registro
                                 context.Order_Details.DeleteOnSubmit(pedidoDetalle);
                                 context.SubmitChanges();
@@ -797,6 +818,11 @@ namespace NorthwindTradersV3LinqToSql
                                 transaction.Commit();
                                 numRegs = 1;
                                 MessageBox.Show($"El producto: {productName} del Pedido: {orderId}, se eliminó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            catch (OverflowException)
+                            {
+                                transaction.Rollback();
+                                throw new InvalidOperationException("Error al actualizar unidades en stock: se produjo un desbordamiento");
                             }
                             catch (Exception ex)
                             {

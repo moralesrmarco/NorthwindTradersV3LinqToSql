@@ -95,6 +95,12 @@
     <Compile Include="FrmPedidosDetalleCrud.Designer.cs">
       <DependentUpon>FrmPedidosDetalleCrud.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmPedidosDetalleModificar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPedidosDetalleModificar.Designer.cs">
+      <DependentUpon>FrmPedidosDetalleModificar.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmProductosConsultaAlfabetica.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPedidosDetalleCrud.resx">
       <DependentUpon>FrmPedidosDetalleCrud.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPedidosDetalleModificar.resx">
+      <DependentUpon>FrmPedidosDetalleModificar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmProductosConsultaAlfabetica.resx">
       <DependentUpon>FrmProductosConsultaAlfabetica.cs</DependentUpon>
@@ -281,6 +290,7 @@
     <Content Include="StoredProcedures\dbo.SP_PEDIDOSCLIENTE.sql" />
     <Content Include="StoredProcedures\dbo.SP_PEDIDOSDETALLE_ACTUALIZAR.sql" />
     <Content Include="StoredProcedures\dbo.SP_PEDIDOSDETALLE_ACTUALIZAR_V2.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PEDIDOSDETALLE_ACTUALIZAR_V3.sql" />
     <Content Include="StoredProcedures\dbo.SP_PEDIDOSDETALLE_ELIMINAR.sql" />
     <Content Include="StoredProcedures\dbo.SP_PEDIDOSDETALLE_ELIMINAR_V2.sql" />
     <Content Include="StoredProcedures\dbo.SP_PEDIDOSDETALLE_INSERTAR.sql" />

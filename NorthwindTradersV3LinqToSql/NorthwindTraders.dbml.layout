@@ -101,7 +101,7 @@
         <classShapeMoniker Id="1e2ecad5-c1db-42ff-b446-c514e46a91b7" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 10.0969962565104); (6.51041666666667 : 10.0969962565104 : JumpStart); (6.67708333333333 : 10.0969962565104 : JumpEnd); (12.25 : 10.0969962565104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.75 : 10.0969962565104); (6.51041666666667 : 10.0969962565104 : JumpStart); (6.67708333333333 : 10.0969962565104 : JumpEnd); (9.26041666666667 : 10.0969962565104 : JumpStart); (9.42708333333333 : 10.0969962565104 : JumpEnd); (12.25 : 10.0969962565104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/NorthwindTradersDataContext/Employees/Employees_EmployeeTerritories" />
       <nodes>
         <classShapeMoniker Id="1e2ecad5-c1db-42ff-b446-c514e46a91b7" />
@@ -150,7 +150,7 @@
         <classShapeMoniker Id="4fb062c4-ef63-4eb7-8487-1cce3c730eb9" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.75 : 8.09699625651042); (9.5 : 8.09699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.75 : 8.09699625651042); (9.26041666666667 : 8.09699625651042 : JumpStart); (9.42708333333333 : 8.09699625651042 : JumpEnd); (9.5 : 8.09699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/NorthwindTradersDataContext/Region/Region_Territories" />
       <nodes>
         <classShapeMoniker Id="420e0310-ea3d-491d-ae16-e9b3bebd2e35" />

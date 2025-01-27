@@ -611,6 +611,14 @@ namespace NorthwindTradersV3LinqToSql
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pedidoId);
 			return ((ISingleResult<SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PEDIDOSDETALLE_ACTUALIZAR_V3")]
+		public int SP_PEDIDOSDETALLE_ACTUALIZAR_V3([global::System.Data.Linq.Mapping.ParameterAttribute(Name="OrderId", DbType="Int")] System.Nullable<int> orderId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProductId", DbType="Int")] System.Nullable<int> productId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Quantity", DbType="SmallInt")] System.Nullable<short> quantity, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Discount", DbType="Real")] System.Nullable<float> discount, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuantityOld", DbType="SmallInt")] System.Nullable<short> quantityOld, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DiscountOld", DbType="Real")] System.Nullable<float> discountOld, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), orderId, productId, quantity, discount, quantityOld, discountOld, numRegs);
+			numRegs = ((System.Nullable<int>)(result.GetParameterValue(6)));
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Categories")]
