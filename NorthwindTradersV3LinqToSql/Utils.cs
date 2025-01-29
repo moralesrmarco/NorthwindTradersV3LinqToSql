@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace NorthwindTradersV3LinqToSql
@@ -20,6 +22,43 @@ namespace NorthwindTradersV3LinqToSql
         public static string errorRestriccionCF = "Error: No se puede eliminar el registro debido a una restricción de clave foránea";
         public static string errorClaveDuplicada = "Error: No se puede insertar una clave duplicada en el objeto. Infracción de la restricción PRIMARY KEY";
         #endregion
+
+        public static void LlenarCbo(Form form, ComboBox cbo, string storedProcedure, string displayMember, string valueMember, NorthwindTradersDataContext context)
+        {
+            Utils.ActualizarBarraDeEstado(form, Utils.clbdd);
+            try
+            {
+                // Verificamos y abrimos la conexión si es necesario
+                if (context.Connection.State == ConnectionState.Closed)
+                {
+                    context.Connection.Open();
+                }
+                //var command = context.GetCommand(context.ExecuteQuery<object>($"EXEC {storedProcedure}"));
+                //var reader = command.ExecuteReader();
+                //var dataTable = new System.Data.DataTable();
+                //dataTable.Load(reader);
+                //cbo.DataSource = dataTable;
+                //cbo.DisplayMember = displayMember;
+                //cbo.ValueMember = valueMember;
+            }
+            catch (SqlException ex)
+            {
+                Utils.MsgCatchOueclbdd(form, ex);
+            }
+            catch (Exception ex)
+            {
+                Utils.MsgCatchOue(form, ex);
+            }
+            finally
+            {
+                // Cerramos la conexión si estaba abierta
+                if (context.Connection.State == ConnectionState.Open)
+                {
+                    context.Connection.Close();
+                }
+            }
+            Utils.ActualizarBarraDeEstado(form);
+        }
 
         public static void ValidaTxtBIdIni(TextBox txtBIdIni, TextBox txtBIdFin)
         {
@@ -271,5 +310,11 @@ namespace NorthwindTradersV3LinqToSql
 
         }
 
+    }
+
+    public class ResultEntity
+    {
+        public string DisplayMember { get; set; }
+        public string ValueMember { get; set; }
     }
 }
