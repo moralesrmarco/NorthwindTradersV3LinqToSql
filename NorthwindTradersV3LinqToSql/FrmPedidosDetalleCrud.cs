@@ -632,10 +632,10 @@ namespace NorthwindTradersV3LinqToSql
             byte numRegs = 0;
             using (var context = new NorthwindTradersDataContext())
             {
-                // Nos aseguramos de que la conexión esté abierta
+                // Nos aseguramos que la conexión esté abierta
                 if (context.Connection.State == ConnectionState.Closed)
                     context.Connection.Open();
-                // Iniciamos una transacción. 
+                // Iniciamos una transacción
                 using (var transaction = context.Connection.BeginTransaction())
                 {
                     // las excepciones generadas en este segmento de código son capturadas en un nivel superior, por eso uso throw para relanzar la excepción y se procese en el nivel superior.

@@ -58,8 +58,8 @@ namespace NorthwindTradersV3LinqToSql
         private void FrmPedidosCrudV2_Load(object sender, EventArgs e)
         {
             dtpHoraEnvio.Value = dtpHoraRequerido.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
-            //DeshabilitarControles();
-            //DeshabilitarControlesProducto();
+            DeshabilitarControles();
+            DeshabilitarControlesProducto();
             //Utils.LlenarCbo(this, cboCliente, "Sp_Clientes_Seleccionar", "Cliente", "Id", context);
             LlenarCboCliente();
             LlenarCboEmpleado();
@@ -227,6 +227,12 @@ namespace NorthwindTradersV3LinqToSql
             txtFlete.Text = txtTotal.Text = txtPrecio.Text = "$0.00";
             txtDescuento.Text = "0.00";
             txtUInventario.Text = txtCantidad.Text = "0";
+        }
+
+        private void InicializarValoresTotalyProducto()
+        {
+            txtTotal.Text = "$0.00";
+            InicializarValoresProducto();
         }
 
         private void InicializarValoresProducto()
@@ -649,12 +655,34 @@ namespace NorthwindTradersV3LinqToSql
                 txtDescuento.Text = "0.00";
         }
 
+        private void txtDescuento_KeyPress(object sender, KeyPressEventArgs e) => Utils.ValidarDigitosConPunto(sender, e);
+
         private void txtCantidad_Leave(object sender, EventArgs e)
         {
             if (txtCantidad.Text == "" || int.Parse(txtCantidad.Text) == 0) txtCantidad.Text = "1";
         }
 
         private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e) => Utils.ValidarDigitosSinPunto(sender, e);
+
+        private void txtCantidad_Validating(object sender, CancelEventArgs e)
+        {
+            if (txtCantidad.Text != "")
+            {
+                if (int.Parse(txtCantidad.Text.Replace(",", "")) > 32767)
+                {
+                    errorProvider1.SetError(txtCantidad, "La cantidad no puede ser mayor a 32,767");
+                    e.Cancel = true;
+                    return;
+                }
+                else
+                    errorProvider1.SetError(txtCantidad, "");
+                if (int.Parse(txtCantidad.Text) > int.Parse(txtUInventario.Text))
+                {
+                    errorProvider1.SetError(txtCantidad, "La cantidad de productos en el pedido excede el inventario disponible");
+                    e.Cancel = true;
+                }
+            }
+        }
 
         private void txtFlete_Enter(object sender, EventArgs e)
         {
@@ -773,19 +801,26 @@ namespace NorthwindTradersV3LinqToSql
                 try
                 {
                     Utils.ActualizarBarraDeEstado(this, Utils.insertandoRegistro);
+                    DeshabilitarControlesProducto();
                     Order_Details pedidoDetalle = new Order_Details();
+                    pedidoDetalle.OrderID = int.Parse(txtId.Text);
                     pedidoDetalle.ProductID = (int)cboProducto.SelectedValue;
                     pedidoDetalle.UnitPrice = decimal.Parse(txtPrecio.Text.Replace("$", ""));
                     pedidoDetalle.Quantity = short.Parse(txtCantidad.Text);
                     pedidoDetalle.Discount = float.Parse(txtDescuento.Text);
-                    string NombreProducto = cboProducto.Text;
-
+                    numRegs = AgregarPedidoDetalle(pedidoDetalle);
+                    if (numRegs > 0)
+                        MessageBox.Show($"El producto: {cboProducto.Text} del Pedido: {txtId.Text}, se registró satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MessageBox.Show($"El producto: {cboProducto.Text} del Pedido: {txtId.Text}, NO se registró en la base de datos", Utils.nwtr,
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Utils.ActualizarBarraDeEstado(this, $"Se muestran {dgvPedidos.RowCount} registros de pedidos");
                 }
                 catch (SqlException ex) when (ex.Number == 2627)
                 {
                     MessageBox.Show($"Error, ya existe un registro del producto {cboProducto.Text} en la base de datos, modifique la cantidad del producto de ese registro", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     BorrarDatosAgregarProducto();
-                    HabilitarControlesProducto();
+                    cboCategoria.Enabled = true;
                 }
                 catch (SqlException ex)
                 {
@@ -797,14 +832,292 @@ namespace NorthwindTradersV3LinqToSql
                 }
                 if (numRegs > 0)
                 {
-
+                    BorrarDatosDetallePedido();
+                    LlenarDatosDetallePedido();
+                    cboCategoria.Enabled = true;
+                    Utils.ActualizarBarraDeEstado(this, $"Se muestran {dgvPedidos.RowCount} registros de pedidos");
+                    dgvDetalle.Focus();
                 }
             }
         }
 
+        private byte AgregarPedidoDetalle(Order_Details pedidoDetalle)
+        {
+            byte numRegs = 0;
+            using (var context = new NorthwindTradersDataContext())
+            {
+                // Nos aseguramos que la conexion esté abierta
+                if (context.Connection.State == ConnectionState.Closed)
+                    context.Connection.Open();
+                // Iniciamos una transacción
+                using (var transaction = context.Connection.BeginTransaction())
+                {
+                    // las excepciones generadas en este segmento de código son capturadas en un nivel superior, por eso uso throw para relanzar la excepción y se procese en el nivel superior.
+                    try
+                    {
+                        context.Transaction = transaction;
+                        // Verificar la existencia del producto
+                        var product = context.Products.SingleOrDefault(p => p.ProductID == pedidoDetalle.ProductID);
+                        if (product == null)
+                            throw new InvalidOperationException("Producto no encontrado");
+                        // Verificar si hay suficientes unidades en stock
+                        if (product.UnitsInStock < pedidoDetalle.Quantity)
+                            throw new InvalidOperationException("No hay suficientes unidades en stock");
+                        // Restar Quantity a UnitsInStock en la tabla Products
+                        product.UnitsInStock -= pedidoDetalle.Quantity;
+                        // Insertar el nuevo registro en Order_Details
+                        context.Order_Details.InsertOnSubmit(pedidoDetalle);
+                        context.SubmitChanges();
+                        // Si todo va bien, confirmamos la transacción
+                        transaction.Commit();
+                        numRegs = 1;
+                    }
+                    catch (SqlException ex)
+                    {
+                        // Si ocurre un error de base de datos, revertimos la transacción
+                        transaction.Rollback();
+                        throw; // se vuelve a lanzar la excepción para que sea procesada en un nivel superior
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+            return numRegs;
+        }
+
         private void BorrarDatosAgregarProducto()
         {
+            cboCategoria.SelectedIndex = 0;
+            cboProducto.DataSource = null;
+            InicializarValoresProducto();
+        }
 
+        private void BorrarDatosDetallePedido()
+        {
+            cboCategoria.SelectedIndex = 0;
+            cboProducto.DataSource = null;
+            InicializarValoresTotalyProducto();
+            dgvDetalle.Rows.Clear();
+        }
+
+        private void LlenarDatosDetallePedido()
+        {
+            try
+            {
+                IdDetalle = 1;
+                Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
+                var query = context.SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1(int.Parse(txtId.Text)).ToList();
+                if (query.Count > 0)
+                {
+                    foreach (var pd in query)
+                    {
+                        var pedidoDetalle = new Order_Details()
+                        {
+                            ProductID = pd.Id_Producto,
+                            UnitPrice = pd.Precio,
+                            Quantity = pd.Cantidad,
+                            Discount = pd.Descuento
+                        };
+                        string productName = pd.Producto;
+                        float importe = (float.Parse(pedidoDetalle.UnitPrice.ToString()) * pedidoDetalle.Quantity) * (1 - pedidoDetalle.Discount);
+                        dgvDetalle.Rows.Add(new object[] { IdDetalle, productName, pedidoDetalle.UnitPrice, pedidoDetalle.Quantity, pedidoDetalle.Discount, importe, "Modificar", "Eliminar", pedidoDetalle.ProductID });
+                        ++IdDetalle;
+                    }
+                }
+                else
+                    MessageBox.Show("No se encontraron detalles para el pedido especificado", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CalcularTotal();
+                Utils.ActualizarBarraDeEstado(this, $"Se muestran {dgvPedidos.RowCount} registros en pedidos");
+            }
+            catch (SqlException ex)
+            {
+                Utils.MsgCatchOueclbdd(this, ex);
+            }
+            catch (Exception ex)
+            {
+                Utils.MsgCatchOue(this, ex);
+            }
+        }
+
+        private void dgvDetalle_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 2 && e.Value != null) e.Value = float.Parse(e.Value.ToString()).ToString("c");
+            if (e.ColumnIndex == 3 && e.Value != null) e.Value = int.Parse(e.Value.ToString()).ToString("n0");
+            if (e.ColumnIndex == 4 && e.Value != null) e.Value = float.Parse(e.Value.ToString()).ToString("n2");
+            if (e.ColumnIndex == 5 && e.Value != null) e.Value = float.Parse(e.Value.ToString()).ToString("c");
+        }
+
+        private void tabcOperacion_Selected(object sender, TabControlEventArgs e)
+        {
+            lastSelectedTab = e.TabPage; // actualizar la pestaña actual
+            IdDetalle = 1;
+            BorrarDatosPedido();
+            BorrarMensajesError();
+            if (tabcOperacion.SelectedTab == tabpRegistrar)
+            {
+                if (EventoCargado)
+                {
+                    dgvPedidos.CellClick -= new DataGridViewCellEventHandler(dgvPedidos_CellClick);
+                    EventoCargado = false;
+                }
+                BorrarDatosBusqueda();
+                HabilitarControles();
+                cboCategoria.Enabled = true;
+                btnGenerar.Text = "Generar pedido";
+                btnGenerar.Visible = true;
+                btnGenerar.Enabled = true;
+                btnAgregar.Visible = true;
+                btnAgregar.Enabled = true;
+                dgvDetalle.Columns["Modificar"].Visible = true;
+                dgvDetalle.Columns["Eliminar"].Visible = true;
+                grbProducto.Enabled = true;
+            }
+            else
+            {
+                if (!EventoCargado)
+                {
+                    dgvPedidos.CellClick += new DataGridViewCellEventHandler(dgvPedidos_CellClick);
+                    EventoCargado = true;
+                }
+                DeshabilitarControles();
+                DeshabilitarControlesProducto();
+                OcultarCols();
+                if (tabcOperacion.SelectedTab == tabpConsultar)
+                {
+                    btnGenerar.Visible = false;
+                    btnAgregar.Visible = false;
+                }
+                else if (tabcOperacion.SelectedTab == tabpModificar)
+                {
+                    btnGenerar.Text = "Modificar pedido";
+                    btnGenerar.Visible = true;
+                    btnAgregar.Visible = true;
+                    MostrarCols();
+                }
+                else if (tabcOperacion.SelectedTab == tabpEliminar)
+                {
+                    btnGenerar.Text = "Eliminar pedido";
+                    btnGenerar.Visible = true;
+                    btnAgregar.Visible = false;
+                }
+            }
+        }
+
+        private void dgvPedidos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (tabcOperacion.SelectedTab != tabpRegistrar)
+            {
+                BorrarDatosPedido();
+                DataGridViewRow dgvr = dgvPedidos.CurrentRow;
+                txtId.Text = dgvr.Cells["Id"].Value.ToString();
+                LlenarDatosPedido();
+                LlenarDatosDetallePedido();
+                DeshabilitarControles();
+                DeshabilitarControlesProducto();
+                if (tabcOperacion.SelectedTab == tabpModificar)
+                {
+                    HabilitarControles();
+                    btnGenerar.Enabled = true;
+                    cboCategoria.Enabled = true;
+                }
+                else if (tabcOperacion.SelectedTab == tabpEliminar)
+                    btnGenerar.Enabled = true;
+            }
+        }
+
+        private void LlenarDatosPedido()
+        {
+            try
+            {
+                Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
+                var query = (from order in context.Orders
+                            where order.OrderID == int.Parse(txtId.Text)
+                            select new
+                            {
+                                order.CustomerID,
+                                order.EmployeeID,
+                                order.OrderDate,
+                                order.RequiredDate,
+                                order.ShippedDate,
+                                order.ShipVia,
+                                order.Freight,
+                                order.ShipName,
+                                order.ShipAddress,
+                                order.ShipCity,
+                                order.ShipRegion,
+                                order.ShipPostalCode,
+                                order.ShipCountry
+                            }).FirstOrDefault();
+                if (query != null)
+                {
+                    cboCliente.SelectedIndexChanged -= new EventHandler(cboCliente_SelectedIndexChanged);
+                    cboCliente.SelectedValue = query.CustomerID;
+                    cboCliente.SelectedIndexChanged += new EventHandler(cboCliente_SelectedIndexChanged);
+                    cboEmpleado.SelectedValue = query.EmployeeID;
+                    cboTransportista.SelectedValue = query.ShipVia;
+                    txtDirigidoa.Text = query.ShipName;
+                    txtDomicilio.Text = query.ShipAddress;
+                    txtCiudad.Text = query.ShipCity;
+                    txtRegion.Text = query.ShipRegion;
+                    txtCP.Text = query.ShipPostalCode;
+                    txtPais.Text = query.ShipCountry;
+                    txtFlete.Text = $"{query.Freight:c2}";
+                    DateTime fecha;
+                    if (DateTime.TryParse(query.OrderDate.ToString(), out fecha))
+                    {
+                        dtpPedido.Value = fecha;
+                        dtpHoraPedido.Value = fecha;
+                    }
+                    else
+                    {
+                        dtpPedido.Value = dtpPedido.MinDate;
+                        dtpHoraPedido.Value = dtpHoraPedido.MinDate;
+                        dtpPedido.Checked = false;
+                    }
+                    if (DateTime.TryParse(query.RequiredDate.ToString(), out fecha))
+                    {
+                        dtpRequerido.Value = fecha;
+                        dtpHoraRequerido.Value = fecha;
+                    }
+                    else
+                    {
+                        dtpRequerido.Value = dtpHoraRequerido.Value = dtpRequerido.MinDate;
+                        dtpRequerido.Checked = false;
+                    }
+                    if (DateTime.TryParse(query.ShippedDate.ToString(), out fecha))
+                    {
+                        dtpEnvio.Value = fecha;
+                        dtpHoraEnvio.Value = fecha;
+                    }
+                    else
+                    {
+                        dtpEnvio.Value = dtpHoraEnvio.Value = dtpEnvio.MinDate;
+                        dtpEnvio.Checked = false;
+                    }
+                }
+                Utils.ActualizarBarraDeEstado(this, $"Se muestran {dgvPedidos.RowCount} registros en pedidos");
+            }
+            catch (SqlException ex)
+            {
+                Utils.MsgCatchOueclbdd(this, ex);
+            }
+            catch (Exception ex)
+            {
+                Utils.MsgCatchOue(this, ex);
+            }
+        }
+
+        private void tabcOperacion_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (lastSelectedTab == tabpRegistrar && e.TabPage != tabpRegistrar && dgvDetalle.RowCount > 0)
+            {
+                DialogResult respuesta = MessageBox.Show("Se han agregado productos al detalle del pedido, si cambia de pestaña se perderan los datos no guardados.\n¿Desea cambiar de pestaña?", Utils.nwtr, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (respuesta == DialogResult.No)
+                    e.Cancel = true;
+            }
         }
     }
 }

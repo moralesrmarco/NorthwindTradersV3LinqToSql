@@ -222,6 +222,7 @@
             this.txtDescuento.TabIndex = 3;
             this.txtDescuento.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDescuento.Enter += new System.EventHandler(this.txtDescuento_Enter);
+            this.txtDescuento.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescuento_KeyPress);
             this.txtDescuento.Leave += new System.EventHandler(this.txtDescuento_Leave);
             // 
             // txtCantidad
@@ -235,6 +236,7 @@
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidad_KeyPress);
             this.txtCantidad.Leave += new System.EventHandler(this.txtCantidad_Leave);
+            this.txtCantidad.Validating += new System.ComponentModel.CancelEventHandler(this.txtCantidad_Validating);
             // 
             // txtPrecio
             // 
@@ -373,6 +375,7 @@
             this.dgvDetalle.Name = "dgvDetalle";
             this.dgvDetalle.Size = new System.Drawing.Size(819, 226);
             this.dgvDetalle.TabIndex = 0;
+            this.dgvDetalle.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDetalle_CellFormatting);
             // 
             // Id
             // 
@@ -1279,6 +1282,7 @@
             this.dgvPedidos.Name = "dgvPedidos";
             this.dgvPedidos.Size = new System.Drawing.Size(1134, 221);
             this.dgvPedidos.TabIndex = 0;
+            this.dgvPedidos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPedidos_CellClick);
             // 
             // tabcOperacion
             // 
@@ -1293,6 +1297,8 @@
             this.tabcOperacion.SelectedIndex = 0;
             this.tabcOperacion.Size = new System.Drawing.Size(1141, 56);
             this.tabcOperacion.TabIndex = 0;
+            this.tabcOperacion.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabcOperacion_Selecting);
+            this.tabcOperacion.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabcOperacion_Selected);
             // 
             // tabpConsultar
             // 
