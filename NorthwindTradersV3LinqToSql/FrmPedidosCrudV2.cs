@@ -58,8 +58,8 @@ namespace NorthwindTradersV3LinqToSql
         private void FrmPedidosCrudV2_Load(object sender, EventArgs e)
         {
             dtpHoraEnvio.Value = dtpHoraRequerido.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
-            DeshabilitarControles();
-            DeshabilitarControlesProducto();
+            //DeshabilitarControles();
+            //DeshabilitarControlesProducto();
             //Utils.LlenarCbo(this, cboCliente, "Sp_Clientes_Seleccionar", "Cliente", "Id", context);
             LlenarCboCliente();
             LlenarCboEmpleado();
