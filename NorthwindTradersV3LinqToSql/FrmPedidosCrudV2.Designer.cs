@@ -492,6 +492,7 @@
             this.btnGenerar.Text = "Generar pedido";
             this.btnGenerar.UseVisualStyleBackColor = true;
             this.btnGenerar.Visible = false;
+            this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
             // 
             // txtTotal
             // 

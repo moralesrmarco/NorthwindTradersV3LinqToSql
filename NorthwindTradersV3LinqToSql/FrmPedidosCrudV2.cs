@@ -1119,5 +1119,115 @@ namespace NorthwindTradersV3LinqToSql
                     e.Cancel = true;
             }
         }
+
+        private void btnGenerar_Click(object sender, EventArgs e)
+        {
+            byte numRegs = 0;
+            BorrarMensajesError();
+            if (tabcOperacion.SelectedTab == tabpRegistrar)
+            {
+                try
+                {
+                    if (ValidarControles())
+                    {
+                        Utils.ActualizarBarraDeEstado(this, Utils.insertandoRegistro);
+                        DeshabilitarControles();
+                        DeshabilitarControlesProducto();
+                        btnGenerar.Enabled = false;
+                        List<Order_Details> lstDetalle = new List<Order_Details>();
+                        // Llenado de elementos hijos
+                        foreach (DataGridViewRow dgvr in dgvDetalle.Rows)
+                        {
+                            Order_Details detalle = new Order_Details();
+                            detalle.ProductID = int.Parse(dgvr.Cells["ProductoId"].Value.ToString());
+                            detalle.UnitPrice = decimal.Parse(dgvr.Cells["Precio"].Value.ToString());
+                            detalle.Quantity = short.Parse(dgvr.Cells["Cantidad"].Value.ToString());
+                            detalle.Discount = float.Parse(dgvr.Cells["Descuento"].Value.ToString());
+                            lstDetalle.Add(detalle);
+                        }
+                        Orders pedido = new Orders();
+                        pedido.CustomerID = cboCliente.SelectedValue.ToString();
+                        pedido.EmployeeID = (int)cboEmpleado.SelectedValue;
+                        if (!dtpPedido.Checked) pedido.OrderDate = null;
+                        else pedido.OrderDate = Convert.ToDateTime(dtpPedido.Value.ToShortDateString() + " " + dtpHoraPedido.Value.ToLongTimeString());
+                        if (!dtpRequerido.Checked) pedido.RequiredDate = null;
+                        else pedido.RequiredDate = Convert.ToDateTime(dtpRequerido.Value.ToShortDateString() + " " + dtpHoraRequerido.Value.ToLongTimeString());
+                        if (!dtpEnvio.Checked) pedido.ShippedDate = null;
+                        else pedido.ShippedDate = Convert.ToDateTime(dtpEnvio.Value.ToShortDateString() + " " + dtpHoraEnvio.Value.ToLongTimeString());
+                        pedido.ShipVia = (int)cboTransportista.SelectedValue;
+                        pedido.ShipName = txtDirigidoa.Text;
+                        pedido.ShipAddress = txtDomicilio.Text;
+                        pedido.ShipCity = txtCiudad.Text;
+                        pedido.ShipRegion = txtRegion.Text;
+                        pedido.ShipPostalCode = txtCP.Text;
+                        pedido.ShipCountry = txtPais.Text;
+                        pedido.Freight = decimal.Parse(txtFlete.Text.Replace("$", ""));
+
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Utils.MsgCatchOueclbdd(this, ex);
+                }
+                catch (Exception ex)
+                {
+                    Utils.MsgCatchOue(this, ex);
+                }
+                HabilitarControles();
+                if (numRegs > 0)
+                {
+                    IdDetalle = 1;
+                    BorrarDatosPedido();
+                    BorrarDatosBusqueda();
+                    LlenarDgvPedidos(null);
+                }
+            }
+            else if (tabcOperacion.SelectedTab == tabpModificar)
+            {
+
+            }
+            else if (tabcOperacion.SelectedTab == tabpEliminar)
+            {
+
+            }
+        }
+
+        private bool ValidarControles()
+        {
+            BorrarMensajesError();
+            bool valida = true;
+            if (cboCliente.SelectedIndex <= 0)
+            {
+                errorProvider1.SetError(cboCliente, "Ingrese el cliente");
+                valida = false;
+            }
+            if (cboEmpleado.SelectedIndex <= 0)
+            {
+                errorProvider1.SetError(cboEmpleado, "Ingrese el empleado");
+                valida = false;
+            }
+            if (dtpPedido.Checked == false)
+            {
+                errorProvider1.SetError(dtpPedido, "Ingrese la fecha de pedido");
+                valida = false;
+            }
+            if (cboTransportista.SelectedIndex <= 0)
+            {
+                errorProvider1.SetError(cboTransportista, "Ingrese la compañía transportista");
+                valida = false;
+            }
+            if (cboProducto.SelectedIndex > 0)
+            {
+                errorProvider1.SetError(cboProducto, "Ha seleccionado un producto y no lo ha agregado al pedido");
+                valida = false;
+            }
+            string total = txtTotal.Text.Replace("$", "");
+            if (txtTotal.Text == "" || float.Parse(total) == 0)
+            {
+                errorProvider1.SetError(btnAgregar, "Ingrese el detalle del pedido");
+                valida = false;
+            }
+            return valida;
+        }
     }
 }
