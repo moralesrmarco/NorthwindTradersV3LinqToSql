@@ -644,7 +644,7 @@ namespace NorthwindTradersV3LinqToSql
             decimal total = 0;
             foreach (DataGridViewRow dgvr in dgvDetalle.Rows)
                 total += decimal.Parse(dgvr.Cells["Importe"].Value.ToString());
-            txtTotal.Text = string.Format("0:c", total);
+            txtTotal.Text = string.Format("{0:c}", total);
         }
 
         private void txtDescuento_Enter(object sender, EventArgs e) => txtDescuento.Text = "";
@@ -872,13 +872,13 @@ namespace NorthwindTradersV3LinqToSql
                         transaction.Commit();
                         numRegs = 1;
                     }
-                    catch (SqlException ex)
+                    catch (SqlException)
                     {
                         // Si ocurre un error de base de datos, revertimos la transacción
                         transaction.Rollback();
                         throw; // se vuelve a lanzar la excepción para que sea procesada en un nivel superior
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         transaction.Rollback();
                         throw;
@@ -1162,8 +1162,16 @@ namespace NorthwindTradersV3LinqToSql
                         pedido.ShipPostalCode = txtCP.Text;
                         pedido.ShipCountry = txtPais.Text;
                         pedido.Freight = decimal.Parse(txtFlete.Text.Replace("$", ""));
-
+                        numRegs = AgregarPedido(pedido, lstDetalle, txtId, cboCliente.Text);
                     }
+                }
+                catch (SqlException ex) when (ex.Number == 547)
+                {
+                    MessageBox.Show("Algún producto en el pedido fue previamente eliminado por otro usuario de la red.", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (SqlException ex) when (ex.Number == 2627)
+                {
+                    MessageBox.Show($"Error, existe un producto duplicado en el pedido, elimine el producto duplicado y modifique la cantidad del producto", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (SqlException ex)
                 {
@@ -1184,11 +1192,85 @@ namespace NorthwindTradersV3LinqToSql
             }
             else if (tabcOperacion.SelectedTab == tabpModificar)
             {
-
+                try
+                {
+                    if (ValidarControles())
+                    {
+                        Utils.ActualizarBarraDeEstado(this, Utils.modificandoRegistro);
+                        DeshabilitarControles();
+                        DeshabilitarControlesProducto();
+                        btnGenerar.Enabled = false;
+                        Orders pedido = new Orders();
+                        pedido.OrderID = int.Parse(txtId.Text);
+                        pedido.CustomerID = cboCliente.SelectedValue.ToString();
+                        pedido.EmployeeID = (int)cboEmpleado.SelectedValue;
+                        if (!dtpPedido.Checked) pedido.OrderDate = null;
+                        else pedido.OrderDate = Convert.ToDateTime(dtpPedido.Value.ToShortDateString() + " " + dtpHoraPedido.Value.ToLongTimeString());
+                        if (!dtpRequerido.Checked) pedido.RequiredDate = null;
+                        else pedido.RequiredDate = Convert.ToDateTime(dtpRequerido.Value.ToShortDateString() + " " + dtpHoraRequerido.Value.ToLongTimeString());
+                        if (!dtpEnvio.Checked) pedido.ShippedDate = null;
+                        else pedido.ShippedDate = Convert.ToDateTime(dtpEnvio.Value.ToShortDateString() + " " + dtpHoraEnvio.Value.ToLongTimeString());
+                        pedido.ShipVia = (int)cboTransportista.SelectedValue;
+                        pedido.ShipName = txtDirigidoa.Text;
+                        pedido.ShipAddress = txtDomicilio.Text;
+                        pedido.ShipCity = txtCiudad.Text;
+                        pedido.ShipRegion = txtRegion.Text;
+                        pedido.ShipPostalCode = txtCP.Text;
+                        pedido.ShipCountry = txtPais.Text;
+                        pedido.Freight = decimal.Parse(txtFlete.Text.Replace("$", ""));
+                        numRegs = ModificarPedido(pedido, cboCliente.Text);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Utils.MsgCatchOueclbdd(this, ex);
+                }
+                catch (Exception ex)
+                {
+                    Utils.MsgCatchOue(this, ex);
+                }
+                if (numRegs > 0)
+                {
+                    BorrarDatosBusqueda();
+                    txtBIdInicial.Text = txtBIdFinal.Text = txtId.Text;
+                    btnBuscar.PerformClick();
+                    btnLimpiar.PerformClick();
+                }
             }
             else if (tabcOperacion.SelectedTab == tabpEliminar)
             {
-
+                if (txtId.Text == "")
+                {
+                    MessageBox.Show("Seleccione el pedido a eliminar", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                DialogResult respuesta = MessageBox.Show($"¿Está seguro de eliminar el pedido con Id: {txtId.Text} del Cliente: {cboCliente.Text}?", Utils.nwtr, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (respuesta == DialogResult.Yes)
+                {
+                    Utils.ActualizarBarraDeEstado(this, Utils.eliminandoRegistro);
+                    btnGenerar.Enabled = false;
+                    try
+                    {
+                        Orders pedido = new Orders();
+                        pedido.OrderID = int.Parse(txtId.Text);
+                        numRegs = EliminarPedido(pedido, cboCliente.Text);
+                    }
+                    catch (SqlException ex)
+                    {
+                        Utils.MsgCatchOueclbdd(this, ex);
+                    }
+                    catch (Exception ex)
+                    {
+                        Utils.MsgCatchOue(this, ex);
+                    }
+                    if (numRegs > 0)
+                    {
+                        BorrarDatosBusqueda();
+                        txtBIdInicial.Text = txtBIdFinal.Text = txtId.Text;
+                        btnBuscar.PerformClick();
+                        btnLimpiar.PerformClick();
+                    }
+                }
             }
         }
 
@@ -1228,6 +1310,349 @@ namespace NorthwindTradersV3LinqToSql
                 valida = false;
             }
             return valida;
+        }
+
+        private byte AgregarPedido(Orders pedido, List<Order_Details> lst, TextBox textBox, string cliente)
+        {
+            byte numRegs = 0;
+            using (var context = new NorthwindTradersDataContext())
+            {
+                // Nos aseguramos que la conexión esté abierta
+                if (context.Connection.State == ConnectionState.Closed)
+                    context.Connection.Open();
+                // Iniciamos una transacción
+                using (var transaction = context.Connection.BeginTransaction())
+                {
+                    try
+                    {
+                        context.Transaction = transaction;
+                        // Verificamos si alguna cantidad en el pedido excede el inventario disponible
+                        var excedeInventario = lst.Any(od => context.Products.Any(p => p.ProductID == od.ProductID && od.Quantity > p.UnitsInStock));
+                        if (excedeInventario)
+                            throw new InvalidOperationException("La cantidad de algún producto en el pedido excede el inventario disponible");
+                        context.Orders.InsertOnSubmit(pedido);
+                        // Agregamos el nuevo pedido al contexto
+                        context.SubmitChanges();
+                        int pedidoId = pedido.OrderID;
+                        // Insertamos en Order_Details
+                        foreach (var detalle in lst)
+                        {
+                            detalle.OrderID = pedidoId;
+                            context.Order_Details.InsertOnSubmit(detalle);
+                        }
+                        context.SubmitChanges();
+                        // Actualizamos UnitsInStock en Products
+                        foreach (var detalle in lst)
+                        {
+                            var producto = context.Products.SingleOrDefault(p => p.ProductID == detalle.ProductID);
+                            if (producto != null)
+                                producto.UnitsInStock -= detalle.Quantity;
+                        }
+                        context.SubmitChanges();
+                        // Confirmamos la transacción
+                        transaction.Commit();
+                        // Obtenemos el Id del nuevo pedido
+                        textBox.Text = pedidoId.ToString();
+                        numRegs = 1;
+                        MessageBox.Show($"El pedido con Id: {pedidoId} del Cliente: {cliente}, se registro satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (SqlException)
+                    {
+                        // Si ocurre un error de base de datos, revertimos la transacción
+                        transaction.Rollback();
+                        throw;
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+            return numRegs;
+        }
+
+        private byte ModificarPedido(Orders pedido, string cliente)
+        {
+            byte numRegs = 0;
+            using (var context = new NorthwindTradersDataContext())
+            {
+                if (context.Connection.State == ConnectionState.Closed)
+                    context.Connection.Open();
+                // Iniciamos una transacción
+                using (var transaction = context.Connection.BeginTransaction())
+                {
+                    try
+                    {
+                        context.Transaction = transaction;
+                        // Obtenemos el pedido que queremos actualizar
+                        var ped = context.Orders.SingleOrDefault(o => o.OrderID == pedido.OrderID);
+                        if (ped != null)
+                        {
+                            // Actualizamos los campos del pedido
+                            ped.CustomerID = pedido.CustomerID;
+                            ped.EmployeeID = pedido.EmployeeID;
+                            ped.OrderDate = pedido.OrderDate;
+                            ped.RequiredDate = pedido.RequiredDate;
+                            ped.ShippedDate = pedido.ShippedDate;
+                            ped.ShipVia = pedido.ShipVia;
+                            ped.Freight = pedido.Freight;
+                            ped.ShipName = string.IsNullOrWhiteSpace(pedido.ShipName) ? null : pedido.ShipName;
+                            ped.ShipAddress = string.IsNullOrWhiteSpace(pedido.ShipAddress) ? null : pedido.ShipAddress;
+                            ped.ShipCity = string.IsNullOrWhiteSpace(pedido.ShipCity) ? null : pedido.ShipCity;
+                            ped.ShipRegion = string.IsNullOrWhiteSpace(pedido.ShipRegion) ? null : pedido.ShipRegion;
+                            ped.ShipPostalCode = string.IsNullOrWhiteSpace(pedido.ShipPostalCode) ? null : pedido.ShipPostalCode;
+                            ped.ShipCountry = string.IsNullOrWhiteSpace(pedido.ShipCountry) ? null : pedido.ShipCountry;
+                            // Guardamos los cambios en la base de datos
+                            context.SubmitChanges();
+                            // Confirmamos la transacción
+                            transaction.Commit();
+                            numRegs = 1;
+                            MessageBox.Show($"El pedido con Id: {pedido.OrderID} del Cliente : {cliente}, se actualizó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                            MessageBox.Show("No se pudo realizar la modificación, es posible que el registro se haya eliminado previamente por otro usuario de la red", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (SqlException)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+            return numRegs;
+        }
+
+        private byte EliminarPedido(Orders pedido, string cliente)
+        {
+            byte numRegs = 0;
+            using (var context = new NorthwindTradersDataContext())
+            {
+                if (context.Connection.State == ConnectionState.Closed)
+                    context.Connection.Open();
+                // Iniciamos una transacción
+                using (var transaction = context.Connection.BeginTransaction())
+                {
+                    try
+                    {
+                        context.Transaction = transaction;
+                        // Obtenemos el pedido que queremos eliminar
+                        var pedidoAEliminar = context.Orders.SingleOrDefault(o => o.OrderID == pedido.OrderID);
+                        if (pedidoAEliminar != null)
+                        {
+                            // Obtenemos los detalles del pedido que queremos eliminar
+                            var detallesAEliminar = context.Order_Details.Where(d => d.OrderID == pedido.OrderID).ToList();
+                            // Devolvemos las cantidades al inventario
+                            foreach (var detalle in detallesAEliminar)
+                            {
+                                var producto = context.Products.SingleOrDefault(p => p.ProductID == detalle.ProductID);
+                                if (producto != null)
+                                    producto.UnitsInStock += detalle.Quantity;
+                            }
+                            // Guardamos los cambios en la base de datos
+                            context.SubmitChanges();
+                            // Eliminamos los detalles del pedido
+                            context.Order_Details.DeleteAllOnSubmit(detallesAEliminar);
+                            // Eliminamos el pedido
+                            context.Orders.DeleteOnSubmit(pedidoAEliminar);
+                            // Guardamos los cambios en la base de datos
+                            context.SubmitChanges();
+                            // Confirmamos la transacción
+                            transaction.Commit();
+                            numRegs = 1;
+                            MessageBox.Show($"El pedido con Id: {pedido.OrderID} del Cliente: {cliente}, se eliminó satisfactoriamente junto con sus registros de detalle del pedido", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                            MessageBox.Show("No se pudo realizar la eliminación, es posible que el registro haya sido eliminado previamente por otro usuario de la red", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (SqlException)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+            return numRegs;
+        }
+
+        private void dgvDetalle_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || (e.ColumnIndex != dgvDetalle.Columns["Modificar"].Index & e.ColumnIndex != dgvDetalle.Columns["Eliminar"].Index))
+                return;
+            if (e.ColumnIndex == dgvDetalle.Columns["Eliminar"].Index && tabcOperacion.SelectedTab == tabpRegistrar)
+            {
+                dgvDetalle.Rows.RemoveAt(e.RowIndex);
+                CalcularTotal();
+            }
+            if (e.ColumnIndex == dgvDetalle.Columns["Modificar"].Index && tabcOperacion.SelectedTab == tabpRegistrar)
+            {
+                DataGridViewRow dgvr = dgvDetalle.CurrentRow;
+                using (FrmPedidosDetalleModificar2 frmPedidosDetalleModificar2 = new FrmPedidosDetalleModificar2())
+                {
+                    frmPedidosDetalleModificar2.Owner = this;
+                    frmPedidosDetalleModificar2.ProductoId = int.Parse(dgvr.Cells["ProductoId"].Value.ToString());
+                    frmPedidosDetalleModificar2.Producto = dgvr.Cells["Producto"].Value.ToString();
+                    frmPedidosDetalleModificar2.Precio = float.Parse(dgvr.Cells["Precio"].Value.ToString());
+                    frmPedidosDetalleModificar2.Cantidad = short.Parse(dgvr.Cells["Cantidad"].Value.ToString());
+                    frmPedidosDetalleModificar2.Descuento = float.Parse(dgvr.Cells["Descuento"].Value.ToString());
+                    frmPedidosDetalleModificar2.Importe = float.Parse(dgvr.Cells["Importe"].Value.ToString());
+                    frmPedidosDetalleModificar2.UInventario = short.Parse(dgvr.Cells["UInventario"].Value.ToString());
+                    DialogResult respuesta = frmPedidosDetalleModificar2.ShowDialog();
+                    if (respuesta == DialogResult.OK)
+                    {
+                        // Actualiza los valores en la fila actual del DataGridView
+                        dgvr.Cells["Cantidad"].Value = frmPedidosDetalleModificar2.Cantidad;
+                        dgvr.Cells["Descuento"].Value = frmPedidosDetalleModificar2.Descuento;
+                        dgvr.Cells["Importe"].Value = frmPedidosDetalleModificar2.Importe;
+                        CalcularTotal();
+                    }
+                }
+            }
+            if (e.ColumnIndex == dgvDetalle.Columns["Eliminar"].Index && tabcOperacion.SelectedTab == tabpModificar)
+            {
+                DataGridViewRow dgvr = dgvDetalle.CurrentRow;
+                string productName = dgvr.Cells["Producto"].Value.ToString();
+                int productId = (int)dgvr.Cells["ProductoId"].Value;
+                int orderId = int.Parse(txtId.Text);
+                EliminarPedidoDetalle(productName, productId, orderId);
+            }
+            if (e.ColumnIndex == dgvDetalle.Columns["Modificar"].Index && tabcOperacion.SelectedTab == tabpModificar)
+            {
+                DataGridViewRow dgvr = dgvDetalle.CurrentRow;
+                using (FrmPedidosDetalleModificar frmPedidosDetalleModificar = new FrmPedidosDetalleModificar())
+                {
+                    frmPedidosDetalleModificar.Owner = this;
+                    frmPedidosDetalleModificar.PedidoId = int.Parse(txtId.Text);
+                    frmPedidosDetalleModificar.ProductoId = int.Parse(dgvr.Cells["ProductoId"].Value.ToString());
+                    frmPedidosDetalleModificar.Producto = dgvr.Cells["Producto"].Value.ToString();
+                    frmPedidosDetalleModificar.Precio = float.Parse(dgvr.Cells["Precio"].Value.ToString());
+                    frmPedidosDetalleModificar.Cantidad = short.Parse(dgvr.Cells["Cantidad"].Value.ToString());
+                    frmPedidosDetalleModificar.Descuento = float.Parse(dgvr.Cells["Descuento"].Value.ToString());
+                    frmPedidosDetalleModificar.Importe = float.Parse(dgvr.Cells["Importe"].Value.ToString());
+                    DialogResult dialogResult = frmPedidosDetalleModificar.ShowDialog();
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        BorrarDatosDetallePedido();
+                        LlenarDatosDetallePedido();
+                    }
+                }
+            }
+        }
+
+        private void EliminarPedidoDetalle(string productName, int productId, int orderId)
+        {
+            byte numRegs = 0;
+            BorrarMensajesError();
+            cboCategoria.SelectedIndex = 0;
+            cboProducto.DataSource = null;
+            InicializarValoresProducto();
+            try
+            {
+                DialogResult respuesta = MessageBox.Show($"¿Esta seguro de eliminar el producto: {productName} del pedido: {orderId}?", Utils.nwtr, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (respuesta == DialogResult.Yes)
+                {
+                    Utils.ActualizarBarraDeEstado(this, Utils.eliminandoRegistro);
+                    DeshabilitarControlesProducto();
+                    numRegs = EliminarPedidoDetalle(productId, orderId, productName);
+                    if (numRegs > 0)
+                        MessageBox.Show($"El Producto: {productName} del Pedido: {orderId}, se eliminó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MessageBox.Show($"El Producto: {productName} del Pedido: {orderId}, NO se eliminó en la base de datos, es posible que el registro se haya eliminado previamente por otro usuario de la red", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (SqlException ex) when (ex.Number == 220)
+            {
+                MessageBox.Show("Al tratar de devolver las unidades vendidas al inventario, la cantidad de unidades excede las 32,767 unidades, rango máximo para un campo de tipo smallint", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Utils.ActualizarBarraDeEstado(this);
+            }
+            catch (SqlException ex)
+            {
+                Utils.MsgCatchOueclbdd(this, ex);
+            }
+            catch (Exception ex)
+            {
+                Utils.MsgCatchOue(this, ex);
+            }
+            if (numRegs > 0)
+            {
+                BorrarDatosDetallePedido();
+                LlenarDatosDetallePedido();
+                cboCategoria.Enabled = true;
+                Utils.ActualizarBarraDeEstado(this, $"Se muestran {dgvPedidos.RowCount} registros de pedidos");
+            }
+        }
+
+        private byte EliminarPedidoDetalle(int productId, int orderId, string productName)
+        {
+            byte numRegs = 0;
+            try
+            {
+                using (var context = new NorthwindTradersDataContext())
+                {
+                    if (context.Connection.State == ConnectionState.Closed)
+                        context.Connection.Open();
+                    // Iniciamos una transaccion
+                    using (var transaction = context.Connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            context.Transaction = transaction;
+                            // Buscar el registro que se va a eliminar
+                            var pedidoDetalle = context.Order_Details.SingleOrDefault(pd => pd.OrderID == orderId & pd.ProductID == productId);
+                            if (pedidoDetalle == null)
+                                throw new InvalidOperationException("El detalle del pedido no existe, es posible que el registro haya sido eliminado previamente por otro usuario de la red");
+                            // Devolver la cantidad a UnitsInStock en la tabla Products
+                            var product = context.Products.SingleOrDefault(p => p.ProductID == productId);
+                            if (product != null)
+                                // Verificar desbordamiento
+                                checked
+                                {
+                                    product.UnitsInStock = (short)(product.UnitsInStock + pedidoDetalle.Quantity);
+                                }
+                            // Eliminar el registro
+                            context.Order_Details.DeleteOnSubmit(pedidoDetalle);
+                            context.SubmitChanges();
+                            // Confirmar la transacción
+                            transaction.Commit();
+                            numRegs = 1;
+                        }
+                        catch (OverflowException)
+                        {
+                            transaction.Rollback();
+                            throw new InvalidOperationException("Error al actualizar unidades en stock: se produjo un desbordamiento");
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            Utils.MsgCatchOue(this, ex);
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex) when (ex.Number == 220)
+            {
+                MessageBox.Show("Al tratar de devolver las unidades vendidas al inventario, la cantidad de unidades excede las 32,767 unidades, rango máximo para un campo tipo smallint", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Utils.ActualizarBarraDeEstado(this);
+            }
+            catch (SqlException ex)
+            {
+                Utils.MsgCatchOueclbdd(this, ex);
+            }
+            catch (Exception ex)
+            {
+                Utils.MsgCatchOue(this, ex);
+            }
+            return numRegs;
         }
     }
 }

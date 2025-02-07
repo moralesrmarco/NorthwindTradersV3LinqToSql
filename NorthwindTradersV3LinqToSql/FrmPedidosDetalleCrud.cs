@@ -800,7 +800,7 @@ namespace NorthwindTradersV3LinqToSql
                             {
                                 context.Transaction = transaction;
                                 // Buscar el registro que se va a eliminar
-                                var pedidoDetalle = context.Order_Details.SingleOrDefault(od => od.OrderID == orderId && od.ProductID == productId);
+                                var pedidoDetalle = context.Order_Details.SingleOrDefault(od => od.OrderID == orderId & od.ProductID == productId);
                                 if (pedidoDetalle == null)
                                     throw new InvalidOperationException("El detalle del pedido no existe, es posible que el registro haya sido eliminado por otro usuario de la red");
                                 // Devolver la cantidad a UnitsInStock en la tabla Products

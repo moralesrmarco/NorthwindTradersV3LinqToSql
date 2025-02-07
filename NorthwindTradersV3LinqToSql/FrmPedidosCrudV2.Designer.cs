@@ -375,6 +375,7 @@
             this.dgvDetalle.Name = "dgvDetalle";
             this.dgvDetalle.Size = new System.Drawing.Size(819, 226);
             this.dgvDetalle.TabIndex = 0;
+            this.dgvDetalle.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalle_CellClick);
             this.dgvDetalle.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDetalle_CellFormatting);
             // 
             // Id
