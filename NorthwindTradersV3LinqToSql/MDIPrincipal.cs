@@ -135,26 +135,6 @@ namespace NorthwindTradersV3LinqToSql
             frmClientesCrud.Show();
         }
 
-        private void tsmiDirectorioDeClientesYProveedoresPorCiudad_Click(object sender, EventArgs e)
-        {
-            Utils.CerrarFormularios();
-            FrmClientesyProveedoresDirectorioxCiudad frmClientesyProveedoresDirectorioxCiudad = new FrmClientesyProveedoresDirectorioxCiudad
-            {
-                MdiParent = this
-            };
-            frmClientesyProveedoresDirectorioxCiudad.Show();
-        }
-
-        private void tsmiDirectorioDeClientesYProveedoresPorPais_Click(object sender, EventArgs e)
-        {
-            Utils.CerrarFormularios();
-            FrmClientesyProveedoresDirectorioxPais frmClientesyProveedoresDirectorioxPais = new FrmClientesyProveedoresDirectorioxPais
-            {
-                MdiParent = this
-            };
-            frmClientesyProveedoresDirectorioxPais.Show();
-        }
-
         private void tsmiMantenimientoDeProveedores_Click(object sender, EventArgs e)
         {
             Utils.CerrarFormularios();
@@ -163,36 +143,6 @@ namespace NorthwindTradersV3LinqToSql
                 MdiParent = this
             };
             frmProveedoresCrud.Show();
-        }
-
-        private void tsmiProveedoresProductos_Click(object sender, EventArgs e)
-        {
-            Utils.CerrarFormularios();
-            FrmProveedoresProductos frmProveedoresProductos = new FrmProveedoresProductos
-            {
-                MdiParent = this
-            };
-            frmProveedoresProductos.Show();
-        }
-
-        private void tsmi2DirectorioDeClientesYProveedoresPorCiudad_Click(object sender, EventArgs e)
-        {
-            Utils.CerrarFormularios();
-            FrmClientesyProveedoresDirectorioxCiudad frmClientesyProveedoresDirectorioxCiudad = new FrmClientesyProveedoresDirectorioxCiudad
-            {
-                MdiParent = this
-            };
-            frmClientesyProveedoresDirectorioxCiudad.Show();
-        }
-
-        private void tsmi2DirectorioDeClientesYProveedoresPorPais_Click(object sender, EventArgs e)
-        {
-            Utils.CerrarFormularios();
-            FrmClientesyProveedoresDirectorioxPais frmClientesyProveedoresDirectorioxPais = new FrmClientesyProveedoresDirectorioxPais
-            {
-                MdiParent = this
-            };
-            frmClientesyProveedoresDirectorioxPais.Show();
         }
 
         private void tsmiMantenimientoDeCategorías_Click(object sender, EventArgs e)
@@ -323,6 +273,76 @@ namespace NorthwindTradersV3LinqToSql
                 MdiParent = this
             };
             frmPedidosCrudV2.Show();
+        }
+
+        private void directorioDeClientesYProveedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmClientesyProveedoresDirectorio frmClientesyProveedoresDirectorio = new FrmClientesyProveedoresDirectorio
+            {
+                MdiParent = this
+            };
+            frmClientesyProveedoresDirectorio.Show();
+        }
+
+        private void directorioDeClientesYProveedoresPorCiudadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmClientesyProveedoresDirectorioxCiudad frmClientesyProveedoresDirectorioxCiudad = new FrmClientesyProveedoresDirectorioxCiudad
+            {
+                MdiParent = this
+            };
+            frmClientesyProveedoresDirectorioxCiudad.Show();
+        }
+
+        private void directorioDeClientesYProveedoresPorPaísToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmClientesyProveedoresDirectorioxPais frmClientesyProveedoresDirectorioxPais = new FrmClientesyProveedoresDirectorioxPais
+            {
+                MdiParent = this
+            };
+            frmClientesyProveedoresDirectorioxPais.Show();
+        }
+
+        private void consultaDeProductosPorProveedorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmProveedoresProductos frmProveedoresProductos = new FrmProveedoresProductos
+            {
+                MdiParent = this
+            };
+            frmProveedoresProductos.Show();
+        }
+
+        private void directorioDeClientesYProveedoresPorCiudadToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmClientesyProveedoresDirectorioxCiudad frmClientesyProveedoresDirectorioxCiudad = new FrmClientesyProveedoresDirectorioxCiudad
+            {
+                MdiParent = this
+            };
+            frmClientesyProveedoresDirectorioxCiudad.Show();
+        }
+
+        private void directorioDeClientesYProveedoresPorPaísToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmClientesyProveedoresDirectorioxPais frmClientesyProveedoresDirectorioxPais = new FrmClientesyProveedoresDirectorioxPais
+            {
+                MdiParent = this
+            };
+            frmClientesyProveedoresDirectorioxPais.Show();
+        }
+
+        private void directorioDeClientesYProveedoresToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmClientesyProveedoresDirectorio frmClientesyProveedoresDirectorio = new FrmClientesyProveedoresDirectorio
+            {
+                MdiParent = this
+            };
+            frmClientesyProveedoresDirectorio.Show();
         }
     }
 }

@@ -33,6 +33,8 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.Grb = new System.Windows.Forms.GroupBox();
             this.Dgv = new System.Windows.Forms.DataGridView();
+            this.checkBoxProveedores = new System.Windows.Forms.CheckBox();
+            this.checkBoxClientes = new System.Windows.Forms.CheckBox();
             this.Grb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv)).BeginInit();
             this.SuspendLayout();
@@ -53,13 +55,12 @@
             this.comboBox.FormattingEnabled = true;
             this.comboBox.Location = new System.Drawing.Point(200, 20);
             this.comboBox.Name = "comboBox";
-            this.comboBox.Size = new System.Drawing.Size(360, 24);
+            this.comboBox.Size = new System.Drawing.Size(320, 24);
             this.comboBox.TabIndex = 1;
-            this.comboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(584, 21);
+            this.btnBuscar.Location = new System.Drawing.Point(797, 21);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 2;
@@ -76,6 +77,7 @@
             this.Grb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Grb.Location = new System.Drawing.Point(16, 56);
             this.Grb.Name = "Grb";
+            this.Grb.Padding = new System.Windows.Forms.Padding(10);
             this.Grb.Size = new System.Drawing.Size(952, 552);
             this.Grb.TabIndex = 3;
             this.Grb.TabStop = false;
@@ -86,11 +88,36 @@
             // 
             this.Dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Dgv.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Dgv.Location = new System.Drawing.Point(3, 18);
+            this.Dgv.Location = new System.Drawing.Point(10, 25);
             this.Dgv.Name = "Dgv";
-            this.Dgv.Size = new System.Drawing.Size(946, 531);
+            this.Dgv.Size = new System.Drawing.Size(932, 517);
             this.Dgv.TabIndex = 0;
-            this.Dgv.Visible = false;
+            // 
+            // checkBoxProveedores
+            // 
+            this.checkBoxProveedores.AutoSize = true;
+            this.checkBoxProveedores.Checked = true;
+            this.checkBoxProveedores.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxProveedores.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxProveedores.Location = new System.Drawing.Point(656, 23);
+            this.checkBoxProveedores.Name = "checkBoxProveedores";
+            this.checkBoxProveedores.Size = new System.Drawing.Size(116, 20);
+            this.checkBoxProveedores.TabIndex = 23;
+            this.checkBoxProveedores.Text = "Proveedores";
+            this.checkBoxProveedores.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxClientes
+            // 
+            this.checkBoxClientes.AutoSize = true;
+            this.checkBoxClientes.Checked = true;
+            this.checkBoxClientes.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxClientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxClientes.Location = new System.Drawing.Point(553, 23);
+            this.checkBoxClientes.Name = "checkBoxClientes";
+            this.checkBoxClientes.Size = new System.Drawing.Size(82, 20);
+            this.checkBoxClientes.TabIndex = 22;
+            this.checkBoxClientes.Text = "Clientes";
+            this.checkBoxClientes.UseVisualStyleBackColor = true;
             // 
             // FrmClientesyProveedoresDirectorioxPais
             // 
@@ -98,12 +125,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 621);
             this.ControlBox = false;
+            this.Controls.Add(this.checkBoxProveedores);
+            this.Controls.Add(this.checkBoxClientes);
             this.Controls.Add(this.Grb);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.comboBox);
             this.Controls.Add(this.label1);
             this.Name = "FrmClientesyProveedoresDirectorioxPais";
             this.Text = "» Directorio de clientes y proveedores por país «";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmClientesyProveedoresDirectorioxPais_FormClosed);
             this.Load += new System.EventHandler(this.FrmClientesyProveedoresDirectorioxPais_Load);
             this.Grb.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Dgv)).EndInit();
@@ -119,5 +149,7 @@
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.GroupBox Grb;
         private System.Windows.Forms.DataGridView Dgv;
+        private System.Windows.Forms.CheckBox checkBoxProveedores;
+        private System.Windows.Forms.CheckBox checkBoxClientes;
     }
 }

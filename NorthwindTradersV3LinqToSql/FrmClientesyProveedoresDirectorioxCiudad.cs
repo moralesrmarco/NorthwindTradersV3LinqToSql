@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NorthwindTradersV3LinqToSql
@@ -30,6 +25,7 @@ namespace NorthwindTradersV3LinqToSql
         private void FrmClientesyProveedoresDirectorioxCiudad_Load(object sender, EventArgs e)
         {
             LlenarComboBox();
+            Utils.ConfDgv(Dgv);
         }
 
         private void LlenarComboBox()
@@ -55,15 +51,11 @@ namespace NorthwindTradersV3LinqToSql
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (comboBox.SelectedIndex == 0)
+            if (comboBox.SelectedIndex == 0 | (!checkBoxClientes.Checked & !checkBoxProveedores.Checked))
+            {
+                MessageBox.Show(Utils.errorCriterioSelec, Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
-            LlenarDgv();
-        }
-
-        private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBox.SelectedIndex == 0)
-                return;
+            }
             LlenarDgv();
         }
 
@@ -71,24 +63,60 @@ namespace NorthwindTradersV3LinqToSql
         {
             try
             {
-                Dgv.Visible = true;
                 Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
-                if (comboBox.SelectedValue.ToString() == "aaaaa")
+                if (comboBox.SelectedValue.ToString() == "aaaaa" & checkBoxClientes.Checked & checkBoxProveedores.Checked)
                 {
                     var query = from cliprov in context.VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD
                                 orderby cliprov.Ciudad, cliprov.País, cliprov.Nombre_de_compañía
                                 select cliprov;
+                    Grb.Text = "» Directorio de clientes y proveedores por ciudad [ Todas las ciudades ] «";
                     Dgv.DataSource = query;
                 }
-                else
+                else if (comboBox.SelectedValue.ToString() != "aaaaa" & checkBoxClientes.Checked & checkBoxProveedores.Checked)
                 {
                     var query = from cliprov in context.VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD
-                                where cliprov.Ciudad == comboBox.SelectedValue.ToString() 
+                                where cliprov.Ciudad == comboBox.SelectedValue.ToString()
                                 orderby cliprov.País, cliprov.Nombre_de_compañía
                                 select cliprov;
+                    Grb.Text = $"» Directorio de clientes y proveedores por ciudad [ Ciudad: {comboBox.SelectedValue.ToString()} ] «";
                     Dgv.DataSource = query;
                 }
-                Utils.ConfDgv(Dgv);
+                else if (comboBox.SelectedValue.ToString() == "aaaaa" & checkBoxClientes.Checked & !checkBoxProveedores.Checked)
+                {
+                    var query = from cliprov in context.VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD
+                                where cliprov.Relación == "Cliente"
+                                orderby cliprov.Ciudad, cliprov.País, cliprov.Nombre_de_compañía
+                                select cliprov;
+                    Grb.Text = "» Directorio de clientes por ciudad [ Todas las ciudades ] «";
+                    Dgv.DataSource = query;
+                }
+                else if (comboBox.SelectedValue.ToString() == "aaaaa" & !checkBoxClientes.Checked & checkBoxProveedores.Checked)
+                {
+                    var query = from cliprov in context.VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD
+                                where cliprov.Relación == "Proveedor"
+                                orderby cliprov.Ciudad, cliprov.País, cliprov.Nombre_de_compañía
+                                select cliprov;
+                    Grb.Text = "» Directorio de proveedores por ciudad [ Todas las ciudades ] «";
+                    Dgv.DataSource = query;
+                }
+                else if (comboBox.SelectedValue.ToString() != "aaaaa" & checkBoxClientes.Checked & !checkBoxProveedores.Checked)
+                {
+                    var query = from cliprov in context.VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD
+                                where cliprov.Ciudad == comboBox.SelectedValue.ToString() & cliprov.Relación == "Cliente"
+                                orderby cliprov.País, cliprov.Nombre_de_compañía
+                                select cliprov;
+                    Grb.Text = $"» Directorio de clientes por ciudad [ Ciudad: {comboBox.SelectedValue.ToString()} ] «";
+                    Dgv.DataSource = query;
+                }
+                else if (comboBox.SelectedValue.ToString() != "aaaaa" & !checkBoxClientes.Checked & checkBoxProveedores.Checked)
+                {
+                    var query = from cliprov in context.VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD
+                                where cliprov.Ciudad == comboBox.SelectedValue.ToString() & cliprov.Relación == "Proveedor"
+                                orderby cliprov.País, cliprov.Nombre_de_compañía
+                                select cliprov;
+                    Grb.Text = $"» Directorio de proveedores por ciudad [ Ciudad: {comboBox.SelectedValue.ToString()} ] «";
+                    Dgv.DataSource = query;
+                }
                 ConfDgv();
                 Utils.ActualizarBarraDeEstado(this, $"Se encontraron {Dgv.RowCount} registros");
             }
@@ -124,9 +152,6 @@ namespace NorthwindTradersV3LinqToSql
             Dgv.Columns["Código_postal"].HeaderText = "Código postal";
         }
 
-        private void FrmClientesyProveedoresDirectorioxCiudad_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Utils.ActualizarBarraDeEstado(this);
-        }
+        private void FrmClientesyProveedoresDirectorioxCiudad_FormClosed(object sender, FormClosedEventArgs e) => Utils.ActualizarBarraDeEstado(this);
     }
 }
