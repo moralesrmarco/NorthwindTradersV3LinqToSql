@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NorthwindTradersV3LinqToSql
@@ -1567,7 +1564,7 @@ namespace NorthwindTradersV3LinqToSql
                     if (numRegs > 0)
                         MessageBox.Show($"El Producto: {productName} del Pedido: {orderId}, se eliminó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
-                        MessageBox.Show($"El Producto: {productName} del Pedido: {orderId}, NO se eliminó en la base de datos, es posible que el registro se haya eliminado previamente por otro usuario de la red", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"El Producto: {productName} del Pedido: {orderId}, NO se eliminó en la base de datos", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (SqlException ex) when (ex.Number == 220)
