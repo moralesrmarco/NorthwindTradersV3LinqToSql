@@ -344,5 +344,15 @@ namespace NorthwindTradersV3LinqToSql
             };
             frmClientesyProveedoresDirectorio.Show();
         }
+
+        private void reporteDeEmpleadosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmRptEmpleados frmRptEmpleados = new FrmRptEmpleados
+            {
+                MdiParent = this
+            };
+            frmRptEmpleados.Show();
+        }
     }
 }

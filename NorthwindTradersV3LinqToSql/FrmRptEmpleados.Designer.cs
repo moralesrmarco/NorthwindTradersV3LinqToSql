@@ -45,13 +45,16 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "» Reporte de empleados «";
+            this.groupBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.GrbPaint);
             // 
             // reportViewer1
             // 
-            this.reportViewer1.Location = new System.Drawing.Point(311, 122);
+            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reportViewer1.LocalReport.ReportEmbeddedResource = "NorthwindTradersV3LinqToSql.RptEmpleados.rdlc";
+            this.reportViewer1.Location = new System.Drawing.Point(10, 25);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(396, 246);
+            this.reportViewer1.Size = new System.Drawing.Size(760, 395);
             this.reportViewer1.TabIndex = 0;
             // 
             // FrmRptEmpleados
@@ -64,6 +67,7 @@
             this.Name = "FrmRptEmpleados";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.Text = "» Reporte de empleados «";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmRptEmpleados_FormClosed);
             this.Load += new System.EventHandler(this.FrmRptEmpleados_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -264,6 +264,7 @@
     <EmbeddedResource Include="MDIPrincipal.resx">
       <DependentUpon>MDIPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RptEmpleados.rdlc" />
     <None Include="NorthwindTraders.dbml.layout">
       <DependentUpon>NorthwindTraders.dbml</DependentUpon>
     </None>
