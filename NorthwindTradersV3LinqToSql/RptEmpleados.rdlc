@@ -630,7 +630,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="ReportsTo">
+                    <Textbox Name="ReportsToName">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -643,7 +643,7 @@
                               </Style>
                             </TextRun>
                             <TextRun>
-                              <Value>=Fields!ReportsTo.Value</Value>
+                              <Value>=Fields!ReportsToName.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                               </Style>
@@ -652,7 +652,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>ReportsTo</rd:DefaultName>
+                      <rd:DefaultName>ReportsToName</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -779,7 +779,7 @@
         <DataSetName>DataSet1</DataSetName>
         <Top>0.03527cm</Top>
         <Height>2.4cm</Height>
-        <Width>19.99301cm</Width>
+        <Width>19.99298cm</Width>
         <Style>
           <Border>
             <Color>White</Color>
@@ -1065,6 +1065,10 @@
         </Field>
         <Field Name="PhotoPath">
           <DataField>PhotoPath</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ReportsToName">
+          <DataField>ReportsToName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>

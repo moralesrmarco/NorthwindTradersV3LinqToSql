@@ -670,7 +670,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Reporta a:  </Value>
+                              <Value>Reporta a: </Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                               </Style>
@@ -701,7 +701,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox36">
+                    <Textbox Name="ReportsToName1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -717,7 +717,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox36</rd:DefaultName>
+                      <rd:DefaultName>ReportsToName1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>

@@ -25,6 +25,8 @@ namespace NorthwindTradersV3LinqToSql
                 using (context)
                 {
                     var empleados = from emp in context.Employees
+                                    join emp1 in context.Employees on emp.ReportsTo equals emp1.EmployeeID into emp2
+                                    from emp1 in emp2.DefaultIfEmpty()
                                     select new
                                     {
                                         emp.EmployeeID,
@@ -42,7 +44,7 @@ namespace NorthwindTradersV3LinqToSql
                                         emp.HomePhone,
                                         emp.Extension,
                                         emp.Notes,
-                                        emp.ReportsTo
+                                        ReportsToName = emp1 != null ? emp1.LastName + ", " + emp1.FirstName : "N/A"
                                     };
                     ReportDataSource rds = new ReportDataSource("DataSet1", empleados.ToList());
                     reportViewer1.LocalReport.DataSources.Clear();

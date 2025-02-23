@@ -322,6 +322,8 @@ namespace NorthwindTradersV3LinqToSql {
             
             private global::System.Data.DataColumn columnPhotoPath;
             
+            private global::System.Data.DataColumn columnReportsToName;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public EmployeesDataTable() {
@@ -501,6 +503,14 @@ namespace NorthwindTradersV3LinqToSql {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn ReportsToNameColumn {
+                get {
+                    return this.columnReportsToName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -553,7 +563,8 @@ namespace NorthwindTradersV3LinqToSql {
                         byte[] Photo, 
                         string Notes, 
                         EmployeesRow parentEmployeesRowByFK_Employees_Employees, 
-                        string PhotoPath) {
+                        string PhotoPath, 
+                        string ReportsToName) {
                 EmployeesRow rowEmployeesRow = ((EmployeesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -573,7 +584,8 @@ namespace NorthwindTradersV3LinqToSql {
                         Photo,
                         Notes,
                         null,
-                        PhotoPath};
+                        PhotoPath,
+                        ReportsToName};
                 if ((parentEmployeesRowByFK_Employees_Employees != null)) {
                     columnValuesArray[16] = parentEmployeesRowByFK_Employees_Employees[0];
                 }
@@ -624,6 +636,7 @@ namespace NorthwindTradersV3LinqToSql {
                 this.columnNotes = base.Columns["Notes"];
                 this.columnReportsTo = base.Columns["ReportsTo"];
                 this.columnPhotoPath = base.Columns["PhotoPath"];
+                this.columnReportsToName = base.Columns["ReportsToName"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -665,6 +678,8 @@ namespace NorthwindTradersV3LinqToSql {
                 base.Columns.Add(this.columnReportsTo);
                 this.columnPhotoPath = new global::System.Data.DataColumn("PhotoPath", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPhotoPath);
+                this.columnReportsToName = new global::System.Data.DataColumn("ReportsToName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReportsToName);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnEmployeeID}, true));
                 this.columnEmployeeID.AutoIncrement = true;
@@ -1103,6 +1118,22 @@ namespace NorthwindTradersV3LinqToSql {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string ReportsToName {
+                get {
+                    try {
+                        return ((string)(this[this.tableEmployees.ReportsToNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ReportsToName\' de la tabla \'Employees\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEmployees.ReportsToNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public EmployeesRow EmployeesRowParent {
                 get {
                     return ((EmployeesRow)(this.GetParentRow(this.Table.ParentRelations["FK_Employees_Employees"])));
@@ -1290,6 +1321,18 @@ namespace NorthwindTradersV3LinqToSql {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetPhotoPathNull() {
                 this[this.tableEmployees.PhotoPathColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsReportsToNameNull() {
+                return this.IsNull(this.tableEmployees.ReportsToNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetReportsToNameNull() {
+                this[this.tableEmployees.ReportsToNameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
