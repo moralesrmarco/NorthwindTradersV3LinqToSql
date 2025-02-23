@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmpleadoConReportsTo.cs" />
     <Compile Include="FrmCategoriasCrud.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +181,12 @@
     <Compile Include="FrmProveedoresProductos.Designer.cs">
       <DependentUpon>FrmProveedoresProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmRptEmpleado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRptEmpleado.Designer.cs">
+      <DependentUpon>FrmRptEmpleado.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmRptEmpleados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -269,6 +276,9 @@
     <EmbeddedResource Include="FrmProveedoresProductos.resx">
       <DependentUpon>FrmProveedoresProductos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmRptEmpleado.resx">
+      <DependentUpon>FrmRptEmpleado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmRptEmpleados.resx">
       <DependentUpon>FrmRptEmpleados.cs</DependentUpon>
     </EmbeddedResource>
@@ -278,6 +288,7 @@
     <EmbeddedResource Include="MDIPrincipal.resx">
       <DependentUpon>MDIPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RptEmpleado.rdlc" />
     <EmbeddedResource Include="RptEmpleados.rdlc" />
     <EmbeddedResource Include="RptEmpleadosConFoto.rdlc" />
     <None Include="NorthwindDataSet.xsc">

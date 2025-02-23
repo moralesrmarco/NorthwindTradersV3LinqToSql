@@ -296,9 +296,8 @@
             this.btnOperacion.Name = "btnOperacion";
             this.btnOperacion.Size = new System.Drawing.Size(128, 23);
             this.btnOperacion.TabIndex = 55;
-            this.btnOperacion.Text = "Registrar empleado";
+            this.btnOperacion.Text = "Imprimir empleado";
             this.btnOperacion.UseVisualStyleBackColor = true;
-            this.btnOperacion.Visible = false;
             this.btnOperacion.Click += new System.EventHandler(this.btnOperacion_Click);
             // 
             // label16
