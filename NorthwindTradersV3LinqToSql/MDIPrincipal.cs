@@ -354,5 +354,15 @@ namespace NorthwindTradersV3LinqToSql
             };
             frmRptEmpleados.Show();
         }
+
+        private void reporteDeEmpleadosConFotoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmRptEmpleadosConFoto frmRptEmpleadosConFoto = new FrmRptEmpleadosConFoto
+            {
+                MdiParent = this
+            };
+            frmRptEmpleadosConFoto.Show();
+        }
     }
 }

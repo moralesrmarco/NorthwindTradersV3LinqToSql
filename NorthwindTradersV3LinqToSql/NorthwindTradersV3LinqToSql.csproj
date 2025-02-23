@@ -186,6 +186,12 @@
     <Compile Include="FrmRptEmpleados.Designer.cs">
       <DependentUpon>FrmRptEmpleados.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmRptEmpleadosConFoto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRptEmpleadosConFoto.Designer.cs">
+      <DependentUpon>FrmRptEmpleadosConFoto.cs</DependentUpon>
+    </Compile>
     <Compile Include="MDIPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -266,10 +272,14 @@
     <EmbeddedResource Include="FrmRptEmpleados.resx">
       <DependentUpon>FrmRptEmpleados.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmRptEmpleadosConFoto.resx">
+      <DependentUpon>FrmRptEmpleadosConFoto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MDIPrincipal.resx">
       <DependentUpon>MDIPrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RptEmpleados.rdlc" />
+    <EmbeddedResource Include="RptEmpleadosConFoto.rdlc" />
     <None Include="NorthwindDataSet.xsc">
       <DependentUpon>NorthwindDataSet.xsd</DependentUpon>
     </None>

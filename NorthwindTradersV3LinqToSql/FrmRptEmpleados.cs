@@ -1,13 +1,8 @@
 ﻿using Microsoft.Reporting.WinForms;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NorthwindTradersV3LinqToSql
@@ -49,9 +44,6 @@ namespace NorthwindTradersV3LinqToSql
                                         emp.Notes,
                                         emp.ReportsTo
                                     };
-                    //RptEmpleados rpt = new RptEmpleados();
-                    //rpt.SetDataSource(empleados.ToList());
-                    //crvEmpleados.ReportSource = rpt;
                     ReportDataSource rds = new ReportDataSource("DataSet1", empleados.ToList());
                     reportViewer1.LocalReport.DataSources.Clear();
                     reportViewer1.LocalReport.DataSources.Add(rds);
