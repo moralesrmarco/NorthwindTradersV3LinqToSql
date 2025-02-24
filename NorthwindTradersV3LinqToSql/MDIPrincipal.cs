@@ -374,5 +374,35 @@ namespace NorthwindTradersV3LinqToSql
             };
             frmRptEmpleado2.Show();
         }
+
+        private void directorioDeClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmRptClientes frmRptClientes = new FrmRptClientes
+            {
+                MdiParent = this
+            };
+            frmRptClientes.Show();
+        }
+
+        private void directorioDeClientesYProveedoresToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmRptClientesyProveedoresDirectorio frmRptClientesyProveedoresDirectorio = new FrmRptClientesyProveedoresDirectorio
+            {
+                MdiParent = this
+            };
+            frmRptClientesyProveedoresDirectorio.Show();
+        }
+
+        private void directorioDeClientesYProveedoresPorCiudadToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void directorioDeClientesYProveedoresPorPaísToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
