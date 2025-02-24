@@ -55,7 +55,7 @@ namespace NorthwindTradersV3LinqToSql
             txtDomicilio.ReadOnly = txtCiudad.ReadOnly = txtRegion.ReadOnly = txtCodigoP.ReadOnly = true;
             txtPais.ReadOnly = txtTelefono.ReadOnly = txtExtension.ReadOnly = true;
             dtpFNacimiento.Enabled = dtpFContratacion.Enabled = false;
-            txtNotas.ReadOnly = true;
+            txtNotas.ReadOnly = false;
             cboReportaA.Enabled = false;
             picFoto.Enabled = false;
             btnCargar.Enabled = false;
