@@ -414,5 +414,45 @@ namespace NorthwindTradersV3LinqToSql
             };
             frmRptClientesyProveedoresDirectorioxPais.Show();
         }
+
+        private void directorioDeProveedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmRptProveedores frmRptProveedores = new FrmRptProveedores
+            {
+                MdiParent = this
+            };
+            frmRptProveedores.Show();
+        }
+
+        private void directorioDeClientesYProveedoresToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmRptClientesyProveedoresDirectorio frmRptClientesyProveedoresDirectorio = new FrmRptClientesyProveedoresDirectorio
+            {
+                MdiParent = this
+            };
+            frmRptClientesyProveedoresDirectorio.Show();
+        }
+
+        private void directorioDeClientesYProveedoresPorCiudadToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmRptClientesyProveedoresDirectorioxCiudad frmRptClientesyProveedoresDirectorioxCiudad = new FrmRptClientesyProveedoresDirectorioxCiudad
+            {
+                MdiParent = this
+            };
+            frmRptClientesyProveedoresDirectorioxCiudad.Show();
+        }
+
+        private void directorioDeClientesYProveedoresPorPaísToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmRptClientesyProveedoresDirectorio frmRptClientesyProveedoresDirectorio = new FrmRptClientesyProveedoresDirectorio
+            {
+                MdiParent = this
+            };
+            frmRptClientesyProveedoresDirectorio.Show();
+        }
     }
 }
