@@ -245,6 +245,20 @@
       <Column Name="Fax" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS_RPT" Member="VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS_RPT">
+    <Type Name="VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS_RPT">
+      <Column Name="Ciudad" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Pais" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="NombreCompania" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="NombreContacto" Type="System.String" DbType="NVarChar(62)" CanBeNull="true" />
+      <Column Name="Relacion" Type="System.String" DbType="VarChar(9) NOT NULL" CanBeNull="false" />
+      <Column Name="Telefono" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+      <Column Name="Domicilio" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Region" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="CodigoPostal" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.SP_EMPLEADOS_PAIS" Method="SP_EMPLEADOS_PAIS">
     <ElementType Name="SP_EMPLEADOS_PAISResult">
       <Column Name="Id" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />

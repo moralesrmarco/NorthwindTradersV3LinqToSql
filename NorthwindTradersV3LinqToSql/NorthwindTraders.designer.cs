@@ -253,6 +253,14 @@ namespace NorthwindTradersV3LinqToSql
 			}
 		}
 		
+		public System.Data.Linq.Table<VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS_RPT> VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS_RPT
+		{
+			get
+			{
+				return this.GetTable<VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS_RPT>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EMPLEADOS_PAIS")]
 		public ISingleResult<SP_EMPLEADOS_PAISResult> SP_EMPLEADOS_PAIS()
 		{
@@ -5012,6 +5020,195 @@ namespace NorthwindTradersV3LinqToSql
 		private string _Fax;
 		
 		public VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD_RPT()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ciudad", DbType="NVarChar(15)")]
+		public string Ciudad
+		{
+			get
+			{
+				return this._Ciudad;
+			}
+			set
+			{
+				if ((this._Ciudad != value))
+				{
+					this._Ciudad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pais", DbType="NVarChar(15)")]
+		public string Pais
+		{
+			get
+			{
+				return this._Pais;
+			}
+			set
+			{
+				if ((this._Pais != value))
+				{
+					this._Pais = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreCompania", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string NombreCompania
+		{
+			get
+			{
+				return this._NombreCompania;
+			}
+			set
+			{
+				if ((this._NombreCompania != value))
+				{
+					this._NombreCompania = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreContacto", DbType="NVarChar(62)")]
+		public string NombreContacto
+		{
+			get
+			{
+				return this._NombreContacto;
+			}
+			set
+			{
+				if ((this._NombreContacto != value))
+				{
+					this._NombreContacto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Relacion", DbType="VarChar(9) NOT NULL", CanBeNull=false)]
+		public string Relacion
+		{
+			get
+			{
+				return this._Relacion;
+			}
+			set
+			{
+				if ((this._Relacion != value))
+				{
+					this._Relacion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telefono", DbType="NVarChar(24)")]
+		public string Telefono
+		{
+			get
+			{
+				return this._Telefono;
+			}
+			set
+			{
+				if ((this._Telefono != value))
+				{
+					this._Telefono = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Domicilio", DbType="NVarChar(60)")]
+		public string Domicilio
+		{
+			get
+			{
+				return this._Domicilio;
+			}
+			set
+			{
+				if ((this._Domicilio != value))
+				{
+					this._Domicilio = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Region", DbType="NVarChar(15)")]
+		public string Region
+		{
+			get
+			{
+				return this._Region;
+			}
+			set
+			{
+				if ((this._Region != value))
+				{
+					this._Region = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodigoPostal", DbType="NVarChar(10)")]
+		public string CodigoPostal
+		{
+			get
+			{
+				return this._CodigoPostal;
+			}
+			set
+			{
+				if ((this._CodigoPostal != value))
+				{
+					this._CodigoPostal = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fax", DbType="NVarChar(24)")]
+		public string Fax
+		{
+			get
+			{
+				return this._Fax;
+			}
+			set
+			{
+				if ((this._Fax != value))
+				{
+					this._Fax = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS_RPT")]
+	public partial class VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS_RPT
+	{
+		
+		private string _Ciudad;
+		
+		private string _Pais;
+		
+		private string _NombreCompania;
+		
+		private string _NombreContacto;
+		
+		private string _Relacion;
+		
+		private string _Telefono;
+		
+		private string _Domicilio;
+		
+		private string _Region;
+		
+		private string _CodigoPostal;
+		
+		private string _Fax;
+		
+		public VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS_RPT()
 		{
 		}
 		

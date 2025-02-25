@@ -1,13 +1,8 @@
 ﻿using Microsoft.Reporting.WinForms;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NorthwindTradersV3LinqToSql
@@ -99,11 +94,11 @@ namespace NorthwindTradersV3LinqToSql
                                     };
                         titulo = "» Reporte directorio de proveedores «";
                     }
-                    if (query != null)
+                    groupBox1.Text = titulo;
+                    Utils.ActualizarBarraDeEstado(this, $"Se encontraron {query.Count()} registros");
+                    if (query.Count() > 0)
                     {
-                        groupBox1.Text = titulo;
                         var clientes = query.ToList();
-                        Utils.ActualizarBarraDeEstado(this, $"Se encontraron {query.Count()} registros");
                         ReportDataSource reportDataSource = new ReportDataSource("DataSet1", clientes);
                         reportViewer1.LocalReport.DataSources.Clear();
                         reportViewer1.LocalReport.DataSources.Add(reportDataSource);
@@ -114,9 +109,6 @@ namespace NorthwindTradersV3LinqToSql
                     }
                     else
                     {
-                        titulo = "» Reporte directorio de clientes y proveedores «";
-                        groupBox1.Text = titulo;
-                        Utils.ActualizarBarraDeEstado(this);
                         reportViewer1.LocalReport.DataSources.Clear();
                         ReportDataSource rds = new ReportDataSource("DataSet1", new DataTable());
                         reportViewer1.LocalReport.DataSources.Add(rds);

@@ -397,12 +397,22 @@ namespace NorthwindTradersV3LinqToSql
 
         private void directorioDeClientesYProveedoresPorCiudadToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-
+            Utils.CerrarFormularios();
+            FrmRptClientesyProveedoresDirectorioxCiudad frmRptClientesyProveedoresDirectorioxCiudad = new FrmRptClientesyProveedoresDirectorioxCiudad
+            {
+                MdiParent = this
+            };
+            frmRptClientesyProveedoresDirectorioxCiudad.Show();
         }
 
         private void directorioDeClientesYProveedoresPorPaísToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-
+            Utils.CerrarFormularios();
+            FrmRptClientesyProveedoresDirectorioxPais frmRptClientesyProveedoresDirectorioxPais = new FrmRptClientesyProveedoresDirectorioxPais
+            {
+                MdiParent = this
+            };
+            frmRptClientesyProveedoresDirectorioxPais.Show();
         }
     }
 }
