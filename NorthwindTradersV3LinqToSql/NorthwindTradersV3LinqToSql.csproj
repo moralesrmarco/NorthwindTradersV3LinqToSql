@@ -181,6 +181,12 @@
     <Compile Include="FrmProveedoresProductos.Designer.cs">
       <DependentUpon>FrmProveedoresProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmRptCategorias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRptCategorias.Designer.cs">
+      <DependentUpon>FrmRptCategorias.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmRptClientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -312,6 +318,9 @@
     <EmbeddedResource Include="FrmProveedoresProductos.resx">
       <DependentUpon>FrmProveedoresProductos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmRptCategorias.resx">
+      <DependentUpon>FrmRptCategorias.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmRptClientes.resx">
       <DependentUpon>FrmRptClientes.cs</DependentUpon>
     </EmbeddedResource>
@@ -342,6 +351,7 @@
     <EmbeddedResource Include="MDIPrincipal.resx">
       <DependentUpon>MDIPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RptCategorias.rdlc" />
     <EmbeddedResource Include="RptClientes.rdlc" />
     <EmbeddedResource Include="RptClientesyProveedoresDirectorio.rdlc" />
     <EmbeddedResource Include="RptClientesyProveedoresDirectorioxCiudad.rdlc" />
@@ -501,6 +511,7 @@
     <Content Include="StoredProcedures\dbo.Tipo_OrderDetails.sql" />
     <Content Include="StoredProcedures\dbo.VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD.sql" />
     <Content Include="StoredProcedures\dbo.VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS.sql" />
+    <Content Include="StoredProcedures\dbo.VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS_RPT.sql" />
     <Content Include="StoredProcedures\dbo.VW_PRODUCTOSLISTAALFABETICA.sql" />
     <Content Include="StoredProcedures\dbo.VW_PRODUCTOSPORCATEGORIALISTADO.sql" />
     <Content Include="StoredProcedures\dbo.VW_PRODUCTOSPORENCIMADELPRECIOPROMEDIO.sql" />

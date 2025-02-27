@@ -77,22 +77,13 @@ namespace NorthwindTradersV3LinqToSql
             {
                 if (empId <= 9)
                 {
-
                     // Eliminar el encabezado OLE (78 bytes)
                     const int OLEHeaderLength = 78;
                     if (imageBytes.Length > OLEHeaderLength)
                     {
-                        using (MemoryStream ms = new MemoryStream())
-                        {
-                            ms.Write(imageBytes, OLEHeaderLength, imageBytes.Length - OLEHeaderLength);
-                            ms.Seek(0, SeekOrigin.Begin);
-                            Image image = Image.FromStream(ms);
-                            using (MemoryStream jpgStream = new MemoryStream())
-                            {
-                                image.Save(jpgStream, ImageFormat.Jpeg);
-                                return Convert.ToBase64String(jpgStream.ToArray());
-                            }
-                        }
+                        byte[] foto = new byte[imageBytes.Length - OLEHeaderLength];
+                        Array.Copy(imageBytes, OLEHeaderLength, foto, 0, foto.Length);
+                        return Convert.ToBase64String(foto);
                     }
                     else
                     {

@@ -200,10 +200,22 @@ namespace NorthwindTradersV3LinqToSql
             Utils.ActualizarBarraDeEstado(form);
         }
 
+        public static void MsgCatchOueclbdd(SqlException ex)
+        {
+            MessageBox.Show(Utils.oueclbdd + ex.Message, Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MDIPrincipal.ActualizarBarraDeEstado();
+        }
+
         public static void MsgCatchOue(Form form, Exception ex)
         {
             MessageBox.Show(Utils.oue + "\n" + ex.Message + "\n" + ex.StackTrace, Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
             Utils.ActualizarBarraDeEstado(form);
+        }
+
+        public static void MsgCatchOue(Exception ex)
+        {
+            MessageBox.Show(Utils.oue + ex.Message, Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MDIPrincipal.ActualizarBarraDeEstado();
         }
 
         public static void MsgCatchErrorRestriccionCF(Form form)
