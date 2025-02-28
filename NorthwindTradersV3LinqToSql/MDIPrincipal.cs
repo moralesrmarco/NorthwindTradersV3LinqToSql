@@ -492,7 +492,12 @@ namespace NorthwindTradersV3LinqToSql
 
         private void reporteDeProductosPorCategoríaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Utils.CerrarFormularios();
+            FrmRptProductosPorCategorias frmRptProductosPorCategorias = new FrmRptProductosPorCategorias
+            {
+                MdiParent = this
+            };
+            frmRptProductosPorCategorias.Show();
         }
     }
 }

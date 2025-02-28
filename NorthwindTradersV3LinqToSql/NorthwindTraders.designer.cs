@@ -261,6 +261,14 @@ namespace NorthwindTradersV3LinqToSql
 			}
 		}
 		
+		public System.Data.Linq.Table<VW_PRODUCTOSPORCATEGORIALISTADO_RPT> VW_PRODUCTOSPORCATEGORIALISTADO_RPT
+		{
+			get
+			{
+				return this.GetTable<VW_PRODUCTOSPORCATEGORIALISTADO_RPT>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EMPLEADOS_PAIS")]
 		public ISingleResult<SP_EMPLEADOS_PAISResult> SP_EMPLEADOS_PAIS()
 		{
@@ -5368,6 +5376,195 @@ namespace NorthwindTradersV3LinqToSql
 				if ((this._Fax != value))
 				{
 					this._Fax = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VW_PRODUCTOSPORCATEGORIALISTADO_RPT")]
+	public partial class VW_PRODUCTOSPORCATEGORIALISTADO_RPT
+	{
+		
+		private string _CategoryName;
+		
+		private string _ProductName;
+		
+		private System.Nullable<int> _ProductID;
+		
+		private string _QuantityPerUnit;
+		
+		private System.Nullable<decimal> _UnitPrice;
+		
+		private System.Nullable<short> _UnitsInStock;
+		
+		private System.Nullable<short> _UnitsOnOrder;
+		
+		private System.Nullable<short> _ReorderLevel;
+		
+		private System.Nullable<bool> _Discontinued;
+		
+		private string _CompanyName;
+		
+		public VW_PRODUCTOSPORCATEGORIALISTADO_RPT()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryName", DbType="NVarChar(15) NOT NULL", CanBeNull=false)]
+		public string CategoryName
+		{
+			get
+			{
+				return this._CategoryName;
+			}
+			set
+			{
+				if ((this._CategoryName != value))
+				{
+					this._CategoryName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(40)")]
+		public string ProductName
+		{
+			get
+			{
+				return this._ProductName;
+			}
+			set
+			{
+				if ((this._ProductName != value))
+				{
+					this._ProductName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductID", DbType="Int")]
+		public System.Nullable<int> ProductID
+		{
+			get
+			{
+				return this._ProductID;
+			}
+			set
+			{
+				if ((this._ProductID != value))
+				{
+					this._ProductID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuantityPerUnit", DbType="NVarChar(20)")]
+		public string QuantityPerUnit
+		{
+			get
+			{
+				return this._QuantityPerUnit;
+			}
+			set
+			{
+				if ((this._QuantityPerUnit != value))
+				{
+					this._QuantityPerUnit = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitPrice", DbType="Money")]
+		public System.Nullable<decimal> UnitPrice
+		{
+			get
+			{
+				return this._UnitPrice;
+			}
+			set
+			{
+				if ((this._UnitPrice != value))
+				{
+					this._UnitPrice = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitsInStock", DbType="SmallInt")]
+		public System.Nullable<short> UnitsInStock
+		{
+			get
+			{
+				return this._UnitsInStock;
+			}
+			set
+			{
+				if ((this._UnitsInStock != value))
+				{
+					this._UnitsInStock = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitsOnOrder", DbType="SmallInt")]
+		public System.Nullable<short> UnitsOnOrder
+		{
+			get
+			{
+				return this._UnitsOnOrder;
+			}
+			set
+			{
+				if ((this._UnitsOnOrder != value))
+				{
+					this._UnitsOnOrder = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReorderLevel", DbType="SmallInt")]
+		public System.Nullable<short> ReorderLevel
+		{
+			get
+			{
+				return this._ReorderLevel;
+			}
+			set
+			{
+				if ((this._ReorderLevel != value))
+				{
+					this._ReorderLevel = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Discontinued", DbType="Bit")]
+		public System.Nullable<bool> Discontinued
+		{
+			get
+			{
+				return this._Discontinued;
+			}
+			set
+			{
+				if ((this._Discontinued != value))
+				{
+					this._Discontinued = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompanyName", DbType="NVarChar(40)")]
+		public string CompanyName
+		{
+			get
+			{
+				return this._CompanyName;
+			}
+			set
+			{
+				if ((this._CompanyName != value))
+				{
+					this._CompanyName = value;
 				}
 			}
 		}

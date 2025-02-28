@@ -235,6 +235,12 @@
     <Compile Include="FrmRptEmpleadosConFoto.Designer.cs">
       <DependentUpon>FrmRptEmpleadosConFoto.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmRptProductosPorCategorias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRptProductosPorCategorias.Designer.cs">
+      <DependentUpon>FrmRptProductosPorCategorias.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmRptProveedores.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -345,6 +351,9 @@
     <EmbeddedResource Include="FrmRptEmpleadosConFoto.resx">
       <DependentUpon>FrmRptEmpleadosConFoto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmRptProductosPorCategorias.resx">
+      <DependentUpon>FrmRptProductosPorCategorias.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmRptProveedores.resx">
       <DependentUpon>FrmRptProveedores.cs</DependentUpon>
     </EmbeddedResource>
@@ -359,6 +368,7 @@
     <EmbeddedResource Include="RptEmpleado.rdlc" />
     <EmbeddedResource Include="RptEmpleados.rdlc" />
     <EmbeddedResource Include="RptEmpleadosConFoto.rdlc" />
+    <EmbeddedResource Include="RptProductosPorCategorias.rdlc" />
     <EmbeddedResource Include="RptProveedores.rdlc" />
     <None Include="NorthwindDataSet.xsc">
       <DependentUpon>NorthwindDataSet.xsd</DependentUpon>
@@ -514,6 +524,7 @@
     <Content Include="StoredProcedures\dbo.VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS_RPT.sql" />
     <Content Include="StoredProcedures\dbo.VW_PRODUCTOSLISTAALFABETICA.sql" />
     <Content Include="StoredProcedures\dbo.VW_PRODUCTOSPORCATEGORIALISTADO.sql" />
+    <Content Include="StoredProcedures\dbo.VW_PRODUCTOSPORCATEGORIALISTADO_RPT.sql" />
     <Content Include="StoredProcedures\dbo.VW_PRODUCTOSPORENCIMADELPRECIOPROMEDIO.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

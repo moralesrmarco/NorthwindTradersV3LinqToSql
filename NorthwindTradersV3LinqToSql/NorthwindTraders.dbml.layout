@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 16.75, 20.375" name="NorthwindTraders">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17.625, 20.375" name="NorthwindTraders">
   <DataContextMoniker Name="/NorthwindTradersDataContext" />
   <nestedChildShapes>
     <classShape Id="ed3c405d-f21e-4088-abec-e29f248ca25d" absoluteBounds="3.75, 14.625, 2, 1.5785953776041683">
@@ -211,6 +211,12 @@
       <DataClassMoniker Name="/NorthwindTradersDataContext/VW_CLIENTESPROVEEDORES_DIRECTORIOPORPAIS_RPT" />
       <nestedChildShapes>
         <elementListCompartment Id="c6db4989-23bf-4bab-b2c6-abf06b5eebf7" absoluteBounds="14.515, 8.835, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="93c874ee-a44c-46d4-a885-0533961511b0" absoluteBounds="15.375, 0.5, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/NorthwindTradersDataContext/VW_PRODUCTOSPORCATEGORIALISTADO_RPT" />
+      <nestedChildShapes>
+        <elementListCompartment Id="292ea911-d11d-4e84-8289-4e324ce84e29" absoluteBounds="15.39, 0.96, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
