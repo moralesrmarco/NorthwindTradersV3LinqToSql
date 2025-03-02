@@ -37,20 +37,32 @@ namespace NorthwindTradersV3LinqToSql
         {
             try
             {
-                Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
-                var query = context.SP_CATEGORIAS_SELECCIONAR_V2();
-                cboCategoria.DataSource = query;
-                cboCategoria.DisplayMember = "Categoria";
-                cboCategoria.ValueMember = "Id";
-                Utils.ActualizarBarraDeEstado(this);
+                using (NorthwindTradersDataContext context = new NorthwindTradersDataContext())
+                {
+                    MDIPrincipal.ActualizarBarraDeEstado(Utils.clbdd);
+                    //var query = context.SP_CATEGORIAS_SELECCIONAR_V2();
+                    var categorias = from cat in context.Categories
+                                     orderby cat.CategoryName
+                                     select new
+                                     {
+                                         Id = cat.CategoryID,
+                                         Categoria = cat.CategoryName
+                                     };
+                    var categoriasFinal = categorias.ToList();
+                    categoriasFinal.Insert(0, new { Id = 0, Categoria = "«--- Seleccione ---»" });
+                    cboCategoria.DataSource = categoriasFinal;
+                    cboCategoria.DisplayMember = "Categoria";
+                    cboCategoria.ValueMember = "Id";
+                    MDIPrincipal.ActualizarBarraDeEstado();
+                }
             }
             catch (SqlException ex)
             {
-                Utils.MsgCatchOueclbdd(this, ex);
+                Utils.MsgCatchOueclbdd(ex);
             }
             catch (Exception ex)
             {
-                Utils.MsgCatchOue(this, ex);
+                Utils.MsgCatchOue(ex);
             }
         }
 
@@ -58,20 +70,31 @@ namespace NorthwindTradersV3LinqToSql
         {
             try
             {
-                Utils.ActualizarBarraDeEstado(this, Utils.clbdd);
-                var query = context.SP_PROVEEDORES_SELECCIONAR();
-                cboProveedor.DataSource = query;
-                cboProveedor.DisplayMember = "Proveedor";
-                cboProveedor.ValueMember = "Id";
-                Utils.ActualizarBarraDeEstado(this);
+                using (NorthwindTradersDataContext context = new NorthwindTradersDataContext())
+                {
+                    MDIPrincipal.ActualizarBarraDeEstado(Utils.clbdd);
+                    var proveedores = from prov in context.Suppliers
+                                      orderby prov.CompanyName
+                                      select new
+                                      {
+                                          Id = prov.SupplierID,
+                                          Proveedor = prov.CompanyName
+                                      };
+                    var proveedoresFinal = proveedores.ToList();
+                    proveedoresFinal.Insert(0, new { Id = 0, Proveedor = "«--- Seleccione ---»" });
+                    cboProveedor.DataSource = proveedoresFinal;
+                    cboProveedor.DisplayMember = "Proveedor";
+                    cboProveedor.ValueMember = "Id";
+                    MDIPrincipal.ActualizarBarraDeEstado();
+                }
             }
             catch (SqlException ex)
             {
-                Utils.MsgCatchOueclbdd(this, ex);
+                Utils.MsgCatchOueclbdd(ex);
             }
             catch (Exception ex)
             {
-                Utils.MsgCatchOue(this, ex);
+                Utils.MsgCatchOue(ex);
             }
         }
 

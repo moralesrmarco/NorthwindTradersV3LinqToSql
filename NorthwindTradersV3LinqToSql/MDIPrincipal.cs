@@ -499,5 +499,15 @@ namespace NorthwindTradersV3LinqToSql
             };
             frmRptProductosPorCategorias.Show();
         }
+
+        private void reporteDeProductosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmRptProductos frmRptProductos = new FrmRptProductos
+            {
+                MdiParent = this
+            };
+            frmRptProductos.Show();
+        }
     }
 }

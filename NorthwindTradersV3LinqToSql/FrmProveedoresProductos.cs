@@ -115,9 +115,7 @@ namespace NorthwindTradersV3LinqToSql
             DgvProductos.Columns["Punto_de_pedido"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             DgvProductos.Columns["Descontinuado"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             DgvProductos.Columns["Categoría"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            DgvProductos.Columns["Proveedor"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             DgvProductos.Columns["Cantidad_por_unidad"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            DgvProductos.Columns["Descripción_de_categoría"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
             DgvProductos.Columns["IdCategoria"].Visible = false;
             DgvProductos.Columns["IdProveedor"].Visible = false;
