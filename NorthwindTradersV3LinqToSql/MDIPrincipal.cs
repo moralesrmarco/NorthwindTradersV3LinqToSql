@@ -569,5 +569,15 @@ namespace NorthwindTradersV3LinqToSql
             };
             frmRptProdPorProvConDetProv.Show();
         }
+
+        private void reporteDePedidosPorRangoDeFechaDePedidoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmRptPedPorRangoFechaPed frmRptPedPorRangoFechaPed = new FrmRptPedPorRangoFechaPed
+            {
+                MdiParent = this
+            };
+            frmRptPedPorRangoFechaPed.Show();
+        }
     }
 }
