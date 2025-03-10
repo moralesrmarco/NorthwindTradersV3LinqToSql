@@ -579,5 +579,15 @@ namespace NorthwindTradersV3LinqToSql
             };
             frmRptPedPorRangoFechaPed.Show();
         }
+
+        private void reporteDePedidosPorDiferentesCriteriosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmRptPedPorDifCriterios frmRptPedPorDifCriterios = new FrmRptPedPorDifCriterios
+            {
+                MdiParent = this
+            };
+            frmRptPedPorDifCriterios.Show();
+        }
     }
 }

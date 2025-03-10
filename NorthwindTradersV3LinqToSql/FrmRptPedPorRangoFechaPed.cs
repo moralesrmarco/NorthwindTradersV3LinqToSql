@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -190,11 +189,6 @@ namespace NorthwindTradersV3LinqToSql
             if (dateTimePicker1.Checked && dateTimePicker2.Checked)
                 if (dateTimePicker2.Value < dateTimePicker1.Value)
                     dateTimePicker1.Value = dateTimePicker2.Value;
-        }
-
-        private void FrmRptPedPorRangoFechaPed_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

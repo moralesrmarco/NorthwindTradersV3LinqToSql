@@ -159,7 +159,6 @@
             this.Padding = new System.Windows.Forms.Padding(20);
             this.Text = "» Reporte de pedidos por rango de fecha de pedido «";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmRptPedPorRangoFechaPed_FormClosed);
-            this.Load += new System.EventHandler(this.FrmRptPedPorRangoFechaPed_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
