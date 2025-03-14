@@ -216,6 +216,7 @@ namespace NorthwindTradersV3LinqToSql
             BorrarMensajesError();
             BorrarDatosBusqueda();
             DeshabilitarControles();
+            BtnNota.Enabled = false;
             DgvPedidos.Focus();
         }
 
@@ -224,6 +225,7 @@ namespace NorthwindTradersV3LinqToSql
             BorrarDatosPedido();
             BorrarMensajesError();
             DeshabilitarControles();
+            BtnNota.Enabled = false;
             LlenarDgvPedidos(sender);
             DgvPedidos.Focus();
         }
@@ -559,6 +561,7 @@ namespace NorthwindTradersV3LinqToSql
 
         private void DgvPedidos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            BtnNota.Enabled = false;
             BorrarDatosPedido();
             DataGridViewRow dgvr = DgvPedidos.CurrentRow;
             txtId.Text = dgvr.Cells["Id"].Value.ToString();
@@ -718,6 +721,7 @@ namespace NorthwindTradersV3LinqToSql
                     LlenarDatosDetallePedido();
                     cboCategoria.Enabled = true;
                     Utils.ActualizarBarraDeEstado(this, $"Se muestran {DgvPedidos.RowCount} registros de pedidos");
+                    BtnNota.Enabled = true;
                     DgvDetalle.Focus();
                 }
             }
@@ -750,6 +754,7 @@ namespace NorthwindTradersV3LinqToSql
                 int productId = (int)dgvr.Cells["ProductoId"].Value;
                 int orderId = int.Parse(txtId.Text);
                 EliminarPedidoDetalle(orderId, productId, productName );
+                BtnNota.Enabled = true;
             }
             if (e.ColumnIndex == DgvDetalle.Columns["Modificar"].Index)
             {
@@ -767,6 +772,7 @@ namespace NorthwindTradersV3LinqToSql
                     DialogResult dialogResult = frmPedidosDetalleModificar.ShowDialog();
                     if (dialogResult == DialogResult.OK)
                     {
+                        BtnNota.Enabled = true;
                         BorrarDatosDetallePedido();
                         LlenarDatosDetallePedido();
                     }
@@ -853,6 +859,13 @@ namespace NorthwindTradersV3LinqToSql
                 cboCategoria.Enabled = true;
                 Utils.ActualizarBarraDeEstado(this, $"Se muestran {DgvPedidos.RowCount} registros de pedidos");
             }
+        }
+
+        private void BtnNota_Click(object sender, EventArgs e)
+        {
+            FrmRptNotaRemision frmRptNotaRemision = new FrmRptNotaRemision();
+            frmRptNotaRemision.Id = int.Parse(txtId.Text);
+            frmRptNotaRemision.ShowDialog();
         }
     }
 }

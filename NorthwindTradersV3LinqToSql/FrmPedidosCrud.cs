@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Runtime.ExceptionServices;
 using System.Windows.Forms;
 // checar segmento en linea 952
 namespace NorthwindTradersV3LinqToSql
@@ -15,6 +14,7 @@ namespace NorthwindTradersV3LinqToSql
         private TabPage lastSelectedTab;
         bool EventoCargardo = true; // esta variable es necesaria para controlar el manejador de eventos de la celda del dgv, ojo no quitar
         int IdDetalle = 1;
+        bool PedidoGenerado = false;
 
         public FrmPedidosCrud()
         {
@@ -356,6 +356,7 @@ namespace NorthwindTradersV3LinqToSql
             txtCantidad.Text = txtUInventario.Text = "0";
             txtDescuento.Text = "0.00";
             txtTotal.Text = "$0.00";
+            btnNota.Visible = false;
             dgvDetalle.Rows.Clear();
         }
 
@@ -883,6 +884,7 @@ namespace NorthwindTradersV3LinqToSql
                     dgvPedidos.CellClick -= new DataGridViewCellEventHandler(dgvPedidos_CellClick);
                     EventoCargardo = false;
                 }
+                PedidoGenerado = false;
                 BorrarDatosBusqueda();
                 HabilitarControles();
                 btnGenerar.Text = "Generar pedido";
@@ -892,6 +894,10 @@ namespace NorthwindTradersV3LinqToSql
                 btnAgregar.Enabled = true;
                 dgvDetalle.Columns["Eliminar"].Visible = true;
                 grbProducto.Enabled = true;
+                btnNota.Visible = true;
+                btnNota.Enabled = false;
+                btnNuevo.Visible = true;
+                btnNuevo.Enabled = false;
             }
             else
             {
@@ -908,18 +914,31 @@ namespace NorthwindTradersV3LinqToSql
                 {
                     btnGenerar.Visible = false;
                     btnAgregar.Visible = false;
+                    btnNota.Visible = true;
+                    btnNota.Enabled = false;
+                    btnNuevo.Visible= false;
+                    btnNuevo.Enabled= false;
                 }
                 else if (tabcOperacion.SelectedTab == tabpModificar)
                 {
+                    PedidoGenerado = false;
                     btnGenerar.Text = "Modificar pedido";
                     btnGenerar.Visible = true;
                     btnAgregar.Visible = false;
+                    btnNota.Visible = true;
+                    btnNota.Enabled = false;
+                    btnNuevo.Visible = false;
+                    btnNuevo.Enabled = false;
                 }
                 else if (tabcOperacion.SelectedTab == tabpEliminar)
                 {
                     btnGenerar.Text = "Eliminar Pedido";
                     btnGenerar.Visible = true;
                     btnAgregar.Visible = false;
+                    btnNota.Visible = false;
+                    btnNota.Enabled = false;
+                    btnNuevo.Visible = false;
+                    btnNuevo.Enabled = false;
                 }
             }
         }
@@ -934,14 +953,25 @@ namespace NorthwindTradersV3LinqToSql
                 LlenarDatosPedido();
                 LlenarDatosDetallePedido();
                 DeshabilitarControles();
-                if (tabcOperacion.SelectedTab == tabpModificar)
+                if (tabcOperacion.SelectedTab == tabpConsultar)
+                {
+                    btnNota.Visible = true;
+                    btnNota.Enabled = true;
+                    btnNuevo.Visible = false;
+                }
+                else if (tabcOperacion.SelectedTab == tabpModificar)
                 {
                     HabilitarControles();
                     btnGenerar.Enabled = true;
+                    btnNota.Visible = true;
+                    btnNota.Enabled = false;
+                    btnNuevo.Visible = false;
                 }
                 else if(tabcOperacion.SelectedTab == tabpEliminar)
                 {
                     btnGenerar.Enabled = true;
+                    btnNota.Visible = false;
+                    btnNuevo.Visible = false;
                 }
             }
         }
@@ -1304,12 +1334,14 @@ namespace NorthwindTradersV3LinqToSql
                 {
                     Utils.MsgCatchOue(this, ex);
                 }
-                HabilitarControles();
-                btnGenerar.Enabled = true;
                 if (numRegs > 0)
                 {
+                    PedidoGenerado = true;
                     IdDetalle = 1;
-                    BorrarDatosPedido();
+                    btnNota.Visible = true;
+                    btnNota.Enabled = true;
+                    btnNuevo.Visible = true;
+                    btnNuevo.Enabled = true;
                     BorrarDatosBusqueda();
                     LlenarDgvPedidos(null);
                 }
@@ -1356,10 +1388,11 @@ namespace NorthwindTradersV3LinqToSql
                 }
                 if (numRegs > 0)
                 {
-                    BorrarDatosBusqueda();
-                    txtBIdInicial.Text = txtBIdFinal.Text = txtId.Text;
-                    btnBuscar.PerformClick();
-                    btnLimpiar.PerformClick();
+                    PedidoGenerado = true;
+                    btnNota.Enabled = true;
+                    btnNota.Visible = true;
+                    btnNuevo.Visible = false;
+                    LlenarDgvPedidos(null);
                 }
             }
             else if (tabcOperacion.SelectedTab == tabpEliminar)
@@ -1407,9 +1440,9 @@ namespace NorthwindTradersV3LinqToSql
 
         private void tabcOperacion_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if (lastSelectedTab == tabpRegistrar && e.TabPage != tabpRegistrar && dgvDetalle.RowCount > 0)
+            if (!PedidoGenerado & (lastSelectedTab == tabpRegistrar && e.TabPage != tabpRegistrar && dgvDetalle.RowCount > 0))
             {
-                DialogResult respuesta = MessageBox.Show("Se han agregados productos al detalle del pedido, si cambia de pestaña se perderan los datos no guardados.\n¿Desea cambiar de pestaña?", Utils.nwtr, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                DialogResult respuesta = MessageBox.Show("Se han agregado productos al detalle del pedido, si cambia de pestaña se perderan los datos no guardados.\n¿Desea cambiar de pestaña?", Utils.nwtr, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (respuesta == DialogResult.No)
                     e.Cancel = true;
             }
@@ -1420,6 +1453,25 @@ namespace NorthwindTradersV3LinqToSql
             btnLimpiar.PerformClick();
             LlenarDgvPedidos(null);
             dgvPedidos.Focus();
+        }
+
+        private void btnNota_Click(object sender, EventArgs e)
+        {
+            FrmRptNotaRemision frmRptNotaRemision = new FrmRptNotaRemision();
+            frmRptNotaRemision.Owner = this;
+            frmRptNotaRemision.Id = int.Parse(txtId.Text);
+            frmRptNotaRemision.ShowDialog();
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            BorrarDatosPedido();
+            HabilitarControles();
+            btnNota.Enabled = false;
+            btnNota.Visible = true;
+            btnNuevo.Enabled = false;
+            btnNuevo.Visible = true;
+            PedidoGenerado = false;
         }
     }
 }

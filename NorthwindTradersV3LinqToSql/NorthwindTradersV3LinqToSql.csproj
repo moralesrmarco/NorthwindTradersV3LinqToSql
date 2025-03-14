@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmpleadoConReportsTo.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="FrmCategoriasCrud.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +236,12 @@
     <Compile Include="FrmRptEmpleadosConFoto.Designer.cs">
       <DependentUpon>FrmRptEmpleadosConFoto.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmRptNotaRemision.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRptNotaRemision.Designer.cs">
+      <DependentUpon>FrmRptNotaRemision.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmRptPedPorDifCriterios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -387,6 +394,9 @@
     <EmbeddedResource Include="FrmRptEmpleadosConFoto.resx">
       <DependentUpon>FrmRptEmpleadosConFoto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmRptNotaRemision.resx">
+      <DependentUpon>FrmRptNotaRemision.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmRptPedPorDifCriterios.resx">
       <DependentUpon>FrmRptPedPorDifCriterios.cs</DependentUpon>
     </EmbeddedResource>
@@ -422,6 +432,7 @@
     <EmbeddedResource Include="RptEmpleado.rdlc" />
     <EmbeddedResource Include="RptEmpleados.rdlc" />
     <EmbeddedResource Include="RptEmpleadosConFoto.rdlc" />
+    <EmbeddedResource Include="RptNotaRemision.rdlc" />
     <EmbeddedResource Include="RptOrderDetailPedPorDifCriterios.rdlc" />
     <EmbeddedResource Include="RptOrderDetailsPedPorRangoFechaPed.rdlc" />
     <EmbeddedResource Include="RptPedPorDifCriterios.rdlc" />
