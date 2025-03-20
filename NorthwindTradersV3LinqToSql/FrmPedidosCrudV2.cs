@@ -15,6 +15,7 @@ namespace NorthwindTradersV3LinqToSql
         private TabPage lastSelectedTab;
         bool EventoCargado = true; // esta variable es necesaria para controlar el manejador de eventos de la celda del dgv, ojo no quitar
         int IdDetalle = 1;
+        bool PedidoGenerado = false;
 
         public FrmPedidosCrudV2()
         {
@@ -316,6 +317,7 @@ namespace NorthwindTradersV3LinqToSql
                 DeshabilitarControles();
                 DeshabilitarControlesProducto();
             }
+            btnNota.Enabled = false;
             dgvPedidos.Focus();
         }
 
@@ -328,6 +330,7 @@ namespace NorthwindTradersV3LinqToSql
                 DeshabilitarControles();
                 DeshabilitarControlesProducto();
             }
+            btnNota.Enabled = false;
             LlenarDgvPedidos(sender);
             dgvPedidos.Focus();
         }
@@ -350,6 +353,7 @@ namespace NorthwindTradersV3LinqToSql
             dtpRequerido.Checked = dtpEnvio.Checked = false;
             InicializarValoresTransportar();
             InicializarValores();
+            btnNota.Visible = false;
             dgvDetalle.Rows.Clear();
         }
 
@@ -782,7 +786,7 @@ namespace NorthwindTradersV3LinqToSql
                 return;
             }
             DeshabilitarControlesProducto();
-            if (tabcOperacion.SelectedTab == tabpRegistrar)
+            if (tabcOperacion.SelectedTab == tabpRegistrar & !PedidoGenerado)
             {
                 txtPrecio.Text = txtPrecio.Text.Replace("$", "");
                 dgvDetalle.Rows.Add(new object[] { IdDetalle, cboProducto.Text, txtPrecio.Text, txtCantidad.Text, txtDescuento.Text, ((decimal.Parse(txtPrecio.Text) * decimal.Parse(txtCantidad.Text)) * (1 - decimal.Parse(txtDescuento.Text))).ToString(), "Modificar", "Eliminar", cboProducto.SelectedValue, txtUInventario.Text });
@@ -792,7 +796,7 @@ namespace NorthwindTradersV3LinqToSql
                 InicializarValoresProducto();
                 cboCategoria.Focus();
             }
-            else if (tabcOperacion.SelectedTab == tabpModificar)
+            else if (tabcOperacion.SelectedTab == tabpModificar | (tabcOperacion.SelectedTab == tabpRegistrar & PedidoGenerado))
             {
                 byte numRegs = 0;
                 try
@@ -832,6 +836,8 @@ namespace NorthwindTradersV3LinqToSql
                     BorrarDatosDetallePedido();
                     LlenarDatosDetallePedido();
                     cboCategoria.Enabled = true;
+                    btnNota.Enabled = true;
+                    btnNota.Visible = true;
                     Utils.ActualizarBarraDeEstado(this, $"Se muestran {dgvPedidos.RowCount} registros de pedidos");
                     dgvDetalle.Focus();
                 }
@@ -960,6 +966,7 @@ namespace NorthwindTradersV3LinqToSql
                     dgvPedidos.CellClick -= new DataGridViewCellEventHandler(dgvPedidos_CellClick);
                     EventoCargado = false;
                 }
+                PedidoGenerado = false;
                 BorrarDatosBusqueda();
                 HabilitarControles();
                 cboCategoria.Enabled = true;
@@ -971,6 +978,10 @@ namespace NorthwindTradersV3LinqToSql
                 dgvDetalle.Columns["Modificar"].Visible = true;
                 dgvDetalle.Columns["Eliminar"].Visible = true;
                 grbProducto.Enabled = true;
+                btnNota.Visible = true;
+                btnNota.Enabled = false;
+                btnNuevo.Visible = true;
+                btnNuevo.Enabled = false;
             }
             else
             {
@@ -986,12 +997,21 @@ namespace NorthwindTradersV3LinqToSql
                 {
                     btnGenerar.Visible = false;
                     btnAgregar.Visible = false;
+                    btnNota.Visible = true;
+                    btnNota.Enabled = false;
+                    btnNuevo.Visible = false;
+                    btnNuevo.Enabled = false;
                 }
                 else if (tabcOperacion.SelectedTab == tabpModificar)
                 {
+                    PedidoGenerado = false;
                     btnGenerar.Text = "Modificar pedido";
                     btnGenerar.Visible = true;
                     btnAgregar.Visible = true;
+                    btnNota.Visible = true;
+                    btnNota.Enabled = false;
+                    btnNuevo.Visible = false;
+                    btnNuevo.Enabled = false;
                     MostrarCols();
                 }
                 else if (tabcOperacion.SelectedTab == tabpEliminar)
@@ -999,12 +1019,17 @@ namespace NorthwindTradersV3LinqToSql
                     btnGenerar.Text = "Eliminar pedido";
                     btnGenerar.Visible = true;
                     btnAgregar.Visible = false;
+                    btnNota.Visible = false;
+                    btnNota.Enabled = false;
+                    btnNuevo.Visible = false;
+                    btnNuevo.Enabled = false;
                 }
             }
         }
 
         private void dgvPedidos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            btnNota.Enabled=false;
             if (tabcOperacion.SelectedTab != tabpRegistrar)
             {
                 BorrarDatosPedido();
@@ -1014,14 +1039,27 @@ namespace NorthwindTradersV3LinqToSql
                 LlenarDatosDetallePedido();
                 DeshabilitarControles();
                 DeshabilitarControlesProducto();
-                if (tabcOperacion.SelectedTab == tabpModificar)
+                if (tabcOperacion.SelectedTab == tabpConsultar)
+                {
+                    btnNota.Visible = true;
+                    btnNota.Enabled = true;
+                    btnNuevo.Visible = false;
+                }
+                else if (tabcOperacion.SelectedTab == tabpModificar)
                 {
                     HabilitarControles();
                     btnGenerar.Enabled = true;
                     cboCategoria.Enabled = true;
+                    btnNota.Visible = true;
+                    btnNota.Enabled = false;
+                    btnNuevo.Visible = false;
                 }
                 else if (tabcOperacion.SelectedTab == tabpEliminar)
+                {
                     btnGenerar.Enabled = true;
+                    btnNota.Visible = false;
+                    btnNuevo.Visible = false;
+                }
             }
         }
 
@@ -1109,7 +1147,7 @@ namespace NorthwindTradersV3LinqToSql
 
         private void tabcOperacion_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if (lastSelectedTab == tabpRegistrar && e.TabPage != tabpRegistrar && dgvDetalle.RowCount > 0)
+            if (!PedidoGenerado & (lastSelectedTab == tabpRegistrar && e.TabPage != tabpRegistrar && dgvDetalle.RowCount > 0))
             {
                 DialogResult respuesta = MessageBox.Show("Se han agregado productos al detalle del pedido, si cambia de pestaña se perderan los datos no guardados.\n¿Desea cambiar de pestaña?", Utils.nwtr, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (respuesta == DialogResult.No)
@@ -1178,11 +1216,16 @@ namespace NorthwindTradersV3LinqToSql
                 {
                     Utils.MsgCatchOue(this, ex);
                 }
-                HabilitarControles();
                 if (numRegs > 0)
                 {
+                    PedidoGenerado = true;
                     IdDetalle = 1;
-                    BorrarDatosPedido();
+                    btnNota.Enabled = true;
+                    btnNota.Visible = true;
+                    btnNuevo.Enabled = true;
+                    btnNuevo.Visible = true;
+                    cboCategoria.SelectedIndex = 0;
+                    cboCategoria.Enabled = true;
                     BorrarDatosBusqueda();
                     LlenarDgvPedidos(null);
                 }
@@ -1228,10 +1271,13 @@ namespace NorthwindTradersV3LinqToSql
                 }
                 if (numRegs > 0)
                 {
-                    BorrarDatosBusqueda();
-                    txtBIdInicial.Text = txtBIdFinal.Text = txtId.Text;
-                    btnBuscar.PerformClick();
-                    btnLimpiar.PerformClick();
+                    PedidoGenerado = true;
+                    btnNota.Enabled = true;
+                    btnNota.Visible = true;
+                    btnNuevo.Visible = false;
+                    cboCategoria.Enabled = true;
+                    btnAgregar.Enabled = true;
+                    LlenarDgvPedidos(null);
                 }
             }
             else if (tabcOperacion.SelectedTab == tabpEliminar)
@@ -1486,12 +1532,12 @@ namespace NorthwindTradersV3LinqToSql
         {
             if (e.RowIndex < 0 || (e.ColumnIndex != dgvDetalle.Columns["Modificar"].Index & e.ColumnIndex != dgvDetalle.Columns["Eliminar"].Index))
                 return;
-            if (e.ColumnIndex == dgvDetalle.Columns["Eliminar"].Index && tabcOperacion.SelectedTab == tabpRegistrar)
+            if (!PedidoGenerado & e.ColumnIndex == dgvDetalle.Columns["Eliminar"].Index & tabcOperacion.SelectedTab == tabpRegistrar)
             {
                 dgvDetalle.Rows.RemoveAt(e.RowIndex);
                 CalcularTotal();
             }
-            if (e.ColumnIndex == dgvDetalle.Columns["Modificar"].Index && tabcOperacion.SelectedTab == tabpRegistrar)
+            if (!PedidoGenerado & e.ColumnIndex == dgvDetalle.Columns["Modificar"].Index & tabcOperacion.SelectedTab == tabpRegistrar)
             {
                 DataGridViewRow dgvr = dgvDetalle.CurrentRow;
                 using (FrmPedidosDetalleModificar2 frmPedidosDetalleModificar2 = new FrmPedidosDetalleModificar2())
@@ -1515,7 +1561,7 @@ namespace NorthwindTradersV3LinqToSql
                     }
                 }
             }
-            if (e.ColumnIndex == dgvDetalle.Columns["Eliminar"].Index && tabcOperacion.SelectedTab == tabpModificar)
+            if ((e.ColumnIndex == dgvDetalle.Columns["Eliminar"].Index & tabcOperacion.SelectedTab == tabpModificar) | (PedidoGenerado & e.ColumnIndex == dgvDetalle.Columns["Eliminar"].Index & tabcOperacion.SelectedTab == tabpRegistrar))
             {
                 DataGridViewRow dgvr = dgvDetalle.CurrentRow;
                 string productName = dgvr.Cells["Producto"].Value.ToString();
@@ -1523,7 +1569,7 @@ namespace NorthwindTradersV3LinqToSql
                 int orderId = int.Parse(txtId.Text);
                 EliminarPedidoDetalle(productName, productId, orderId);
             }
-            if (e.ColumnIndex == dgvDetalle.Columns["Modificar"].Index && tabcOperacion.SelectedTab == tabpModificar)
+            if ((e.ColumnIndex == dgvDetalle.Columns["Modificar"].Index & tabcOperacion.SelectedTab == tabpModificar) | (PedidoGenerado & e.ColumnIndex == dgvDetalle.Columns["Modificar"].Index & tabcOperacion.SelectedTab == tabpRegistrar))
             {
                 DataGridViewRow dgvr = dgvDetalle.CurrentRow;
                 using (FrmPedidosDetalleModificar frmPedidosDetalleModificar = new FrmPedidosDetalleModificar())
@@ -1539,6 +1585,8 @@ namespace NorthwindTradersV3LinqToSql
                     DialogResult dialogResult = frmPedidosDetalleModificar.ShowDialog();
                     if (dialogResult == DialogResult.OK)
                     {
+                        btnNota.Enabled = true;
+                        btnNota.Visible = true;
                         BorrarDatosDetallePedido();
                         LlenarDatosDetallePedido();
                     }
@@ -1585,6 +1633,8 @@ namespace NorthwindTradersV3LinqToSql
                 BorrarDatosDetallePedido();
                 LlenarDatosDetallePedido();
                 cboCategoria.Enabled = true;
+                btnNota.Enabled = true;
+                btnNota.Visible = true;
                 Utils.ActualizarBarraDeEstado(this, $"Se muestran {dgvPedidos.RowCount} registros de pedidos");
             }
         }
@@ -1650,6 +1700,24 @@ namespace NorthwindTradersV3LinqToSql
                 Utils.MsgCatchOue(this, ex);
             }
             return numRegs;
+        }
+
+        private void btnNota_Click(object sender, EventArgs e)
+        {
+            FrmRptNotaRemision frmRptNotaRemision = new FrmRptNotaRemision();
+            frmRptNotaRemision.Id = int.Parse(txtId.Text);
+            frmRptNotaRemision.ShowDialog();
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            BorrarDatosPedido();
+            HabilitarControles();
+            btnNota.Enabled = false;
+            btnNota.Visible = true;
+            btnNuevo.Enabled = false;
+            btnNuevo.Visible = true;
+            PedidoGenerado = false;
         }
     }
 }
