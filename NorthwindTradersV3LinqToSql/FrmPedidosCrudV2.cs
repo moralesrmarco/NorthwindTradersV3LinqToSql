@@ -201,10 +201,10 @@ namespace NorthwindTradersV3LinqToSql
 
             dgvPedidos.Columns["Nombre_de_contacto"].HeaderText = "Nombre de contacto";
             dgvPedidos.Columns["Fecha_de_pedido"].HeaderText = "Fecha de pedido";
-            dgvPedidos.Columns["Fecha_requerido"].HeaderText = "Fecha requerido";
+            dgvPedidos.Columns["Fecha_requerido"].HeaderText = "Fecha de entrega";
             dgvPedidos.Columns["Fecha_de_envío"].HeaderText = "Fecha de envío";
             dgvPedidos.Columns["Compañía_transportista"].HeaderText = "Compañía transportista";
-            dgvPedidos.Columns["Dirigido_a"].HeaderText = "Dirigido a";
+            dgvPedidos.Columns["Dirigido_a"].HeaderText = "Enviar a";
         }
 
         private void ConfDgvDetalle()
