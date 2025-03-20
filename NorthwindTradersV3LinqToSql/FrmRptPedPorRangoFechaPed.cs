@@ -80,7 +80,8 @@ namespace NorthwindTradersV3LinqToSql
                                     o.RequiredDate,
                                     o.ShippedDate,
                                     c.CompanyName,
-                                    o.OrderID
+                                    o.OrderID,
+                                    o.Freight
                                 };
                     else
                         query = from o in context.Orders
@@ -93,7 +94,8 @@ namespace NorthwindTradersV3LinqToSql
                                     o.RequiredDate,
                                     o.ShippedDate,
                                     c.CompanyName,
-                                    o.OrderID
+                                    o.OrderID,
+                                    o.Freight
                                 };
                     dt = ConvertToDataTable(query.ToList());
 

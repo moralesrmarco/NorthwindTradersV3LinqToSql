@@ -30,8 +30,8 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnMostrarRep = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.txtBDirigidoa = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -62,8 +62,8 @@
             this.txtBIdInicial = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnLimpiar = new System.Windows.Forms.Button();
-            this.btnMostrarRep = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -137,41 +137,40 @@
             this.groupBox1.Text = "»   Buscar pedidos:   «";
             this.groupBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.GrbPaint);
             // 
-            // groupBox2
+            // btnLimpiar
             // 
-            this.groupBox2.Controls.Add(this.reportViewer1);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(15);
-            this.groupBox2.Size = new System.Drawing.Size(686, 647);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "» Reporte de pedidos por diferentes criterios  «";
-            this.groupBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.GrbPaint);
+            this.btnLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpiar.Location = new System.Drawing.Point(131, 556);
+            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(163, 28);
+            this.btnLimpiar.TabIndex = 63;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
-            // label1
+            // btnMostrarRep
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(39, 46);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(366, 20);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Proporcione uno o varios criterios de búsqueda:";
+            this.btnMostrarRep.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMostrarRep.Location = new System.Drawing.Point(131, 519);
+            this.btnMostrarRep.Margin = new System.Windows.Forms.Padding(4);
+            this.btnMostrarRep.Name = "btnMostrarRep";
+            this.btnMostrarRep.Size = new System.Drawing.Size(163, 28);
+            this.btnMostrarRep.TabIndex = 62;
+            this.btnMostrarRep.Text = "Mostrar reporte";
+            this.btnMostrarRep.UseVisualStyleBackColor = true;
+            this.btnMostrarRep.Click += new System.EventHandler(this.btnMostrarRep_Click);
             // 
             // label19
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(38, 475);
+            this.label19.Location = new System.Drawing.Point(48, 475);
             this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(83, 17);
+            this.label19.Size = new System.Drawing.Size(73, 17);
             this.label19.TabIndex = 59;
-            this.label19.Text = "Dirigido a:";
+            this.label19.Text = "Enviar a:";
             // 
             // txtBDirigidoa
             // 
@@ -371,9 +370,9 @@
             this.label11.Location = new System.Drawing.Point(25, 235);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(132, 17);
+            this.label11.Size = new System.Drawing.Size(141, 17);
             this.label11.TabIndex = 48;
-            this.label11.Text = "Fecha requerido:";
+            this.label11.Text = "Fecha de entrega:";
             // 
             // chkBFPedidoNull
             // 
@@ -519,29 +518,30 @@
             this.label5.TabIndex = 30;
             this.label5.Text = "Id inicial:";
             // 
-            // btnLimpiar
+            // label1
             // 
-            this.btnLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLimpiar.Location = new System.Drawing.Point(131, 556);
-            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(163, 28);
-            this.btnLimpiar.TabIndex = 63;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(39, 46);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(366, 20);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Proporcione uno o varios criterios de búsqueda:";
             // 
-            // btnMostrarRep
+            // groupBox2
             // 
-            this.btnMostrarRep.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMostrarRep.Location = new System.Drawing.Point(131, 519);
-            this.btnMostrarRep.Margin = new System.Windows.Forms.Padding(4);
-            this.btnMostrarRep.Name = "btnMostrarRep";
-            this.btnMostrarRep.Size = new System.Drawing.Size(163, 28);
-            this.btnMostrarRep.TabIndex = 62;
-            this.btnMostrarRep.Text = "Mostrar reporte";
-            this.btnMostrarRep.UseVisualStyleBackColor = true;
-            this.btnMostrarRep.Click += new System.EventHandler(this.btnMostrarRep_Click);
+            this.groupBox2.Controls.Add(this.reportViewer1);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(15);
+            this.groupBox2.Size = new System.Drawing.Size(686, 647);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "» Reporte de pedidos por diferentes criterios  «";
+            this.groupBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.GrbPaint);
             // 
             // reportViewer1
             // 
