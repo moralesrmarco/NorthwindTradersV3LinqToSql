@@ -50,38 +50,12 @@
       <Association Name="Customers_Orders" Member="Orders" ThisKey="CustomerID" OtherKey="CustomerID" Type="Orders" />
     </Type>
   </Table>
-  <Table Name="dbo.Employees" Member="Employees">
-    <Type Name="Employees">
-      <Column Name="EmployeeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="LastName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="Title" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="TitleOfCourtesy" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
-      <Column Name="BirthDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="HireDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Address" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
-      <Column Name="City" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="Region" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="PostalCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Column Name="Country" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="HomePhone" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
-      <Column Name="Extension" Type="System.String" DbType="NVarChar(4)" CanBeNull="true" />
-      <Column Name="Photo" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="Notes" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="ReportsTo" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PhotoPath" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Association Name="Employees_Employees" Member="Employees2" ThisKey="EmployeeID" OtherKey="ReportsTo" Type="Employees" />
-      <Association Name="Employees_EmployeeTerritories" Member="EmployeeTerritories" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="EmployeeTerritories" />
-      <Association Name="Employees_Orders" Member="Orders" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="Orders" />
-      <Association Name="Employees_Employees" Member="Employees1" ThisKey="ReportsTo" OtherKey="EmployeeID" Type="Employees" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.EmployeeTerritories" Member="EmployeeTerritories">
     <Type Name="EmployeeTerritories">
       <Column Name="EmployeeID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="TerritoryID" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Employees_EmployeeTerritories" Member="Employees" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="Employees" IsForeignKey="true" />
       <Association Name="Territories_EmployeeTerritories" Member="Territories" ThisKey="TerritoryID" OtherKey="TerritoryID" Type="Territories" IsForeignKey="true" />
+      <Association Name="Employees_EmployeeTerritories" Member="Employees" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="Employees" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.[Order Details]" Member="Order_Details">
@@ -113,8 +87,8 @@
       <Column Name="ShipCountry" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
       <Association Name="Orders_Order_Details" Member="Order_Details" ThisKey="OrderID" OtherKey="OrderID" Type="Order_Details" />
       <Association Name="Customers_Orders" Member="Customers" ThisKey="CustomerID" OtherKey="CustomerID" Type="Customers" IsForeignKey="true" />
-      <Association Name="Employees_Orders" Member="Employees" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="Employees" IsForeignKey="true" />
       <Association Name="Shippers_Orders" Member="Shippers" ThisKey="ShipVia" OtherKey="ShipperID" Type="Shippers" IsForeignKey="true" />
+      <Association Name="Employees_Orders" Member="Employees" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="Employees" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Products" Member="Products">
@@ -271,6 +245,33 @@
       <Column Name="ReorderLevel" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="Discontinued" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="CompanyName" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Employees" Member="Employees">
+    <Type Name="Employees">
+      <Column Name="EmployeeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="TitleOfCourtesy" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="BirthDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="HireDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Region" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="PostalCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="HomePhone" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+      <Column Name="Extension" Type="System.String" DbType="NVarChar(4)" CanBeNull="true" />
+      <Column Name="Photo" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NText" CanBeNull="true" />
+      <Column Name="ReportsTo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PhotoPath" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="RowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Employees_EmployeeTerritories" Member="EmployeeTerritories" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="EmployeeTerritories" />
+      <Association Name="Employees_Orders" Member="Orders" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="Orders" />
+      <Association Name="Employees_Employees" Member="Employees2" ThisKey="EmployeeID" OtherKey="ReportsTo" Type="Employees" />
+      <Association Name="Employees_Employees" Member="Employees1" ThisKey="ReportsTo" OtherKey="EmployeeID" Type="Employees" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.SP_EMPLEADOS_PAIS" Method="SP_EMPLEADOS_PAIS">
@@ -839,5 +840,92 @@
       <Column Name="Pais" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
       <Column Name="Flete" Type="System.Decimal" DbType="Money" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.SP_EMPLEADOS_BUSCAR_V3" Method="SP_EMPLEADOS_BUSCAR_V3">
+    <Parameter Name="IdIni" Parameter="idIni" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IdFin" Parameter="idFin" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nombres" Parameter="nombres" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Apellidos" Parameter="apellidos" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Titulo" Parameter="titulo" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="Domicilio" Parameter="domicilio" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="Ciudad" Parameter="ciudad" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Region" Parameter="region" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="CodigoP" Parameter="codigoP" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Pais" Parameter="pais" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Telefono" Parameter="telefono" Type="System.String" DbType="NVarChar(24)" />
+    <ElementType Name="SP_EMPLEADOS_BUSCAR_V3Result">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombres" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Apellidos" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Título" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="[Fecha de nacimiento]" Member="Fecha_de_nacimiento" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Ciudad" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="País" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Foto" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="[Reporta a]" Member="Reporta_a" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_EMPLEADOS_LISTAR_V2" Method="SP_EMPLEADOS_LISTAR_V2">
+    <Parameter Name="top100" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="SP_EMPLEADOS_LISTAR_V2Result">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombres" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Apellidos" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Título" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="[Fecha de nacimiento]" Member="Fecha_de_nacimiento" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Ciudad" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="País" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Foto" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="[Reporta a]" Member="Reporta_a" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_EMPLEADOS_ACTUALIZAR_V3" Method="SP_EMPLEADOS_ACTUALIZAR_V3">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nombres" Parameter="nombres" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Apellidos" Parameter="apellidos" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Titulo" Parameter="titulo" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="TitCortesia" Parameter="titCortesia" Type="System.String" DbType="NVarChar(25)" />
+    <Parameter Name="FNacimiento" Parameter="fNacimiento" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FContratacion" Parameter="fContratacion" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Domicilio" Parameter="domicilio" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="Ciudad" Parameter="ciudad" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Region" Parameter="region" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="CodigoP" Parameter="codigoP" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Pais" Parameter="pais" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Telefono" Parameter="telefono" Type="System.String" DbType="NVarChar(24)" />
+    <Parameter Name="Extension" Parameter="extension" Type="System.String" DbType="NVarChar(4)" />
+    <Parameter Name="Notas" Parameter="notas" Type="System.String" DbType="NText" />
+    <Parameter Name="Reportaa" Parameter="reportaa" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Foto" Parameter="foto" Type="System.Data.Linq.Binary" DbType="Image" />
+    <Parameter Name="RowVersion" Parameter="rowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_EMPLEADOS_ACTUALIZAR_V4" Method="SP_EMPLEADOS_ACTUALIZAR_V4">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nombres" Parameter="nombres" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Apellidos" Parameter="apellidos" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Titulo" Parameter="titulo" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="TitCortesia" Parameter="titCortesia" Type="System.String" DbType="NVarChar(25)" />
+    <Parameter Name="FNacimiento" Parameter="fNacimiento" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="FContratacion" Parameter="fContratacion" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Domicilio" Parameter="domicilio" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="Ciudad" Parameter="ciudad" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Region" Parameter="region" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="CodigoP" Parameter="codigoP" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Pais" Parameter="pais" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Telefono" Parameter="telefono" Type="System.String" DbType="NVarChar(24)" />
+    <Parameter Name="Extension" Parameter="extension" Type="System.String" DbType="NVarChar(4)" />
+    <Parameter Name="Notas" Parameter="notas" Type="System.String" DbType="NText" />
+    <Parameter Name="Reportaa" Parameter="reportaa" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Foto" Parameter="foto" Type="System.Data.Linq.Binary" DbType="Image" />
+    <Parameter Name="RowVersion" Parameter="rowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" />
+    <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_EMPLEADOS_ELIMINAR_V4" Method="SP_EMPLEADOS_ELIMINAR_V4">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RowVersion" Parameter="rowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" />
+    <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

@@ -36,10 +36,7 @@ namespace NorthwindTradersV3LinqToSql
             txtExtension.MaxLength = 4;
         }
 
-        private void grbPaint(object sender, PaintEventArgs e)
-        {
-            Utils.GrbPaint(this, sender, e);
-        }
+        private void grbPaint(object sender, PaintEventArgs e) => Utils.GrbPaint(this, sender, e);
 
         private void FrmEmpleadosCrud_Load(object sender, EventArgs e)
         {
@@ -122,26 +119,17 @@ namespace NorthwindTradersV3LinqToSql
             {
                 if (sender == null)
                 {
-                    var query = from emp in context.SP_EMPLEADOS_LISTAR(false)
-                                select new 
-                                { 
+                    var query = from emp in context.SP_EMPLEADOS_LISTAR_V2(false)
+                                select new
+                                {
                                     emp.Id,
                                     emp.Nombres,
                                     emp.Apellidos,
                                     emp.Título,
-                                    emp.Título_de_cortesia,
                                     emp.Fecha_de_nacimiento,
-                                    emp.Fecha_de_contratación,
-                                    emp.Domicilio,
                                     emp.Ciudad,
-                                    emp.Región,
-                                    emp.Código_postal,
                                     emp.País,
-                                    emp.Teléfono,
-                                    emp.Extensión,
                                     Photo = emp.Foto.ToArray(),
-                                    emp.Notas,
-                                    emp.Reportaa,
                                     emp.Reporta_a
                                 };
                     dgv.DataSource = query.ToList();
@@ -154,28 +142,19 @@ namespace NorthwindTradersV3LinqToSql
                         intBIdIni = int.Parse(txtBIdIni.Text);
                     if (txtBIdFin.Text != "")
                         intBIdFin = int.Parse(txtBIdFin.Text);
-                    var query = from emp in context.SP_EMPLEADOS_BUSCAR_V2(intBIdIni, intBIdFin, txtBNombres.Text, txtBApellidos.Text, txtBTitulo.Text, txtBDomicilio.Text, txtBCiudad.Text, txtBRegion.Text, txtBCodigoP.Text, cboBPais.SelectedValue.ToString(), txtBTelefono.Text)
-                    select new
-                    {
-                        emp.Id,
-                        emp.Nombres,
-                        emp.Apellidos,
-                        emp.Título,
-                        emp.Título_de_cortesia,
-                        emp.Fecha_de_nacimiento,
-                        emp.Fecha_de_contratación,
-                        emp.Domicilio,
-                        emp.Ciudad,
-                        emp.Región,
-                        emp.Código_postal,
-                        emp.País,
-                        emp.Teléfono,
-                        emp.Extensión,
-                        Photo = emp.Foto.ToArray(),
-                        emp.Notas,
-                        emp.Reportaa,
-                        emp.Reporta_a
-                    };
+                    var query = from emp in context.SP_EMPLEADOS_BUSCAR_V3(intBIdIni, intBIdFin, txtBNombres.Text, txtBApellidos.Text, txtBTitulo.Text, txtBDomicilio.Text, txtBCiudad.Text, txtBRegion.Text, txtBCodigoP.Text, cboBPais.SelectedValue.ToString(), txtBTelefono.Text)
+                                select new
+                                {
+                                    emp.Id,
+                                    emp.Nombres,
+                                    emp.Apellidos,
+                                    emp.Título,
+                                    emp.Fecha_de_nacimiento,
+                                    emp.Ciudad,
+                                    emp.País,
+                                    Photo = emp.Foto.ToArray(),
+                                    emp.Reporta_a
+                                };
                     dgv.DataSource = query.ToList();
                 }
                 Utils.ConfDgv(dgv);
@@ -198,18 +177,9 @@ namespace NorthwindTradersV3LinqToSql
         private void ConfDgvEmpleados(DataGridView dgv)
         {
             dgv.Columns["Id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dgv.Columns["Título_de_cortesia"].Visible = false;
-            dgv.Columns["Fecha_de_contratación"].Visible = false;
-            dgv.Columns["Domicilio"].Visible = false;
-            dgv.Columns["Región"].Visible = false;
-            dgv.Columns["Código_postal"].Visible = false;
-            dgv.Columns["Teléfono"].Visible = false;
-            dgv.Columns["Extensión"].Visible = false;
-            dgv.Columns["Notas"].Visible = false;
             dgv.Columns["Photo"].Width = 20;
             dgv.Columns["Photo"].DefaultCellStyle.Padding = new Padding(2, 2, 2, 2);
             ((DataGridViewImageColumn)dgv.Columns["Photo"]).ImageLayout = DataGridViewImageCellLayout.Zoom;
-            dgv.Columns["Reportaa"].Visible = false;
             dgv.Columns["Título"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dgv.Columns["Fecha_de_nacimiento"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dgv.Columns["Ciudad"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -319,7 +289,7 @@ namespace NorthwindTradersV3LinqToSql
             {
                 valida = false;
                 errorProvider1.SetError(txtTitulo, "Ingrese el título");
-            }    
+            }
             if (txtTitCortesia.Text == "")
             {
                 valida = false;
@@ -376,7 +346,7 @@ namespace NorthwindTradersV3LinqToSql
         private void FrmEmpleadosCrud_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (tabcOperacion.SelectedTab != tbpListar)
-                if (txtId.Text != "" || txtNombres.Text != "" || txtApellidos.Text != "" || txtTitulo.Text != "" || txtTitCortesia.Text != "" || txtDomicilio.Text != "" || txtCiudad.Text != "" || txtRegion.Text != "" || txtCodigoP.Text != "" || txtPais.Text != "" || txtTelefono.Text != "" || txtExtension.Text != "" || dtpFNacimiento.Value != dtpFNacimiento.MinDate || dtpFContratacion.Value != dtpFContratacion.MinDate ||  txtNotas.Text.Trim() != "" || cboReportaA.SelectedIndex > 0)
+                if (txtId.Text != "" || txtNombres.Text != "" || txtApellidos.Text != "" || txtTitulo.Text != "" || txtTitCortesia.Text != "" || txtDomicilio.Text != "" || txtCiudad.Text != "" || txtRegion.Text != "" || txtCodigoP.Text != "" || txtPais.Text != "" || txtTelefono.Text != "" || txtExtension.Text != "" || dtpFNacimiento.Value != dtpFNacimiento.MinDate || dtpFContratacion.Value != dtpFContratacion.MinDate || txtNotas.Text.Trim() != "" || cboReportaA.SelectedIndex > 0)
                 {
                     DialogResult respuesta = MessageBox.Show(Utils.preguntaCerrar, Utils.nwtr, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                     if (respuesta == DialogResult.No)
@@ -391,60 +361,90 @@ namespace NorthwindTradersV3LinqToSql
                 DeshabilitarControles();
                 DataGridViewRow dgvr = dgv.CurrentRow;
                 txtId.Text = dgvr.Cells["Id"].Value.ToString();
-                txtNombres.Text = dgvr.Cells["Nombres"].Value.ToString();
-                txtApellidos.Text = dgvr.Cells["Apellidos"].Value.ToString();
-                txtTitulo.Text = dgvr.Cells["Título"].Value.ToString();
-                txtTitCortesia.Text = dgvr.Cells["Título_de_cortesia"].Value.ToString();
-                txtDomicilio.Text = dgvr.Cells["Domicilio"].Value.ToString();
-                txtCiudad.Text = dgvr.Cells["Ciudad"].Value.ToString();
-                if (dgvr.Cells["Región"].Value != null)
-                    txtRegion.Text = dgvr.Cells["Región"].Value.ToString();
-                else
-                    txtRegion.Text = "";
-                if (dgvr.Cells["Código_postal"].Value != null)
-                    txtCodigoP.Text = dgvr.Cells["Código_postal"].Value.ToString();
-                else
-                    txtCodigoP.Text = "";
-                txtPais.Text = dgvr.Cells["País"].Value.ToString();
-                txtTelefono.Text = dgvr.Cells["Teléfono"].Value.ToString();
-                if (dgvr.Cells["Extensión"].Value != null)
-                    txtExtension.Text = dgvr.Cells["Extensión"].Value.ToString();
-                else
-                    txtExtension.Text = "";
-                if (dgvr.Cells["Fecha_de_nacimiento"].Value != DBNull.Value)
-                    dtpFNacimiento.Value = DateTime.Parse(dgvr.Cells["Fecha_de_nacimiento"].Value.ToString());
-                else
-                    dtpFNacimiento.Value = dtpFNacimiento.MinDate;
-                if (dgvr.Cells["Fecha_de_contratación"].Value != DBNull.Value)
-                    dtpFContratacion.Value = DateTime.Parse(dgvr.Cells["Fecha_de_contratación"].Value.ToString());
-                else
-                    dtpFContratacion.Value = dtpFContratacion.MinDate;
-                if (dgvr.Cells["Photo"].Value != DBNull.Value)
+                try
                 {
-                    byte[] foto = (byte[])dgvr.Cells["Photo"].Value;
-                    MemoryStream ms;
-                    if (int.Parse(txtId.Text) <= 9)
+                    using (var context = new NorthwindTradersDataContext())
                     {
-                        ms = new MemoryStream(foto, 78, foto.Length - 78);
-                        btnCargar.Enabled = false; // no se permite modificar porque desconozco el formato de la imagen.
+                        int employeeId = int.Parse(txtId.Text);
+                        var empleado = (from emp in context.Employees
+                                        join jefe in context.Employees on emp.ReportsTo equals jefe.EmployeeID into jefes
+                                        from jefe in jefes.DefaultIfEmpty()
+                                        where emp.EmployeeID == employeeId
+                                        select new
+                                        {
+                                            emp.EmployeeID,
+                                            Nombres = emp.FirstName,
+                                            Apellidos = emp.LastName,
+                                            Título = emp.Title,
+                                            TítuloCortesía = emp.TitleOfCourtesy,
+                                            FechaNacimiento = emp.BirthDate,
+                                            FechaContratación = emp.HireDate,
+                                            emp.Address,
+                                            emp.City,
+                                            emp.Region,
+                                            CódigoPostal = emp.PostalCode,
+                                            emp.Country,
+                                            emp.HomePhone,
+                                            emp.Extension,
+                                            emp.Photo,
+                                            emp.Notes,
+                                            emp.ReportsTo,
+                                            ReportaA = jefe.LastName + ", " + jefe.FirstName,
+                                            emp.RowVersion
+                                        }).FirstOrDefault();
+                        if (empleado != null)
+                        {
+                            txtId.Tag = empleado.RowVersion;
+                            txtNombres.Text = empleado.Nombres;
+                            txtApellidos.Text = empleado.Apellidos;
+                            txtTitulo.Text = empleado.Título;
+                            txtTitCortesia.Text = empleado.TítuloCortesía;
+                            txtDomicilio.Text = empleado.Address;
+                            txtCiudad.Text = empleado.City;
+                            txtRegion.Text = empleado.Region;
+                            txtCodigoP.Text = empleado.CódigoPostal;
+                            txtPais.Text = empleado.Country;
+                            txtTelefono.Text = empleado.HomePhone;
+                            txtExtension.Text = empleado.Extension;
+                            dtpFNacimiento.Value = empleado.FechaNacimiento ?? dtpFNacimiento.MinDate;
+                            dtpFContratacion.Value = empleado.FechaContratación ?? dtpFContratacion.MinDate;
+                            if (empleado.Photo != null)
+                            {
+                                byte[] foto = empleado.Photo.ToArray();
+                                MemoryStream ms;
+                                if (employeeId <= 9)
+                                {
+                                    ms = new MemoryStream(foto, 78, foto.Length - 78);
+                                    btnCargar.Enabled = false; // no se permite modificar porque desconozco el formato de la imagen.
+                                }
+                                else
+                                {
+                                    ms = new MemoryStream(foto);
+                                    btnCargar.Enabled = true;
+                                }
+                                picFoto.Image = Image.FromStream(ms);
+                            }
+                            else
+                                picFoto.Image = null;
+                            txtNotas.Text = empleado.Notes;
+                            cboReportaA.SelectedValue = empleado.ReportsTo ?? 0;
+                        }
+                        else
+                        {
+                            MessageBox.Show($"No se encontró el empleado con Id: {txtId.Text}, es posible que otro usuario lo haya eliminado previamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            ActualizaDgv();
+                            return;
+                        }
                     }
-                    else
-                    {
-                        ms = new MemoryStream(foto);
-                        btnCargar.Enabled = true;
-                    }
-                    picFoto.Image = Image.FromStream(ms);
                 }
-                else 
-                    picFoto.Image = null;
-                if (dgvr.Cells["Notas"].Value != null)
-                    txtNotas.Text = dgvr.Cells["Notas"].Value.ToString();
-                else
-                    txtNotas.Text = "";
-                if (dgvr.Cells["Reportaa"].Value != null)
-                    cboReportaA.SelectedValue = dgvr.Cells["Reportaa"].Value;
-                else
-                    cboReportaA.SelectedValue = 0;
+                catch (SqlException ex)
+                {
+                    Utils.MsgCatchOueclbdd(this, ex);
+                }
+                catch (Exception ex)
+                {
+                    Utils.MsgCatchOue(this, ex);
+                }
                 if (tabcOperacion.SelectedTab == tbpListar)
                 {
                     btnOperacion.Visible = true;
@@ -536,7 +536,7 @@ namespace NorthwindTradersV3LinqToSql
                 frmRptEmpleado.Id = int.Parse(txtId.Text);
                 frmRptEmpleado.ShowDialog();
             }
-            if (tabcOperacion.SelectedTab == tbpRegistrar)
+            else if (tabcOperacion.SelectedTab == tbpRegistrar)
             {
                 if (ValidarControles())
                 {
@@ -584,12 +584,10 @@ namespace NorthwindTradersV3LinqToSql
                     {
                         Utils.MsgCatchOue(this, ex);
                     }
-                    LlenarCboReportaA();
-                    LlenarCboPais();
                     HabilitarControles();
                     btnOperacion.Enabled = true;
-                    if (numRegs > 0)
-                        BuscaReg();
+                    LlenarCombos();
+                    ActualizaDgv();
                 }
             }
             else if (tabcOperacion.SelectedTab == tbpModificar)
@@ -622,12 +620,12 @@ namespace NorthwindTradersV3LinqToSql
                             else strNotas = txtNotas.Text;
                             if (int.Parse(cboReportaA.SelectedValue.ToString()) == 0) intReportaa = null;
                             else intReportaa = int.Parse(cboReportaA.SelectedValue.ToString());
-                            context.SP_EMPLEADOS_ACTUALIZAR_V2(int.Parse(txtId.Text), txtNombres.Text, txtApellidos.Text, txtTitulo.Text, txtTitCortesia.Text, dtpFNacimiento.Value, dtpFContratacion.Value, txtDomicilio.Text, txtCiudad.Text, strRegion, strCodigoP, txtPais.Text, txtTelefono.Text, strExtension, strNotas, intReportaa, byteFoto, ref numRegs);
+                            context.SP_EMPLEADOS_ACTUALIZAR_V4(int.Parse(txtId.Text), txtNombres.Text, txtApellidos.Text, txtTitulo.Text, txtTitCortesia.Text, dtpFNacimiento.Value, dtpFContratacion.Value, txtDomicilio.Text, txtCiudad.Text, strRegion, strCodigoP, txtPais.Text, txtTelefono.Text, strExtension, strNotas, intReportaa, byteFoto, (System.Data.Linq.Binary)txtId.Tag, ref numRegs);
                         }
                         if (numRegs > 0)
                             MessageBox.Show($"El empleado con Id: {txtId.Text} y Nombre: {txtNombres.Text} {txtApellidos.Text} se modificó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
-                            MessageBox.Show($"El empleado con Id: {txtId.Text} y Nombre: {txtNombres.Text} {txtApellidos.Text} NO fue modificado en la base de datos", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"El empleado con Id: {txtId.Text} y Nombre: {txtNombres.Text} {txtApellidos.Text} NO fue modificado en la base de datos, es posible que otro usuario lo haya modificado o eliminado previamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     catch (SqlException ex)
                     {
@@ -637,12 +635,10 @@ namespace NorthwindTradersV3LinqToSql
                     {
                         Utils.MsgCatchOue(this, ex);
                     }
-                    LlenarCboReportaA();
-                    LlenarCboPais();
-                    if (numRegs > 0)
-                        BuscaReg();
+                    LlenarCombos();
+                    ActualizaDgv();
                 }
-            } 
+            }
             else if (tabcOperacion.SelectedTab == tbpEliminar)
             {
                 if (txtId.Text == "")
@@ -659,12 +655,12 @@ namespace NorthwindTradersV3LinqToSql
                     {
                         using (NorthwindTradersDataContext context = new NorthwindTradersDataContext())
                         {
-                            context.SP_EMPLEADOS_ELIMINAR_V2(int.Parse(txtId.Text), ref numRegs);
+                            context.SP_EMPLEADOS_ELIMINAR_V4(int.Parse(txtId.Text), (System.Data.Linq.Binary)txtId.Tag, ref numRegs);
                         }
                         if (numRegs > 0)
                             MessageBox.Show($"El empleado con Id: {txtId.Text} y Nombre: {txtNombres.Text} {txtApellidos.Text} se eliminó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
-                            MessageBox.Show($"El empleado con Id: {txtId.Text} y Nombre: {txtNombres.Text} {txtApellidos.Text} NO se eliminó en la base de datos", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"El empleado con Id: {txtId.Text} y Nombre: {txtNombres.Text} {txtApellidos.Text} NO se eliminó en la base de datos, es posible que otro usuario lo haya modificado o eliminado previamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     catch (SqlException ex) when (ex.Number == 547)
                     {
@@ -678,10 +674,8 @@ namespace NorthwindTradersV3LinqToSql
                     {
                         Utils.MsgCatchOue(this, ex);
                     }
-                    LlenarCboReportaA();
-                    LlenarCboPais();
-                    if (numRegs > 0)
-                        BuscaReg();
+                    LlenarCombos();
+                    ActualizaDgv();
                 }
             }
         }
@@ -714,6 +708,18 @@ namespace NorthwindTradersV3LinqToSql
             txtBIdIni.Text = txtBIdFin.Text = txtId.Text;
             btnBuscar.PerformClick();
             btnLimpiar.PerformClick();
+        }
+
+        private void ActualizaDgv()
+        {
+            LlenarDgv(null);
+            btnLimpiar.PerformClick();
+        }
+
+        private void LlenarCombos()
+        {
+            LlenarCboPais();
+            LlenarCboReportaA();
         }
     }
 }

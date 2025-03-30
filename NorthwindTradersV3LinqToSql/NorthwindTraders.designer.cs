@@ -45,9 +45,6 @@ namespace NorthwindTradersV3LinqToSql
     partial void InsertCustomers(Customers instance);
     partial void UpdateCustomers(Customers instance);
     partial void DeleteCustomers(Customers instance);
-    partial void InsertEmployees(Employees instance);
-    partial void UpdateEmployees(Employees instance);
-    partial void DeleteEmployees(Employees instance);
     partial void InsertEmployeeTerritories(EmployeeTerritories instance);
     partial void UpdateEmployeeTerritories(EmployeeTerritories instance);
     partial void DeleteEmployeeTerritories(EmployeeTerritories instance);
@@ -69,6 +66,9 @@ namespace NorthwindTradersV3LinqToSql
     partial void InsertSuppliers(Suppliers instance);
     partial void UpdateSuppliers(Suppliers instance);
     partial void DeleteSuppliers(Suppliers instance);
+    partial void InsertEmployees(Employees instance);
+    partial void UpdateEmployees(Employees instance);
+    partial void DeleteEmployees(Employees instance);
     #endregion
 		
 		public NorthwindTradersDataContext() : 
@@ -138,14 +138,6 @@ namespace NorthwindTradersV3LinqToSql
 			get
 			{
 				return this.GetTable<Customers>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Employees> Employees
-		{
-			get
-			{
-				return this.GetTable<Employees>();
 			}
 		}
 		
@@ -266,6 +258,14 @@ namespace NorthwindTradersV3LinqToSql
 			get
 			{
 				return this.GetTable<VW_PRODUCTOSPORCATEGORIALISTADO_RPT>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Employees> Employees
+		{
+			get
+			{
+				return this.GetTable<Employees>();
 			}
 		}
 		
@@ -667,6 +667,80 @@ namespace NorthwindTradersV3LinqToSql
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idInicial, idFinal, cliente, fPedido, fPedidoNull, fPedidoIni, fPedidoFin, fRequerido, fRequeridoNull, fRequeridoIni, fRequeridoFin, fEnvio, fEnvioNull, fEnvioIni, fEnvioFin, empleado, compañiaT, dirigidoa);
 			return ((ISingleResult<SP_PEDIDOS_BUSCAR2Result>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EMPLEADOS_BUSCAR_V3")]
+		public ISingleResult<SP_EMPLEADOS_BUSCAR_V3Result> SP_EMPLEADOS_BUSCAR_V3([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdIni", DbType="Int")] System.Nullable<int> idIni, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdFin", DbType="Int")] System.Nullable<int> idFin, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombres", DbType="NVarChar(10)")] string nombres, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Apellidos", DbType="NVarChar(20)")] string apellidos, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Titulo", DbType="NVarChar(30)")] string titulo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Domicilio", DbType="NVarChar(60)")] string domicilio, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Ciudad", DbType="NVarChar(15)")] string ciudad, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Region", DbType="NVarChar(15)")] string region, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CodigoP", DbType="NVarChar(10)")] string codigoP, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Pais", DbType="NVarChar(15)")] string pais, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefono", DbType="NVarChar(24)")] string telefono)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idIni, idFin, nombres, apellidos, titulo, domicilio, ciudad, region, codigoP, pais, telefono);
+			return ((ISingleResult<SP_EMPLEADOS_BUSCAR_V3Result>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EMPLEADOS_LISTAR_V2")]
+		public ISingleResult<SP_EMPLEADOS_LISTAR_V2Result> SP_EMPLEADOS_LISTAR_V2([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> top100)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), top100);
+			return ((ISingleResult<SP_EMPLEADOS_LISTAR_V2Result>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EMPLEADOS_ACTUALIZAR_V3")]
+		public int SP_EMPLEADOS_ACTUALIZAR_V3(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombres", DbType="NVarChar(10)")] string nombres, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Apellidos", DbType="NVarChar(20)")] string apellidos, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Titulo", DbType="NVarChar(30)")] string titulo, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="TitCortesia", DbType="NVarChar(25)")] string titCortesia, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FNacimiento", DbType="DateTime")] System.Nullable<System.DateTime> fNacimiento, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FContratacion", DbType="DateTime")] System.Nullable<System.DateTime> fContratacion, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Domicilio", DbType="NVarChar(60)")] string domicilio, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Ciudad", DbType="NVarChar(15)")] string ciudad, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Region", DbType="NVarChar(15)")] string region, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="CodigoP", DbType="NVarChar(10)")] string codigoP, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Pais", DbType="NVarChar(15)")] string pais, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefono", DbType="NVarChar(24)")] string telefono, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Extension", DbType="NVarChar(4)")] string extension, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Notas", DbType="NText")] string notas, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Reportaa", DbType="Int")] System.Nullable<int> reportaa, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Foto", DbType="Image")] System.Data.Linq.Binary foto, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RowVersion", DbType="rowversion")] System.Data.Linq.Binary rowVersion)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, nombres, apellidos, titulo, titCortesia, fNacimiento, fContratacion, domicilio, ciudad, region, codigoP, pais, telefono, extension, notas, reportaa, foto, rowVersion);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EMPLEADOS_ACTUALIZAR_V4")]
+		public int SP_EMPLEADOS_ACTUALIZAR_V4(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombres", DbType="NVarChar(10)")] string nombres, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Apellidos", DbType="NVarChar(20)")] string apellidos, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Titulo", DbType="NVarChar(30)")] string titulo, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="TitCortesia", DbType="NVarChar(25)")] string titCortesia, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FNacimiento", DbType="DateTime")] System.Nullable<System.DateTime> fNacimiento, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="FContratacion", DbType="DateTime")] System.Nullable<System.DateTime> fContratacion, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Domicilio", DbType="NVarChar(60)")] string domicilio, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Ciudad", DbType="NVarChar(15)")] string ciudad, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Region", DbType="NVarChar(15)")] string region, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="CodigoP", DbType="NVarChar(10)")] string codigoP, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Pais", DbType="NVarChar(15)")] string pais, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefono", DbType="NVarChar(24)")] string telefono, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Extension", DbType="NVarChar(4)")] string extension, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Notas", DbType="NText")] string notas, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Reportaa", DbType="Int")] System.Nullable<int> reportaa, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="Foto", DbType="Image")] System.Data.Linq.Binary foto, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="RowVersion", DbType="rowversion")] System.Data.Linq.Binary rowVersion, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, nombres, apellidos, titulo, titCortesia, fNacimiento, fContratacion, domicilio, ciudad, region, codigoP, pais, telefono, extension, notas, reportaa, foto, rowVersion, numRegs);
+			numRegs = ((System.Nullable<int>)(result.GetParameterValue(18)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_EMPLEADOS_ELIMINAR_V4")]
+		public int SP_EMPLEADOS_ELIMINAR_V4([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RowVersion", DbType="rowversion")] System.Data.Linq.Binary rowVersion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, rowVersion, numRegs);
+			numRegs = ((System.Nullable<int>)(result.GetParameterValue(2)));
+			return ((int)(result.ReturnValue));
 		}
 	}
 	
@@ -1651,601 +1725,6 @@ namespace NorthwindTradersV3LinqToSql
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Employees")]
-	public partial class Employees : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _EmployeeID;
-		
-		private string _LastName;
-		
-		private string _FirstName;
-		
-		private string _Title;
-		
-		private string _TitleOfCourtesy;
-		
-		private System.Nullable<System.DateTime> _BirthDate;
-		
-		private System.Nullable<System.DateTime> _HireDate;
-		
-		private string _Address;
-		
-		private string _City;
-		
-		private string _Region;
-		
-		private string _PostalCode;
-		
-		private string _Country;
-		
-		private string _HomePhone;
-		
-		private string _Extension;
-		
-		private System.Data.Linq.Binary _Photo;
-		
-		private string _Notes;
-		
-		private System.Nullable<int> _ReportsTo;
-		
-		private string _PhotoPath;
-		
-		private EntitySet<Employees> _Employees2;
-		
-		private EntitySet<EmployeeTerritories> _EmployeeTerritories;
-		
-		private EntitySet<Orders> _Orders;
-		
-		private EntityRef<Employees> _Employees1;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnEmployeeIDChanging(int value);
-    partial void OnEmployeeIDChanged();
-    partial void OnLastNameChanging(string value);
-    partial void OnLastNameChanged();
-    partial void OnFirstNameChanging(string value);
-    partial void OnFirstNameChanged();
-    partial void OnTitleChanging(string value);
-    partial void OnTitleChanged();
-    partial void OnTitleOfCourtesyChanging(string value);
-    partial void OnTitleOfCourtesyChanged();
-    partial void OnBirthDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnBirthDateChanged();
-    partial void OnHireDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnHireDateChanged();
-    partial void OnAddressChanging(string value);
-    partial void OnAddressChanged();
-    partial void OnCityChanging(string value);
-    partial void OnCityChanged();
-    partial void OnRegionChanging(string value);
-    partial void OnRegionChanged();
-    partial void OnPostalCodeChanging(string value);
-    partial void OnPostalCodeChanged();
-    partial void OnCountryChanging(string value);
-    partial void OnCountryChanged();
-    partial void OnHomePhoneChanging(string value);
-    partial void OnHomePhoneChanged();
-    partial void OnExtensionChanging(string value);
-    partial void OnExtensionChanged();
-    partial void OnPhotoChanging(System.Data.Linq.Binary value);
-    partial void OnPhotoChanged();
-    partial void OnNotesChanging(string value);
-    partial void OnNotesChanged();
-    partial void OnReportsToChanging(System.Nullable<int> value);
-    partial void OnReportsToChanged();
-    partial void OnPhotoPathChanging(string value);
-    partial void OnPhotoPathChanged();
-    #endregion
-		
-		public Employees()
-		{
-			this._Employees2 = new EntitySet<Employees>(new Action<Employees>(this.attach_Employees2), new Action<Employees>(this.detach_Employees2));
-			this._EmployeeTerritories = new EntitySet<EmployeeTerritories>(new Action<EmployeeTerritories>(this.attach_EmployeeTerritories), new Action<EmployeeTerritories>(this.detach_EmployeeTerritories));
-			this._Orders = new EntitySet<Orders>(new Action<Orders>(this.attach_Orders), new Action<Orders>(this.detach_Orders));
-			this._Employees1 = default(EntityRef<Employees>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int EmployeeID
-		{
-			get
-			{
-				return this._EmployeeID;
-			}
-			set
-			{
-				if ((this._EmployeeID != value))
-				{
-					this.OnEmployeeIDChanging(value);
-					this.SendPropertyChanging();
-					this._EmployeeID = value;
-					this.SendPropertyChanged("EmployeeID");
-					this.OnEmployeeIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(20) NOT NULL", CanBeNull=false)]
-		public string LastName
-		{
-			get
-			{
-				return this._LastName;
-			}
-			set
-			{
-				if ((this._LastName != value))
-				{
-					this.OnLastNameChanging(value);
-					this.SendPropertyChanging();
-					this._LastName = value;
-					this.SendPropertyChanged("LastName");
-					this.OnLastNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(10) NOT NULL", CanBeNull=false)]
-		public string FirstName
-		{
-			get
-			{
-				return this._FirstName;
-			}
-			set
-			{
-				if ((this._FirstName != value))
-				{
-					this.OnFirstNameChanging(value);
-					this.SendPropertyChanging();
-					this._FirstName = value;
-					this.SendPropertyChanged("FirstName");
-					this.OnFirstNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(30)")]
-		public string Title
-		{
-			get
-			{
-				return this._Title;
-			}
-			set
-			{
-				if ((this._Title != value))
-				{
-					this.OnTitleChanging(value);
-					this.SendPropertyChanging();
-					this._Title = value;
-					this.SendPropertyChanged("Title");
-					this.OnTitleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TitleOfCourtesy", DbType="NVarChar(25)")]
-		public string TitleOfCourtesy
-		{
-			get
-			{
-				return this._TitleOfCourtesy;
-			}
-			set
-			{
-				if ((this._TitleOfCourtesy != value))
-				{
-					this.OnTitleOfCourtesyChanging(value);
-					this.SendPropertyChanging();
-					this._TitleOfCourtesy = value;
-					this.SendPropertyChanged("TitleOfCourtesy");
-					this.OnTitleOfCourtesyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BirthDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> BirthDate
-		{
-			get
-			{
-				return this._BirthDate;
-			}
-			set
-			{
-				if ((this._BirthDate != value))
-				{
-					this.OnBirthDateChanging(value);
-					this.SendPropertyChanging();
-					this._BirthDate = value;
-					this.SendPropertyChanged("BirthDate");
-					this.OnBirthDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HireDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> HireDate
-		{
-			get
-			{
-				return this._HireDate;
-			}
-			set
-			{
-				if ((this._HireDate != value))
-				{
-					this.OnHireDateChanging(value);
-					this.SendPropertyChanging();
-					this._HireDate = value;
-					this.SendPropertyChanged("HireDate");
-					this.OnHireDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(60)")]
-		public string Address
-		{
-			get
-			{
-				return this._Address;
-			}
-			set
-			{
-				if ((this._Address != value))
-				{
-					this.OnAddressChanging(value);
-					this.SendPropertyChanging();
-					this._Address = value;
-					this.SendPropertyChanged("Address");
-					this.OnAddressChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_City", DbType="NVarChar(15)")]
-		public string City
-		{
-			get
-			{
-				return this._City;
-			}
-			set
-			{
-				if ((this._City != value))
-				{
-					this.OnCityChanging(value);
-					this.SendPropertyChanging();
-					this._City = value;
-					this.SendPropertyChanged("City");
-					this.OnCityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Region", DbType="NVarChar(15)")]
-		public string Region
-		{
-			get
-			{
-				return this._Region;
-			}
-			set
-			{
-				if ((this._Region != value))
-				{
-					this.OnRegionChanging(value);
-					this.SendPropertyChanging();
-					this._Region = value;
-					this.SendPropertyChanged("Region");
-					this.OnRegionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostalCode", DbType="NVarChar(10)")]
-		public string PostalCode
-		{
-			get
-			{
-				return this._PostalCode;
-			}
-			set
-			{
-				if ((this._PostalCode != value))
-				{
-					this.OnPostalCodeChanging(value);
-					this.SendPropertyChanging();
-					this._PostalCode = value;
-					this.SendPropertyChanged("PostalCode");
-					this.OnPostalCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Country", DbType="NVarChar(15)")]
-		public string Country
-		{
-			get
-			{
-				return this._Country;
-			}
-			set
-			{
-				if ((this._Country != value))
-				{
-					this.OnCountryChanging(value);
-					this.SendPropertyChanging();
-					this._Country = value;
-					this.SendPropertyChanged("Country");
-					this.OnCountryChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HomePhone", DbType="NVarChar(24)")]
-		public string HomePhone
-		{
-			get
-			{
-				return this._HomePhone;
-			}
-			set
-			{
-				if ((this._HomePhone != value))
-				{
-					this.OnHomePhoneChanging(value);
-					this.SendPropertyChanging();
-					this._HomePhone = value;
-					this.SendPropertyChanged("HomePhone");
-					this.OnHomePhoneChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Extension", DbType="NVarChar(4)")]
-		public string Extension
-		{
-			get
-			{
-				return this._Extension;
-			}
-			set
-			{
-				if ((this._Extension != value))
-				{
-					this.OnExtensionChanging(value);
-					this.SendPropertyChanging();
-					this._Extension = value;
-					this.SendPropertyChanged("Extension");
-					this.OnExtensionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary Photo
-		{
-			get
-			{
-				return this._Photo;
-			}
-			set
-			{
-				if ((this._Photo != value))
-				{
-					this.OnPhotoChanging(value);
-					this.SendPropertyChanging();
-					this._Photo = value;
-					this.SendPropertyChanged("Photo");
-					this.OnPhotoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-		public string Notes
-		{
-			get
-			{
-				return this._Notes;
-			}
-			set
-			{
-				if ((this._Notes != value))
-				{
-					this.OnNotesChanging(value);
-					this.SendPropertyChanging();
-					this._Notes = value;
-					this.SendPropertyChanged("Notes");
-					this.OnNotesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReportsTo", DbType="Int")]
-		public System.Nullable<int> ReportsTo
-		{
-			get
-			{
-				return this._ReportsTo;
-			}
-			set
-			{
-				if ((this._ReportsTo != value))
-				{
-					if (this._Employees1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnReportsToChanging(value);
-					this.SendPropertyChanging();
-					this._ReportsTo = value;
-					this.SendPropertyChanged("ReportsTo");
-					this.OnReportsToChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhotoPath", DbType="NVarChar(255)")]
-		public string PhotoPath
-		{
-			get
-			{
-				return this._PhotoPath;
-			}
-			set
-			{
-				if ((this._PhotoPath != value))
-				{
-					this.OnPhotoPathChanging(value);
-					this.SendPropertyChanging();
-					this._PhotoPath = value;
-					this.SendPropertyChanged("PhotoPath");
-					this.OnPhotoPathChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Employees", Storage="_Employees2", ThisKey="EmployeeID", OtherKey="ReportsTo")]
-		public EntitySet<Employees> Employees2
-		{
-			get
-			{
-				return this._Employees2;
-			}
-			set
-			{
-				this._Employees2.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_EmployeeTerritories", Storage="_EmployeeTerritories", ThisKey="EmployeeID", OtherKey="EmployeeID")]
-		public EntitySet<EmployeeTerritories> EmployeeTerritories
-		{
-			get
-			{
-				return this._EmployeeTerritories;
-			}
-			set
-			{
-				this._EmployeeTerritories.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Orders", Storage="_Orders", ThisKey="EmployeeID", OtherKey="EmployeeID")]
-		public EntitySet<Orders> Orders
-		{
-			get
-			{
-				return this._Orders;
-			}
-			set
-			{
-				this._Orders.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Employees", Storage="_Employees1", ThisKey="ReportsTo", OtherKey="EmployeeID", IsForeignKey=true)]
-		public Employees Employees1
-		{
-			get
-			{
-				return this._Employees1.Entity;
-			}
-			set
-			{
-				Employees previousValue = this._Employees1.Entity;
-				if (((previousValue != value) 
-							|| (this._Employees1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Employees1.Entity = null;
-						previousValue.Employees2.Remove(this);
-					}
-					this._Employees1.Entity = value;
-					if ((value != null))
-					{
-						value.Employees2.Add(this);
-						this._ReportsTo = value.EmployeeID;
-					}
-					else
-					{
-						this._ReportsTo = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Employees1");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Employees2(Employees entity)
-		{
-			this.SendPropertyChanging();
-			entity.Employees1 = this;
-		}
-		
-		private void detach_Employees2(Employees entity)
-		{
-			this.SendPropertyChanging();
-			entity.Employees1 = null;
-		}
-		
-		private void attach_EmployeeTerritories(EmployeeTerritories entity)
-		{
-			this.SendPropertyChanging();
-			entity.Employees = this;
-		}
-		
-		private void detach_EmployeeTerritories(EmployeeTerritories entity)
-		{
-			this.SendPropertyChanging();
-			entity.Employees = null;
-		}
-		
-		private void attach_Orders(Orders entity)
-		{
-			this.SendPropertyChanging();
-			entity.Employees = this;
-		}
-		
-		private void detach_Orders(Orders entity)
-		{
-			this.SendPropertyChanging();
-			entity.Employees = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EmployeeTerritories")]
 	public partial class EmployeeTerritories : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2256,9 +1735,9 @@ namespace NorthwindTradersV3LinqToSql
 		
 		private string _TerritoryID;
 		
-		private EntityRef<Employees> _Employees;
-		
 		private EntityRef<Territories> _Territories;
+		
+		private EntityRef<Employees> _Employees;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -2272,8 +1751,8 @@ namespace NorthwindTradersV3LinqToSql
 		
 		public EmployeeTerritories()
 		{
-			this._Employees = default(EntityRef<Employees>);
 			this._Territories = default(EntityRef<Territories>);
+			this._Employees = default(EntityRef<Employees>);
 			OnCreated();
 		}
 		
@@ -2325,40 +1804,6 @@ namespace NorthwindTradersV3LinqToSql
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_EmployeeTerritories", Storage="_Employees", ThisKey="EmployeeID", OtherKey="EmployeeID", IsForeignKey=true)]
-		public Employees Employees
-		{
-			get
-			{
-				return this._Employees.Entity;
-			}
-			set
-			{
-				Employees previousValue = this._Employees.Entity;
-				if (((previousValue != value) 
-							|| (this._Employees.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Employees.Entity = null;
-						previousValue.EmployeeTerritories.Remove(this);
-					}
-					this._Employees.Entity = value;
-					if ((value != null))
-					{
-						value.EmployeeTerritories.Add(this);
-						this._EmployeeID = value.EmployeeID;
-					}
-					else
-					{
-						this._EmployeeID = default(int);
-					}
-					this.SendPropertyChanged("Employees");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Territories_EmployeeTerritories", Storage="_Territories", ThisKey="TerritoryID", OtherKey="TerritoryID", IsForeignKey=true)]
 		public Territories Territories
 		{
@@ -2389,6 +1834,40 @@ namespace NorthwindTradersV3LinqToSql
 						this._TerritoryID = default(string);
 					}
 					this.SendPropertyChanged("Territories");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_EmployeeTerritories", Storage="_Employees", ThisKey="EmployeeID", OtherKey="EmployeeID", IsForeignKey=true)]
+		public Employees Employees
+		{
+			get
+			{
+				return this._Employees.Entity;
+			}
+			set
+			{
+				Employees previousValue = this._Employees.Entity;
+				if (((previousValue != value) 
+							|| (this._Employees.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Employees.Entity = null;
+						previousValue.EmployeeTerritories.Remove(this);
+					}
+					this._Employees.Entity = value;
+					if ((value != null))
+					{
+						value.EmployeeTerritories.Add(this);
+						this._EmployeeID = value.EmployeeID;
+					}
+					else
+					{
+						this._EmployeeID = default(int);
+					}
+					this.SendPropertyChanged("Employees");
 				}
 			}
 		}
@@ -2692,9 +2171,9 @@ namespace NorthwindTradersV3LinqToSql
 		
 		private EntityRef<Customers> _Customers;
 		
-		private EntityRef<Employees> _Employees;
-		
 		private EntityRef<Shippers> _Shippers;
+		
+		private EntityRef<Employees> _Employees;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -2734,8 +2213,8 @@ namespace NorthwindTradersV3LinqToSql
 		{
 			this._Order_Details = new EntitySet<Order_Details>(new Action<Order_Details>(this.attach_Order_Details), new Action<Order_Details>(this.detach_Order_Details));
 			this._Customers = default(EntityRef<Customers>);
-			this._Employees = default(EntityRef<Employees>);
 			this._Shippers = default(EntityRef<Shippers>);
+			this._Employees = default(EntityRef<Employees>);
 			OnCreated();
 		}
 		
@@ -3078,40 +2557,6 @@ namespace NorthwindTradersV3LinqToSql
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Orders", Storage="_Employees", ThisKey="EmployeeID", OtherKey="EmployeeID", IsForeignKey=true)]
-		public Employees Employees
-		{
-			get
-			{
-				return this._Employees.Entity;
-			}
-			set
-			{
-				Employees previousValue = this._Employees.Entity;
-				if (((previousValue != value) 
-							|| (this._Employees.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Employees.Entity = null;
-						previousValue.Orders.Remove(this);
-					}
-					this._Employees.Entity = value;
-					if ((value != null))
-					{
-						value.Orders.Add(this);
-						this._EmployeeID = value.EmployeeID;
-					}
-					else
-					{
-						this._EmployeeID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Employees");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Shippers_Orders", Storage="_Shippers", ThisKey="ShipVia", OtherKey="ShipperID", IsForeignKey=true)]
 		public Shippers Shippers
 		{
@@ -3142,6 +2587,40 @@ namespace NorthwindTradersV3LinqToSql
 						this._ShipVia = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Shippers");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Orders", Storage="_Employees", ThisKey="EmployeeID", OtherKey="EmployeeID", IsForeignKey=true)]
+		public Employees Employees
+		{
+			get
+			{
+				return this._Employees.Entity;
+			}
+			set
+			{
+				Employees previousValue = this._Employees.Entity;
+				if (((previousValue != value) 
+							|| (this._Employees.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Employees.Entity = null;
+						previousValue.Orders.Remove(this);
+					}
+					this._Employees.Entity = value;
+					if ((value != null))
+					{
+						value.Orders.Add(this);
+						this._EmployeeID = value.EmployeeID;
+					}
+					else
+					{
+						this._EmployeeID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Employees");
 				}
 			}
 		}
@@ -5592,6 +5071,625 @@ namespace NorthwindTradersV3LinqToSql
 					this._CompanyName = value;
 				}
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Employees")]
+	public partial class Employees : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _EmployeeID;
+		
+		private string _LastName;
+		
+		private string _FirstName;
+		
+		private string _Title;
+		
+		private string _TitleOfCourtesy;
+		
+		private System.Nullable<System.DateTime> _BirthDate;
+		
+		private System.Nullable<System.DateTime> _HireDate;
+		
+		private string _Address;
+		
+		private string _City;
+		
+		private string _Region;
+		
+		private string _PostalCode;
+		
+		private string _Country;
+		
+		private string _HomePhone;
+		
+		private string _Extension;
+		
+		private System.Data.Linq.Binary _Photo;
+		
+		private string _Notes;
+		
+		private System.Nullable<int> _ReportsTo;
+		
+		private string _PhotoPath;
+		
+		private System.Data.Linq.Binary _RowVersion;
+		
+		private EntitySet<EmployeeTerritories> _EmployeeTerritories;
+		
+		private EntitySet<Orders> _Orders;
+		
+		private EntitySet<Employees> _Employees2;
+		
+		private EntityRef<Employees> _Employees1;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnEmployeeIDChanging(int value);
+    partial void OnEmployeeIDChanged();
+    partial void OnLastNameChanging(string value);
+    partial void OnLastNameChanged();
+    partial void OnFirstNameChanging(string value);
+    partial void OnFirstNameChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnTitleOfCourtesyChanging(string value);
+    partial void OnTitleOfCourtesyChanged();
+    partial void OnBirthDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnBirthDateChanged();
+    partial void OnHireDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnHireDateChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
+    partial void OnCityChanging(string value);
+    partial void OnCityChanged();
+    partial void OnRegionChanging(string value);
+    partial void OnRegionChanged();
+    partial void OnPostalCodeChanging(string value);
+    partial void OnPostalCodeChanged();
+    partial void OnCountryChanging(string value);
+    partial void OnCountryChanged();
+    partial void OnHomePhoneChanging(string value);
+    partial void OnHomePhoneChanged();
+    partial void OnExtensionChanging(string value);
+    partial void OnExtensionChanged();
+    partial void OnPhotoChanging(System.Data.Linq.Binary value);
+    partial void OnPhotoChanged();
+    partial void OnNotesChanging(string value);
+    partial void OnNotesChanged();
+    partial void OnReportsToChanging(System.Nullable<int> value);
+    partial void OnReportsToChanged();
+    partial void OnPhotoPathChanging(string value);
+    partial void OnPhotoPathChanged();
+    partial void OnRowVersionChanging(System.Data.Linq.Binary value);
+    partial void OnRowVersionChanged();
+    #endregion
+		
+		public Employees()
+		{
+			this._EmployeeTerritories = new EntitySet<EmployeeTerritories>(new Action<EmployeeTerritories>(this.attach_EmployeeTerritories), new Action<EmployeeTerritories>(this.detach_EmployeeTerritories));
+			this._Orders = new EntitySet<Orders>(new Action<Orders>(this.attach_Orders), new Action<Orders>(this.detach_Orders));
+			this._Employees2 = new EntitySet<Employees>(new Action<Employees>(this.attach_Employees2), new Action<Employees>(this.detach_Employees2));
+			this._Employees1 = default(EntityRef<Employees>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		public int EmployeeID
+		{
+			get
+			{
+				return this._EmployeeID;
+			}
+			set
+			{
+				if ((this._EmployeeID != value))
+				{
+					this.OnEmployeeIDChanging(value);
+					this.SendPropertyChanging();
+					this._EmployeeID = value;
+					this.SendPropertyChanged("EmployeeID");
+					this.OnEmployeeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string LastName
+		{
+			get
+			{
+				return this._LastName;
+			}
+			set
+			{
+				if ((this._LastName != value))
+				{
+					this.OnLastNameChanging(value);
+					this.SendPropertyChanging();
+					this._LastName = value;
+					this.SendPropertyChanged("LastName");
+					this.OnLastNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string FirstName
+		{
+			get
+			{
+				return this._FirstName;
+			}
+			set
+			{
+				if ((this._FirstName != value))
+				{
+					this.OnFirstNameChanging(value);
+					this.SendPropertyChanging();
+					this._FirstName = value;
+					this.SendPropertyChanged("FirstName");
+					this.OnFirstNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(30)", UpdateCheck=UpdateCheck.Never)]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TitleOfCourtesy", DbType="NVarChar(25)", UpdateCheck=UpdateCheck.Never)]
+		public string TitleOfCourtesy
+		{
+			get
+			{
+				return this._TitleOfCourtesy;
+			}
+			set
+			{
+				if ((this._TitleOfCourtesy != value))
+				{
+					this.OnTitleOfCourtesyChanging(value);
+					this.SendPropertyChanging();
+					this._TitleOfCourtesy = value;
+					this.SendPropertyChanged("TitleOfCourtesy");
+					this.OnTitleOfCourtesyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BirthDate", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> BirthDate
+		{
+			get
+			{
+				return this._BirthDate;
+			}
+			set
+			{
+				if ((this._BirthDate != value))
+				{
+					this.OnBirthDateChanging(value);
+					this.SendPropertyChanging();
+					this._BirthDate = value;
+					this.SendPropertyChanged("BirthDate");
+					this.OnBirthDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HireDate", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> HireDate
+		{
+			get
+			{
+				return this._HireDate;
+			}
+			set
+			{
+				if ((this._HireDate != value))
+				{
+					this.OnHireDateChanging(value);
+					this.SendPropertyChanging();
+					this._HireDate = value;
+					this.SendPropertyChanged("HireDate");
+					this.OnHireDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(60)", UpdateCheck=UpdateCheck.Never)]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this.OnAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Address = value;
+					this.SendPropertyChanged("Address");
+					this.OnAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_City", DbType="NVarChar(15)", UpdateCheck=UpdateCheck.Never)]
+		public string City
+		{
+			get
+			{
+				return this._City;
+			}
+			set
+			{
+				if ((this._City != value))
+				{
+					this.OnCityChanging(value);
+					this.SendPropertyChanging();
+					this._City = value;
+					this.SendPropertyChanged("City");
+					this.OnCityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Region", DbType="NVarChar(15)", UpdateCheck=UpdateCheck.Never)]
+		public string Region
+		{
+			get
+			{
+				return this._Region;
+			}
+			set
+			{
+				if ((this._Region != value))
+				{
+					this.OnRegionChanging(value);
+					this.SendPropertyChanging();
+					this._Region = value;
+					this.SendPropertyChanged("Region");
+					this.OnRegionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostalCode", DbType="NVarChar(10)", UpdateCheck=UpdateCheck.Never)]
+		public string PostalCode
+		{
+			get
+			{
+				return this._PostalCode;
+			}
+			set
+			{
+				if ((this._PostalCode != value))
+				{
+					this.OnPostalCodeChanging(value);
+					this.SendPropertyChanging();
+					this._PostalCode = value;
+					this.SendPropertyChanged("PostalCode");
+					this.OnPostalCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Country", DbType="NVarChar(15)", UpdateCheck=UpdateCheck.Never)]
+		public string Country
+		{
+			get
+			{
+				return this._Country;
+			}
+			set
+			{
+				if ((this._Country != value))
+				{
+					this.OnCountryChanging(value);
+					this.SendPropertyChanging();
+					this._Country = value;
+					this.SendPropertyChanged("Country");
+					this.OnCountryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HomePhone", DbType="NVarChar(24)", UpdateCheck=UpdateCheck.Never)]
+		public string HomePhone
+		{
+			get
+			{
+				return this._HomePhone;
+			}
+			set
+			{
+				if ((this._HomePhone != value))
+				{
+					this.OnHomePhoneChanging(value);
+					this.SendPropertyChanging();
+					this._HomePhone = value;
+					this.SendPropertyChanged("HomePhone");
+					this.OnHomePhoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Extension", DbType="NVarChar(4)", UpdateCheck=UpdateCheck.Never)]
+		public string Extension
+		{
+			get
+			{
+				return this._Extension;
+			}
+			set
+			{
+				if ((this._Extension != value))
+				{
+					this.OnExtensionChanging(value);
+					this.SendPropertyChanging();
+					this._Extension = value;
+					this.SendPropertyChanged("Extension");
+					this.OnExtensionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Photo
+		{
+			get
+			{
+				return this._Photo;
+			}
+			set
+			{
+				if ((this._Photo != value))
+				{
+					this.OnPhotoChanging(value);
+					this.SendPropertyChanging();
+					this._Photo = value;
+					this.SendPropertyChanged("Photo");
+					this.OnPhotoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string Notes
+		{
+			get
+			{
+				return this._Notes;
+			}
+			set
+			{
+				if ((this._Notes != value))
+				{
+					this.OnNotesChanging(value);
+					this.SendPropertyChanging();
+					this._Notes = value;
+					this.SendPropertyChanged("Notes");
+					this.OnNotesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReportsTo", DbType="Int", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<int> ReportsTo
+		{
+			get
+			{
+				return this._ReportsTo;
+			}
+			set
+			{
+				if ((this._ReportsTo != value))
+				{
+					if (this._Employees1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnReportsToChanging(value);
+					this.SendPropertyChanging();
+					this._ReportsTo = value;
+					this.SendPropertyChanged("ReportsTo");
+					this.OnReportsToChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhotoPath", DbType="NVarChar(255)", UpdateCheck=UpdateCheck.Never)]
+		public string PhotoPath
+		{
+			get
+			{
+				return this._PhotoPath;
+			}
+			set
+			{
+				if ((this._PhotoPath != value))
+				{
+					this.OnPhotoPathChanging(value);
+					this.SendPropertyChanging();
+					this._PhotoPath = value;
+					this.SendPropertyChanged("PhotoPath");
+					this.OnPhotoPathChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowVersion", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary RowVersion
+		{
+			get
+			{
+				return this._RowVersion;
+			}
+			set
+			{
+				if ((this._RowVersion != value))
+				{
+					this.OnRowVersionChanging(value);
+					this.SendPropertyChanging();
+					this._RowVersion = value;
+					this.SendPropertyChanged("RowVersion");
+					this.OnRowVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_EmployeeTerritories", Storage="_EmployeeTerritories", ThisKey="EmployeeID", OtherKey="EmployeeID")]
+		public EntitySet<EmployeeTerritories> EmployeeTerritories
+		{
+			get
+			{
+				return this._EmployeeTerritories;
+			}
+			set
+			{
+				this._EmployeeTerritories.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Orders", Storage="_Orders", ThisKey="EmployeeID", OtherKey="EmployeeID")]
+		public EntitySet<Orders> Orders
+		{
+			get
+			{
+				return this._Orders;
+			}
+			set
+			{
+				this._Orders.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Employees", Storage="_Employees2", ThisKey="EmployeeID", OtherKey="ReportsTo")]
+		public EntitySet<Employees> Employees2
+		{
+			get
+			{
+				return this._Employees2;
+			}
+			set
+			{
+				this._Employees2.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Employees", Storage="_Employees1", ThisKey="ReportsTo", OtherKey="EmployeeID", IsForeignKey=true)]
+		public Employees Employees1
+		{
+			get
+			{
+				return this._Employees1.Entity;
+			}
+			set
+			{
+				Employees previousValue = this._Employees1.Entity;
+				if (((previousValue != value) 
+							|| (this._Employees1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Employees1.Entity = null;
+						previousValue.Employees2.Remove(this);
+					}
+					this._Employees1.Entity = value;
+					if ((value != null))
+					{
+						value.Employees2.Add(this);
+						this._ReportsTo = value.EmployeeID;
+					}
+					else
+					{
+						this._ReportsTo = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Employees1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_EmployeeTerritories(EmployeeTerritories entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employees = this;
+		}
+		
+		private void detach_EmployeeTerritories(EmployeeTerritories entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employees = null;
+		}
+		
+		private void attach_Orders(Orders entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employees = this;
+		}
+		
+		private void detach_Orders(Orders entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employees = null;
+		}
+		
+		private void attach_Employees2(Employees entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employees1 = this;
+		}
+		
+		private void detach_Employees2(Employees entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employees1 = null;
 		}
 	}
 	
@@ -9234,6 +9332,346 @@ namespace NorthwindTradersV3LinqToSql
 				if ((this._Flete != value))
 				{
 					this._Flete = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_EMPLEADOS_BUSCAR_V3Result
+	{
+		
+		private int _Id;
+		
+		private string _Nombres;
+		
+		private string _Apellidos;
+		
+		private string _Título;
+		
+		private System.Nullable<System.DateTime> _Fecha_de_nacimiento;
+		
+		private string _Ciudad;
+		
+		private string _País;
+		
+		private System.Data.Linq.Binary _Foto;
+		
+		private string _Reporta_a;
+		
+		public SP_EMPLEADOS_BUSCAR_V3Result()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombres", DbType="NVarChar(10) NOT NULL", CanBeNull=false)]
+		public string Nombres
+		{
+			get
+			{
+				return this._Nombres;
+			}
+			set
+			{
+				if ((this._Nombres != value))
+				{
+					this._Nombres = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Apellidos", DbType="NVarChar(20) NOT NULL", CanBeNull=false)]
+		public string Apellidos
+		{
+			get
+			{
+				return this._Apellidos;
+			}
+			set
+			{
+				if ((this._Apellidos != value))
+				{
+					this._Apellidos = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Título", DbType="NVarChar(30)")]
+		public string Título
+		{
+			get
+			{
+				return this._Título;
+			}
+			set
+			{
+				if ((this._Título != value))
+				{
+					this._Título = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Fecha de nacimiento]", Storage="_Fecha_de_nacimiento", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Fecha_de_nacimiento
+		{
+			get
+			{
+				return this._Fecha_de_nacimiento;
+			}
+			set
+			{
+				if ((this._Fecha_de_nacimiento != value))
+				{
+					this._Fecha_de_nacimiento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ciudad", DbType="NVarChar(15)")]
+		public string Ciudad
+		{
+			get
+			{
+				return this._Ciudad;
+			}
+			set
+			{
+				if ((this._Ciudad != value))
+				{
+					this._Ciudad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_País", DbType="NVarChar(15)")]
+		public string País
+		{
+			get
+			{
+				return this._País;
+			}
+			set
+			{
+				if ((this._País != value))
+				{
+					this._País = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Foto", DbType="Image")]
+		public System.Data.Linq.Binary Foto
+		{
+			get
+			{
+				return this._Foto;
+			}
+			set
+			{
+				if ((this._Foto != value))
+				{
+					this._Foto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Reporta a]", Storage="_Reporta_a", DbType="NVarChar(32)")]
+		public string Reporta_a
+		{
+			get
+			{
+				return this._Reporta_a;
+			}
+			set
+			{
+				if ((this._Reporta_a != value))
+				{
+					this._Reporta_a = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_EMPLEADOS_LISTAR_V2Result
+	{
+		
+		private int _Id;
+		
+		private string _Nombres;
+		
+		private string _Apellidos;
+		
+		private string _Título;
+		
+		private System.Nullable<System.DateTime> _Fecha_de_nacimiento;
+		
+		private string _Ciudad;
+		
+		private string _País;
+		
+		private System.Data.Linq.Binary _Foto;
+		
+		private string _Reporta_a;
+		
+		public SP_EMPLEADOS_LISTAR_V2Result()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombres", DbType="NVarChar(10) NOT NULL", CanBeNull=false)]
+		public string Nombres
+		{
+			get
+			{
+				return this._Nombres;
+			}
+			set
+			{
+				if ((this._Nombres != value))
+				{
+					this._Nombres = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Apellidos", DbType="NVarChar(20) NOT NULL", CanBeNull=false)]
+		public string Apellidos
+		{
+			get
+			{
+				return this._Apellidos;
+			}
+			set
+			{
+				if ((this._Apellidos != value))
+				{
+					this._Apellidos = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Título", DbType="NVarChar(30)")]
+		public string Título
+		{
+			get
+			{
+				return this._Título;
+			}
+			set
+			{
+				if ((this._Título != value))
+				{
+					this._Título = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Fecha de nacimiento]", Storage="_Fecha_de_nacimiento", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Fecha_de_nacimiento
+		{
+			get
+			{
+				return this._Fecha_de_nacimiento;
+			}
+			set
+			{
+				if ((this._Fecha_de_nacimiento != value))
+				{
+					this._Fecha_de_nacimiento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ciudad", DbType="NVarChar(15)")]
+		public string Ciudad
+		{
+			get
+			{
+				return this._Ciudad;
+			}
+			set
+			{
+				if ((this._Ciudad != value))
+				{
+					this._Ciudad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_País", DbType="NVarChar(15)")]
+		public string País
+		{
+			get
+			{
+				return this._País;
+			}
+			set
+			{
+				if ((this._País != value))
+				{
+					this._País = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Foto", DbType="Image")]
+		public System.Data.Linq.Binary Foto
+		{
+			get
+			{
+				return this._Foto;
+			}
+			set
+			{
+				if ((this._Foto != value))
+				{
+					this._Foto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Reporta a]", Storage="_Reporta_a", DbType="NVarChar(32)")]
+		public string Reporta_a
+		{
+			get
+			{
+				return this._Reporta_a;
+			}
+			set
+			{
+				if ((this._Reporta_a != value))
+				{
+					this._Reporta_a = value;
 				}
 			}
 		}
