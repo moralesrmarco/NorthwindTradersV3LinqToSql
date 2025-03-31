@@ -33,23 +33,6 @@
       <Association Name="CustomerDemographics_CustomerCustomerDemo" Member="CustomerCustomerDemo" ThisKey="CustomerTypeID" OtherKey="CustomerTypeID" Type="CustomerCustomerDemo" />
     </Type>
   </Table>
-  <Table Name="dbo.Customers" Member="Customers">
-    <Type Name="Customers">
-      <Column Name="CustomerID" Type="System.String" DbType="NChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
-      <Column Name="ContactName" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="ContactTitle" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="Address" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
-      <Column Name="City" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="Region" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="PostalCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Column Name="Country" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
-      <Column Name="Fax" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
-      <Association Name="Customers_CustomerCustomerDemo" Member="CustomerCustomerDemo" ThisKey="CustomerID" OtherKey="CustomerID" Type="CustomerCustomerDemo" />
-      <Association Name="Customers_Orders" Member="Orders" ThisKey="CustomerID" OtherKey="CustomerID" Type="Orders" />
-    </Type>
-  </Table>
   <Table Name="dbo.EmployeeTerritories" Member="EmployeeTerritories">
     <Type Name="EmployeeTerritories">
       <Column Name="EmployeeID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -86,9 +69,9 @@
       <Column Name="ShipPostalCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="ShipCountry" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
       <Association Name="Orders_Order_Details" Member="Order_Details" ThisKey="OrderID" OtherKey="OrderID" Type="Order_Details" />
-      <Association Name="Customers_Orders" Member="Customers" ThisKey="CustomerID" OtherKey="CustomerID" Type="Customers" IsForeignKey="true" />
       <Association Name="Shippers_Orders" Member="Shippers" ThisKey="ShipVia" OtherKey="ShipperID" Type="Shippers" IsForeignKey="true" />
       <Association Name="Employees_Orders" Member="Employees" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="Employees" IsForeignKey="true" />
+      <Association Name="Customers_Orders" Member="Customers" ThisKey="CustomerID" OtherKey="CustomerID" Type="Customers" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Products" Member="Products">
@@ -272,6 +255,24 @@
       <Association Name="Employees_Orders" Member="Orders" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="Orders" />
       <Association Name="Employees_Employees" Member="Employees2" ThisKey="EmployeeID" OtherKey="ReportsTo" Type="Employees" />
       <Association Name="Employees_Employees" Member="Employees1" ThisKey="ReportsTo" OtherKey="EmployeeID" Type="Employees" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Customers" Member="Customers">
+    <Type Name="Customers">
+      <Column Name="CustomerID" Type="System.String" DbType="NChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="ContactName" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="ContactTitle" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Region" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="PostalCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+      <Column Name="RowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Customers_CustomerCustomerDemo" Member="CustomerCustomerDemo" ThisKey="CustomerID" OtherKey="CustomerID" Type="CustomerCustomerDemo" />
+      <Association Name="Customers_Orders" Member="Orders" ThisKey="CustomerID" OtherKey="CustomerID" Type="Orders" />
     </Type>
   </Table>
   <Function Name="dbo.SP_EMPLEADOS_PAIS" Method="SP_EMPLEADOS_PAIS">
@@ -924,6 +925,28 @@
   </Function>
   <Function Name="dbo.SP_EMPLEADOS_ELIMINAR_V4" Method="SP_EMPLEADOS_ELIMINAR_V4">
     <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RowVersion" Parameter="rowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" />
+    <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_CLIENTES_ACTUALIZAR_V4" Method="SP_CLIENTES_ACTUALIZAR_V4">
+    <Parameter Name="Id" Parameter="id" Type="System.String" DbType="NChar(5)" />
+    <Parameter Name="Compañia" Parameter="compañia" Type="System.String" DbType="NVarChar(40)" />
+    <Parameter Name="Contacto" Parameter="contacto" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="Titulo" Parameter="titulo" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="Domicilio" Parameter="domicilio" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="Ciudad" Parameter="ciudad" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Region" Parameter="region" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="CodigoP" Parameter="codigoP" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Pais" Parameter="pais" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Telefono" Parameter="telefono" Type="System.String" DbType="NVarChar(24)" />
+    <Parameter Name="Fax" Parameter="fax" Type="System.String" DbType="NVarChar(24)" />
+    <Parameter Name="RowVersion" Parameter="rowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" />
+    <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_CLIENTES_ELIMINAR_V4" Method="SP_CLIENTES_ELIMINAR_V4">
+    <Parameter Name="Id" Parameter="id" Type="System.String" DbType="NChar(5)" />
     <Parameter Name="RowVersion" Parameter="rowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" />
     <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Return Type="System.Int32" />

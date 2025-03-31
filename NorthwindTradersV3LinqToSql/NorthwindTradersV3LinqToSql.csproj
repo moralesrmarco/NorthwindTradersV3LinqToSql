@@ -524,6 +524,7 @@
     <Content Include="StoredProcedures\dbo.SP_CLIENTESPROVEEDORES_CIUDAD.sql" />
     <Content Include="StoredProcedures\dbo.SP_CLIENTESPROVEEDORES_PAIS.sql" />
     <Content Include="StoredProcedures\dbo.SP_CLIENTES_ACTUALIZAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_CLIENTES_ACTUALIZAR_V4.sql" />
     <Content Include="StoredProcedures\dbo.SP_CLIENTES_ACTUALIZAR_V2.sql" />
     <Content Include="StoredProcedures\dbo.SP_CLIENTES_BUSCAR.sql" />
     <Content Include="StoredProcedures\dbo.SP_CLIENTES_ELIMINAR.sql" />
@@ -543,6 +544,7 @@
     <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_BUSCAR_V2.sql" />
     <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_BUSCAR_V3.sql" />
     <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_ELIMINAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_ELIMINAR_V4.sql" />
     <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_ELIMINAR_V2.sql" />
     <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_FOTOS_TMP.sql" />
     <Content Include="StoredProcedures\dbo.SP_EMPLEADOS_INSERTAR.sql" />
