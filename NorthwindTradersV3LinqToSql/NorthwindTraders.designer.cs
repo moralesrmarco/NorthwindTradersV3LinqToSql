@@ -60,15 +60,15 @@ namespace NorthwindTradersV3LinqToSql
     partial void InsertShippers(Shippers instance);
     partial void UpdateShippers(Shippers instance);
     partial void DeleteShippers(Shippers instance);
-    partial void InsertSuppliers(Suppliers instance);
-    partial void UpdateSuppliers(Suppliers instance);
-    partial void DeleteSuppliers(Suppliers instance);
     partial void InsertEmployees(Employees instance);
     partial void UpdateEmployees(Employees instance);
     partial void DeleteEmployees(Employees instance);
     partial void InsertCustomers(Customers instance);
     partial void UpdateCustomers(Customers instance);
     partial void DeleteCustomers(Customers instance);
+    partial void InsertSuppliers(Suppliers instance);
+    partial void UpdateSuppliers(Suppliers instance);
+    partial void DeleteSuppliers(Suppliers instance);
     #endregion
 		
 		public NorthwindTradersDataContext() : 
@@ -181,14 +181,6 @@ namespace NorthwindTradersV3LinqToSql
 			}
 		}
 		
-		public System.Data.Linq.Table<Suppliers> Suppliers
-		{
-			get
-			{
-				return this.GetTable<Suppliers>();
-			}
-		}
-		
 		public System.Data.Linq.Table<VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD> VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD
 		{
 			get
@@ -266,6 +258,14 @@ namespace NorthwindTradersV3LinqToSql
 			get
 			{
 				return this.GetTable<Customers>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Suppliers> Suppliers
+		{
+			get
+			{
+				return this.GetTable<Suppliers>();
 			}
 		}
 		
@@ -753,6 +753,22 @@ namespace NorthwindTradersV3LinqToSql
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_CLIENTES_ELIMINAR_V4")]
 		public int SP_CLIENTES_ELIMINAR_V4([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="NChar(5)")] string id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RowVersion", DbType="rowversion")] System.Data.Linq.Binary rowVersion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, rowVersion, numRegs);
+			numRegs = ((System.Nullable<int>)(result.GetParameterValue(2)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PROVEEDORES_ACTUALIZAR_V4")]
+		public int SP_PROVEEDORES_ACTUALIZAR_V4([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Compañia", DbType="NVarChar(40)")] string compañia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Contacto", DbType="NVarChar(30)")] string contacto, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Titulo", DbType="NVarChar(30)")] string titulo, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Domicilio", DbType="NVarChar(60)")] string domicilio, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Ciudad", DbType="NVarChar(15)")] string ciudad, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Region", DbType="NVarChar(15)")] string region, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CodigoP", DbType="NVarChar(10)")] string codigoP, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Pais", DbType="NVarChar(15)")] string pais, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Telefono", DbType="NVarChar(24)")] string telefono, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Fax", DbType="NVarChar(24)")] string fax, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RowVersion", DbType="rowversion")] System.Data.Linq.Binary rowVersion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, compañia, contacto, titulo, domicilio, ciudad, region, codigoP, pais, telefono, fax, rowVersion, numRegs);
+			numRegs = ((System.Nullable<int>)(result.GetParameterValue(12)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PROVEEDORES_ELIMINAR_V4")]
+		public int SP_PROVEEDORES_ELIMINAR_V4([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RowVersion", DbType="rowversion")] System.Data.Linq.Binary rowVersion, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, rowVersion, numRegs);
 			numRegs = ((System.Nullable<int>)(result.GetParameterValue(2)));
@@ -2953,360 +2969,6 @@ namespace NorthwindTradersV3LinqToSql
 		{
 			this.SendPropertyChanging();
 			entity.Shippers = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Suppliers")]
-	public partial class Suppliers : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _SupplierID;
-		
-		private string _CompanyName;
-		
-		private string _ContactName;
-		
-		private string _ContactTitle;
-		
-		private string _Address;
-		
-		private string _City;
-		
-		private string _Region;
-		
-		private string _PostalCode;
-		
-		private string _Country;
-		
-		private string _Phone;
-		
-		private string _Fax;
-		
-		private string _HomePage;
-		
-		private EntitySet<Products> _Products;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSupplierIDChanging(int value);
-    partial void OnSupplierIDChanged();
-    partial void OnCompanyNameChanging(string value);
-    partial void OnCompanyNameChanged();
-    partial void OnContactNameChanging(string value);
-    partial void OnContactNameChanged();
-    partial void OnContactTitleChanging(string value);
-    partial void OnContactTitleChanged();
-    partial void OnAddressChanging(string value);
-    partial void OnAddressChanged();
-    partial void OnCityChanging(string value);
-    partial void OnCityChanged();
-    partial void OnRegionChanging(string value);
-    partial void OnRegionChanged();
-    partial void OnPostalCodeChanging(string value);
-    partial void OnPostalCodeChanged();
-    partial void OnCountryChanging(string value);
-    partial void OnCountryChanged();
-    partial void OnPhoneChanging(string value);
-    partial void OnPhoneChanged();
-    partial void OnFaxChanging(string value);
-    partial void OnFaxChanged();
-    partial void OnHomePageChanging(string value);
-    partial void OnHomePageChanged();
-    #endregion
-		
-		public Suppliers()
-		{
-			this._Products = new EntitySet<Products>(new Action<Products>(this.attach_Products), new Action<Products>(this.detach_Products));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SupplierID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int SupplierID
-		{
-			get
-			{
-				return this._SupplierID;
-			}
-			set
-			{
-				if ((this._SupplierID != value))
-				{
-					this.OnSupplierIDChanging(value);
-					this.SendPropertyChanging();
-					this._SupplierID = value;
-					this.SendPropertyChanged("SupplierID");
-					this.OnSupplierIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompanyName", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
-		public string CompanyName
-		{
-			get
-			{
-				return this._CompanyName;
-			}
-			set
-			{
-				if ((this._CompanyName != value))
-				{
-					this.OnCompanyNameChanging(value);
-					this.SendPropertyChanging();
-					this._CompanyName = value;
-					this.SendPropertyChanged("CompanyName");
-					this.OnCompanyNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContactName", DbType="NVarChar(30)")]
-		public string ContactName
-		{
-			get
-			{
-				return this._ContactName;
-			}
-			set
-			{
-				if ((this._ContactName != value))
-				{
-					this.OnContactNameChanging(value);
-					this.SendPropertyChanging();
-					this._ContactName = value;
-					this.SendPropertyChanged("ContactName");
-					this.OnContactNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContactTitle", DbType="NVarChar(30)")]
-		public string ContactTitle
-		{
-			get
-			{
-				return this._ContactTitle;
-			}
-			set
-			{
-				if ((this._ContactTitle != value))
-				{
-					this.OnContactTitleChanging(value);
-					this.SendPropertyChanging();
-					this._ContactTitle = value;
-					this.SendPropertyChanged("ContactTitle");
-					this.OnContactTitleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(60)")]
-		public string Address
-		{
-			get
-			{
-				return this._Address;
-			}
-			set
-			{
-				if ((this._Address != value))
-				{
-					this.OnAddressChanging(value);
-					this.SendPropertyChanging();
-					this._Address = value;
-					this.SendPropertyChanged("Address");
-					this.OnAddressChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_City", DbType="NVarChar(15)")]
-		public string City
-		{
-			get
-			{
-				return this._City;
-			}
-			set
-			{
-				if ((this._City != value))
-				{
-					this.OnCityChanging(value);
-					this.SendPropertyChanging();
-					this._City = value;
-					this.SendPropertyChanged("City");
-					this.OnCityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Region", DbType="NVarChar(15)")]
-		public string Region
-		{
-			get
-			{
-				return this._Region;
-			}
-			set
-			{
-				if ((this._Region != value))
-				{
-					this.OnRegionChanging(value);
-					this.SendPropertyChanging();
-					this._Region = value;
-					this.SendPropertyChanged("Region");
-					this.OnRegionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostalCode", DbType="NVarChar(10)")]
-		public string PostalCode
-		{
-			get
-			{
-				return this._PostalCode;
-			}
-			set
-			{
-				if ((this._PostalCode != value))
-				{
-					this.OnPostalCodeChanging(value);
-					this.SendPropertyChanging();
-					this._PostalCode = value;
-					this.SendPropertyChanged("PostalCode");
-					this.OnPostalCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Country", DbType="NVarChar(15)")]
-		public string Country
-		{
-			get
-			{
-				return this._Country;
-			}
-			set
-			{
-				if ((this._Country != value))
-				{
-					this.OnCountryChanging(value);
-					this.SendPropertyChanging();
-					this._Country = value;
-					this.SendPropertyChanged("Country");
-					this.OnCountryChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="NVarChar(24)")]
-		public string Phone
-		{
-			get
-			{
-				return this._Phone;
-			}
-			set
-			{
-				if ((this._Phone != value))
-				{
-					this.OnPhoneChanging(value);
-					this.SendPropertyChanging();
-					this._Phone = value;
-					this.SendPropertyChanged("Phone");
-					this.OnPhoneChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fax", DbType="NVarChar(24)")]
-		public string Fax
-		{
-			get
-			{
-				return this._Fax;
-			}
-			set
-			{
-				if ((this._Fax != value))
-				{
-					this.OnFaxChanging(value);
-					this.SendPropertyChanging();
-					this._Fax = value;
-					this.SendPropertyChanged("Fax");
-					this.OnFaxChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HomePage", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-		public string HomePage
-		{
-			get
-			{
-				return this._HomePage;
-			}
-			set
-			{
-				if ((this._HomePage != value))
-				{
-					this.OnHomePageChanging(value);
-					this.SendPropertyChanging();
-					this._HomePage = value;
-					this.SendPropertyChanged("HomePage");
-					this.OnHomePageChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Suppliers_Products", Storage="_Products", ThisKey="SupplierID", OtherKey="SupplierID")]
-		public EntitySet<Products> Products
-		{
-			get
-			{
-				return this._Products;
-			}
-			set
-			{
-				this._Products.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Products(Products entity)
-		{
-			this.SendPropertyChanging();
-			entity.Suppliers = this;
-		}
-		
-		private void detach_Products(Products entity)
-		{
-			this.SendPropertyChanging();
-			entity.Suppliers = null;
 		}
 	}
 	
@@ -5730,6 +5392,384 @@ namespace NorthwindTradersV3LinqToSql
 		{
 			this.SendPropertyChanging();
 			entity.Customers = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Suppliers")]
+	public partial class Suppliers : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _SupplierID;
+		
+		private string _CompanyName;
+		
+		private string _ContactName;
+		
+		private string _ContactTitle;
+		
+		private string _Address;
+		
+		private string _City;
+		
+		private string _Region;
+		
+		private string _PostalCode;
+		
+		private string _Country;
+		
+		private string _Phone;
+		
+		private string _Fax;
+		
+		private string _HomePage;
+		
+		private System.Data.Linq.Binary _RowVersion;
+		
+		private EntitySet<Products> _Products;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSupplierIDChanging(int value);
+    partial void OnSupplierIDChanged();
+    partial void OnCompanyNameChanging(string value);
+    partial void OnCompanyNameChanged();
+    partial void OnContactNameChanging(string value);
+    partial void OnContactNameChanged();
+    partial void OnContactTitleChanging(string value);
+    partial void OnContactTitleChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
+    partial void OnCityChanging(string value);
+    partial void OnCityChanged();
+    partial void OnRegionChanging(string value);
+    partial void OnRegionChanged();
+    partial void OnPostalCodeChanging(string value);
+    partial void OnPostalCodeChanged();
+    partial void OnCountryChanging(string value);
+    partial void OnCountryChanged();
+    partial void OnPhoneChanging(string value);
+    partial void OnPhoneChanged();
+    partial void OnFaxChanging(string value);
+    partial void OnFaxChanged();
+    partial void OnHomePageChanging(string value);
+    partial void OnHomePageChanged();
+    partial void OnRowVersionChanging(System.Data.Linq.Binary value);
+    partial void OnRowVersionChanged();
+    #endregion
+		
+		public Suppliers()
+		{
+			this._Products = new EntitySet<Products>(new Action<Products>(this.attach_Products), new Action<Products>(this.detach_Products));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SupplierID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		public int SupplierID
+		{
+			get
+			{
+				return this._SupplierID;
+			}
+			set
+			{
+				if ((this._SupplierID != value))
+				{
+					this.OnSupplierIDChanging(value);
+					this.SendPropertyChanging();
+					this._SupplierID = value;
+					this.SendPropertyChanged("SupplierID");
+					this.OnSupplierIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompanyName", DbType="NVarChar(40) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string CompanyName
+		{
+			get
+			{
+				return this._CompanyName;
+			}
+			set
+			{
+				if ((this._CompanyName != value))
+				{
+					this.OnCompanyNameChanging(value);
+					this.SendPropertyChanging();
+					this._CompanyName = value;
+					this.SendPropertyChanged("CompanyName");
+					this.OnCompanyNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContactName", DbType="NVarChar(30)", UpdateCheck=UpdateCheck.Never)]
+		public string ContactName
+		{
+			get
+			{
+				return this._ContactName;
+			}
+			set
+			{
+				if ((this._ContactName != value))
+				{
+					this.OnContactNameChanging(value);
+					this.SendPropertyChanging();
+					this._ContactName = value;
+					this.SendPropertyChanged("ContactName");
+					this.OnContactNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContactTitle", DbType="NVarChar(30)", UpdateCheck=UpdateCheck.Never)]
+		public string ContactTitle
+		{
+			get
+			{
+				return this._ContactTitle;
+			}
+			set
+			{
+				if ((this._ContactTitle != value))
+				{
+					this.OnContactTitleChanging(value);
+					this.SendPropertyChanging();
+					this._ContactTitle = value;
+					this.SendPropertyChanged("ContactTitle");
+					this.OnContactTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(60)", UpdateCheck=UpdateCheck.Never)]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this.OnAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Address = value;
+					this.SendPropertyChanged("Address");
+					this.OnAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_City", DbType="NVarChar(15)", UpdateCheck=UpdateCheck.Never)]
+		public string City
+		{
+			get
+			{
+				return this._City;
+			}
+			set
+			{
+				if ((this._City != value))
+				{
+					this.OnCityChanging(value);
+					this.SendPropertyChanging();
+					this._City = value;
+					this.SendPropertyChanged("City");
+					this.OnCityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Region", DbType="NVarChar(15)", UpdateCheck=UpdateCheck.Never)]
+		public string Region
+		{
+			get
+			{
+				return this._Region;
+			}
+			set
+			{
+				if ((this._Region != value))
+				{
+					this.OnRegionChanging(value);
+					this.SendPropertyChanging();
+					this._Region = value;
+					this.SendPropertyChanged("Region");
+					this.OnRegionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostalCode", DbType="NVarChar(10)", UpdateCheck=UpdateCheck.Never)]
+		public string PostalCode
+		{
+			get
+			{
+				return this._PostalCode;
+			}
+			set
+			{
+				if ((this._PostalCode != value))
+				{
+					this.OnPostalCodeChanging(value);
+					this.SendPropertyChanging();
+					this._PostalCode = value;
+					this.SendPropertyChanged("PostalCode");
+					this.OnPostalCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Country", DbType="NVarChar(15)", UpdateCheck=UpdateCheck.Never)]
+		public string Country
+		{
+			get
+			{
+				return this._Country;
+			}
+			set
+			{
+				if ((this._Country != value))
+				{
+					this.OnCountryChanging(value);
+					this.SendPropertyChanging();
+					this._Country = value;
+					this.SendPropertyChanged("Country");
+					this.OnCountryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="NVarChar(24)", UpdateCheck=UpdateCheck.Never)]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this.OnPhoneChanging(value);
+					this.SendPropertyChanging();
+					this._Phone = value;
+					this.SendPropertyChanged("Phone");
+					this.OnPhoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fax", DbType="NVarChar(24)", UpdateCheck=UpdateCheck.Never)]
+		public string Fax
+		{
+			get
+			{
+				return this._Fax;
+			}
+			set
+			{
+				if ((this._Fax != value))
+				{
+					this.OnFaxChanging(value);
+					this.SendPropertyChanging();
+					this._Fax = value;
+					this.SendPropertyChanged("Fax");
+					this.OnFaxChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HomePage", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string HomePage
+		{
+			get
+			{
+				return this._HomePage;
+			}
+			set
+			{
+				if ((this._HomePage != value))
+				{
+					this.OnHomePageChanging(value);
+					this.SendPropertyChanging();
+					this._HomePage = value;
+					this.SendPropertyChanged("HomePage");
+					this.OnHomePageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowVersion", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary RowVersion
+		{
+			get
+			{
+				return this._RowVersion;
+			}
+			set
+			{
+				if ((this._RowVersion != value))
+				{
+					this.OnRowVersionChanging(value);
+					this.SendPropertyChanging();
+					this._RowVersion = value;
+					this.SendPropertyChanged("RowVersion");
+					this.OnRowVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Suppliers_Products", Storage="_Products", ThisKey="SupplierID", OtherKey="SupplierID")]
+		public EntitySet<Products> Products
+		{
+			get
+			{
+				return this._Products;
+			}
+			set
+			{
+				this._Products.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Products(Products entity)
+		{
+			this.SendPropertyChanging();
+			entity.Suppliers = this;
+		}
+		
+		private void detach_Products(Products entity)
+		{
+			this.SendPropertyChanging();
+			entity.Suppliers = null;
 		}
 	}
 	

@@ -106,23 +106,6 @@
       <Association Name="Shippers_Orders" Member="Orders" ThisKey="ShipperID" OtherKey="ShipVia" Type="Orders" />
     </Type>
   </Table>
-  <Table Name="dbo.Suppliers" Member="Suppliers">
-    <Type Name="Suppliers">
-      <Column Name="SupplierID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
-      <Column Name="ContactName" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="ContactTitle" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="Address" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
-      <Column Name="City" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="Region" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="PostalCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Column Name="Country" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
-      <Column Name="Fax" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
-      <Column Name="HomePage" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
-      <Association Name="Suppliers_Products" Member="Products" ThisKey="SupplierID" OtherKey="SupplierID" Type="Products" />
-    </Type>
-  </Table>
   <Table Name="dbo.VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD" Member="VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD">
     <Type Name="VW_CLIENTESPROVEEDORES_DIRECTORIOPORCIUDAD">
       <Column Name="Ciudad" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
@@ -273,6 +256,24 @@
       <Column Name="RowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
       <Association Name="Customers_CustomerCustomerDemo" Member="CustomerCustomerDemo" ThisKey="CustomerID" OtherKey="CustomerID" Type="CustomerCustomerDemo" />
       <Association Name="Customers_Orders" Member="Orders" ThisKey="CustomerID" OtherKey="CustomerID" Type="Orders" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Suppliers" Member="Suppliers">
+    <Type Name="Suppliers">
+      <Column Name="SupplierID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="ContactName" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="ContactTitle" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Region" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="PostalCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(24)" CanBeNull="true" />
+      <Column Name="HomePage" Type="System.String" DbType="NText" CanBeNull="true" />
+      <Column Name="RowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Suppliers_Products" Member="Products" ThisKey="SupplierID" OtherKey="SupplierID" Type="Products" />
     </Type>
   </Table>
   <Function Name="dbo.SP_EMPLEADOS_PAIS" Method="SP_EMPLEADOS_PAIS">
@@ -947,6 +948,28 @@
   </Function>
   <Function Name="dbo.SP_CLIENTES_ELIMINAR_V4" Method="SP_CLIENTES_ELIMINAR_V4">
     <Parameter Name="Id" Parameter="id" Type="System.String" DbType="NChar(5)" />
+    <Parameter Name="RowVersion" Parameter="rowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" />
+    <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_PROVEEDORES_ACTUALIZAR_V4" Method="SP_PROVEEDORES_ACTUALIZAR_V4">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Compañia" Parameter="compañia" Type="System.String" DbType="NVarChar(40)" />
+    <Parameter Name="Contacto" Parameter="contacto" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="Titulo" Parameter="titulo" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="Domicilio" Parameter="domicilio" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="Ciudad" Parameter="ciudad" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Region" Parameter="region" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="CodigoP" Parameter="codigoP" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Pais" Parameter="pais" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Telefono" Parameter="telefono" Type="System.String" DbType="NVarChar(24)" />
+    <Parameter Name="Fax" Parameter="fax" Type="System.String" DbType="NVarChar(24)" />
+    <Parameter Name="RowVersion" Parameter="rowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" />
+    <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_PROVEEDORES_ELIMINAR_V4" Method="SP_PROVEEDORES_ELIMINAR_V4">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
     <Parameter Name="RowVersion" Parameter="rowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" />
     <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Return Type="System.Int32" />

@@ -203,7 +203,7 @@ namespace NorthwindTradersV3LinqToSql
             BorrarDatosEmpleado();
             if (tabcOperacion.SelectedTab != tbpRegistrar)
                 DeshabilitarControles();
-            txtBIdIni.Focus();
+            LlenarDgv(null);
         }
 
         private void BorrarMensajesError()
@@ -338,10 +338,7 @@ namespace NorthwindTradersV3LinqToSql
             return valida;
         }
 
-        private void FrmEmpleadosCrud_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Utils.ActualizarBarraDeEstado(this);
-        }
+        private void FrmEmpleadosCrud_FormClosed(object sender, FormClosedEventArgs e) => Utils.ActualizarBarraDeEstado(this.Owner);
 
         private void FrmEmpleadosCrud_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -700,14 +697,6 @@ namespace NorthwindTradersV3LinqToSql
                 picFoto.Image = image;
                 errorProvider1.SetError(btnCargar, "");
             }
-        }
-
-        private void BuscaReg()
-        {
-            BorrarDatosBusqueda();
-            txtBIdIni.Text = txtBIdFin.Text = txtId.Text;
-            btnBuscar.PerformClick();
-            btnLimpiar.PerformClick();
         }
 
         private void ActualizaDgv()

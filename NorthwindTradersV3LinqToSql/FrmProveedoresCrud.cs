@@ -126,6 +126,7 @@ namespace NorthwindTradersV3LinqToSql
             BorrarDatosBusqueda();
             BorrarDatosProveedor();
             if (tabcOperacion.SelectedTab != tbpRegistrar) DeshabilitarControles();
+            LlenarDgv(null);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -234,10 +235,7 @@ namespace NorthwindTradersV3LinqToSql
             }
         }
 
-        private void FrmProveedoresCrud_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Utils.ActualizarBarraDeEstado(this);
-        }
+        private void FrmProveedoresCrud_FormClosed(object sender, FormClosedEventArgs e) => Utils.ActualizarBarraDeEstado(this);
 
         private void Dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -246,19 +244,45 @@ namespace NorthwindTradersV3LinqToSql
                 DeshabilitarControles();
                 DataGridViewRow dgvr = Dgv.CurrentRow;
                 txtId.Text = dgvr.Cells["Id"].Value.ToString();
-                txtCompañia.Text = dgvr.Cells["Nombre_de_compañía"].Value.ToString();
-                txtContacto.Text = dgvr.Cells["Nombre_de_contacto"].Value.ToString();
-                txtTitulo.Text = dgvr.Cells["Título_de_contacto"].Value.ToString();
-                txtDomicilio.Text = dgvr.Cells["Domicilio"].Value.ToString();
-                txtCiudad.Text = dgvr.Cells["Ciudad"].Value.ToString();
-                if (dgvr.Cells["Región"].Value != null) txtRegion.Text = dgvr.Cells["Región"].Value.ToString();
-                else txtRegion.Text = "";
-                if (dgvr.Cells["Código_Postal"].Value != null) txtCodigoP.Text = dgvr.Cells["Código_Postal"].Value.ToString();
-                else txtCodigoP.Text = "";
-                txtPais.Text = dgvr.Cells["País"].Value.ToString();
-                txtTelefono.Text = dgvr.Cells["Teléfono"].Value.ToString();
-                if (dgvr.Cells["Fax"].Value != null) txtFax.Text = dgvr.Cells["Fax"].Value.ToString();
-                else txtFax.Text = "";
+                try
+                {
+                    using (var context = new NorthwindTradersDataContext())
+                    {
+                        int id = int.Parse(txtId.Text);
+                        var supplier = context.Suppliers.FirstOrDefault(s => s.SupplierID == id);
+                        if (supplier != null)
+                        {
+                            txtId.Tag = supplier.RowVersion;
+                            txtCompañia.Text = supplier.CompanyName;
+                            txtContacto.Text = supplier.ContactName;
+                            txtTitulo.Text = supplier.ContactTitle;
+                            txtDomicilio.Text = supplier.Address;
+                            txtCiudad.Text = supplier.City;
+                            if (supplier.Region != null) txtRegion.Text = supplier.Region;
+                            else txtRegion.Text = "";
+                            if (supplier.PostalCode != null) txtCodigoP.Text = supplier.PostalCode;
+                            else txtCodigoP.Text = "";
+                            txtPais.Text = supplier.Country;
+                            txtTelefono.Text = supplier.Phone;
+                            if (supplier.Fax != null) txtFax.Text = supplier.Fax;
+                            else txtFax.Text = "";
+                        }
+                        else
+                        {
+                            MessageBox.Show($"No se encontro el proveedor con Id: {txtId.Text}, es posible que otro usuario lo haya eliminado previamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            ActualizaDgv();
+                            return;
+                        }
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Utils.MsgCatchOueclbdd(this, ex);
+                }
+                catch (Exception ex)
+                {
+                    Utils.MsgCatchOue(this, ex);
+                }
             }
             if (tabcOperacion.SelectedTab == tbpModificar)
             {
@@ -310,14 +334,6 @@ namespace NorthwindTradersV3LinqToSql
             }
         }
 
-        private void BuscaReg()
-        {
-            BorrarDatosBusqueda();
-            txtBIdIni.Text = txtBIdFin.Text = txtId.Text;
-            btnBuscar.PerformClick();
-            btnLimpiar.PerformClick();
-        }
-
         private void btnOperacion_Click(object sender, EventArgs e)
         {
             int? numRegs = 0;
@@ -359,7 +375,7 @@ namespace NorthwindTradersV3LinqToSql
                     LlenarCboPais();
                     HabilitarControles();
                     btnOperacion.Enabled = true;
-                    if (numRegs > 0) BuscaReg();
+                    ActualizaDgv();
                 }
             }
             else if (tabcOperacion.SelectedTab == tbpModificar)
@@ -378,11 +394,11 @@ namespace NorthwindTradersV3LinqToSql
                         else strCodigoP = txtCodigoP.Text;
                         if (txtFax.Text == "") strFax = null;
                         else strFax = txtFax.Text;
-                        context.SP_PROVEEDORES_ACTUALIZAR_V2(int.Parse(txtId.Text), txtCompañia.Text, txtContacto.Text, txtTitulo.Text, txtDomicilio.Text, txtCiudad.Text, strRegion, strCodigoP, txtPais.Text, txtTelefono.Text, strFax, ref numRegs);
+                        context.SP_PROVEEDORES_ACTUALIZAR_V4(int.Parse(txtId.Text), txtCompañia.Text, txtContacto.Text, txtTitulo.Text, txtDomicilio.Text, txtCiudad.Text, strRegion, strCodigoP, txtPais.Text, txtTelefono.Text, strFax, (System.Data.Linq.Binary)txtId.Tag, ref numRegs);
                         if (numRegs > 0)
                             MessageBox.Show($"El proveedor con Id: {txtId.Text} y Nombre de Compañía: {txtCompañia.Text} se modificó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
-                            MessageBox.Show($"El proveedor con Id: {txtId.Text} y Nombre de Compañía: {txtCompañia.Text} NO fue modificado en la base de datos", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"El proveedor con Id: {txtId.Text} y Nombre de Compañía: {txtCompañia.Text} NO fue modificado en la base de datos, es posible que otro usuario lo haya modificado o eliminado previamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     catch (SqlException ex)
                     {
@@ -393,7 +409,7 @@ namespace NorthwindTradersV3LinqToSql
                         Utils.MsgCatchOue(this, ex);
                     }
                     LlenarCboPais();
-                    if (numRegs > 0) BuscaReg();
+                    ActualizaDgv();
                 }
             }
             else if (tabcOperacion.SelectedTab == tbpEliminar)
@@ -410,11 +426,11 @@ namespace NorthwindTradersV3LinqToSql
                     btnOperacion.Enabled = false;
                     try
                     {
-                        context.SP_PROVEEDORES_ELIMINAR_V2(int.Parse(txtId.Text), ref numRegs);
+                        context.SP_PROVEEDORES_ELIMINAR_V4(int.Parse(txtId.Text), (System.Data.Linq.Binary)txtId.Tag, ref numRegs);
                         if (numRegs > 0)
                             MessageBox.Show($"El proveedor con Id: {txtId.Text} y Nombre de Compañía: {txtCompañia.Text} se eliminó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
-                            MessageBox.Show($"El proveedor con Id: {txtId.Text} y Nombre de Compañía: {txtCompañia.Text} NO se eliminó en la base de datos", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"El proveedor con Id: {txtId.Text} y Nombre de Compañía: {txtCompañia.Text} NO se eliminó en la base de datos, es posible que otro usuario lo haya modificado o eliminado previamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     catch (SqlException ex) when (ex.Number == 547)
                     {
@@ -429,9 +445,14 @@ namespace NorthwindTradersV3LinqToSql
                         Utils.MsgCatchOue(this, ex);
                     }
                     LlenarCboPais();
-                    if (numRegs > 0) BuscaReg();
+                    ActualizaDgv();
                 }
             }
+        }
+
+        private void ActualizaDgv()
+        {
+            btnLimpiar.PerformClick();
         }
     }
 }

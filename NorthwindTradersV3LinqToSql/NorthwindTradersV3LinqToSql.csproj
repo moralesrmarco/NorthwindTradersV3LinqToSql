@@ -589,10 +589,12 @@
     <Content Include="StoredProcedures\dbo.SP_PRODUCTOS_INSERTAR_V2.sql" />
     <Content Include="StoredProcedures\dbo.SP_PRODUCTOS_SELECCIONAR.sql" />
     <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_ACTUALIZAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_ACTUALIZAR_V4.sql" />
     <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_ACTUALIZAR_V2.sql" />
     <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_BUSCAR.sql" />
     <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_BUSCAR_V2.sql" />
     <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_ELIMINAR.sql" />
+    <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_ELIMINAR_V4.sql" />
     <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_ELIMINAR_V2.sql" />
     <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_INSERTAR.sql" />
     <Content Include="StoredProcedures\dbo.SP_PROVEEDORES_INSERTAR_V2.sql" />
