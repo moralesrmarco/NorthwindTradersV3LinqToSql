@@ -249,7 +249,7 @@ namespace NorthwindTradersV3LinqToSql
                     using (var context = new NorthwindTradersDataContext())
                     {
                         int id = int.Parse(txtId.Text);
-                        var supplier = context.Suppliers.FirstOrDefault(s => s.SupplierID == id);
+                        var supplier = context.Suppliers.SingleOrDefault(s => s.SupplierID == id);
                         if (supplier != null)
                         {
                             txtId.Tag = supplier.RowVersion;
