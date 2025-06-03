@@ -45,12 +45,6 @@ namespace NorthwindTradersV3LinqToSql
     partial void InsertEmployeeTerritories(EmployeeTerritories instance);
     partial void UpdateEmployeeTerritories(EmployeeTerritories instance);
     partial void DeleteEmployeeTerritories(EmployeeTerritories instance);
-    partial void InsertOrder_Details(Order_Details instance);
-    partial void UpdateOrder_Details(Order_Details instance);
-    partial void DeleteOrder_Details(Order_Details instance);
-    partial void InsertOrders(Orders instance);
-    partial void UpdateOrders(Orders instance);
-    partial void DeleteOrders(Orders instance);
     partial void InsertRegion(Region instance);
     partial void UpdateRegion(Region instance);
     partial void DeleteRegion(Region instance);
@@ -69,6 +63,12 @@ namespace NorthwindTradersV3LinqToSql
     partial void InsertProducts(Products instance);
     partial void UpdateProducts(Products instance);
     partial void DeleteProducts(Products instance);
+    partial void InsertOrder_Details(Order_Details instance);
+    partial void UpdateOrder_Details(Order_Details instance);
+    partial void DeleteOrder_Details(Order_Details instance);
+    partial void InsertOrders(Orders instance);
+    partial void UpdateOrders(Orders instance);
+    partial void DeleteOrders(Orders instance);
     #endregion
 		
 		public NorthwindTradersDataContext() : 
@@ -138,22 +138,6 @@ namespace NorthwindTradersV3LinqToSql
 			get
 			{
 				return this.GetTable<EmployeeTerritories>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Order_Details> Order_Details
-		{
-			get
-			{
-				return this.GetTable<Order_Details>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Orders> Orders
-		{
-			get
-			{
-				return this.GetTable<Orders>();
 			}
 		}
 		
@@ -266,6 +250,22 @@ namespace NorthwindTradersV3LinqToSql
 			get
 			{
 				return this.GetTable<Products>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Order_Details> Order_Details
+		{
+			get
+			{
+				return this.GetTable<Order_Details>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Orders> Orders
+		{
+			get
+			{
+				return this.GetTable<Orders>();
 			}
 		}
 		
@@ -622,20 +622,6 @@ namespace NorthwindTradersV3LinqToSql
 			return ((ISingleResult<SP_PRODUCTOS_SELECCIONARResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PEDIDOS_LISTAR1")]
-		public ISingleResult<SP_PEDIDOS_LISTAR1Result> SP_PEDIDOS_LISTAR1([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PedidoId", DbType="Int")] System.Nullable<int> pedidoId)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pedidoId);
-			return ((ISingleResult<SP_PEDIDOS_LISTAR1Result>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1")]
-		public ISingleResult<SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result> SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PedidoId", DbType="Int")] System.Nullable<int> pedidoId)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pedidoId);
-			return ((ISingleResult<SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PEDIDOSDETALLE_ACTUALIZAR_V3")]
 		public int SP_PEDIDOSDETALLE_ACTUALIZAR_V3([global::System.Data.Linq.Mapping.ParameterAttribute(Name="OrderId", DbType="Int")] System.Nullable<int> orderId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProductId", DbType="Int")] System.Nullable<int> productId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Quantity", DbType="SmallInt")] System.Nullable<short> quantity, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Discount", DbType="Real")] System.Nullable<float> discount, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuantityOld", DbType="SmallInt")] System.Nullable<short> quantityOld, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DiscountOld", DbType="Real")] System.Nullable<float> discountOld, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumRegs", DbType="Int")] ref System.Nullable<int> numRegs)
 		{
@@ -773,6 +759,20 @@ namespace NorthwindTradersV3LinqToSql
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id, rowVersion, numRegs);
 			numRegs = ((System.Nullable<int>)(result.GetParameterValue(2)));
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_PEDIDOS_LISTAR1")]
+		public ISingleResult<SP_PEDIDOS_LISTAR1Result> SP_PEDIDOS_LISTAR1([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PedidoId", DbType="Int")] System.Nullable<int> pedidoId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pedidoId);
+			return ((ISingleResult<SP_PEDIDOS_LISTAR1Result>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1")]
+		public ISingleResult<SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result> SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PedidoId", DbType="Int")] System.Nullable<int> pedidoId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pedidoId);
+			return ((ISingleResult<SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result>)(result.ReturnValue));
 		}
 	}
 	
@@ -1564,771 +1564,6 @@ namespace NorthwindTradersV3LinqToSql
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[Order Details]")]
-	public partial class Order_Details : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _OrderID;
-		
-		private int _ProductID;
-		
-		private decimal _UnitPrice;
-		
-		private short _Quantity;
-		
-		private float _Discount;
-		
-		private EntityRef<Orders> _Orders;
-		
-		private EntityRef<Products> _Products;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnOrderIDChanging(int value);
-    partial void OnOrderIDChanged();
-    partial void OnProductIDChanging(int value);
-    partial void OnProductIDChanged();
-    partial void OnUnitPriceChanging(decimal value);
-    partial void OnUnitPriceChanged();
-    partial void OnQuantityChanging(short value);
-    partial void OnQuantityChanged();
-    partial void OnDiscountChanging(float value);
-    partial void OnDiscountChanged();
-    #endregion
-		
-		public Order_Details()
-		{
-			this._Orders = default(EntityRef<Orders>);
-			this._Products = default(EntityRef<Products>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int OrderID
-		{
-			get
-			{
-				return this._OrderID;
-			}
-			set
-			{
-				if ((this._OrderID != value))
-				{
-					if (this._Orders.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnOrderIDChanging(value);
-					this.SendPropertyChanging();
-					this._OrderID = value;
-					this.SendPropertyChanged("OrderID");
-					this.OnOrderIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int ProductID
-		{
-			get
-			{
-				return this._ProductID;
-			}
-			set
-			{
-				if ((this._ProductID != value))
-				{
-					if (this._Products.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnProductIDChanging(value);
-					this.SendPropertyChanging();
-					this._ProductID = value;
-					this.SendPropertyChanged("ProductID");
-					this.OnProductIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitPrice", DbType="Money NOT NULL")]
-		public decimal UnitPrice
-		{
-			get
-			{
-				return this._UnitPrice;
-			}
-			set
-			{
-				if ((this._UnitPrice != value))
-				{
-					this.OnUnitPriceChanging(value);
-					this.SendPropertyChanging();
-					this._UnitPrice = value;
-					this.SendPropertyChanged("UnitPrice");
-					this.OnUnitPriceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="SmallInt NOT NULL")]
-		public short Quantity
-		{
-			get
-			{
-				return this._Quantity;
-			}
-			set
-			{
-				if ((this._Quantity != value))
-				{
-					this.OnQuantityChanging(value);
-					this.SendPropertyChanging();
-					this._Quantity = value;
-					this.SendPropertyChanged("Quantity");
-					this.OnQuantityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Discount", DbType="Real NOT NULL")]
-		public float Discount
-		{
-			get
-			{
-				return this._Discount;
-			}
-			set
-			{
-				if ((this._Discount != value))
-				{
-					this.OnDiscountChanging(value);
-					this.SendPropertyChanging();
-					this._Discount = value;
-					this.SendPropertyChanged("Discount");
-					this.OnDiscountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Orders_Order_Details", Storage="_Orders", ThisKey="OrderID", OtherKey="OrderID", IsForeignKey=true)]
-		public Orders Orders
-		{
-			get
-			{
-				return this._Orders.Entity;
-			}
-			set
-			{
-				Orders previousValue = this._Orders.Entity;
-				if (((previousValue != value) 
-							|| (this._Orders.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Orders.Entity = null;
-						previousValue.Order_Details.Remove(this);
-					}
-					this._Orders.Entity = value;
-					if ((value != null))
-					{
-						value.Order_Details.Add(this);
-						this._OrderID = value.OrderID;
-					}
-					else
-					{
-						this._OrderID = default(int);
-					}
-					this.SendPropertyChanged("Orders");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Products_Order_Details", Storage="_Products", ThisKey="ProductID", OtherKey="ProductID", IsForeignKey=true)]
-		public Products Products
-		{
-			get
-			{
-				return this._Products.Entity;
-			}
-			set
-			{
-				Products previousValue = this._Products.Entity;
-				if (((previousValue != value) 
-							|| (this._Products.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Products.Entity = null;
-						previousValue.Order_Details.Remove(this);
-					}
-					this._Products.Entity = value;
-					if ((value != null))
-					{
-						value.Order_Details.Add(this);
-						this._ProductID = value.ProductID;
-					}
-					else
-					{
-						this._ProductID = default(int);
-					}
-					this.SendPropertyChanged("Products");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Orders")]
-	public partial class Orders : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _OrderID;
-		
-		private string _CustomerID;
-		
-		private System.Nullable<int> _EmployeeID;
-		
-		private System.Nullable<System.DateTime> _OrderDate;
-		
-		private System.Nullable<System.DateTime> _RequiredDate;
-		
-		private System.Nullable<System.DateTime> _ShippedDate;
-		
-		private System.Nullable<int> _ShipVia;
-		
-		private System.Nullable<decimal> _Freight;
-		
-		private string _ShipName;
-		
-		private string _ShipAddress;
-		
-		private string _ShipCity;
-		
-		private string _ShipRegion;
-		
-		private string _ShipPostalCode;
-		
-		private string _ShipCountry;
-		
-		private EntitySet<Order_Details> _Order_Details;
-		
-		private EntityRef<Shippers> _Shippers;
-		
-		private EntityRef<Employees> _Employees;
-		
-		private EntityRef<Customers> _Customers;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnOrderIDChanging(int value);
-    partial void OnOrderIDChanged();
-    partial void OnCustomerIDChanging(string value);
-    partial void OnCustomerIDChanged();
-    partial void OnEmployeeIDChanging(System.Nullable<int> value);
-    partial void OnEmployeeIDChanged();
-    partial void OnOrderDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnOrderDateChanged();
-    partial void OnRequiredDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnRequiredDateChanged();
-    partial void OnShippedDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnShippedDateChanged();
-    partial void OnShipViaChanging(System.Nullable<int> value);
-    partial void OnShipViaChanged();
-    partial void OnFreightChanging(System.Nullable<decimal> value);
-    partial void OnFreightChanged();
-    partial void OnShipNameChanging(string value);
-    partial void OnShipNameChanged();
-    partial void OnShipAddressChanging(string value);
-    partial void OnShipAddressChanged();
-    partial void OnShipCityChanging(string value);
-    partial void OnShipCityChanged();
-    partial void OnShipRegionChanging(string value);
-    partial void OnShipRegionChanged();
-    partial void OnShipPostalCodeChanging(string value);
-    partial void OnShipPostalCodeChanged();
-    partial void OnShipCountryChanging(string value);
-    partial void OnShipCountryChanged();
-    #endregion
-		
-		public Orders()
-		{
-			this._Order_Details = new EntitySet<Order_Details>(new Action<Order_Details>(this.attach_Order_Details), new Action<Order_Details>(this.detach_Order_Details));
-			this._Shippers = default(EntityRef<Shippers>);
-			this._Employees = default(EntityRef<Employees>);
-			this._Customers = default(EntityRef<Customers>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int OrderID
-		{
-			get
-			{
-				return this._OrderID;
-			}
-			set
-			{
-				if ((this._OrderID != value))
-				{
-					this.OnOrderIDChanging(value);
-					this.SendPropertyChanging();
-					this._OrderID = value;
-					this.SendPropertyChanged("OrderID");
-					this.OnOrderIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerID", DbType="NChar(5)")]
-		public string CustomerID
-		{
-			get
-			{
-				return this._CustomerID;
-			}
-			set
-			{
-				if ((this._CustomerID != value))
-				{
-					if (this._Customers.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCustomerIDChanging(value);
-					this.SendPropertyChanging();
-					this._CustomerID = value;
-					this.SendPropertyChanged("CustomerID");
-					this.OnCustomerIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeID", DbType="Int")]
-		public System.Nullable<int> EmployeeID
-		{
-			get
-			{
-				return this._EmployeeID;
-			}
-			set
-			{
-				if ((this._EmployeeID != value))
-				{
-					if (this._Employees.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnEmployeeIDChanging(value);
-					this.SendPropertyChanging();
-					this._EmployeeID = value;
-					this.SendPropertyChanged("EmployeeID");
-					this.OnEmployeeIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> OrderDate
-		{
-			get
-			{
-				return this._OrderDate;
-			}
-			set
-			{
-				if ((this._OrderDate != value))
-				{
-					this.OnOrderDateChanging(value);
-					this.SendPropertyChanging();
-					this._OrderDate = value;
-					this.SendPropertyChanged("OrderDate");
-					this.OnOrderDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequiredDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> RequiredDate
-		{
-			get
-			{
-				return this._RequiredDate;
-			}
-			set
-			{
-				if ((this._RequiredDate != value))
-				{
-					this.OnRequiredDateChanging(value);
-					this.SendPropertyChanging();
-					this._RequiredDate = value;
-					this.SendPropertyChanged("RequiredDate");
-					this.OnRequiredDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippedDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ShippedDate
-		{
-			get
-			{
-				return this._ShippedDate;
-			}
-			set
-			{
-				if ((this._ShippedDate != value))
-				{
-					this.OnShippedDateChanging(value);
-					this.SendPropertyChanging();
-					this._ShippedDate = value;
-					this.SendPropertyChanged("ShippedDate");
-					this.OnShippedDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipVia", DbType="Int")]
-		public System.Nullable<int> ShipVia
-		{
-			get
-			{
-				return this._ShipVia;
-			}
-			set
-			{
-				if ((this._ShipVia != value))
-				{
-					if (this._Shippers.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnShipViaChanging(value);
-					this.SendPropertyChanging();
-					this._ShipVia = value;
-					this.SendPropertyChanged("ShipVia");
-					this.OnShipViaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Freight", DbType="Money")]
-		public System.Nullable<decimal> Freight
-		{
-			get
-			{
-				return this._Freight;
-			}
-			set
-			{
-				if ((this._Freight != value))
-				{
-					this.OnFreightChanging(value);
-					this.SendPropertyChanging();
-					this._Freight = value;
-					this.SendPropertyChanged("Freight");
-					this.OnFreightChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipName", DbType="NVarChar(40)")]
-		public string ShipName
-		{
-			get
-			{
-				return this._ShipName;
-			}
-			set
-			{
-				if ((this._ShipName != value))
-				{
-					this.OnShipNameChanging(value);
-					this.SendPropertyChanging();
-					this._ShipName = value;
-					this.SendPropertyChanged("ShipName");
-					this.OnShipNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipAddress", DbType="NVarChar(60)")]
-		public string ShipAddress
-		{
-			get
-			{
-				return this._ShipAddress;
-			}
-			set
-			{
-				if ((this._ShipAddress != value))
-				{
-					this.OnShipAddressChanging(value);
-					this.SendPropertyChanging();
-					this._ShipAddress = value;
-					this.SendPropertyChanged("ShipAddress");
-					this.OnShipAddressChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipCity", DbType="NVarChar(15)")]
-		public string ShipCity
-		{
-			get
-			{
-				return this._ShipCity;
-			}
-			set
-			{
-				if ((this._ShipCity != value))
-				{
-					this.OnShipCityChanging(value);
-					this.SendPropertyChanging();
-					this._ShipCity = value;
-					this.SendPropertyChanged("ShipCity");
-					this.OnShipCityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipRegion", DbType="NVarChar(15)")]
-		public string ShipRegion
-		{
-			get
-			{
-				return this._ShipRegion;
-			}
-			set
-			{
-				if ((this._ShipRegion != value))
-				{
-					this.OnShipRegionChanging(value);
-					this.SendPropertyChanging();
-					this._ShipRegion = value;
-					this.SendPropertyChanged("ShipRegion");
-					this.OnShipRegionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipPostalCode", DbType="NVarChar(10)")]
-		public string ShipPostalCode
-		{
-			get
-			{
-				return this._ShipPostalCode;
-			}
-			set
-			{
-				if ((this._ShipPostalCode != value))
-				{
-					this.OnShipPostalCodeChanging(value);
-					this.SendPropertyChanging();
-					this._ShipPostalCode = value;
-					this.SendPropertyChanged("ShipPostalCode");
-					this.OnShipPostalCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipCountry", DbType="NVarChar(15)")]
-		public string ShipCountry
-		{
-			get
-			{
-				return this._ShipCountry;
-			}
-			set
-			{
-				if ((this._ShipCountry != value))
-				{
-					this.OnShipCountryChanging(value);
-					this.SendPropertyChanging();
-					this._ShipCountry = value;
-					this.SendPropertyChanged("ShipCountry");
-					this.OnShipCountryChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Orders_Order_Details", Storage="_Order_Details", ThisKey="OrderID", OtherKey="OrderID")]
-		public EntitySet<Order_Details> Order_Details
-		{
-			get
-			{
-				return this._Order_Details;
-			}
-			set
-			{
-				this._Order_Details.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Shippers_Orders", Storage="_Shippers", ThisKey="ShipVia", OtherKey="ShipperID", IsForeignKey=true)]
-		public Shippers Shippers
-		{
-			get
-			{
-				return this._Shippers.Entity;
-			}
-			set
-			{
-				Shippers previousValue = this._Shippers.Entity;
-				if (((previousValue != value) 
-							|| (this._Shippers.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Shippers.Entity = null;
-						previousValue.Orders.Remove(this);
-					}
-					this._Shippers.Entity = value;
-					if ((value != null))
-					{
-						value.Orders.Add(this);
-						this._ShipVia = value.ShipperID;
-					}
-					else
-					{
-						this._ShipVia = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Shippers");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Orders", Storage="_Employees", ThisKey="EmployeeID", OtherKey="EmployeeID", IsForeignKey=true)]
-		public Employees Employees
-		{
-			get
-			{
-				return this._Employees.Entity;
-			}
-			set
-			{
-				Employees previousValue = this._Employees.Entity;
-				if (((previousValue != value) 
-							|| (this._Employees.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Employees.Entity = null;
-						previousValue.Orders.Remove(this);
-					}
-					this._Employees.Entity = value;
-					if ((value != null))
-					{
-						value.Orders.Add(this);
-						this._EmployeeID = value.EmployeeID;
-					}
-					else
-					{
-						this._EmployeeID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Employees");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customers_Orders", Storage="_Customers", ThisKey="CustomerID", OtherKey="CustomerID", IsForeignKey=true)]
-		public Customers Customers
-		{
-			get
-			{
-				return this._Customers.Entity;
-			}
-			set
-			{
-				Customers previousValue = this._Customers.Entity;
-				if (((previousValue != value) 
-							|| (this._Customers.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Customers.Entity = null;
-						previousValue.Orders.Remove(this);
-					}
-					this._Customers.Entity = value;
-					if ((value != null))
-					{
-						value.Orders.Add(this);
-						this._CustomerID = value.CustomerID;
-					}
-					else
-					{
-						this._CustomerID = default(string);
-					}
-					this.SendPropertyChanged("Customers");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Order_Details(Order_Details entity)
-		{
-			this.SendPropertyChanging();
-			entity.Orders = this;
-		}
-		
-		private void detach_Order_Details(Order_Details entity)
-		{
-			this.SendPropertyChanging();
-			entity.Orders = null;
 		}
 	}
 	
@@ -4052,9 +3287,9 @@ namespace NorthwindTradersV3LinqToSql
 		
 		private EntitySet<EmployeeTerritories> _EmployeeTerritories;
 		
-		private EntitySet<Orders> _Orders;
-		
 		private EntitySet<Employees> _Employees2;
+		
+		private EntitySet<Orders> _Orders;
 		
 		private EntityRef<Employees> _Employees1;
 		
@@ -4105,8 +3340,8 @@ namespace NorthwindTradersV3LinqToSql
 		public Employees()
 		{
 			this._EmployeeTerritories = new EntitySet<EmployeeTerritories>(new Action<EmployeeTerritories>(this.attach_EmployeeTerritories), new Action<EmployeeTerritories>(this.detach_EmployeeTerritories));
-			this._Orders = new EntitySet<Orders>(new Action<Orders>(this.attach_Orders), new Action<Orders>(this.detach_Orders));
 			this._Employees2 = new EntitySet<Employees>(new Action<Employees>(this.attach_Employees2), new Action<Employees>(this.detach_Employees2));
+			this._Orders = new EntitySet<Orders>(new Action<Orders>(this.attach_Orders), new Action<Orders>(this.detach_Orders));
 			this._Employees1 = default(EntityRef<Employees>);
 			OnCreated();
 		}
@@ -4508,19 +3743,6 @@ namespace NorthwindTradersV3LinqToSql
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Orders", Storage="_Orders", ThisKey="EmployeeID", OtherKey="EmployeeID")]
-		public EntitySet<Orders> Orders
-		{
-			get
-			{
-				return this._Orders;
-			}
-			set
-			{
-				this._Orders.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Employees", Storage="_Employees2", ThisKey="EmployeeID", OtherKey="ReportsTo")]
 		public EntitySet<Employees> Employees2
 		{
@@ -4531,6 +3753,19 @@ namespace NorthwindTradersV3LinqToSql
 			set
 			{
 				this._Employees2.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Orders", Storage="_Orders", ThisKey="EmployeeID", OtherKey="EmployeeID")]
+		public EntitySet<Orders> Orders
+		{
+			get
+			{
+				return this._Orders;
+			}
+			set
+			{
+				this._Orders.Assign(value);
 			}
 		}
 		
@@ -4600,18 +3835,6 @@ namespace NorthwindTradersV3LinqToSql
 			entity.Employees = null;
 		}
 		
-		private void attach_Orders(Orders entity)
-		{
-			this.SendPropertyChanging();
-			entity.Employees = this;
-		}
-		
-		private void detach_Orders(Orders entity)
-		{
-			this.SendPropertyChanging();
-			entity.Employees = null;
-		}
-		
 		private void attach_Employees2(Employees entity)
 		{
 			this.SendPropertyChanging();
@@ -4622,6 +3845,18 @@ namespace NorthwindTradersV3LinqToSql
 		{
 			this.SendPropertyChanging();
 			entity.Employees1 = null;
+		}
+		
+		private void attach_Orders(Orders entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employees = this;
+		}
+		
+		private void detach_Orders(Orders entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employees = null;
 		}
 	}
 	
@@ -5794,6 +5029,819 @@ namespace NorthwindTradersV3LinqToSql
 		{
 			this.SendPropertyChanging();
 			entity.Products = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[Order Details]")]
+	public partial class Order_Details : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _OrderID;
+		
+		private int _ProductID;
+		
+		private decimal _UnitPrice;
+		
+		private short _Quantity;
+		
+		private float _Discount;
+		
+		private System.Data.Linq.Binary _RowVersion;
+		
+		private EntityRef<Products> _Products;
+		
+		private EntityRef<Orders> _Orders;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnOrderIDChanging(int value);
+    partial void OnOrderIDChanged();
+    partial void OnProductIDChanging(int value);
+    partial void OnProductIDChanged();
+    partial void OnUnitPriceChanging(decimal value);
+    partial void OnUnitPriceChanged();
+    partial void OnQuantityChanging(short value);
+    partial void OnQuantityChanged();
+    partial void OnDiscountChanging(float value);
+    partial void OnDiscountChanged();
+    partial void OnRowVersionChanging(System.Data.Linq.Binary value);
+    partial void OnRowVersionChanged();
+    #endregion
+		
+		public Order_Details()
+		{
+			this._Products = default(EntityRef<Products>);
+			this._Orders = default(EntityRef<Orders>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderID", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		public int OrderID
+		{
+			get
+			{
+				return this._OrderID;
+			}
+			set
+			{
+				if ((this._OrderID != value))
+				{
+					if (this._Orders.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnOrderIDChanging(value);
+					this.SendPropertyChanging();
+					this._OrderID = value;
+					this.SendPropertyChanged("OrderID");
+					this.OnOrderIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductID", DbType="Int NOT NULL", IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		public int ProductID
+		{
+			get
+			{
+				return this._ProductID;
+			}
+			set
+			{
+				if ((this._ProductID != value))
+				{
+					if (this._Products.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProductIDChanging(value);
+					this.SendPropertyChanging();
+					this._ProductID = value;
+					this.SendPropertyChanged("ProductID");
+					this.OnProductIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitPrice", DbType="Money NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public decimal UnitPrice
+		{
+			get
+			{
+				return this._UnitPrice;
+			}
+			set
+			{
+				if ((this._UnitPrice != value))
+				{
+					this.OnUnitPriceChanging(value);
+					this.SendPropertyChanging();
+					this._UnitPrice = value;
+					this.SendPropertyChanged("UnitPrice");
+					this.OnUnitPriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="SmallInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public short Quantity
+		{
+			get
+			{
+				return this._Quantity;
+			}
+			set
+			{
+				if ((this._Quantity != value))
+				{
+					this.OnQuantityChanging(value);
+					this.SendPropertyChanging();
+					this._Quantity = value;
+					this.SendPropertyChanged("Quantity");
+					this.OnQuantityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Discount", DbType="Real NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public float Discount
+		{
+			get
+			{
+				return this._Discount;
+			}
+			set
+			{
+				if ((this._Discount != value))
+				{
+					this.OnDiscountChanging(value);
+					this.SendPropertyChanging();
+					this._Discount = value;
+					this.SendPropertyChanged("Discount");
+					this.OnDiscountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowVersion", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary RowVersion
+		{
+			get
+			{
+				return this._RowVersion;
+			}
+			set
+			{
+				if ((this._RowVersion != value))
+				{
+					this.OnRowVersionChanging(value);
+					this.SendPropertyChanging();
+					this._RowVersion = value;
+					this.SendPropertyChanged("RowVersion");
+					this.OnRowVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Products_Order_Details", Storage="_Products", ThisKey="ProductID", OtherKey="ProductID", IsForeignKey=true)]
+		public Products Products
+		{
+			get
+			{
+				return this._Products.Entity;
+			}
+			set
+			{
+				Products previousValue = this._Products.Entity;
+				if (((previousValue != value) 
+							|| (this._Products.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Products.Entity = null;
+						previousValue.Order_Details.Remove(this);
+					}
+					this._Products.Entity = value;
+					if ((value != null))
+					{
+						value.Order_Details.Add(this);
+						this._ProductID = value.ProductID;
+					}
+					else
+					{
+						this._ProductID = default(int);
+					}
+					this.SendPropertyChanged("Products");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Orders_Order_Details", Storage="_Orders", ThisKey="OrderID", OtherKey="OrderID", IsForeignKey=true)]
+		public Orders Orders
+		{
+			get
+			{
+				return this._Orders.Entity;
+			}
+			set
+			{
+				Orders previousValue = this._Orders.Entity;
+				if (((previousValue != value) 
+							|| (this._Orders.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Orders.Entity = null;
+						previousValue.Order_Details.Remove(this);
+					}
+					this._Orders.Entity = value;
+					if ((value != null))
+					{
+						value.Order_Details.Add(this);
+						this._OrderID = value.OrderID;
+					}
+					else
+					{
+						this._OrderID = default(int);
+					}
+					this.SendPropertyChanged("Orders");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Orders")]
+	public partial class Orders : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _OrderID;
+		
+		private string _CustomerID;
+		
+		private System.Nullable<int> _EmployeeID;
+		
+		private System.Nullable<System.DateTime> _OrderDate;
+		
+		private System.Nullable<System.DateTime> _RequiredDate;
+		
+		private System.Nullable<System.DateTime> _ShippedDate;
+		
+		private System.Nullable<int> _ShipVia;
+		
+		private System.Nullable<decimal> _Freight;
+		
+		private string _ShipName;
+		
+		private string _ShipAddress;
+		
+		private string _ShipCity;
+		
+		private string _ShipRegion;
+		
+		private string _ShipPostalCode;
+		
+		private string _ShipCountry;
+		
+		private System.Data.Linq.Binary _RowVersion;
+		
+		private EntitySet<Order_Details> _Order_Details;
+		
+		private EntityRef<Customers> _Customers;
+		
+		private EntityRef<Employees> _Employees;
+		
+		private EntityRef<Shippers> _Shippers;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnOrderIDChanging(int value);
+    partial void OnOrderIDChanged();
+    partial void OnCustomerIDChanging(string value);
+    partial void OnCustomerIDChanged();
+    partial void OnEmployeeIDChanging(System.Nullable<int> value);
+    partial void OnEmployeeIDChanged();
+    partial void OnOrderDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnOrderDateChanged();
+    partial void OnRequiredDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnRequiredDateChanged();
+    partial void OnShippedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnShippedDateChanged();
+    partial void OnShipViaChanging(System.Nullable<int> value);
+    partial void OnShipViaChanged();
+    partial void OnFreightChanging(System.Nullable<decimal> value);
+    partial void OnFreightChanged();
+    partial void OnShipNameChanging(string value);
+    partial void OnShipNameChanged();
+    partial void OnShipAddressChanging(string value);
+    partial void OnShipAddressChanged();
+    partial void OnShipCityChanging(string value);
+    partial void OnShipCityChanged();
+    partial void OnShipRegionChanging(string value);
+    partial void OnShipRegionChanged();
+    partial void OnShipPostalCodeChanging(string value);
+    partial void OnShipPostalCodeChanged();
+    partial void OnShipCountryChanging(string value);
+    partial void OnShipCountryChanged();
+    partial void OnRowVersionChanging(System.Data.Linq.Binary value);
+    partial void OnRowVersionChanged();
+    #endregion
+		
+		public Orders()
+		{
+			this._Order_Details = new EntitySet<Order_Details>(new Action<Order_Details>(this.attach_Order_Details), new Action<Order_Details>(this.detach_Order_Details));
+			this._Customers = default(EntityRef<Customers>);
+			this._Employees = default(EntityRef<Employees>);
+			this._Shippers = default(EntityRef<Shippers>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		public int OrderID
+		{
+			get
+			{
+				return this._OrderID;
+			}
+			set
+			{
+				if ((this._OrderID != value))
+				{
+					this.OnOrderIDChanging(value);
+					this.SendPropertyChanging();
+					this._OrderID = value;
+					this.SendPropertyChanged("OrderID");
+					this.OnOrderIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerID", DbType="NChar(5)", UpdateCheck=UpdateCheck.Never)]
+		public string CustomerID
+		{
+			get
+			{
+				return this._CustomerID;
+			}
+			set
+			{
+				if ((this._CustomerID != value))
+				{
+					if (this._Customers.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCustomerIDChanging(value);
+					this.SendPropertyChanging();
+					this._CustomerID = value;
+					this.SendPropertyChanged("CustomerID");
+					this.OnCustomerIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeID", DbType="Int", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<int> EmployeeID
+		{
+			get
+			{
+				return this._EmployeeID;
+			}
+			set
+			{
+				if ((this._EmployeeID != value))
+				{
+					if (this._Employees.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnEmployeeIDChanging(value);
+					this.SendPropertyChanging();
+					this._EmployeeID = value;
+					this.SendPropertyChanged("EmployeeID");
+					this.OnEmployeeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderDate", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> OrderDate
+		{
+			get
+			{
+				return this._OrderDate;
+			}
+			set
+			{
+				if ((this._OrderDate != value))
+				{
+					this.OnOrderDateChanging(value);
+					this.SendPropertyChanging();
+					this._OrderDate = value;
+					this.SendPropertyChanged("OrderDate");
+					this.OnOrderDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequiredDate", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> RequiredDate
+		{
+			get
+			{
+				return this._RequiredDate;
+			}
+			set
+			{
+				if ((this._RequiredDate != value))
+				{
+					this.OnRequiredDateChanging(value);
+					this.SendPropertyChanging();
+					this._RequiredDate = value;
+					this.SendPropertyChanged("RequiredDate");
+					this.OnRequiredDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippedDate", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<System.DateTime> ShippedDate
+		{
+			get
+			{
+				return this._ShippedDate;
+			}
+			set
+			{
+				if ((this._ShippedDate != value))
+				{
+					this.OnShippedDateChanging(value);
+					this.SendPropertyChanging();
+					this._ShippedDate = value;
+					this.SendPropertyChanged("ShippedDate");
+					this.OnShippedDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipVia", DbType="Int", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<int> ShipVia
+		{
+			get
+			{
+				return this._ShipVia;
+			}
+			set
+			{
+				if ((this._ShipVia != value))
+				{
+					if (this._Shippers.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnShipViaChanging(value);
+					this.SendPropertyChanging();
+					this._ShipVia = value;
+					this.SendPropertyChanged("ShipVia");
+					this.OnShipViaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Freight", DbType="Money", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<decimal> Freight
+		{
+			get
+			{
+				return this._Freight;
+			}
+			set
+			{
+				if ((this._Freight != value))
+				{
+					this.OnFreightChanging(value);
+					this.SendPropertyChanging();
+					this._Freight = value;
+					this.SendPropertyChanged("Freight");
+					this.OnFreightChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipName", DbType="NVarChar(40)", UpdateCheck=UpdateCheck.Never)]
+		public string ShipName
+		{
+			get
+			{
+				return this._ShipName;
+			}
+			set
+			{
+				if ((this._ShipName != value))
+				{
+					this.OnShipNameChanging(value);
+					this.SendPropertyChanging();
+					this._ShipName = value;
+					this.SendPropertyChanged("ShipName");
+					this.OnShipNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipAddress", DbType="NVarChar(60)", UpdateCheck=UpdateCheck.Never)]
+		public string ShipAddress
+		{
+			get
+			{
+				return this._ShipAddress;
+			}
+			set
+			{
+				if ((this._ShipAddress != value))
+				{
+					this.OnShipAddressChanging(value);
+					this.SendPropertyChanging();
+					this._ShipAddress = value;
+					this.SendPropertyChanged("ShipAddress");
+					this.OnShipAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipCity", DbType="NVarChar(15)", UpdateCheck=UpdateCheck.Never)]
+		public string ShipCity
+		{
+			get
+			{
+				return this._ShipCity;
+			}
+			set
+			{
+				if ((this._ShipCity != value))
+				{
+					this.OnShipCityChanging(value);
+					this.SendPropertyChanging();
+					this._ShipCity = value;
+					this.SendPropertyChanged("ShipCity");
+					this.OnShipCityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipRegion", DbType="NVarChar(15)", UpdateCheck=UpdateCheck.Never)]
+		public string ShipRegion
+		{
+			get
+			{
+				return this._ShipRegion;
+			}
+			set
+			{
+				if ((this._ShipRegion != value))
+				{
+					this.OnShipRegionChanging(value);
+					this.SendPropertyChanging();
+					this._ShipRegion = value;
+					this.SendPropertyChanged("ShipRegion");
+					this.OnShipRegionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipPostalCode", DbType="NVarChar(10)", UpdateCheck=UpdateCheck.Never)]
+		public string ShipPostalCode
+		{
+			get
+			{
+				return this._ShipPostalCode;
+			}
+			set
+			{
+				if ((this._ShipPostalCode != value))
+				{
+					this.OnShipPostalCodeChanging(value);
+					this.SendPropertyChanging();
+					this._ShipPostalCode = value;
+					this.SendPropertyChanged("ShipPostalCode");
+					this.OnShipPostalCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipCountry", DbType="NVarChar(15)", UpdateCheck=UpdateCheck.Never)]
+		public string ShipCountry
+		{
+			get
+			{
+				return this._ShipCountry;
+			}
+			set
+			{
+				if ((this._ShipCountry != value))
+				{
+					this.OnShipCountryChanging(value);
+					this.SendPropertyChanging();
+					this._ShipCountry = value;
+					this.SendPropertyChanged("ShipCountry");
+					this.OnShipCountryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowVersion", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary RowVersion
+		{
+			get
+			{
+				return this._RowVersion;
+			}
+			set
+			{
+				if ((this._RowVersion != value))
+				{
+					this.OnRowVersionChanging(value);
+					this.SendPropertyChanging();
+					this._RowVersion = value;
+					this.SendPropertyChanged("RowVersion");
+					this.OnRowVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Orders_Order_Details", Storage="_Order_Details", ThisKey="OrderID", OtherKey="OrderID")]
+		public EntitySet<Order_Details> Order_Details
+		{
+			get
+			{
+				return this._Order_Details;
+			}
+			set
+			{
+				this._Order_Details.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customers_Orders", Storage="_Customers", ThisKey="CustomerID", OtherKey="CustomerID", IsForeignKey=true)]
+		public Customers Customers
+		{
+			get
+			{
+				return this._Customers.Entity;
+			}
+			set
+			{
+				Customers previousValue = this._Customers.Entity;
+				if (((previousValue != value) 
+							|| (this._Customers.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Customers.Entity = null;
+						previousValue.Orders.Remove(this);
+					}
+					this._Customers.Entity = value;
+					if ((value != null))
+					{
+						value.Orders.Add(this);
+						this._CustomerID = value.CustomerID;
+					}
+					else
+					{
+						this._CustomerID = default(string);
+					}
+					this.SendPropertyChanged("Customers");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Orders", Storage="_Employees", ThisKey="EmployeeID", OtherKey="EmployeeID", IsForeignKey=true)]
+		public Employees Employees
+		{
+			get
+			{
+				return this._Employees.Entity;
+			}
+			set
+			{
+				Employees previousValue = this._Employees.Entity;
+				if (((previousValue != value) 
+							|| (this._Employees.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Employees.Entity = null;
+						previousValue.Orders.Remove(this);
+					}
+					this._Employees.Entity = value;
+					if ((value != null))
+					{
+						value.Orders.Add(this);
+						this._EmployeeID = value.EmployeeID;
+					}
+					else
+					{
+						this._EmployeeID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Employees");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Shippers_Orders", Storage="_Shippers", ThisKey="ShipVia", OtherKey="ShipperID", IsForeignKey=true)]
+		public Shippers Shippers
+		{
+			get
+			{
+				return this._Shippers.Entity;
+			}
+			set
+			{
+				Shippers previousValue = this._Shippers.Entity;
+				if (((previousValue != value) 
+							|| (this._Shippers.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Shippers.Entity = null;
+						previousValue.Orders.Remove(this);
+					}
+					this._Shippers.Entity = value;
+					if ((value != null))
+					{
+						value.Orders.Add(this);
+						this._ShipVia = value.ShipperID;
+					}
+					else
+					{
+						this._ShipVia = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Shippers");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Order_Details(Order_Details entity)
+		{
+			this.SendPropertyChanging();
+			entity.Orders = this;
+		}
+		
+		private void detach_Order_Details(Order_Details entity)
+		{
+			this.SendPropertyChanging();
+			entity.Orders = null;
 		}
 	}
 	
@@ -8841,346 +8889,6 @@ namespace NorthwindTradersV3LinqToSql
 		}
 	}
 	
-	public partial class SP_PEDIDOS_LISTAR1Result
-	{
-		
-		private string _CustomerID;
-		
-		private System.Nullable<int> _EmployeeID;
-		
-		private System.Nullable<System.DateTime> _OrderDate;
-		
-		private System.Nullable<System.DateTime> _RequiredDate;
-		
-		private System.Nullable<System.DateTime> _ShippedDate;
-		
-		private System.Nullable<int> _ShipVia;
-		
-		private System.Nullable<decimal> _Freight;
-		
-		private string _ShipName;
-		
-		private string _ShipAddress;
-		
-		private string _ShipCity;
-		
-		private string _ShipRegion;
-		
-		private string _ShipPostalCode;
-		
-		private string _ShipCountry;
-		
-		public SP_PEDIDOS_LISTAR1Result()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerID", DbType="NChar(5)")]
-		public string CustomerID
-		{
-			get
-			{
-				return this._CustomerID;
-			}
-			set
-			{
-				if ((this._CustomerID != value))
-				{
-					this._CustomerID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeID", DbType="Int")]
-		public System.Nullable<int> EmployeeID
-		{
-			get
-			{
-				return this._EmployeeID;
-			}
-			set
-			{
-				if ((this._EmployeeID != value))
-				{
-					this._EmployeeID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> OrderDate
-		{
-			get
-			{
-				return this._OrderDate;
-			}
-			set
-			{
-				if ((this._OrderDate != value))
-				{
-					this._OrderDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequiredDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> RequiredDate
-		{
-			get
-			{
-				return this._RequiredDate;
-			}
-			set
-			{
-				if ((this._RequiredDate != value))
-				{
-					this._RequiredDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippedDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ShippedDate
-		{
-			get
-			{
-				return this._ShippedDate;
-			}
-			set
-			{
-				if ((this._ShippedDate != value))
-				{
-					this._ShippedDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipVia", DbType="Int")]
-		public System.Nullable<int> ShipVia
-		{
-			get
-			{
-				return this._ShipVia;
-			}
-			set
-			{
-				if ((this._ShipVia != value))
-				{
-					this._ShipVia = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Freight", DbType="Money")]
-		public System.Nullable<decimal> Freight
-		{
-			get
-			{
-				return this._Freight;
-			}
-			set
-			{
-				if ((this._Freight != value))
-				{
-					this._Freight = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipName", DbType="NVarChar(40)")]
-		public string ShipName
-		{
-			get
-			{
-				return this._ShipName;
-			}
-			set
-			{
-				if ((this._ShipName != value))
-				{
-					this._ShipName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipAddress", DbType="NVarChar(60)")]
-		public string ShipAddress
-		{
-			get
-			{
-				return this._ShipAddress;
-			}
-			set
-			{
-				if ((this._ShipAddress != value))
-				{
-					this._ShipAddress = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipCity", DbType="NVarChar(15)")]
-		public string ShipCity
-		{
-			get
-			{
-				return this._ShipCity;
-			}
-			set
-			{
-				if ((this._ShipCity != value))
-				{
-					this._ShipCity = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipRegion", DbType="NVarChar(15)")]
-		public string ShipRegion
-		{
-			get
-			{
-				return this._ShipRegion;
-			}
-			set
-			{
-				if ((this._ShipRegion != value))
-				{
-					this._ShipRegion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipPostalCode", DbType="NVarChar(10)")]
-		public string ShipPostalCode
-		{
-			get
-			{
-				return this._ShipPostalCode;
-			}
-			set
-			{
-				if ((this._ShipPostalCode != value))
-				{
-					this._ShipPostalCode = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipCountry", DbType="NVarChar(15)")]
-		public string ShipCountry
-		{
-			get
-			{
-				return this._ShipCountry;
-			}
-			set
-			{
-				if ((this._ShipCountry != value))
-				{
-					this._ShipCountry = value;
-				}
-			}
-		}
-	}
-	
-	public partial class SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result
-	{
-		
-		private int _Id_Producto;
-		
-		private string _Producto;
-		
-		private decimal _Precio;
-		
-		private short _Cantidad;
-		
-		private float _Descuento;
-		
-		public SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Id Producto]", Storage="_Id_Producto", DbType="Int NOT NULL")]
-		public int Id_Producto
-		{
-			get
-			{
-				return this._Id_Producto;
-			}
-			set
-			{
-				if ((this._Id_Producto != value))
-				{
-					this._Id_Producto = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Producto", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
-		public string Producto
-		{
-			get
-			{
-				return this._Producto;
-			}
-			set
-			{
-				if ((this._Producto != value))
-				{
-					this._Producto = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Precio", DbType="Money NOT NULL")]
-		public decimal Precio
-		{
-			get
-			{
-				return this._Precio;
-			}
-			set
-			{
-				if ((this._Precio != value))
-				{
-					this._Precio = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cantidad", DbType="SmallInt NOT NULL")]
-		public short Cantidad
-		{
-			get
-			{
-				return this._Cantidad;
-			}
-			set
-			{
-				if ((this._Cantidad != value))
-				{
-					this._Cantidad = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descuento", DbType="Real NOT NULL")]
-		public float Descuento
-		{
-			get
-			{
-				return this._Descuento;
-			}
-			set
-			{
-				if ((this._Descuento != value))
-				{
-					this._Descuento = value;
-				}
-			}
-		}
-	}
-	
 	public partial class SP_PEDIDOS_BUSCAR2Result
 	{
 		
@@ -9776,6 +9484,382 @@ namespace NorthwindTradersV3LinqToSql
 				if ((this._Reporta_a != value))
 				{
 					this._Reporta_a = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_PEDIDOS_LISTAR1Result
+	{
+		
+		private string _CustomerID;
+		
+		private System.Nullable<int> _EmployeeID;
+		
+		private System.Nullable<System.DateTime> _OrderDate;
+		
+		private System.Nullable<System.DateTime> _RequiredDate;
+		
+		private System.Nullable<System.DateTime> _ShippedDate;
+		
+		private System.Nullable<int> _ShipVia;
+		
+		private System.Nullable<decimal> _Freight;
+		
+		private string _ShipName;
+		
+		private string _ShipAddress;
+		
+		private string _ShipCity;
+		
+		private string _ShipRegion;
+		
+		private string _ShipPostalCode;
+		
+		private string _ShipCountry;
+		
+		private System.Data.Linq.Binary _RowVersion;
+		
+		public SP_PEDIDOS_LISTAR1Result()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerID", DbType="NChar(5)")]
+		public string CustomerID
+		{
+			get
+			{
+				return this._CustomerID;
+			}
+			set
+			{
+				if ((this._CustomerID != value))
+				{
+					this._CustomerID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeID", DbType="Int")]
+		public System.Nullable<int> EmployeeID
+		{
+			get
+			{
+				return this._EmployeeID;
+			}
+			set
+			{
+				if ((this._EmployeeID != value))
+				{
+					this._EmployeeID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> OrderDate
+		{
+			get
+			{
+				return this._OrderDate;
+			}
+			set
+			{
+				if ((this._OrderDate != value))
+				{
+					this._OrderDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequiredDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> RequiredDate
+		{
+			get
+			{
+				return this._RequiredDate;
+			}
+			set
+			{
+				if ((this._RequiredDate != value))
+				{
+					this._RequiredDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippedDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ShippedDate
+		{
+			get
+			{
+				return this._ShippedDate;
+			}
+			set
+			{
+				if ((this._ShippedDate != value))
+				{
+					this._ShippedDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipVia", DbType="Int")]
+		public System.Nullable<int> ShipVia
+		{
+			get
+			{
+				return this._ShipVia;
+			}
+			set
+			{
+				if ((this._ShipVia != value))
+				{
+					this._ShipVia = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Freight", DbType="Money")]
+		public System.Nullable<decimal> Freight
+		{
+			get
+			{
+				return this._Freight;
+			}
+			set
+			{
+				if ((this._Freight != value))
+				{
+					this._Freight = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipName", DbType="NVarChar(40)")]
+		public string ShipName
+		{
+			get
+			{
+				return this._ShipName;
+			}
+			set
+			{
+				if ((this._ShipName != value))
+				{
+					this._ShipName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipAddress", DbType="NVarChar(60)")]
+		public string ShipAddress
+		{
+			get
+			{
+				return this._ShipAddress;
+			}
+			set
+			{
+				if ((this._ShipAddress != value))
+				{
+					this._ShipAddress = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipCity", DbType="NVarChar(15)")]
+		public string ShipCity
+		{
+			get
+			{
+				return this._ShipCity;
+			}
+			set
+			{
+				if ((this._ShipCity != value))
+				{
+					this._ShipCity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipRegion", DbType="NVarChar(15)")]
+		public string ShipRegion
+		{
+			get
+			{
+				return this._ShipRegion;
+			}
+			set
+			{
+				if ((this._ShipRegion != value))
+				{
+					this._ShipRegion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipPostalCode", DbType="NVarChar(10)")]
+		public string ShipPostalCode
+		{
+			get
+			{
+				return this._ShipPostalCode;
+			}
+			set
+			{
+				if ((this._ShipPostalCode != value))
+				{
+					this._ShipPostalCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShipCountry", DbType="NVarChar(15)")]
+		public string ShipCountry
+		{
+			get
+			{
+				return this._ShipCountry;
+			}
+			set
+			{
+				if ((this._ShipCountry != value))
+				{
+					this._ShipCountry = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowVersion", DbType="rowversion")]
+		public System.Data.Linq.Binary RowVersion
+		{
+			get
+			{
+				return this._RowVersion;
+			}
+			set
+			{
+				if ((this._RowVersion != value))
+				{
+					this._RowVersion = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result
+	{
+		
+		private int _Id_Producto;
+		
+		private string _Producto;
+		
+		private decimal _Precio;
+		
+		private short _Cantidad;
+		
+		private float _Descuento;
+		
+		private System.Data.Linq.Binary _RowVersion;
+		
+		public SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Id Producto]", Storage="_Id_Producto", DbType="Int NOT NULL")]
+		public int Id_Producto
+		{
+			get
+			{
+				return this._Id_Producto;
+			}
+			set
+			{
+				if ((this._Id_Producto != value))
+				{
+					this._Id_Producto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Producto", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string Producto
+		{
+			get
+			{
+				return this._Producto;
+			}
+			set
+			{
+				if ((this._Producto != value))
+				{
+					this._Producto = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Precio", DbType="Money NOT NULL")]
+		public decimal Precio
+		{
+			get
+			{
+				return this._Precio;
+			}
+			set
+			{
+				if ((this._Precio != value))
+				{
+					this._Precio = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cantidad", DbType="SmallInt NOT NULL")]
+		public short Cantidad
+		{
+			get
+			{
+				return this._Cantidad;
+			}
+			set
+			{
+				if ((this._Cantidad != value))
+				{
+					this._Cantidad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descuento", DbType="Real NOT NULL")]
+		public float Descuento
+		{
+			get
+			{
+				return this._Descuento;
+			}
+			set
+			{
+				if ((this._Descuento != value))
+				{
+					this._Descuento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowVersion", DbType="rowversion")]
+		public System.Data.Linq.Binary RowVersion
+		{
+			get
+			{
+				return this._RowVersion;
+			}
+			set
+			{
+				if ((this._RowVersion != value))
+				{
+					this._RowVersion = value;
 				}
 			}
 		}

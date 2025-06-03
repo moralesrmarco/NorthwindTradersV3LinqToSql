@@ -41,39 +41,6 @@
       <Association Name="Employees_EmployeeTerritories" Member="Employees" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="Employees" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[Order Details]" Member="Order_Details">
-    <Type Name="Order_Details">
-      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="UnitPrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
-      <Column Name="Quantity" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
-      <Column Name="Discount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
-      <Association Name="Orders_Order_Details" Member="Orders" ThisKey="OrderID" OtherKey="OrderID" Type="Orders" IsForeignKey="true" />
-      <Association Name="Products_Order_Details" Member="Products" ThisKey="ProductID" OtherKey="ProductID" Type="Products" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Orders" Member="Orders">
-    <Type Name="Orders">
-      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CustomerID" Type="System.String" DbType="NChar(5)" CanBeNull="true" />
-      <Column Name="EmployeeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="OrderDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="RequiredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ShippedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ShipVia" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Freight" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ShipName" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
-      <Column Name="ShipAddress" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
-      <Column Name="ShipCity" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="ShipRegion" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="ShipPostalCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Column Name="ShipCountry" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Association Name="Orders_Order_Details" Member="Order_Details" ThisKey="OrderID" OtherKey="OrderID" Type="Order_Details" />
-      <Association Name="Shippers_Orders" Member="Shippers" ThisKey="ShipVia" OtherKey="ShipperID" Type="Shippers" IsForeignKey="true" />
-      <Association Name="Employees_Orders" Member="Employees" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="Employees" IsForeignKey="true" />
-      <Association Name="Customers_Orders" Member="Customers" ThisKey="CustomerID" OtherKey="CustomerID" Type="Customers" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Region" Member="Region">
     <Type Name="Region">
       <Column Name="RegionID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -218,8 +185,8 @@
       <Column Name="PhotoPath" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="RowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
       <Association Name="Employees_EmployeeTerritories" Member="EmployeeTerritories" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="EmployeeTerritories" />
-      <Association Name="Employees_Orders" Member="Orders" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="Orders" />
       <Association Name="Employees_Employees" Member="Employees2" ThisKey="EmployeeID" OtherKey="ReportsTo" Type="Employees" />
+      <Association Name="Employees_Orders" Member="Orders" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="Orders" />
       <Association Name="Employees_Employees" Member="Employees1" ThisKey="ReportsTo" OtherKey="EmployeeID" Type="Employees" IsForeignKey="true" />
     </Type>
   </Table>
@@ -275,6 +242,41 @@
       <Association Name="Products_Order_Details" Member="Order_Details" ThisKey="ProductID" OtherKey="ProductID" Type="Order_Details" />
       <Association Name="Categories_Products" Member="Categories" ThisKey="CategoryID" OtherKey="CategoryID" Type="Categories" IsForeignKey="true" />
       <Association Name="Suppliers_Products" Member="Suppliers" ThisKey="SupplierID" OtherKey="SupplierID" Type="Suppliers" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Order Details]" Member="Order_Details">
+    <Type Name="Order_Details">
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UnitPrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="RowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Products_Order_Details" Member="Products" ThisKey="ProductID" OtherKey="ProductID" Type="Products" IsForeignKey="true" />
+      <Association Name="Orders_Order_Details" Member="Orders" ThisKey="OrderID" OtherKey="OrderID" Type="Orders" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Orders">
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CustomerID" Type="System.String" DbType="NChar(5)" CanBeNull="true" />
+      <Column Name="EmployeeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RequiredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ShippedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ShipVia" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Freight" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ShipName" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="ShipAddress" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="ShipCity" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="ShipRegion" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="ShipPostalCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="ShipCountry" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="RowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Association Name="Orders_Order_Details" Member="Order_Details" ThisKey="OrderID" OtherKey="OrderID" Type="Order_Details" />
+      <Association Name="Customers_Orders" Member="Customers" ThisKey="CustomerID" OtherKey="CustomerID" Type="Customers" IsForeignKey="true" />
+      <Association Name="Employees_Orders" Member="Employees" ThisKey="EmployeeID" OtherKey="EmployeeID" Type="Employees" IsForeignKey="true" />
+      <Association Name="Shippers_Orders" Member="Shippers" ThisKey="ShipVia" OtherKey="ShipperID" Type="Shippers" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.SP_EMPLEADOS_PAIS" Method="SP_EMPLEADOS_PAIS">
@@ -770,34 +772,6 @@
       <Column Name="Producto" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
-  <Function Name="dbo.SP_PEDIDOS_LISTAR1" Method="SP_PEDIDOS_LISTAR1">
-    <Parameter Name="PedidoId" Parameter="pedidoId" Type="System.Int32" DbType="Int" />
-    <ElementType Name="SP_PEDIDOS_LISTAR1Result">
-      <Column Name="CustomerID" Type="System.String" DbType="NChar(5)" CanBeNull="true" />
-      <Column Name="EmployeeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="OrderDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="RequiredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ShippedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ShipVia" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Freight" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="ShipName" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
-      <Column Name="ShipAddress" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
-      <Column Name="ShipCity" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="ShipRegion" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="ShipPostalCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Column Name="ShipCountry" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1" Method="SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1">
-    <Parameter Name="PedidoId" Parameter="pedidoId" Type="System.Int32" DbType="Int" />
-    <ElementType Name="SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result">
-      <Column Name="[Id Producto]" Member="Id_Producto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Producto" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
-      <Column Name="Precio" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
-      <Column Name="Cantidad" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
-      <Column Name="Descuento" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.SP_PEDIDOSDETALLE_ACTUALIZAR_V3" Method="SP_PEDIDOSDETALLE_ACTUALIZAR_V3">
     <Parameter Name="OrderId" Parameter="orderId" Type="System.Int32" DbType="Int" />
     <Parameter Name="ProductId" Parameter="productId" Type="System.Int32" DbType="Int" />
@@ -974,5 +948,35 @@
     <Parameter Name="RowVersion" Parameter="rowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" />
     <Parameter Name="NumRegs" Parameter="numRegs" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_PEDIDOS_LISTAR1" Method="SP_PEDIDOS_LISTAR1">
+    <Parameter Name="PedidoId" Parameter="pedidoId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_PEDIDOS_LISTAR1Result">
+      <Column Name="CustomerID" Type="System.String" DbType="NChar(5)" CanBeNull="true" />
+      <Column Name="EmployeeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RequiredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ShippedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ShipVia" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Freight" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ShipName" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="ShipAddress" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="ShipCity" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="ShipRegion" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="ShipPostalCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="ShipCountry" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="RowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1" Method="SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1">
+    <Parameter Name="PedidoId" Parameter="pedidoId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result">
+      <Column Name="[Id Producto]" Member="Id_Producto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Producto" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="Precio" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Descuento" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="RowVersion" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" />
+    </ElementType>
   </Function>
 </Database>
