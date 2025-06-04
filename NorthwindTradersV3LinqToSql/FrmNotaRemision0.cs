@@ -20,5 +20,13 @@ namespace NorthwindTradersV3LinqToSql
             frmRptNotaRemision.ShowDialog();
             this.Close();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FrmRptNotaRemision2 frmRptNotaRemision2 = new FrmRptNotaRemision2();
+            frmRptNotaRemision2.Id = Id;
+            frmRptNotaRemision2.ShowDialog();
+            this.Close();
+        }
     }
 }
