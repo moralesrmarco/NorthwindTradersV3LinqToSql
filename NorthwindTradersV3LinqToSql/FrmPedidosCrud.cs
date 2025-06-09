@@ -129,6 +129,7 @@ namespace NorthwindTradersV3LinqToSql
             if (txtTotal.Text == "" || decimal.Parse(total) == 0)
             {
                 errorProvider1.SetError(btnAgregar, "Ingrese el detalle del pedido");
+                errorProvider1.SetError(txtTotal, "El total del pedido no puede ser cero");
                 valida = false;
             }
             if (cboProducto.SelectedIndex > 0)
@@ -363,15 +364,16 @@ namespace NorthwindTradersV3LinqToSql
 
         private void BorrarMensajesError()
         {
-            errorProvider1.SetError(cboCategoria, "");
-            errorProvider1.SetError(cboProducto, "");
-            errorProvider1.SetError(txtCantidad, "");
-            errorProvider1.SetError(txtDescuento, "");
-            errorProvider1.SetError(cboCliente, "");
-            errorProvider1.SetError(cboEmpleado, "");
-            errorProvider1.SetError(dtpPedido, "");
-            errorProvider1.SetError(cboTransportista, "");
-            errorProvider1.SetError(btnAgregar, "");
+            errorProvider1.Clear();
+            //errorProvider1.SetError(cboCategoria, "");
+            //errorProvider1.SetError(cboProducto, "");
+            //errorProvider1.SetError(txtCantidad, "");
+            //errorProvider1.SetError(txtDescuento, "");
+            //errorProvider1.SetError(cboCliente, "");
+            //errorProvider1.SetError(cboEmpleado, "");
+            //errorProvider1.SetError(dtpPedido, "");
+            //errorProvider1.SetError(cboTransportista, "");
+            //errorProvider1.SetError(btnAgregar, "");
         }
 
         private void BorrarDatosBusqueda()
@@ -1191,15 +1193,12 @@ namespace NorthwindTradersV3LinqToSql
                                 // Guardamos los cambios en la base de datos
                                 context.SubmitChanges();
                                 // Obtener el valor del campo RowVersion después de la actualización
-                                var rowVersion = ped.RowVersion;
+                                byte[] rowVersion = ((System.Data.Linq.Binary)ped.RowVersion).ToArray();
                                 textBox.Tag = rowVersion;
                                 // Confirmamos la transacción
                                 transaction.Commit();
                                 numRegs = 1;
-                                MessageBox.Show($"El pedido con Id: {pedido.OrderID} del Cliente : {cliente}, se actualizó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
-                            else
-                                MessageBox.Show("No se pudo realizar la modificación, es posible que el registro se haya eliminado previamente por otro usuario de la red", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         catch (SqlException)
                         {
@@ -1258,10 +1257,7 @@ namespace NorthwindTradersV3LinqToSql
                                 // Confirmamos la transacción
                                 transaction.Commit();
                                 numRegs = 1; // suponiendo que un registro ha sido eliminado
-                                MessageBox.Show($"El pedido con Id: {pedido.OrderID} del Cliente: {cliente}, se eliminó satisfactoriamente junto con sus registros de detalle del pedido", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                            else
-                                MessageBox.Show("No se pudo realizar la eliminación, es posible que el registro haya sido eliminado previamente por otro usuario de la red", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }                                
                         }
                         catch (SqlException)
                         {
@@ -1444,6 +1440,10 @@ namespace NorthwindTradersV3LinqToSql
                         pedido.OrderID = int.Parse(txtId.Text);
                         PedidosDB pedidosDB = new PedidosDB();
                         numRegs = pedidosDB.Delete(pedido, cboCliente.Text);
+                        if (numRegs > 0)
+                            MessageBox.Show($"El pedido con Id: {pedido.OrderID} del Cliente: {cboCliente.Text}, se eliminó satisfactoriamente junto con sus registros de detalle del pedido", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        else
+                            MessageBox.Show("No se pudo realizar la eliminación, es posible que el registro haya sido eliminado previamente por otro usuario de la red", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     catch (SqlException ex)
                     {
@@ -1642,7 +1642,7 @@ namespace NorthwindTradersV3LinqToSql
                                 }
                                 else 
                                 {
-                                    rowVersionOk = false; // No hay detalles en la base de datos, lo que significa que no hay coincidencias
+                                    rowVersionOk = true; // No hay detalles en la base de datos, lo que significa que no hay coincidencias
                                 }
                             }
                         }

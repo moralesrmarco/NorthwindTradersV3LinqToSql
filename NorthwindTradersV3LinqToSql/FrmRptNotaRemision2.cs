@@ -140,7 +140,6 @@ namespace NorthwindTradersV3LinqToSql
 
                     // Actualizamos la barra de estado al finalizar
                     MDIPrincipal.ActualizarBarraDeEstado();
-
                 }
             }
             catch (SqlException ex)
