@@ -345,6 +345,7 @@ namespace NorthwindTradersV3LinqToSql
         private void BorrarDatosPedido()
         {
             txtId.Text = "";
+            txtId.Tag = null;
             cboCliente.SelectedIndex = cboEmpleado.SelectedIndex = cboTransportista.SelectedIndex = cboCategoria.SelectedIndex = 0;
             cboProducto.DataSource = null;
             dtpPedido.Value = dtpRequerido.Value = dtpEnvio.Value = DateTime.Now;
@@ -744,6 +745,11 @@ namespace NorthwindTradersV3LinqToSql
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            if (!chkRowVersion())
+            {
+                MessageBox.Show("El registro ha sido modificado por otro usuario de la red, vuelva a cargar el registro para que se actualice con los datos proporcionados por el otro usuario", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             BorrarMensajesError();
             if (cboCategoria.SelectedIndex <= 0)
             {
@@ -922,11 +928,12 @@ namespace NorthwindTradersV3LinqToSql
                             ProductID = pd.Id_Producto,
                             UnitPrice = pd.Precio,
                             Quantity = pd.Cantidad,
-                            Discount = pd.Descuento
+                            Discount = pd.Descuento,
+                            RowVersion = pd.RowVersion
                         };
                         string productName = pd.Producto;
                         float importe = (float.Parse(pedidoDetalle.UnitPrice.ToString()) * pedidoDetalle.Quantity) * (1 - pedidoDetalle.Discount);
-                        dgvDetalle.Rows.Add(new object[] { IdDetalle, productName, pedidoDetalle.UnitPrice, pedidoDetalle.Quantity, pedidoDetalle.Discount, importe, "Modificar", "Eliminar", pedidoDetalle.ProductID });
+                        dgvDetalle.Rows.Add(new object[] { IdDetalle, productName, pedidoDetalle.UnitPrice, pedidoDetalle.Quantity, pedidoDetalle.Discount, importe, "Modificar", "Eliminar", pedidoDetalle.ProductID, null, pedidoDetalle.RowVersion });
                         ++IdDetalle;
                     }
                 }
@@ -1084,8 +1091,10 @@ namespace NorthwindTradersV3LinqToSql
                                 order.ShipCity,
                                 order.ShipRegion,
                                 order.ShipPostalCode,
-                                order.ShipCountry
+                                order.ShipCountry,
+                                order.RowVersion
                             }).FirstOrDefault();
+                Utils.ActualizarBarraDeEstado(this, $"Se muestran {dgvPedidos.RowCount} registros en pedidos");
                 if (query != null)
                 {
                     cboCliente.SelectedIndexChanged -= new EventHandler(cboCliente_SelectedIndexChanged);
@@ -1132,8 +1141,13 @@ namespace NorthwindTradersV3LinqToSql
                         dtpEnvio.Value = dtpHoraEnvio.Value = dtpEnvio.MinDate;
                         dtpEnvio.Checked = false;
                     }
+                    txtId.Tag = query.RowVersion;
                 }
-                Utils.ActualizarBarraDeEstado(this, $"Se muestran {dgvPedidos.RowCount} registros en pedidos");
+                else
+                {
+                    MessageBox.Show($"El pedido: {txtId.Text} fue eliminado por otro usuario de la red", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             catch (SqlException ex)
             {
@@ -1197,7 +1211,11 @@ namespace NorthwindTradersV3LinqToSql
                         pedido.ShipPostalCode = txtCP.Text;
                         pedido.ShipCountry = txtPais.Text;
                         pedido.Freight = decimal.Parse(txtFlete.Text.Replace("$", ""));
-                        numRegs = AgregarPedido(pedido, lstDetalle, txtId, cboCliente.Text);
+                        numRegs = AgregarPedido(pedido, lstDetalle, txtId);
+                        if (numRegs > 0)
+                            MessageBox.Show($"El pedido con Id: {pedido.OrderID} del Cliente: {cboCliente.Text}, se registro satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        else
+                            MessageBox.Show($"El pedido con Id: {pedido.OrderID} del Cliente: {cboCliente.Text}, NO se registró en la base de datos", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (SqlException ex) when (ex.Number == 547)
@@ -1228,6 +1246,8 @@ namespace NorthwindTradersV3LinqToSql
                     cboCategoria.Enabled = true;
                     BorrarDatosBusqueda();
                     LlenarDgvPedidos(null);
+                    dgvDetalle.Rows.Clear();
+                    LlenarDatosDetallePedido();
                 }
             }
             else if (tabcOperacion.SelectedTab == tabpModificar)
@@ -1236,6 +1256,11 @@ namespace NorthwindTradersV3LinqToSql
                 {
                     if (ValidarControles())
                     {
+                        if (!chkRowVersion())
+                        {
+                            MessageBox.Show("El registro ha sido modificado por otro usuario de la red, no se realizará la actualización del registro, vuelva a cargar el registro para que se muestre el pedido con los datos proporcionados por el otro usuario", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
                         Utils.ActualizarBarraDeEstado(this, Utils.modificandoRegistro);
                         DeshabilitarControles();
                         DeshabilitarControlesProducto();
@@ -1258,7 +1283,11 @@ namespace NorthwindTradersV3LinqToSql
                         pedido.ShipPostalCode = txtCP.Text;
                         pedido.ShipCountry = txtPais.Text;
                         pedido.Freight = decimal.Parse(txtFlete.Text.Replace("$", ""));
-                        numRegs = ModificarPedido(pedido, cboCliente.Text);
+                        numRegs = ModificarPedido(pedido, txtId);
+                        if (numRegs > 0)
+                            MessageBox.Show($"El pedido con Id: {pedido.OrderID} del Cliente : {cboCliente.Text}, se actualizó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        else
+                            MessageBox.Show("No se pudo realizar la modificación, es posible que el registro se haya eliminado previamente por otro usuario de la red", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (SqlException ex)
@@ -1290,13 +1319,23 @@ namespace NorthwindTradersV3LinqToSql
                 DialogResult respuesta = MessageBox.Show($"¿Está seguro de eliminar el pedido con Id: {txtId.Text} del Cliente: {cboCliente.Text}?", Utils.nwtr, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (respuesta == DialogResult.Yes)
                 {
+                    if (!chkRowVersion())
+                    {
+                        MessageBox.Show("El registro ha sido modificado por otro usuario de la red, no se realizará la eliminación del registro, vuelva a cargar el registro para que se muestre el pedido con los datos proporcionados por el otro usuario", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
                     Utils.ActualizarBarraDeEstado(this, Utils.eliminandoRegistro);
                     btnGenerar.Enabled = false;
                     try
                     {
                         Orders pedido = new Orders();
                         pedido.OrderID = int.Parse(txtId.Text);
-                        numRegs = EliminarPedido(pedido, cboCliente.Text);
+                        numRegs = EliminarPedido(pedido);
+                        if (numRegs > 0 )
+                            MessageBox.Show($"El pedido con Id: {pedido.OrderID} del Cliente: {cboCliente.Text}, se eliminó satisfactoriamente junto con sus registros de detalle del pedido", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        else
+                            MessageBox.Show("No se pudo realizar la eliminación, es posible que el registro haya sido eliminado previamente por otro usuario de la red", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     }
                     catch (SqlException ex)
                     {
@@ -1309,9 +1348,7 @@ namespace NorthwindTradersV3LinqToSql
                     if (numRegs > 0)
                     {
                         BorrarDatosBusqueda();
-                        txtBIdInicial.Text = txtBIdFinal.Text = txtId.Text;
-                        btnBuscar.PerformClick();
-                        btnLimpiar.PerformClick();
+                        LlenarDgvPedidos(null);
                     }
                 }
             }
@@ -1350,12 +1387,13 @@ namespace NorthwindTradersV3LinqToSql
             if (txtTotal.Text == "" || float.Parse(total) == 0)
             {
                 errorProvider1.SetError(btnAgregar, "Ingrese el detalle del pedido");
+                errorProvider1.SetError(txtTotal, "El total del pedido no puede ser cero");
                 valida = false;
             }
             return valida;
         }
 
-        private byte AgregarPedido(Orders pedido, List<Order_Details> lst, TextBox textBox, string cliente)
+        private byte AgregarPedido(Orders pedido, List<Order_Details> lst, TextBox textBox)
         {
             byte numRegs = 0;
             using (var context = new NorthwindTradersDataContext())
@@ -1377,6 +1415,7 @@ namespace NorthwindTradersV3LinqToSql
                         // Agregamos el nuevo pedido al contexto
                         context.SubmitChanges();
                         int pedidoId = pedido.OrderID;
+                        byte[] rowVersion = pedido.RowVersion.ToArray(); // Guardamos la RowVersion del pedido recién insertado
                         // Insertamos en Order_Details
                         foreach (var detalle in lst)
                         {
@@ -1396,8 +1435,8 @@ namespace NorthwindTradersV3LinqToSql
                         transaction.Commit();
                         // Obtenemos el Id del nuevo pedido
                         textBox.Text = pedidoId.ToString();
+                        textBox.Tag = rowVersion; // Asignamos la RowVersion al TextBox para futuras modificaciones
                         numRegs = 1;
-                        MessageBox.Show($"El pedido con Id: {pedidoId} del Cliente: {cliente}, se registro satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (SqlException)
                     {
@@ -1415,7 +1454,7 @@ namespace NorthwindTradersV3LinqToSql
             return numRegs;
         }
 
-        private byte ModificarPedido(Orders pedido, string cliente)
+        private byte ModificarPedido(Orders pedido, TextBox textBox)
         {
             byte numRegs = 0;
             using (var context = new NorthwindTradersDataContext())
@@ -1448,13 +1487,12 @@ namespace NorthwindTradersV3LinqToSql
                             ped.ShipCountry = string.IsNullOrWhiteSpace(pedido.ShipCountry) ? null : pedido.ShipCountry;
                             // Guardamos los cambios en la base de datos
                             context.SubmitChanges();
+                            byte[] rowVersion = ped.RowVersion.ToArray(); // Guardamos la RowVersion del pedido actualizado
+                            textBox.Tag = rowVersion;
                             // Confirmamos la transacción
                             transaction.Commit();
                             numRegs = 1;
-                            MessageBox.Show($"El pedido con Id: {pedido.OrderID} del Cliente : {cliente}, se actualizó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                        else
-                            MessageBox.Show("No se pudo realizar la modificación, es posible que el registro se haya eliminado previamente por otro usuario de la red", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     catch (SqlException)
                     {
@@ -1471,7 +1509,7 @@ namespace NorthwindTradersV3LinqToSql
             return numRegs;
         }
 
-        private byte EliminarPedido(Orders pedido, string cliente)
+        private byte EliminarPedido(Orders pedido)
         {
             byte numRegs = 0;
             using (var context = new NorthwindTradersDataContext())
@@ -1508,10 +1546,7 @@ namespace NorthwindTradersV3LinqToSql
                             // Confirmamos la transacción
                             transaction.Commit();
                             numRegs = 1;
-                            MessageBox.Show($"El pedido con Id: {pedido.OrderID} del Cliente: {cliente}, se eliminó satisfactoriamente junto con sus registros de detalle del pedido", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                        else
-                            MessageBox.Show("No se pudo realizar la eliminación, es posible que el registro haya sido eliminado previamente por otro usuario de la red", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (SqlException)
                     {
@@ -1563,6 +1598,11 @@ namespace NorthwindTradersV3LinqToSql
             }
             if ((e.ColumnIndex == dgvDetalle.Columns["Eliminar"].Index & tabcOperacion.SelectedTab == tabpModificar) | (PedidoGenerado & e.ColumnIndex == dgvDetalle.Columns["Eliminar"].Index & tabcOperacion.SelectedTab == tabpRegistrar))
             {
+                if (!chkRowVersion())
+                {
+                    MessageBox.Show("El registro ha sido modificado por otro usuario de la red, vuelva a cargar el registro para que se actualice con los datos proporcionados por el otro usuario", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
                 DataGridViewRow dgvr = dgvDetalle.CurrentRow;
                 string productName = dgvr.Cells["Producto"].Value.ToString();
                 int productId = (int)dgvr.Cells["ProductoId"].Value;
@@ -1571,6 +1611,11 @@ namespace NorthwindTradersV3LinqToSql
             }
             if ((e.ColumnIndex == dgvDetalle.Columns["Modificar"].Index & tabcOperacion.SelectedTab == tabpModificar) | (PedidoGenerado & e.ColumnIndex == dgvDetalle.Columns["Modificar"].Index & tabcOperacion.SelectedTab == tabpRegistrar))
             {
+                if (!chkRowVersion())
+                {
+                    MessageBox.Show("El registro ha sido modificado por otro usuario de la red, vuelva a cargar el registro para que se actualice con los datos proporcionados por el otro usuario", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
                 DataGridViewRow dgvr = dgvDetalle.CurrentRow;
                 using (FrmPedidosDetalleModificar frmPedidosDetalleModificar = new FrmPedidosDetalleModificar())
                 {
@@ -1608,7 +1653,7 @@ namespace NorthwindTradersV3LinqToSql
                 {
                     Utils.ActualizarBarraDeEstado(this, Utils.eliminandoRegistro);
                     DeshabilitarControlesProducto();
-                    numRegs = EliminarPedidoDetalle(productId, orderId, productName);
+                    numRegs = EliminarPedidoDetalle(productId, orderId);
                     if (numRegs > 0)
                         MessageBox.Show($"El Producto: {productName} del Pedido: {orderId}, se eliminó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
@@ -1639,7 +1684,7 @@ namespace NorthwindTradersV3LinqToSql
             }
         }
 
-        private byte EliminarPedidoDetalle(int productId, int orderId, string productName)
+        private byte EliminarPedidoDetalle(int productId, int orderId)
         {
             byte numRegs = 0;
             try
@@ -1704,9 +1749,13 @@ namespace NorthwindTradersV3LinqToSql
 
         private void btnNota_Click(object sender, EventArgs e)
         {
-            FrmRptNotaRemision frmRptNotaRemision = new FrmRptNotaRemision();
-            frmRptNotaRemision.Id = int.Parse(txtId.Text);
-            frmRptNotaRemision.ShowDialog();
+            if (!chkRowVersion())
+            {
+                MessageBox.Show("El registro ha sido modificado por otro usuario de la red, se mostrará la nota de remisión con los datos proporcionados por el otro usuario", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            FrmNotaRemision0 frmNotaRemision0 = new FrmNotaRemision0();
+            frmNotaRemision0.Id = int.Parse(txtId.Text);
+            frmNotaRemision0.ShowDialog();
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
@@ -1718,6 +1767,164 @@ namespace NorthwindTradersV3LinqToSql
             btnNuevo.Enabled = false;
             btnNuevo.Visible = true;
             PedidoGenerado = false;
+        }
+
+        private bool chkRowVersion()
+        {
+            bool rowVersionOk = true;
+            if (txtId.Tag != null)
+            {
+                //byte[] rowVersion = ((System.Data.Linq.Binary)txtId.Tag).ToArray();
+                byte[] rowVersion = null;
+                object rowVersionObj1 = txtId.Tag;
+                if (rowVersionObj1 is byte[])
+                { 
+                    rowVersion = (byte[])rowVersionObj1;
+                }
+                else if (rowVersionObj1 is System.Data.Linq.Binary)
+                {
+                    rowVersion = ((System.Data.Linq.Binary)rowVersionObj1).ToArray();
+                }
+                byte[] rowVersionActual = null;
+                try
+                {
+                    MDIPrincipal.ActualizarBarraDeEstado(Utils.clbdd);
+                    using (var context = new NorthwindTradersDataContext())
+                    {
+                        // Buscar el pedido por Id y obtener su RowVersion
+                        var pedido = context.Orders
+                            .Where(o => o.OrderID == int.Parse(txtId.Text))
+                            .Select(o => new { o.RowVersion })
+                            .SingleOrDefault();
+                        if (pedido != null)
+                        {
+                            rowVersionActual = pedido.RowVersion.ToArray();
+                            if (!rowVersion.SequenceEqual(rowVersionActual))
+                            {
+                                rowVersionOk = false;
+                            }
+                        }
+                        else
+                        {
+                            rowVersionOk = false;
+                        }
+                    }
+                    if (rowVersionOk)
+                    {
+                        // Comprobamos primero que todos los registros del gridview existan en la DB y tengan el mismo rowversion
+                        using (var context = new NorthwindTradersDataContext())
+                        {
+                            foreach (DataGridViewRow dgvr in dgvDetalle.Rows)
+                            {
+                                int numPedido = int.Parse(txtId.Text);
+                                int numProducto = int.Parse(dgvr.Cells["ProductoId"].Value.ToString());
+                                object rowVersionObj = dgvr.Cells["RowVersion"].Value;
+                                byte[] rowVersionDetalle = null;
+                                if (rowVersionObj is byte[])
+                                {
+                                    rowVersionDetalle = (byte[])rowVersionObj;
+                                }
+                                else if (rowVersionObj is System.Data.Linq.Binary)
+                                {
+                                    rowVersionDetalle = ((System.Data.Linq.Binary)rowVersionObj).ToArray();
+                                }
+                                else
+                                {
+                                    throw new InvalidCastException("El valor en RowVersion no es de un tipo esperado.");
+                                }
+                                var objrowVersionDetalleEnDB = context.Order_Details
+                                    .Where(od => od.OrderID == numPedido && od.ProductID == numProducto)
+                                    .Select(od => new { od.RowVersion })
+                                    .SingleOrDefault();
+                                if (objrowVersionDetalleEnDB != null)
+                                {
+                                    byte[] rowVersionDetalleEnDB = objrowVersionDetalleEnDB.RowVersion.ToArray();
+                                    if (!rowVersionDetalle.SequenceEqual(rowVersionDetalleEnDB))
+                                    {
+                                        rowVersionOk = false;
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    rowVersionOk = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (rowVersionOk)
+                        {
+                            // Comprobamos segundo que todos los registros de la DB existan en el DataGridView y tengan el mismo rowversion
+                            using (var context = new NorthwindTradersDataContext())
+                            {
+                                int numPedido = int.Parse(txtId.Text);
+                                // Obtenemos los detalles del pedido desde la base de datos
+                                var detallesPedido = context.Order_Details
+                                    .Where(od => od.OrderID == numPedido)
+                                    .Select(od => new { od.ProductID, od.RowVersion })
+                                    .ToList();
+                                Order_Details pedidoDetalle;
+                                if (detallesPedido.Any())
+                                {
+                                    foreach (var detalle in detallesPedido)
+                                    {
+                                        pedidoDetalle = new Order_Details
+                                        {
+                                            ProductID = detalle.ProductID,
+                                            RowVersion = detalle.RowVersion
+                                        };
+                                        bool registroEncontradoEnGrid = false;
+                                        foreach (DataGridViewRow dgvr in dgvDetalle.Rows)
+                                        {
+                                            if (pedidoDetalle.ProductID == int.Parse(dgvr.Cells["ProductoId"].Value.ToString()))
+                                            {
+                                                registroEncontradoEnGrid = true;
+                                                object rowVersionGridObj = dgvr.Cells["RowVersion"].Value;
+                                                byte[] rowVersionGrid = null;
+                                                if (rowVersionGridObj is byte[])
+                                                {
+                                                    rowVersionGrid = (byte[])rowVersionGridObj;
+                                                }
+                                                else if (rowVersionGridObj is System.Data.Linq.Binary)
+                                                {
+                                                    rowVersionGrid = ((System.Data.Linq.Binary)rowVersionGridObj).ToArray();
+                                                }
+                                                else
+                                                {
+                                                    throw new InvalidCastException("El valor en RowVersion no es de un tipo esperado.");
+                                                }
+                                                if (!rowVersionGrid.SequenceEqual(pedidoDetalle.RowVersion.ToArray())) // Convertimos Binary a byte[]
+                                                {
+                                                    rowVersionOk = false;
+                                                }
+                                                break; // Salimos del foreach si encontramos el registro
+                                            }
+                                        }
+                                        if (!registroEncontradoEnGrid)
+                                            rowVersionOk = false; // Si no encontramos el registro en el grid, marcamos como false
+                                        if (!rowVersionOk)
+                                            break; // Salimos del foreach si no encontramos el registro
+                                    }
+                                }
+                                else
+                                {
+                                    rowVersionOk = true; // No hay detalles en la base de datos, lo que significa que no hay coincidencias
+                                }
+                            }
+                        }
+                    }
+                    MDIPrincipal.ActualizarBarraDeEstado($"Se muestran {dgvPedidos.RowCount} registros en pedidos");
+                }
+                catch (SqlException ex)
+                {
+                    Utils.MsgCatchOueclbdd(ex);
+                }
+                catch (Exception ex)
+                {
+                    Utils.MsgCatchOue(ex);
+                }
+            }
+            return rowVersionOk;
         }
     }
 }

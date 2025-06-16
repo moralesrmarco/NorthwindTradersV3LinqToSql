@@ -900,7 +900,7 @@ namespace NorthwindTradersV3LinqToSql
         {
             if (!chkRowVersion())
             {
-                MessageBox.Show("El registro ha sido modificado por otro usuario de la red, se mostrará la nota de remisión con los datos proporcionados por el otro usuario", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El registro ha sido modificado por otro usuario de la red, se mostrará la nota de remisión con los datos proporcionados por el otro usuario", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             FrmNotaRemision0 frmNotaRemision0 = new FrmNotaRemision0();
             frmNotaRemision0.Id = int.Parse(txtId.Text);
