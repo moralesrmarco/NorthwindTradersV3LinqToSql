@@ -504,7 +504,7 @@ namespace NorthwindTradersV3LinqToSql
                                     context.SubmitChanges();
                                     MessageBox.Show($"El producto con Id: {txtId.Text} y Nombre de producto: {txtProducto.Text} se modificó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
-                                catch (ChangeConflictException ex) 
+                                catch (ChangeConflictException) 
                                 {
                                     MessageBox.Show($"Error de concurrencia: El producto con Id: {txtId.Text} ya fue modificado por otro usuario. Por favor, recargue los datos y vuelva a intentarlo.", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }

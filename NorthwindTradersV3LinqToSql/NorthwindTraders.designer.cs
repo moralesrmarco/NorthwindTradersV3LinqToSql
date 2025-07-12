@@ -69,6 +69,15 @@ namespace NorthwindTradersV3LinqToSql
     partial void InsertOrders(Orders instance);
     partial void UpdateOrders(Orders instance);
     partial void DeleteOrders(Orders instance);
+    partial void InsertUsuarios(Usuarios instance);
+    partial void UpdateUsuarios(Usuarios instance);
+    partial void DeleteUsuarios(Usuarios instance);
+    partial void InsertCatalogoPermisos(CatalogoPermisos instance);
+    partial void UpdateCatalogoPermisos(CatalogoPermisos instance);
+    partial void DeleteCatalogoPermisos(CatalogoPermisos instance);
+    partial void InsertPermisos(Permisos instance);
+    partial void UpdatePermisos(Permisos instance);
+    partial void DeletePermisos(Permisos instance);
     #endregion
 		
 		public NorthwindTradersDataContext() : 
@@ -266,6 +275,30 @@ namespace NorthwindTradersV3LinqToSql
 			get
 			{
 				return this.GetTable<Orders>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Usuarios> Usuarios
+		{
+			get
+			{
+				return this.GetTable<Usuarios>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CatalogoPermisos> CatalogoPermisos
+		{
+			get
+			{
+				return this.GetTable<CatalogoPermisos>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Permisos> Permisos
+		{
+			get
+			{
+				return this.GetTable<Permisos>();
 			}
 		}
 		
@@ -773,6 +806,13 @@ namespace NorthwindTradersV3LinqToSql
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pedidoId);
 			return ((ISingleResult<SP_DETALLEPEDIDOS_PRODUCTOS_LISTAR1Result>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SP_USUARIOS_BUSCAR")]
+		public ISingleResult<SP_USUARIOS_BUSCARResult> SP_USUARIOS_BUSCAR([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdIni", DbType="Int")] System.Nullable<int> idIni, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IdFin", DbType="Int")] System.Nullable<int> idFin, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Paterno", DbType="VarChar(50)")] string paterno, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Materno", DbType="VarChar(50)")] string materno, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nombres", DbType="VarChar(80)")] string nombres, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Usuario", DbType="VarChar(20)")] string usuario)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idIni, idFin, paterno, materno, nombres, usuario);
+			return ((ISingleResult<SP_USUARIOS_BUSCARResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -5845,6 +5885,594 @@ namespace NorthwindTradersV3LinqToSql
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Usuarios")]
+	public partial class Usuarios : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Paterno;
+		
+		private string _Materno;
+		
+		private string _Nombres;
+		
+		private string _Usuario;
+		
+		private string _Password;
+		
+		private System.DateTime _FechaCaptura;
+		
+		private System.DateTime _FechaModificacion;
+		
+		private bool _Estatus;
+		
+		private EntitySet<Permisos> _Permisos;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnPaternoChanging(string value);
+    partial void OnPaternoChanged();
+    partial void OnMaternoChanging(string value);
+    partial void OnMaternoChanged();
+    partial void OnNombresChanging(string value);
+    partial void OnNombresChanged();
+    partial void OnUsuarioChanging(string value);
+    partial void OnUsuarioChanged();
+    partial void OnPasswordChanging(string value);
+    partial void OnPasswordChanged();
+    partial void OnFechaCapturaChanging(System.DateTime value);
+    partial void OnFechaCapturaChanged();
+    partial void OnFechaModificacionChanging(System.DateTime value);
+    partial void OnFechaModificacionChanged();
+    partial void OnEstatusChanging(bool value);
+    partial void OnEstatusChanged();
+    #endregion
+		
+		public Usuarios()
+		{
+			this._Permisos = new EntitySet<Permisos>(new Action<Permisos>(this.attach_Permisos), new Action<Permisos>(this.detach_Permisos));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Paterno", DbType="VarChar(50)")]
+		public string Paterno
+		{
+			get
+			{
+				return this._Paterno;
+			}
+			set
+			{
+				if ((this._Paterno != value))
+				{
+					this.OnPaternoChanging(value);
+					this.SendPropertyChanging();
+					this._Paterno = value;
+					this.SendPropertyChanged("Paterno");
+					this.OnPaternoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Materno", DbType="VarChar(50)")]
+		public string Materno
+		{
+			get
+			{
+				return this._Materno;
+			}
+			set
+			{
+				if ((this._Materno != value))
+				{
+					this.OnMaternoChanging(value);
+					this.SendPropertyChanging();
+					this._Materno = value;
+					this.SendPropertyChanged("Materno");
+					this.OnMaternoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombres", DbType="VarChar(80) NOT NULL", CanBeNull=false)]
+		public string Nombres
+		{
+			get
+			{
+				return this._Nombres;
+			}
+			set
+			{
+				if ((this._Nombres != value))
+				{
+					this.OnNombresChanging(value);
+					this.SendPropertyChanging();
+					this._Nombres = value;
+					this.SendPropertyChanged("Nombres");
+					this.OnNombresChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usuario", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Usuario
+		{
+			get
+			{
+				return this._Usuario;
+			}
+			set
+			{
+				if ((this._Usuario != value))
+				{
+					this.OnUsuarioChanging(value);
+					this.SendPropertyChanging();
+					this._Usuario = value;
+					this.SendPropertyChanged("Usuario");
+					this.OnUsuarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="VarChar(64) NOT NULL", CanBeNull=false)]
+		public string Password
+		{
+			get
+			{
+				return this._Password;
+			}
+			set
+			{
+				if ((this._Password != value))
+				{
+					this.OnPasswordChanging(value);
+					this.SendPropertyChanging();
+					this._Password = value;
+					this.SendPropertyChanged("Password");
+					this.OnPasswordChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaCaptura", DbType="DateTime2 NOT NULL")]
+		public System.DateTime FechaCaptura
+		{
+			get
+			{
+				return this._FechaCaptura;
+			}
+			set
+			{
+				if ((this._FechaCaptura != value))
+				{
+					this.OnFechaCapturaChanging(value);
+					this.SendPropertyChanging();
+					this._FechaCaptura = value;
+					this.SendPropertyChanged("FechaCaptura");
+					this.OnFechaCapturaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaModificacion", DbType="DateTime2 NOT NULL")]
+		public System.DateTime FechaModificacion
+		{
+			get
+			{
+				return this._FechaModificacion;
+			}
+			set
+			{
+				if ((this._FechaModificacion != value))
+				{
+					this.OnFechaModificacionChanging(value);
+					this.SendPropertyChanging();
+					this._FechaModificacion = value;
+					this.SendPropertyChanged("FechaModificacion");
+					this.OnFechaModificacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
+		public bool Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this.OnEstatusChanging(value);
+					this.SendPropertyChanging();
+					this._Estatus = value;
+					this.SendPropertyChanged("Estatus");
+					this.OnEstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuarios_Permisos", Storage="_Permisos", ThisKey="Id", OtherKey="UsuarioId")]
+		public EntitySet<Permisos> Permisos
+		{
+			get
+			{
+				return this._Permisos;
+			}
+			set
+			{
+				this._Permisos.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Permisos(Permisos entity)
+		{
+			this.SendPropertyChanging();
+			entity.Usuarios = this;
+		}
+		
+		private void detach_Permisos(Permisos entity)
+		{
+			this.SendPropertyChanging();
+			entity.Usuarios = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CatalogoPermisos")]
+	public partial class CatalogoPermisos : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _PermisoId;
+		
+		private string _Descripción;
+		
+		private bool _Estatus;
+		
+		private EntitySet<Permisos> _Permisos;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPermisoIdChanging(int value);
+    partial void OnPermisoIdChanged();
+    partial void OnDescripciónChanging(string value);
+    partial void OnDescripciónChanged();
+    partial void OnEstatusChanging(bool value);
+    partial void OnEstatusChanged();
+    #endregion
+		
+		public CatalogoPermisos()
+		{
+			this._Permisos = new EntitySet<Permisos>(new Action<Permisos>(this.attach_Permisos), new Action<Permisos>(this.detach_Permisos));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PermisoId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int PermisoId
+		{
+			get
+			{
+				return this._PermisoId;
+			}
+			set
+			{
+				if ((this._PermisoId != value))
+				{
+					this.OnPermisoIdChanging(value);
+					this.SendPropertyChanging();
+					this._PermisoId = value;
+					this.SendPropertyChanged("PermisoId");
+					this.OnPermisoIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripción", DbType="VarChar(80) NOT NULL", CanBeNull=false)]
+		public string Descripción
+		{
+			get
+			{
+				return this._Descripción;
+			}
+			set
+			{
+				if ((this._Descripción != value))
+				{
+					this.OnDescripciónChanging(value);
+					this.SendPropertyChanging();
+					this._Descripción = value;
+					this.SendPropertyChanged("Descripción");
+					this.OnDescripciónChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
+		public bool Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this.OnEstatusChanging(value);
+					this.SendPropertyChanging();
+					this._Estatus = value;
+					this.SendPropertyChanged("Estatus");
+					this.OnEstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CatalogoPermisos_Permisos", Storage="_Permisos", ThisKey="PermisoId", OtherKey="PermisoId")]
+		public EntitySet<Permisos> Permisos
+		{
+			get
+			{
+				return this._Permisos;
+			}
+			set
+			{
+				this._Permisos.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Permisos(Permisos entity)
+		{
+			this.SendPropertyChanging();
+			entity.CatalogoPermisos = this;
+		}
+		
+		private void detach_Permisos(Permisos entity)
+		{
+			this.SendPropertyChanging();
+			entity.CatalogoPermisos = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Permisos")]
+	public partial class Permisos : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _UsuarioId;
+		
+		private int _PermisoId;
+		
+		private EntityRef<CatalogoPermisos> _CatalogoPermisos;
+		
+		private EntityRef<Usuarios> _Usuarios;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUsuarioIdChanging(int value);
+    partial void OnUsuarioIdChanged();
+    partial void OnPermisoIdChanging(int value);
+    partial void OnPermisoIdChanged();
+    #endregion
+		
+		public Permisos()
+		{
+			this._CatalogoPermisos = default(EntityRef<CatalogoPermisos>);
+			this._Usuarios = default(EntityRef<Usuarios>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsuarioId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int UsuarioId
+		{
+			get
+			{
+				return this._UsuarioId;
+			}
+			set
+			{
+				if ((this._UsuarioId != value))
+				{
+					if (this._Usuarios.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUsuarioIdChanging(value);
+					this.SendPropertyChanging();
+					this._UsuarioId = value;
+					this.SendPropertyChanged("UsuarioId");
+					this.OnUsuarioIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PermisoId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int PermisoId
+		{
+			get
+			{
+				return this._PermisoId;
+			}
+			set
+			{
+				if ((this._PermisoId != value))
+				{
+					if (this._CatalogoPermisos.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPermisoIdChanging(value);
+					this.SendPropertyChanging();
+					this._PermisoId = value;
+					this.SendPropertyChanged("PermisoId");
+					this.OnPermisoIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CatalogoPermisos_Permisos", Storage="_CatalogoPermisos", ThisKey="PermisoId", OtherKey="PermisoId", IsForeignKey=true)]
+		public CatalogoPermisos CatalogoPermisos
+		{
+			get
+			{
+				return this._CatalogoPermisos.Entity;
+			}
+			set
+			{
+				CatalogoPermisos previousValue = this._CatalogoPermisos.Entity;
+				if (((previousValue != value) 
+							|| (this._CatalogoPermisos.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CatalogoPermisos.Entity = null;
+						previousValue.Permisos.Remove(this);
+					}
+					this._CatalogoPermisos.Entity = value;
+					if ((value != null))
+					{
+						value.Permisos.Add(this);
+						this._PermisoId = value.PermisoId;
+					}
+					else
+					{
+						this._PermisoId = default(int);
+					}
+					this.SendPropertyChanged("CatalogoPermisos");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuarios_Permisos", Storage="_Usuarios", ThisKey="UsuarioId", OtherKey="Id", IsForeignKey=true)]
+		public Usuarios Usuarios
+		{
+			get
+			{
+				return this._Usuarios.Entity;
+			}
+			set
+			{
+				Usuarios previousValue = this._Usuarios.Entity;
+				if (((previousValue != value) 
+							|| (this._Usuarios.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Usuarios.Entity = null;
+						previousValue.Permisos.Remove(this);
+					}
+					this._Usuarios.Entity = value;
+					if ((value != null))
+					{
+						value.Permisos.Add(this);
+						this._UsuarioId = value.Id;
+					}
+					else
+					{
+						this._UsuarioId = default(int);
+					}
+					this.SendPropertyChanged("Usuarios");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	public partial class SP_EMPLEADOS_PAISResult
 	{
 		
@@ -9860,6 +10488,176 @@ namespace NorthwindTradersV3LinqToSql
 				if ((this._RowVersion != value))
 				{
 					this._RowVersion = value;
+				}
+			}
+		}
+	}
+	
+	public partial class SP_USUARIOS_BUSCARResult
+	{
+		
+		private int _Id;
+		
+		private string _Paterno;
+		
+		private string _Materno;
+		
+		private string _Nombres;
+		
+		private string _Usuario;
+		
+		private string _Password;
+		
+		private System.DateTime _FechaCaptura;
+		
+		private System.DateTime _FechaModificacion;
+		
+		private bool _Estatus;
+		
+		public SP_USUARIOS_BUSCARResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Paterno", DbType="VarChar(50)")]
+		public string Paterno
+		{
+			get
+			{
+				return this._Paterno;
+			}
+			set
+			{
+				if ((this._Paterno != value))
+				{
+					this._Paterno = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Materno", DbType="VarChar(50)")]
+		public string Materno
+		{
+			get
+			{
+				return this._Materno;
+			}
+			set
+			{
+				if ((this._Materno != value))
+				{
+					this._Materno = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombres", DbType="VarChar(80) NOT NULL", CanBeNull=false)]
+		public string Nombres
+		{
+			get
+			{
+				return this._Nombres;
+			}
+			set
+			{
+				if ((this._Nombres != value))
+				{
+					this._Nombres = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usuario", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string Usuario
+		{
+			get
+			{
+				return this._Usuario;
+			}
+			set
+			{
+				if ((this._Usuario != value))
+				{
+					this._Usuario = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="VarChar(64) NOT NULL", CanBeNull=false)]
+		public string Password
+		{
+			get
+			{
+				return this._Password;
+			}
+			set
+			{
+				if ((this._Password != value))
+				{
+					this._Password = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaCaptura", DbType="DateTime2 NOT NULL")]
+		public System.DateTime FechaCaptura
+		{
+			get
+			{
+				return this._FechaCaptura;
+			}
+			set
+			{
+				if ((this._FechaCaptura != value))
+				{
+					this._FechaCaptura = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaModificacion", DbType="DateTime2 NOT NULL")]
+		public System.DateTime FechaModificacion
+		{
+			get
+			{
+				return this._FechaModificacion;
+			}
+			set
+			{
+				if ((this._FechaModificacion != value))
+				{
+					this._FechaModificacion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estatus", DbType="Bit NOT NULL")]
+		public bool Estatus
+		{
+			get
+			{
+				return this._Estatus;
+			}
+			set
+			{
+				if ((this._Estatus != value))
+				{
+					this._Estatus = value;
 				}
 			}
 		}

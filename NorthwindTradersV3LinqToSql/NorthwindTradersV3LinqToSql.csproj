@@ -302,6 +302,12 @@
     <Compile Include="FrmRptProveedores.Designer.cs">
       <DependentUpon>FrmRptProveedores.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmUsuariosCrud.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmUsuariosCrud.Designer.cs">
+      <DependentUpon>FrmUsuariosCrud.cs</DependentUpon>
+    </Compile>
     <Compile Include="MDIPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -439,6 +445,9 @@
     <EmbeddedResource Include="FrmRptProveedores.resx">
       <DependentUpon>FrmRptProveedores.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmUsuariosCrud.resx">
+      <DependentUpon>FrmUsuariosCrud.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MDIPrincipal.resx">
       <DependentUpon>MDIPrincipal.cs</DependentUpon>
     </EmbeddedResource>
@@ -516,6 +525,8 @@
     <None Include="Resources\Categorias.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\mostrarCh.png" />
+    <None Include="Resources\ocultarCh.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

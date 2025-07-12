@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 
 namespace NorthwindTradersV3LinqToSql
@@ -15,7 +15,7 @@ namespace NorthwindTradersV3LinqToSql
         public static string clbdd = "Consultando la base de datos... ";
         public static string oueclbdd = "Ocurrio un error con la base de datos:\n";
         public static string oue = "Ocurrio un error:\n";
-        public static string nwtr = "Northwind Traders Ver 3 Linq to Sql.";
+        public static string nwtr = "» Northwind Traders Ver 3 Linq to Sql «";
         public static string preguntaCerrar = "¿Esta seguro de querer cerrar el formulario?, si responde SI, se perderan los datos no guardados";
         public static string insertandoRegistro = "Insertando registro en la base de datos...";
         public static string modificandoRegistro = "Modificando registro en la base de datos...";
@@ -25,6 +25,18 @@ namespace NorthwindTradersV3LinqToSql
         public static string errorCriterioSelec = "Error: Proporcione los criterios de selección";
         public static string noDatos = "No se encontraron datos para mostrar en el reporte";
         #endregion
+
+        public static string ComputeSha256Hash(string rawData)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                    builder.Append(b.ToString("x2"));
+                return builder.ToString();
+            }
+        }
 
         public static DateTime? ObtenerFechaHora(DateTimePicker dtpFecha, DateTimePicker dtpHora)
         {
