@@ -455,6 +455,7 @@ namespace NorthwindTradersV3LinqToSql
                         var usuarioAModificar = context.Usuarios.FirstOrDefault(u => u.Id == id);
                         if (usuarioAModificar != null)
                         {
+                            DateTime fechaCaptura = usuarioAModificar.FechaCaptura; // Mantiene la fecha de captura original
                             usuarioAModificar.Paterno = txtPaterno.Text.Trim();
                             usuarioAModificar.Materno = txtMaterno.Text.Trim();
                             usuarioAModificar.Nombres = txtNombres.Text.Trim();
@@ -463,6 +464,7 @@ namespace NorthwindTradersV3LinqToSql
                                 usuarioAModificar.Password = Utils.ComputeSha256Hash(txtPwd.Text.Trim());
                             else
                                 usuarioAModificar.Password = passHasheadaOld;
+                            usuarioAModificar.FechaCaptura = fechaCaptura; // Mantiene la fecha de captura original
                             usuarioAModificar.FechaModificacion = DateTime.Now;
                             usuarioAModificar.Estatus = chkbEstatus.Checked;
                             var cambios = context.GetChangeSet();
@@ -470,6 +472,7 @@ namespace NorthwindTradersV3LinqToSql
                             context.SubmitChanges();
                             if (numRegs > 0)
                             {
+                                lblFechaCaptura.Text = Convert.ToDateTime(usuarioAModificar.FechaCaptura).ToString("dd/MMMM/yyyy hh:mm:ss tt");
                                 lblFechaModificacion.Text = Convert.ToDateTime(usuarioAModificar.FechaModificacion).ToString("dd/MMMM/yyyy hh:mm:ss tt");
                                 MessageBox.Show($"El usuario con Id: {txtId.Text} y Nombre: {txtPaterno.Text} {txtMaterno.Text} {txtNombres.Text} se modificó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
@@ -508,6 +511,7 @@ namespace NorthwindTradersV3LinqToSql
                                 int idViejo = int.Parse(txtId.Text);
                                 // Lee usuario y permisos viejos
                                 var usuarioViejo = context.Usuarios.SingleOrDefault(u => u.Id == idViejo);
+                                DateTime fechaCaptura = usuarioViejo.FechaCaptura; // Mantiene la fecha de captura original
                                 if (usuarioViejo == null)
                                 {
                                     MessageBox.Show($"El usuario con Id: {idViejo} no existe en la base de datos", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -525,6 +529,7 @@ namespace NorthwindTradersV3LinqToSql
                                     Password = (txtPwd.Text.Trim() != passHasheadaOld)
                                     ? Utils.ComputeSha256Hash(txtPwd.Text.Trim())
                                     : passHasheadaOld,
+                                    FechaCaptura = fechaCaptura, // Mantiene la fecha de captura original
                                     FechaModificacion = DateTime.Now,
                                     Estatus = chkbEstatus.Checked
                                 };
@@ -550,6 +555,7 @@ namespace NorthwindTradersV3LinqToSql
                                 // 10) Confirma transacción
                                 tx.Commit();
                                 // 11) Mensaje al usuario
+                                lblFechaCaptura.Text = Convert.ToDateTime(usuarioNuevo.FechaCaptura).ToString("dd/MMMM/yyyy hh:mm:ss tt");
                                 lblFechaModificacion.Text = Convert.ToDateTime(usuarioNuevo.FechaModificacion).ToString("dd/MMMM/yyyy hh:mm:ss tt");
                                 MessageBox.Show($"El usuario con Id: {txtId.Text} y Nombre: {txtPaterno.Text} {txtMaterno.Text} {txtNombres.Text} se modificó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }

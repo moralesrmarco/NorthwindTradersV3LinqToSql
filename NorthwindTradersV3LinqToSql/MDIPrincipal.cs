@@ -602,7 +602,12 @@ namespace NorthwindTradersV3LinqToSql
 
         private void mantenimientoDePermisosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Utils.CerrarFormularios();
+            FrmPermisosCrud frmPermisosCrud = new FrmPermisosCrud
+            {
+                MdiParent = this
+            };
+            frmPermisosCrud.Show();
         }
 
         private void cambiarContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
