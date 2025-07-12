@@ -281,11 +281,11 @@
   </Table>
   <Table Name="dbo.Usuarios" Member="Usuarios">
     <Type Name="Usuarios">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Paterno" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Materno" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Nombres" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
-      <Column Name="Usuario" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Usuario" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="Password" Type="System.String" DbType="VarChar(64) NOT NULL" CanBeNull="false" />
       <Column Name="FechaCaptura" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
       <Column Name="FechaModificacion" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />

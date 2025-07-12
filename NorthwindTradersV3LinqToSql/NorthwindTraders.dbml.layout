@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17.625, 23.625" name="NorthwindTraders">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17.625, 23.375" name="NorthwindTraders">
   <DataContextMoniker Name="/NorthwindTradersDataContext" />
   <nestedChildShapes>
     <classShape Id="ed3c405d-f21e-4088-abec-e29f248ca25d" absoluteBounds="3.75, 14.625, 2, 1.5785953776041683">
@@ -44,7 +44,7 @@
         <elementListCompartment Id="2f3f58cf-4b2f-4bdc-b444-43f186ae9171" absoluteBounds="3.39, 6.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 1.34699625651042); (4.5 : 1.34699625651042); (4.5 : 3.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 1.34699625651042); (4.5 : 1.34699625651042); (4.5 : 3.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/NorthwindTradersDataContext/CustomerDemographics/CustomerDemographics_CustomerCustomerDemo" />
       <nodes>
         <classShapeMoniker Id="d34d3a6e-d36f-46be-a3a4-618919865a22" />
@@ -198,7 +198,7 @@
         <classShapeMoniker Id="c193a7f4-85d7-46ca-986f-d207d253a6a6" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 5.53449625651042); (6.375 : 5.53449625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 5.53449625651042); (5.63541666666667 : 5.53449625651042 : JumpStart); (5.80208333333333 : 5.53449625651042 : JumpEnd); (6.375 : 5.53449625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/NorthwindTradersDataContext/Customers/Customers_Orders" />
       <nodes>
         <classShapeMoniker Id="fbfe290e-5903-4583-bc64-d433bc9ba333" />
@@ -212,43 +212,43 @@
         <classShapeMoniker Id="3cc1f76e-4e08-4feb-921a-a4a7e0032111" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.375 : 6.81570606640625); (6.53125 : 6.81570606640625); (6.53125 : 6.1939111328125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.375 : 6.81570606640625); (5.63541666666667 : 6.81570606640625 : JumpStart); (5.80208333333333 : 6.81570606640625 : JumpEnd); (6.53125 : 6.81570606640625); (6.53125 : 6.1939111328125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/NorthwindTradersDataContext/Shippers/Shippers_Orders" />
       <nodes>
         <classShapeMoniker Id="d9bccb87-0828-439f-a60b-e83de9335b2c" />
         <classShapeMoniker Id="3cc1f76e-4e08-4feb-921a-a4a7e0032111" />
       </nodes>
     </associationConnector>
-    <classShape Id="5c7c7455-f1e9-4c40-8e72-414332aeefae" absoluteBounds="0.625, 20.625, 2, 2.5401025390625">
+    <classShape Id="5f3723cd-fdb5-495a-954c-93f0e50a9ed9" absoluteBounds="1.25, 20.625, 2, 2.5401025390625">
       <DataClassMoniker Name="/NorthwindTradersDataContext/Usuarios" />
       <nestedChildShapes>
-        <elementListCompartment Id="d9014d71-a55b-4633-bea9-12bbf8b0c255" absoluteBounds="0.63999999999999968, 21.085, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="b99b9bad-0db4-440a-81f6-83ddede9344d" absoluteBounds="1.2650000000000001, 21.085, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="76d4fa90-c637-4160-8051-e268ff78370a" absoluteBounds="5.875, 20.5, 2, 1.3862939453125">
+    <classShape Id="e2ee8b91-aec2-4284-a978-3c7cb37cc7ff" absoluteBounds="7.625, 20.875, 2, 1.3862939453125">
       <DataClassMoniker Name="/NorthwindTradersDataContext/CatalogoPermisos" />
       <nestedChildShapes>
-        <elementListCompartment Id="570dc1e5-4b85-4e35-901c-c407432857e8" absoluteBounds="5.89, 20.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="12a8cff8-5efc-4159-b293-03c6b021fc7f" absoluteBounds="7.64, 21.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="0bd5e3c3-a085-43ad-82d9-0377e423ce05" absoluteBounds="3.375, 22.125, 2, 1.1939925130208333">
+    <classShape Id="85c57dc3-2766-4484-aa67-1937f4c4df25" absoluteBounds="4.875, 21.75, 2, 1.1939925130208333">
       <DataClassMoniker Name="/NorthwindTradersDataContext/Permisos" />
       <nestedChildShapes>
-        <elementListCompartment Id="4f0e23b3-9223-4e05-8dc4-b179637f566d" absoluteBounds="3.3899999999999997, 22.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="fa987b57-175a-4927-aec7-d06ceb40bbbd" absoluteBounds="4.89, 22.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.875 : 21.8862939453125); (5.375 : 22.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(7.625 : 22.0056469726563); (6.875 : 22.0056469726563)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/NorthwindTradersDataContext/CatalogoPermisos/CatalogoPermisos_Permisos" />
       <nodes>
-        <classShapeMoniker Id="76d4fa90-c637-4160-8051-e268ff78370a" />
-        <classShapeMoniker Id="0bd5e3c3-a085-43ad-82d9-0377e423ce05" />
+        <classShapeMoniker Id="e2ee8b91-aec2-4284-a978-3c7cb37cc7ff" />
+        <classShapeMoniker Id="85c57dc3-2766-4484-aa67-1937f4c4df25" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.625 : 22.6450512695313); (3.375 : 22.6450512695313)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3.25 : 22.3469962565104); (4.875 : 22.3469962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/NorthwindTradersDataContext/Usuarios/Usuarios_Permisos" />
       <nodes>
-        <classShapeMoniker Id="5c7c7455-f1e9-4c40-8e72-414332aeefae" />
-        <classShapeMoniker Id="0bd5e3c3-a085-43ad-82d9-0377e423ce05" />
+        <classShapeMoniker Id="5f3723cd-fdb5-495a-954c-93f0e50a9ed9" />
+        <classShapeMoniker Id="85c57dc3-2766-4484-aa67-1937f4c4df25" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

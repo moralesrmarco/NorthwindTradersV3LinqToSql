@@ -297,6 +297,7 @@ namespace NorthwindTradersV3LinqToSql
         {
             if (tabcOperacion.SelectedTab != tbpRegistrar)
             {
+                BorrarMensajesError();
                 PonerNoVisibleBtnTogglePwd1();
                 DeshabilitarControles();
                 DataGridViewRow dgvr = Dgv.CurrentRow;
@@ -494,6 +495,7 @@ namespace NorthwindTradersV3LinqToSql
                 }
                 else if (txtUsuario.Text.Trim() != usuarioOld && ValidarControles())
                 {
+                    /*
                     // Cambia la logica con respecto a la versión ado.net, ya que el linq to sql no nos permite modificar el usuario ya que es una llave primaria, por lo que se debe eliminar primero el registro que ya existe y dar de alta uno nuevo,  "No se puede modificar un miembro que define la identidad del objeto. Agregue un nuevo objeto con una nueva identidad y elimine el existente"
                     MDIPrincipal.ActualizarBarraDeEstado(Utils.modificandoRegistro);
                     DeshabilitarControles();
@@ -586,6 +588,89 @@ namespace NorthwindTradersV3LinqToSql
                     }
                     btnLimpiar.PerformClick();
                     BorrarVariablesOld();
+                    */
+                    /*
+                     * Tuve que cambiar la logica porque no era correcto que se le reasignara un nuevo Id al usuario, 
+                     * para tal efecto modifique mi modelo (dbml) de base de datos 
+                     * El motivo por el que LINQ to SQL te fuerza a “eliminar y reinsertar” es que actualmente tienes mapeada la
+                     * columna Usuario como llave primaria. Para modificar ese valor sin perder el mismo Id debes:
+                     * - Corregir el mapeo de la llave primaria
+                     * - Abre tu DBML (o tu diseñador O/R) y selecciona la entidad Usuarios.
+                     * - Marca solo la columna Id como Primary Key, Auto-Generated / Identity.
+                     * - Desmarca totalmente la columna Usuario como llave primaria.
+                     * - Una vez corregido el modelo, ya puedes modificar el valor de Usuario (o de cualquier otra columna) sin 
+                     * borrar la fila ni cambiar el Id
+                     * lo siguiente es porque marco un error Error “especificación de AutoSync incorrecta para el miembro ‘Id’”
+                     * 1. Usando el diseñador O/R de Visual Studio
+                     * - Abre tu archivo .dbml en el diseñador (doble-clic en él).
+                     * - Selecciona la entidad Usuario (o como la llames) y haz clic en su propiedad Id.
+                     * - En la ventana Propiedades ajusta:
+                     * - Primary Key = True
+                     * - Auto Generated Value = True
+                     * - Server Data Type = Int NOT NULL IDENTITY
+                     * - Auto Sync = On Insert
+                     * - Guarda y recompila.
+
+                     * */
+                    MDIPrincipal.ActualizarBarraDeEstado(Utils.modificandoRegistro);
+                    DeshabilitarControles();
+                    PonerNoVisibleBtnTogglePwd1();
+                    btnOperacion.Enabled = false;
+                    try
+                    {
+                        int id = int.Parse(txtId.Text);
+                        var usuarioAModificar = context.Usuarios.FirstOrDefault(u => u.Id == id);
+                        if (usuarioAModificar == null)
+                        {
+                            MessageBox.Show($"El usuario con Id: {id} no existe en la base de datos", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        else
+                        {
+                            DateTime fechaCaptura = usuarioAModificar.FechaCaptura; // Mantiene la fecha de captura original
+                            usuarioAModificar.Paterno = txtPaterno.Text.Trim();
+                            usuarioAModificar.Materno = txtMaterno.Text.Trim();
+                            usuarioAModificar.Nombres = txtNombres.Text.Trim();
+                            usuarioAModificar.Usuario = txtUsuario.Text.Trim();
+                            usuarioAModificar.Password = (txtPwd.Text.Trim() != passHasheadaOld)
+                                        ? Utils.ComputeSha256Hash(txtPwd.Text.Trim())
+                                        : passHasheadaOld;
+                            usuarioAModificar.FechaCaptura = fechaCaptura; // Mantiene la fecha de captura original
+                            usuarioAModificar.FechaModificacion = DateTime.Now;
+                            usuarioAModificar.Estatus = chkbEstatus.Checked;
+                            var cambios = context.GetChangeSet();
+                            numRegs = cambios.Updates.Count;
+                            context.SubmitChanges();
+                            if (numRegs > 0)
+                            {
+                                lblFechaCaptura.Text = Convert.ToDateTime(usuarioAModificar.FechaCaptura).ToString("dd/MMMM/yyyy hh:mm:ss tt");
+                                lblFechaModificacion.Text = Convert.ToDateTime(usuarioAModificar.FechaModificacion).ToString("dd/MMMM/yyyy hh:mm:ss tt");
+                                MessageBox.Show($"El usuario con Id: {txtId.Text} y Nombre: {txtPaterno.Text} {txtMaterno.Text} {txtNombres.Text} se modificó satisfactoriamente", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                                MessageBox.Show($"El usuario con Id: {txtId.Text} y Nombre: {txtPaterno.Text} {txtMaterno.Text} {txtNombres.Text} NO se modificó en la base de datos", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (SqlException ex) when (ex.Number == 2627)
+                    {
+                        // Violación de índice único en Usuario
+                        MessageBox.Show(
+                          $"El nombre de usuario «{txtUsuario.Text}» ya existe.",
+                          Utils.nwtr,
+                          MessageBoxButtons.OK,
+                          MessageBoxIcon.Warning);
+                    }
+                    catch (SqlException ex)
+                    {
+                        Utils.MsgCatchOueclbdd(ex);
+                    }
+                    catch (Exception ex)
+                    {
+                        Utils.MsgCatchOue(ex);
+                    }
+                    btnLimpiar.PerformClick();
+                    BorrarVariablesOld();
+                    MDIPrincipal.ActualizarBarraDeEstado();
                 }
             }
             else if (tabcOperacion.SelectedTab == tbpEliminar)
