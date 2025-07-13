@@ -693,8 +693,21 @@ namespace NorthwindTradersV3LinqToSql
 
         private void cambiarContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Utils.CerrarFormularios();
+            FrmCambiarContrasena frmCambiarContrasena = new FrmCambiarContrasena
+            {
+                MdiParent = this,
+                UsuarioLogueado = this.UsuarioLogueado
+            };
+            frmCambiarContrasena.Show();
         }
 
+        private void cambiarDeUsuarioLogueadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Reinicia la aplicación
+            Application.Restart();
+            // Asegura que el hilo de la UI termine
+            Environment.Exit(0);
+        }
     }
 }

@@ -136,6 +136,7 @@
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -151,7 +152,6 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslEstado = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -199,7 +199,7 @@
             this.exitToolStripMenuItem});
             this.fileMenu.ImageTransparentColor = System.Drawing.SystemColors.ActiveBorder;
             this.fileMenu.Name = "fileMenu";
-            this.fileMenu.Size = new System.Drawing.Size(73, 24);
+            this.fileMenu.Size = new System.Drawing.Size(73, 27);
             this.fileMenu.Text = "&Archivo";
             // 
             // newToolStripMenuItem
@@ -295,7 +295,7 @@
             this.toolStripSeparator7,
             this.selectAllToolStripMenuItem});
             this.editMenu.Name = "editMenu";
-            this.editMenu.Size = new System.Drawing.Size(62, 24);
+            this.editMenu.Size = new System.Drawing.Size(62, 27);
             this.editMenu.Text = "&Editar";
             // 
             // undoToolStripMenuItem
@@ -369,7 +369,7 @@
             this.toolBarToolStripMenuItem,
             this.statusBarToolStripMenuItem});
             this.viewMenu.Name = "viewMenu";
-            this.viewMenu.Size = new System.Drawing.Size(44, 24);
+            this.viewMenu.Size = new System.Drawing.Size(44, 27);
             this.viewMenu.Text = "&Ver";
             // 
             // toolBarToolStripMenuItem
@@ -398,7 +398,7 @@
             this.tsmiMantenimientoDeEmpleados,
             this.reportesToolStripMenuItem});
             this.tsmiEmpleados.Name = "tsmiEmpleados";
-            this.tsmiEmpleados.Size = new System.Drawing.Size(97, 24);
+            this.tsmiEmpleados.Size = new System.Drawing.Size(97, 27);
             this.tsmiEmpleados.Text = "Empleados";
             // 
             // tsmiMantenimientoDeEmpleados
@@ -446,7 +446,7 @@
             this.consultasToolStripMenuItem,
             this.reportesToolStripMenuItem1});
             this.tsmiClientes.Name = "tsmiClientes";
-            this.tsmiClientes.Size = new System.Drawing.Size(75, 24);
+            this.tsmiClientes.Size = new System.Drawing.Size(75, 27);
             this.tsmiClientes.Text = "Clientes";
             // 
             // tsmiMantenimientoDeClientes
@@ -533,7 +533,7 @@
             this.consultasToolStripMenuItem1,
             this.reportesToolStripMenuItem2});
             this.tsmiProveedores.Name = "tsmiProveedores";
-            this.tsmiProveedores.Size = new System.Drawing.Size(105, 24);
+            this.tsmiProveedores.Size = new System.Drawing.Size(105, 27);
             this.tsmiProveedores.Text = "Proveedores";
             // 
             // tsmiMantenimientoDeProveedores
@@ -644,7 +644,7 @@
             this.consultasToolStripMenuItem2,
             this.reportesToolStripMenuItem3});
             this.tsmiCategorias.Name = "tsmiCategorias";
-            this.tsmiCategorias.Size = new System.Drawing.Size(94, 24);
+            this.tsmiCategorias.Size = new System.Drawing.Size(94, 27);
             this.tsmiCategorias.Text = "Categorías";
             // 
             // tsmiMantenimientoDeCategorías
@@ -707,7 +707,7 @@
             this.tsmiConsultasProductos,
             this.reportesToolStripMenuItem4});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(89, 24);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(89, 27);
             this.toolStripMenuItem1.Text = "Productos";
             // 
             // tsmiMantenimientoDeProductos
@@ -828,7 +828,7 @@
             this.consultasToolStripMenuItem3,
             this.reportesToolStripMenuItem5});
             this.tsmiPedidos.Name = "tsmiPedidos";
-            this.tsmiPedidos.Size = new System.Drawing.Size(75, 24);
+            this.tsmiPedidos.Size = new System.Drawing.Size(75, 27);
             this.tsmiPedidos.Text = "Pedidos";
             // 
             // tsmiMantenimientoDePedidos
@@ -887,7 +887,7 @@
             this.mantenimientoDeUsuariosToolStripMenuItem,
             this.mantenimientoDePermisosToolStripMenuItem});
             this.tsmiAdministracion.Name = "tsmiAdministracion";
-            this.tsmiAdministracion.Size = new System.Drawing.Size(123, 24);
+            this.tsmiAdministracion.Size = new System.Drawing.Size(123, 27);
             this.tsmiAdministracion.Text = "Administración";
             // 
             // mantenimientoDeUsuariosToolStripMenuItem
@@ -910,7 +910,7 @@
             this.cambiarContraseñaToolStripMenuItem,
             this.cambiarDeUsuarioLogueadoToolStripMenuItem});
             this.toolsMenu.Name = "toolsMenu";
-            this.toolsMenu.Size = new System.Drawing.Size(112, 24);
+            this.toolsMenu.Size = new System.Drawing.Size(112, 27);
             this.toolsMenu.Text = "&Herramientas";
             // 
             // cambiarContraseñaToolStripMenuItem
@@ -925,6 +925,7 @@
             this.cambiarDeUsuarioLogueadoToolStripMenuItem.Name = "cambiarDeUsuarioLogueadoToolStripMenuItem";
             this.cambiarDeUsuarioLogueadoToolStripMenuItem.Size = new System.Drawing.Size(289, 26);
             this.cambiarDeUsuarioLogueadoToolStripMenuItem.Text = "Cambiar de usuario logueado";
+            this.cambiarDeUsuarioLogueadoToolStripMenuItem.Click += new System.EventHandler(this.cambiarDeUsuarioLogueadoToolStripMenuItem_Click);
             // 
             // windowsMenu
             // 
@@ -936,7 +937,7 @@
             this.closeAllToolStripMenuItem,
             this.arrangeIconsToolStripMenuItem});
             this.windowsMenu.Name = "windowsMenu";
-            this.windowsMenu.Size = new System.Drawing.Size(82, 24);
+            this.windowsMenu.Size = new System.Drawing.Size(82, 27);
             this.windowsMenu.Text = "&Ventanas";
             // 
             // newWindowToolStripMenuItem
@@ -990,7 +991,7 @@
             this.toolStripSeparator8,
             this.aboutToolStripMenuItem});
             this.helpMenu.Name = "helpMenu";
-            this.helpMenu.Size = new System.Drawing.Size(65, 24);
+            this.helpMenu.Size = new System.Drawing.Size(65, 27);
             this.helpMenu.Text = "Ay&uda";
             // 
             // contentsToolStripMenuItem
@@ -1026,6 +1027,16 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(218, 26);
             this.aboutToolStripMenuItem.Text = "&Acerca de... ...";
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.AutoSize = false;
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.ReadOnly = true;
+            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 27);
+            this.toolStripTextBox1.Text = "Usuario: ";
+            this.toolStripTextBox1.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // toolStrip
             // 
@@ -1156,16 +1167,6 @@
             this.tsslEstado.Name = "tsslEstado";
             this.tsslEstado.Size = new System.Drawing.Size(47, 24);
             this.tsslEstado.Text = "Listo.";
-            // 
-            // toolStripTextBox1
-            // 
-            this.toolStripTextBox1.AutoSize = false;
-            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.ReadOnly = true;
-            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 27);
-            this.toolStripTextBox1.Text = "Usuario: ";
-            this.toolStripTextBox1.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // MDIPrincipal
             // 
