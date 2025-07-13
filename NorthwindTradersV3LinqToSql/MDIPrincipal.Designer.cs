@@ -122,6 +122,7 @@
             this.mantenimientoDePermisosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.cambiarContraseñaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cambiarDeUsuarioLogueadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.newWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -150,7 +151,7 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslEstado = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.cambiarDeUsuarioLogueadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -172,12 +173,13 @@
             this.tsmiAdministracion,
             this.toolsMenu,
             this.windowsMenu,
-            this.helpMenu});
+            this.helpMenu,
+            this.toolStripTextBox1});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.MdiWindowListItem = this.windowsMenu;
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip.Size = new System.Drawing.Size(1445, 28);
+            this.menuStrip.Size = new System.Drawing.Size(1445, 31);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "MenuStrip";
             // 
@@ -918,6 +920,12 @@
             this.cambiarContraseñaToolStripMenuItem.Text = "Cambiar contraseña";
             this.cambiarContraseñaToolStripMenuItem.Click += new System.EventHandler(this.cambiarContraseñaToolStripMenuItem_Click);
             // 
+            // cambiarDeUsuarioLogueadoToolStripMenuItem
+            // 
+            this.cambiarDeUsuarioLogueadoToolStripMenuItem.Name = "cambiarDeUsuarioLogueadoToolStripMenuItem";
+            this.cambiarDeUsuarioLogueadoToolStripMenuItem.Size = new System.Drawing.Size(289, 26);
+            this.cambiarDeUsuarioLogueadoToolStripMenuItem.Text = "Cambiar de usuario logueado";
+            // 
             // windowsMenu
             // 
             this.windowsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1033,7 +1041,7 @@
             this.helpToolStripButton,
             this.toolStripSeparator9,
             this.toolStripButton1});
-            this.toolStrip.Location = new System.Drawing.Point(0, 28);
+            this.toolStrip.Location = new System.Drawing.Point(0, 31);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(1445, 27);
             this.toolStrip.TabIndex = 1;
@@ -1149,11 +1157,15 @@
             this.tsslEstado.Size = new System.Drawing.Size(47, 24);
             this.tsslEstado.Text = "Listo.";
             // 
-            // cambiarDeUsuarioLogueadoToolStripMenuItem
+            // toolStripTextBox1
             // 
-            this.cambiarDeUsuarioLogueadoToolStripMenuItem.Name = "cambiarDeUsuarioLogueadoToolStripMenuItem";
-            this.cambiarDeUsuarioLogueadoToolStripMenuItem.Size = new System.Drawing.Size(289, 26);
-            this.cambiarDeUsuarioLogueadoToolStripMenuItem.Text = "Cambiar de usuario logueado";
+            this.toolStripTextBox1.AutoSize = false;
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.ReadOnly = true;
+            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 27);
+            this.toolStripTextBox1.Text = "Usuario: ";
+            this.toolStripTextBox1.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // MDIPrincipal
             // 
@@ -1170,6 +1182,7 @@
             this.ShowIcon = false;
             this.Text = "» Northwind Traders Ver. 3 Linq to Sql «";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.MDIPrincipal_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.toolStrip.ResumeLayout(false);
@@ -1304,6 +1317,7 @@
         private System.Windows.Forms.ToolStripMenuItem mantenimientoDePermisosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cambiarContraseñaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cambiarDeUsuarioLogueadoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
     }
 }
 

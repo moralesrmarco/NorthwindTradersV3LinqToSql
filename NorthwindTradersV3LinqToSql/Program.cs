@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NorthwindTradersV3LinqToSql
@@ -16,7 +13,31 @@ namespace NorthwindTradersV3LinqToSql
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MDIPrincipal());
+            // Inicializar el usuario autenticado como null
+            string usuarioAutenticado = null;
+            int idUsuarioLogueado = 0;
+            // Mostrar el formulario de inicio de sesión
+            using (var frmLogin = new FrmLogin())
+            {
+                frmLogin.ShowDialog();
+                if (frmLogin.IsAuthenticated)
+                {
+                    usuarioAutenticado = frmLogin.UsuarioLogueado;
+                    idUsuarioLogueado = frmLogin.IdUsuarioLogueado;
+                }
+                else
+                {
+                    // Si no se autenticó, salir de la aplicación
+                    return;
+                }
+            }
+            //Application.Run(new MDIPrincipal());
+            var mdi = new MDIPrincipal
+            {
+                UsuarioLogueado = usuarioAutenticado,
+                IdUsuarioLogueado = idUsuarioLogueado
+            };
+            Application.Run(mdi);
         }
     }
 }

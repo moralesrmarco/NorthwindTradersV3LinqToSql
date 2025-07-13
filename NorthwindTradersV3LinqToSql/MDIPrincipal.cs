@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace NorthwindTradersV3LinqToSql
@@ -8,6 +10,8 @@ namespace NorthwindTradersV3LinqToSql
     {
         private int childFormNumber = 0;
         public static MDIPrincipal Instance { get; private set; }
+        public string UsuarioLogueado { get; set; }
+        public int IdUsuarioLogueado { get; set; }
 
         public ToolStripStatusLabel ToolStripEstado
         {
@@ -48,6 +52,83 @@ namespace NorthwindTradersV3LinqToSql
         {
             InitializeComponent();
             Instance = this;
+            this.Text = Utils.nwtr;
+            this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void MDIPrincipal_Load(object sender, EventArgs e)
+        {
+            string textoParaToolStripTextBox1 = "Usuario: »" + UsuarioLogueado + "«";
+            // Medir el tamaño del texto
+            Size sizeTextoParaToolStripTextBox1 = TextRenderer.MeasureText(textoParaToolStripTextBox1, toolStripTextBox1.Font);
+            // Asignar el ancho con un pequeño margen adicional
+            toolStripTextBox1.Width = sizeTextoParaToolStripTextBox1.Width + 20; // se suman 20 píxeles para un margen adicional
+            this.toolStripTextBox1.Text = textoParaToolStripTextBox1;
+            IniciarSesion();
+        }
+
+        private void IniciarSesion()
+        {
+            // Obtener los permisos del usuario logueado
+            var permisos = ObtenerPermisosUsuario(IdUsuarioLogueado);
+            // Ajustar el menú por permisos
+            AjustarMenuPorPermisos(permisos);
+            if (permisos.Count == 0)
+            {
+                MessageBox.Show("El usuario no tiene permisos asignados.", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //return;
+            }
+            ActualizarBarraDeEstado("Sesión iniciada correctamente");
+        }
+
+        private void AjustarMenuPorPermisos(HashSet<int> permisos)
+        {
+            tsmiEmpleados.Enabled = false;
+            tsmiClientes.Enabled = false;
+            tsmiProveedores.Enabled = false;
+            tsmiCategorias.Enabled = false;
+            toolStripMenuItem1.Enabled = false; // tsmiProductos.Enabled = false;
+            tsmiPedidos.Enabled = false;
+            tsmiAdministracion.Enabled = false;
+            foreach (int permisoId in permisos)
+            {
+                if (permisoId == 1)
+                    tsmiEmpleados.Enabled = true; // Permiso para Empleados
+                else if (permisoId == 2)
+                    tsmiClientes.Enabled = true; // Permiso para Clientes
+                else if (permisoId == 3)
+                    tsmiProveedores.Enabled = true; // Permiso para Proveedores
+                else if (permisoId == 4)
+                    tsmiCategorias.Enabled = true; // Permiso para Categorías
+                else if (permisoId == 5)
+                    toolStripMenuItem1.Enabled = true; // tsmiProductos.Enabled = true; // Permiso para Productos
+                else if (permisoId == 6)
+                    tsmiPedidos.Enabled = true; // Permiso para Pedidos
+                else if (permisoId == 7)
+                    tsmiAdministracion.Enabled = true; // Permiso para Administración
+            }
+        }
+
+        private HashSet<int> ObtenerPermisosUsuario(int idUsuarioLogueado)
+        {
+            HashSet<int> permisos = new HashSet<int>();
+            try
+            {
+                using (NorthwindTradersDataContext context = new NorthwindTradersDataContext())
+                {
+                    // Consulta LINQ: filtra por UsuarioId y proyecta solo PermisoId
+                    var permisosIds = context.Permisos
+                        .Where(p => p.UsuarioId == idUsuarioLogueado)
+                        .Select(p => p.PermisoId);
+                    // Crea el HashSet a partir del IEnumerable<int>
+                    permisos = new HashSet<int>(permisosIds);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener los permisos del usuario: " + ex.Message, Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return permisos;
         }
 
         private void ShowNewForm(object sender, EventArgs e)
@@ -614,5 +695,6 @@ namespace NorthwindTradersV3LinqToSql
         {
 
         }
+
     }
 }
