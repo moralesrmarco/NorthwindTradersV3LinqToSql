@@ -58,6 +58,7 @@
             this.txtPwd.Name = "txtPwd";
             this.txtPwd.Size = new System.Drawing.Size(190, 26);
             this.txtPwd.TabIndex = 9;
+            this.txtPwd.Text = "a";
             this.txtPwd.UseSystemPasswordChar = true;
             // 
             // txtUsuario
@@ -68,6 +69,7 @@
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(190, 26);
             this.txtUsuario.TabIndex = 8;
+            this.txtUsuario.Text = "a";
             // 
             // label2
             // 

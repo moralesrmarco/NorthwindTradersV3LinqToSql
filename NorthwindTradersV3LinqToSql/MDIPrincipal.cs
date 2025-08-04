@@ -709,5 +709,15 @@ namespace NorthwindTradersV3LinqToSql
             // Asegura que el hilo de la UI termine
             Environment.Exit(0);
         }
+
+        private void ventasMensualesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmGraficaVentasMensuales frmGraficaVentasMensuales = new FrmGraficaVentasMensuales
+            {
+                MdiParent = this
+            };
+            frmGraficaVentasMensuales.Show();
+        }
     }
 }

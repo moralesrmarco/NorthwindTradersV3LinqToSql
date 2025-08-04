@@ -152,6 +152,11 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslEstado = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.gráficasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.consultasToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportesToolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ventasMensualesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ventasMensualesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -170,6 +175,7 @@
             this.tsmiCategorias,
             this.toolStripMenuItem1,
             this.tsmiPedidos,
+            this.gráficasToolStripMenuItem,
             this.tsmiAdministracion,
             this.toolsMenu,
             this.windowsMenu,
@@ -1168,6 +1174,44 @@
             this.tsslEstado.Size = new System.Drawing.Size(47, 24);
             this.tsslEstado.Text = "Listo.";
             // 
+            // gráficasToolStripMenuItem
+            // 
+            this.gráficasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.consultasToolStripMenuItem4,
+            this.reportesToolStripMenuItem6});
+            this.gráficasToolStripMenuItem.Name = "gráficasToolStripMenuItem";
+            this.gráficasToolStripMenuItem.Size = new System.Drawing.Size(76, 27);
+            this.gráficasToolStripMenuItem.Text = "Gráficas";
+            // 
+            // consultasToolStripMenuItem4
+            // 
+            this.consultasToolStripMenuItem4.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ventasMensualesToolStripMenuItem});
+            this.consultasToolStripMenuItem4.Name = "consultasToolStripMenuItem4";
+            this.consultasToolStripMenuItem4.Size = new System.Drawing.Size(224, 26);
+            this.consultasToolStripMenuItem4.Text = "Consultas";
+            // 
+            // reportesToolStripMenuItem6
+            // 
+            this.reportesToolStripMenuItem6.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ventasMensualesToolStripMenuItem1});
+            this.reportesToolStripMenuItem6.Name = "reportesToolStripMenuItem6";
+            this.reportesToolStripMenuItem6.Size = new System.Drawing.Size(224, 26);
+            this.reportesToolStripMenuItem6.Text = "Reportes";
+            // 
+            // ventasMensualesToolStripMenuItem
+            // 
+            this.ventasMensualesToolStripMenuItem.Name = "ventasMensualesToolStripMenuItem";
+            this.ventasMensualesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.ventasMensualesToolStripMenuItem.Text = "Ventas mensuales";
+            this.ventasMensualesToolStripMenuItem.Click += new System.EventHandler(this.ventasMensualesToolStripMenuItem_Click);
+            // 
+            // ventasMensualesToolStripMenuItem1
+            // 
+            this.ventasMensualesToolStripMenuItem1.Name = "ventasMensualesToolStripMenuItem1";
+            this.ventasMensualesToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.ventasMensualesToolStripMenuItem1.Text = "Ventas mensuales";
+            // 
             // MDIPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1319,6 +1363,11 @@
         private System.Windows.Forms.ToolStripMenuItem cambiarContraseñaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cambiarDeUsuarioLogueadoToolStripMenuItem;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
+        private System.Windows.Forms.ToolStripMenuItem gráficasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem consultasToolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem ventasMensualesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem ventasMensualesToolStripMenuItem1;
     }
 }
 
