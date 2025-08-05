@@ -117,6 +117,12 @@
     <Compile Include="FrmEmpleadosCrud.designer.cs">
       <DependentUpon>FrmEmpleadosCrud.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmGraficaVentasAnuales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGraficaVentasAnuales.Designer.cs">
+      <DependentUpon>FrmGraficaVentasAnuales.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmGraficaVentasMensuales.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -267,6 +273,12 @@
     <Compile Include="FrmRptEmpleadosConFoto.Designer.cs">
       <DependentUpon>FrmRptEmpleadosConFoto.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmRptGraficaVentasMensuales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRptGraficaVentasMensuales.Designer.cs">
+      <DependentUpon>FrmRptGraficaVentasMensuales.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmRptNotaRemision.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -377,6 +389,9 @@
     <EmbeddedResource Include="FrmEmpleadosCrud.resx">
       <DependentUpon>FrmEmpleadosCrud.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmGraficaVentasAnuales.resx">
+      <DependentUpon>FrmGraficaVentasAnuales.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmGraficaVentasMensuales.resx">
       <DependentUpon>FrmGraficaVentasMensuales.cs</DependentUpon>
     </EmbeddedResource>
@@ -452,6 +467,9 @@
     <EmbeddedResource Include="FrmRptEmpleadosConFoto.resx">
       <DependentUpon>FrmRptEmpleadosConFoto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmRptGraficaVentasMensuales.resx">
+      <DependentUpon>FrmRptGraficaVentasMensuales.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmRptNotaRemision.resx">
       <DependentUpon>FrmRptNotaRemision.cs</DependentUpon>
     </EmbeddedResource>
@@ -496,6 +514,7 @@
     <EmbeddedResource Include="RptEmpleado.rdlc" />
     <EmbeddedResource Include="RptEmpleados.rdlc" />
     <EmbeddedResource Include="RptEmpleadosConFoto.rdlc" />
+    <EmbeddedResource Include="RptGraficaVentasMensuales.rdlc" />
     <EmbeddedResource Include="RptNotaRemision.rdlc" />
     <EmbeddedResource Include="RptNotaRemision2.rdlc" />
     <EmbeddedResource Include="RptOrderDetailPedPorDifCriterios.rdlc" />
