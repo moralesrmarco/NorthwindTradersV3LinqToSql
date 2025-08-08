@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -140,37 +141,48 @@ namespace NorthwindTradersV3LinqToSql
                 new { Mes = 11, NombreMes = "Nov." },
                 new { Mes = 12, NombreMes = "Dic." }
             };
-            using (var context = new NorthwindTradersDataContext())
+            try
             {
-                // 2. Consulta LINQ para obtener las ventas mensuales del año especificado
-                var ventasMensualesQuery = from o in context.Orders
-                                           where o.OrderDate != null && o.OrderDate.Value.Year == year
-                                           join od in context.Order_Details on o.OrderID equals od.OrderID
-                                           group od by o.OrderDate.Value.Month into g
-                                           select new
-                                           {
-                                               Mes = g.Key,
-                                               Total = g.Sum(x => x.UnitPrice * x.Quantity * (1 - (decimal)x.Discount)) 
-                                           };
-                // 3. Unir con el arreglo de meses para asegurar que todos los meses estén representados
-                var ventasMensuales = from m in meses
-                                      join v in ventasMensualesQuery on m.Mes equals v.Mes into mv
-                                      from v in mv.DefaultIfEmpty()
-                                      orderby m.Mes
-                                      select new
-                                      {
-                                          Mes = m.Mes,
-                                          NombreMes = m.NombreMes,
-                                          Total = v != null ? v.Total : 0m
-                                      };
-                // 4. Convertir a DataTable
-                dt.Columns.Add("Mes", typeof(int));
-                dt.Columns.Add("NombreMes", typeof(string));
-                dt.Columns.Add("Total", typeof(decimal));
-                foreach (var item in ventasMensuales)
+                using (var context = new NorthwindTradersDataContext())
                 {
-                    dt.Rows.Add(item.Mes, item.NombreMes, item.Total);
+                    // 2. Consulta LINQ para obtener las ventas mensuales del año especificado
+                    var ventasMensualesQuery = from o in context.Orders
+                                               where o.OrderDate != null && o.OrderDate.Value.Year == year
+                                               join od in context.Order_Details on o.OrderID equals od.OrderID
+                                               group od by o.OrderDate.Value.Month into g
+                                               select new
+                                               {
+                                                   Mes = g.Key,
+                                                   Total = g.Sum(x => x.UnitPrice * x.Quantity * (1 - (decimal)x.Discount))
+                                               };
+                    // 3. Unir con el arreglo de meses para asegurar que todos los meses estén representados
+                    var ventasMensuales = from m in meses
+                                          join v in ventasMensualesQuery on m.Mes equals v.Mes into mv
+                                          from v in mv.DefaultIfEmpty()
+                                          orderby m.Mes
+                                          select new
+                                          {
+                                              Mes = m.Mes,
+                                              NombreMes = m.NombreMes,
+                                              Total = v != null ? v.Total : 0m
+                                          };
+                    // 4. Convertir a DataTable
+                    dt.Columns.Add("Mes", typeof(int));
+                    dt.Columns.Add("NombreMes", typeof(string));
+                    dt.Columns.Add("Total", typeof(decimal));
+                    foreach (var item in ventasMensuales)
+                    {
+                        dt.Rows.Add(item.Mes, item.NombreMes, item.Total);
+                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                Utils.MsgCatchOueclbdd(ex);
+            }
+            catch (Exception ex)
+            {
+                Utils.MsgCatchOue(ex);
             }
             return dt;
         }

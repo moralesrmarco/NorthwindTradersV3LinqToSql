@@ -742,6 +742,26 @@ namespace NorthwindTradersV3LinqToSql
 
         private void comparativoDeVentasAnualesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            Utils.CerrarFormularios();
+            FrmRptGraficaVentasAnuales frmRptGraficaVentasAnuales = new FrmRptGraficaVentasAnuales
+            {
+                MdiParent = this
+            };
+            frmRptGraficaVentasAnuales.Show();
+        }
+
+        private void topProductosMásVendidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmGraficaTopProductosMasVendidos frmGraficaTopProductosMasVendidos = new FrmGraficaTopProductosMasVendidos
+            {
+                MdiParent = this
+            };
+            frmGraficaTopProductosMasVendidos.Show();
+        }
+
+        private void topProductosMásVendidosToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
 
         }
     }
