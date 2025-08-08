@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -25,8 +22,6 @@ namespace NorthwindTradersV3LinqToSql
         private void FrmGraficaTopProductosMasVendidos_Load(object sender, EventArgs e)
         {
             LlenarComboBox();
-            groupBox1.Text = $"» Top 10 productos más vendidos «";
-
         }
 
         private void LlenarComboBox()
@@ -79,27 +74,35 @@ namespace NorthwindTradersV3LinqToSql
                 string nombreProducto = (idx + 1).ToString() + ".- " + row["NombreProducto"];
                 int cantidadVendida = Convert.ToInt32(row["CantidadVendida"]);
                 serie.Points.AddXY(nombreProducto, cantidadVendida);
-                serie.Points.Last().Color = paleta[idx % paleta.Length]; // Asignar color de la paleta
+                serie.Points.Last().Color = paleta[idx % paleta.Length];
                 idx++;
             }
+
             chart1.Legends.Clear();
             var area = chart1.ChartAreas[0];
+
             area.Area3DStyle.Enable3D = true;
             area.Area3DStyle.Inclination = 30; 
             area.Area3DStyle.Rotation = 20; 
             area.Area3DStyle.LightStyle = LightStyle.Realistic;
 
-            area.AxisY.LabelStyle.Format = "N0";
             area.AxisX.Interval = 1;
             area.AxisX.LabelStyle.Angle = -45;
             area.AxisX.Title = "Productos más vendidos";
-            area.AxisY.Title = "Cantidad vendida (unidades)";
             area.AxisX.MajorGrid.Enabled = true;
-            area.AxisX.MajorGrid.LineColor = Color.LightGray;
+            area.AxisX.MajorGrid.LineColor = Color.Black;
             area.AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
+
+            area.AxisY.LabelStyle.Format = "N0";
+            area.AxisY.LabelStyle.Angle = -45;
+            area.AxisY.LabelStyle.Font = new Font("Arial", 8, FontStyle.Regular);
+            area.AxisY.Title = "Cantidad vendida (unidades)";
             area.AxisY.MajorGrid.Enabled = true;
-            area.AxisY.MajorGrid.LineColor = Color.LightGray;
+            area.AxisY.MajorGrid.LineColor = Color.Black;
             area.AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
+            area.AxisY.MinorGrid.Enabled = true;
+            area.AxisY.MinorGrid.LineColor = Color.Black;
+            area.AxisY.MinorGrid.LineDashStyle = ChartDashStyle.Dash;
         }
 
         private DataTable ObtenerTopProductos(int cantidad)
