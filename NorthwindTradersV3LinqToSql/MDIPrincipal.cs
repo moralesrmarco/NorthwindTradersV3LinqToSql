@@ -762,7 +762,12 @@ namespace NorthwindTradersV3LinqToSql
 
         private void topProductosMásVendidosToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
+            Utils.CerrarFormularios();
+            FrmRptGraficaTopProductosMasVendidos frmRptGraficaTopProductosMasVendidos = new FrmRptGraficaTopProductosMasVendidos
+            {
+                MdiParent = this
+            };
+            frmRptGraficaTopProductosMasVendidos.Show();
         }
     }
 }
