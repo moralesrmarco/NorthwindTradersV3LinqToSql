@@ -769,5 +769,20 @@ namespace NorthwindTradersV3LinqToSql
             };
             frmRptGraficaTopProductosMasVendidos.Show();
         }
+
+        private void ventasPorVendedoresDeTodosLosAñosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmGraficaVentasPorVendedores frmGraficaVentasPorVendedores = new FrmGraficaVentasPorVendedores
+            {
+                MdiParent = this
+            };
+            frmGraficaVentasPorVendedores.Show();
+        }
+
+        private void ventasPorVendedoresDeTodosLosAñosToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
