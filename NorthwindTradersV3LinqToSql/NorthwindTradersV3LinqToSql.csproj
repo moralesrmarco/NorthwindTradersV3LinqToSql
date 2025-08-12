@@ -518,6 +518,9 @@
     <EmbeddedResource Include="FrmRptEmpleadosConFoto.resx">
       <DependentUpon>FrmRptEmpleadosConFoto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmRptGraficaDeVentasDeVendedoresPorAnio.resx">
+      <DependentUpon>FrmRptGraficaDeVentasDeVendedoresPorAnio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmRptGraficaTopProductosMasVendidos.resx">
       <DependentUpon>FrmRptGraficaTopProductosMasVendidos.cs</DependentUpon>
     </EmbeddedResource>
@@ -574,6 +577,7 @@
     <EmbeddedResource Include="RptEmpleado.rdlc" />
     <EmbeddedResource Include="RptEmpleados.rdlc" />
     <EmbeddedResource Include="RptEmpleadosConFoto.rdlc" />
+    <EmbeddedResource Include="RptGraficaDeVentasDeVendedoresPorAnio.rdlc" />
     <EmbeddedResource Include="RptGraficaTopProductosMásVendidos.rdlc" />
     <EmbeddedResource Include="RptGraficaVentasAnuales.rdlc" />
     <EmbeddedResource Include="RptGraficaVentasMensuales.rdlc" />

@@ -7,7 +7,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>d23c962e-f28e-4f83-842c-e0cfe9925184</rd:DataSourceID>
+      <rd:DataSourceID>a9ebbd0f-4603-4709-a67d-ac294940442d</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -77,6 +77,8 @@
                       <ChartDataLabel>
                         <Style>
                           <FontSize>8pt</FontSize>
+                          <Format>'$'#,0.00;('$'#,0.00)</Format>
+                          <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
                         </Style>
                         <Label>=Fields!Vendedor.Value &amp; vbCrLf &amp; FormatCurrency(Fields!TotalVentas.Value, 2)</Label>
                         <Visible>true</Visible>
@@ -357,17 +359,18 @@
                   <BackgroundGradientType>None</BackgroundGradientType>
                   <FontFamily>Arial Rounded MT Bold</FontFamily>
                   <FontSize>12pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontWeight>Normal</FontWeight>
                   <TextAlign>Left</TextAlign>
                   <VerticalAlign>Top</VerticalAlign>
                 </Style>
               </ChartTitle>
               <ChartTitle Name="Title1">
-                <Caption>="Total de ventas: " &amp; Format(Sum(Fields!TotalVentas.Value), "C2")</Caption>
+                <Caption>="Total de ventas del año " &amp; Parameters!Anio.Value &amp; ": " &amp; Format(Sum(Fields!TotalVentas.Value), "C2")</Caption>
                 <Style>
                   <BackgroundGradientType>None</BackgroundGradientType>
                   <FontFamily>Arial Rounded MT Bold</FontFamily>
                   <FontSize>8pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
                   <TextAlign>Left</TextAlign>
                   <VerticalAlign>Top</VerticalAlign>
                 </Style>
@@ -375,7 +378,7 @@
                 <ChartElementPosition>
                   <Top>6.5</Top>
                   <Left>3</Left>
-                  <Height>3.378</Height>
+                  <Height>3.947</Height>
                   <Width>94</Width>
                 </ChartElementPosition>
               </ChartTitle>
@@ -411,18 +414,18 @@
             </Style>
           </Chart>
         </ReportItems>
-        <Height>6.71667in</Height>
+        <Height>6.56667in</Height>
         <Style />
       </Body>
       <Width>10.3937in</Width>
       <Page>
         <PageHeader>
-          <Height>1.94733cm</Height>
+          <Height>1.8415cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
             <Line Name="Line1">
-              <Top>1.81416cm</Top>
+              <Top>1.72332cm</Top>
               <Height>0cm</Height>
               <Width>26.4cm</Width>
               <Style>
@@ -436,8 +439,7 @@
               <Source>Embedded</Source>
               <Value>northwinddb</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>0.09084cm</Top>
-              <Left>0.46408cm</Left>
+              <Left>0.64658cm</Left>
               <Height>1.56104cm</Height>
               <Width>1.64042cm</Width>
               <ZIndex>1</ZIndex>
@@ -447,14 +449,28 @@
                 </Border>
               </Style>
             </Image>
-            <Textbox Name="Textbox3">
+            <Textbox Name="Textbox1">
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Northwind Traders - » Reporte gráfico ventas por vendedores de todos los años «</Value>
+                      <Value>Northwind Traders - » Reporte gráfico ventas por vendedores del año </Value>
+                      <Style>
+                        <FontSize>12pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Parameters!Anio.Value</Value>
+                      <Style>
+                        <FontSize>12pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value> «</Value>
                       <Style>
                         <FontSize>12pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -466,9 +482,9 @@
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox3</rd:DefaultName>
-              <Top>0.66234cm</Top>
-              <Left>2.59874cm</Left>
+              <rd:DefaultName>Textbox1</rd:DefaultName>
+              <Top>0.5715cm</Top>
+              <Left>2.78124cm</Left>
               <Height>0.6cm</Height>
               <Width>23.24333cm</Width>
               <ZIndex>2</ZIndex>
@@ -600,6 +616,10 @@
     </ReportSection>
   </ReportSections>
   <ReportParameters>
+    <ReportParameter Name="Anio">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
     <ReportParameter Name="Subtitulo">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
@@ -612,6 +632,11 @@
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Anio</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>Subtitulo</ParameterName>
         </CellDefinition>
@@ -646,5 +671,5 @@ VFFi5wp5rdIyq/jdYwGcYZuQIL58x610L4h26ouW17fQftCmp6yWthCR1ORDWyBWbwWx7MRkAjBKqOiR
     </EmbeddedImage>
   </EmbeddedImages>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>7eb991ac-6929-4f23-b305-e07384803ace</rd:ReportID>
+  <rd:ReportID>c7661fb0-e6fd-4f50-a72a-57a977f07b1f</rd:ReportID>
 </Report>
