@@ -117,6 +117,12 @@
     <Compile Include="FrmEmpleadosCrud.designer.cs">
       <DependentUpon>FrmEmpleadosCrud.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmGraficaDeVentasDeVendedoresPorAnio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGraficaDeVentasDeVendedoresPorAnio.Designer.cs">
+      <DependentUpon>FrmGraficaDeVentasDeVendedoresPorAnio.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmGraficaTopProductosMasVendidos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,6 +291,12 @@
     <Compile Include="FrmRptEmpleadosConFoto.Designer.cs">
       <DependentUpon>FrmRptEmpleadosConFoto.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmRptGraficaDeVentasDeVendedoresPorAnio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRptGraficaDeVentasDeVendedoresPorAnio.Designer.cs">
+      <DependentUpon>FrmRptGraficaDeVentasDeVendedoresPorAnio.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmRptGraficaTopProductosMasVendidos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -418,6 +430,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmEmpleadosCrud.resx">
       <DependentUpon>FrmEmpleadosCrud.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGraficaDeVentasDeVendedoresPorAnio.resx">
+      <DependentUpon>FrmGraficaDeVentasDeVendedoresPorAnio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmGraficaTopProductosMasVendidos.resx">
       <DependentUpon>FrmGraficaTopProductosMasVendidos.cs</DependentUpon>
