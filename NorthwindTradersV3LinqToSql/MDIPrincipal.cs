@@ -809,5 +809,25 @@ namespace NorthwindTradersV3LinqToSql
             };
             frmRptGraficaDeVentasDeVendedoresPorAnio.Show();
         }
+
+        private void ventasMensualesPorVendedorPorAñoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmGraficaVentasMensualesPorVendedorPorAnio frmGraficaVentasMensualesPorVendedorPorAnio = new FrmGraficaVentasMensualesPorVendedorPorAnio
+            {
+                MdiParent = this
+            };
+            frmGraficaVentasMensualesPorVendedorPorAnio.Show();
+        }
+
+        private void ventasMensualesPorVendedorPorAñoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Utils.CerrarFormularios();
+            FrmRptGraficaVentasMensualesPorVendedorPorAnio frmRptGraficaVentasMensualesPorVendedorPorAnio = new FrmRptGraficaVentasMensualesPorVendedorPorAnio
+            {
+                MdiParent = this
+            };
+            frmRptGraficaVentasMensualesPorVendedorPorAnio.Show();
+        }
     }
 }
