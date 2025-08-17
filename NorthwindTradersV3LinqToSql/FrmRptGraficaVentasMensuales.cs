@@ -70,6 +70,7 @@ namespace NorthwindTradersV3LinqToSql
 
         private DataTable GetTableGrafica(int año)
         {
+            MDIPrincipal.ActualizarBarraDeEstado(Utils.clbdd);
             // 1. Arreglo in-memory de meses con su nombre abreviado
             var meses = new[]
             {
@@ -116,6 +117,7 @@ namespace NorthwindTradersV3LinqToSql
                 dt.Columns.Add("NombreMes", typeof(string));
                 foreach (var row in resultado)
                     dt.Rows.Add(row.Mes, row.Total, row.NombreMes);
+                MDIPrincipal.ActualizarBarraDeEstado();
                 return dt;
             }
         }

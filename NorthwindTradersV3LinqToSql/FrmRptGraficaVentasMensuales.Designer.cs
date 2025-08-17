@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
             this.CmbVentasMensualesDelAño = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -60,16 +60,6 @@
             this.splitContainer1.SplitterDistance = 42;
             this.splitContainer1.TabIndex = 0;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(236, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Ventas mensuales del año:";
-            // 
             // CmbVentasMensualesDelAño
             // 
             this.CmbVentasMensualesDelAño.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -80,6 +70,16 @@
             this.CmbVentasMensualesDelAño.Size = new System.Drawing.Size(153, 28);
             this.CmbVentasMensualesDelAño.TabIndex = 1;
             this.CmbVentasMensualesDelAño.SelectedIndexChanged += new System.EventHandler(this.CmbVentasMensualesDelAño_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(0, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(236, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Ventas mensuales del año:";
             // 
             // groupBox1
             // 
