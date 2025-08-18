@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -43,7 +39,6 @@ namespace NorthwindTradersV3LinqToSql
                     {
                         CmbVentasDelAño.Items.Add(year);
                     }
-                    CmbVentasDelAño.SelectedIndex = 0;
                 }
             }
             catch (SqlException ex)
@@ -55,6 +50,7 @@ namespace NorthwindTradersV3LinqToSql
                 Utils.MsgCatchOue(ex);
             }
             MDIPrincipal.ActualizarBarraDeEstado();
+            CmbVentasDelAño.SelectedIndex = 0;
         }
 
         private void CmbVentasDelAño_SelectedIndexChanged(object sender, EventArgs e)

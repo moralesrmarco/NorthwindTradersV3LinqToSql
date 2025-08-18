@@ -1,15 +1,20 @@
 ﻿using Microsoft.Reporting.WinForms;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NorthwindTradersV3LinqToSql
 {
-    public partial class FrmRptGraficaVentasMensualesPorVendedorPorAnio : Form
+    public partial class FrmRptGraficaVentasMensualesPorVendedorPorAnioBarras : Form
     {
-        public FrmRptGraficaVentasMensualesPorVendedorPorAnio()
+        public FrmRptGraficaVentasMensualesPorVendedorPorAnioBarras()
         {
             InitializeComponent();
             WindowState = FormWindowState.Maximized;
@@ -17,12 +22,12 @@ namespace NorthwindTradersV3LinqToSql
 
         private void GrbPaint(object sender, PaintEventArgs e) => Utils.GrbPaint(this, sender, e);
 
-        private void FrmRptGraficaVentasMensualesPorVendedorPorAnio_Load(object sender, EventArgs e)
+        private void FrmRptGraficaVentasMensualesPorVendedorPorAnioBarras_Load(object sender, EventArgs e)
         {
-            LlenarComboBox();
+            LlenarCmbVentasDelAño();
         }
 
-        private void LlenarComboBox()
+        private void LlenarCmbVentasDelAño()
         {
             MDIPrincipal.ActualizarBarraDeEstado(Utils.clbdd);
             try
@@ -36,9 +41,8 @@ namespace NorthwindTradersV3LinqToSql
                         .OrderByDescending(y => y);
                     foreach (var year in years)
                     {
-                        comboBox1.Items.Add(year);
+                        CmbVentasDelAño.Items.Add(year);
                     }
-                    comboBox1.SelectedIndex = 0;
                 }
             }
             catch (SqlException ex)
@@ -50,24 +54,25 @@ namespace NorthwindTradersV3LinqToSql
                 Utils.MsgCatchOue(ex);
             }
             MDIPrincipal.ActualizarBarraDeEstado();
+            CmbVentasDelAño.SelectedIndex = 0;
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbVentasDelAño_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LlenarGrafico(Convert.ToInt32(comboBox1.SelectedItem.ToString()));
+            CargarGrafica(Convert.ToInt32(CmbVentasDelAño.SelectedItem.ToString()));
         }
 
-        private void LlenarGrafico(int year)
+        private void CargarGrafica(int anio)
         {
-            groupBox1.Text = $"» Reporte gráfico comparativo de ventas mensuales por vendedores del año {year} «";
-            DataTable dt = ObtenerDatos(year);
+            groupBox1.Text = $"» Reporte gráfico comparativo de ventas mensuales por vendedores del año {anio} «";
+            DataTable dt = ObtenerDatos(anio);
             if (dt != null)
             {
                 reportViewer1.LocalReport.DataSources.Clear();
                 var rds = new ReportDataSource("DataSet1", dt);
                 reportViewer1.LocalReport.DataSources.Add(rds);
-                reportViewer1.LocalReport.SetParameters(new ReportParameter("Subtitulo", $"Ventas mensuales por vendedores del año {year}"));
-                reportViewer1.LocalReport.SetParameters(new ReportParameter("Anio", year.ToString()));
+                reportViewer1.LocalReport.SetParameters(new ReportParameter("Subtitulo", $"Ventas mensuales por vendedores del año {anio}"));
+                reportViewer1.LocalReport.SetParameters(new ReportParameter("Anio", anio.ToString()));
                 reportViewer1.RefreshReport();
             }
         }
