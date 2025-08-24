@@ -71,55 +71,66 @@ namespace NorthwindTradersV3LinqToSql
         private DataTable GetTableGrafica(int año)
         {
             MDIPrincipal.ActualizarBarraDeEstado(Utils.clbdd);
-            // 1. Arreglo in-memory de meses con su nombre abreviado
-            var meses = new[]
+            var dt = new DataTable();
+            try
             {
-                new { Mes = 1, NombreMes = "Ene." },
-                new { Mes = 2, NombreMes = "Feb." },
-                new { Mes = 3, NombreMes = "Mar." },
-                new { Mes = 4, NombreMes = "Abr." },
-                new { Mes = 5, NombreMes = "May." },
-                new { Mes = 6, NombreMes = "Jun." },
-                new { Mes = 7, NombreMes = "Jul." },
-                new { Mes = 8, NombreMes = "Ago." },
-                new { Mes = 9, NombreMes = "Sep." },
-                new { Mes = 10, NombreMes = "Oct." },
-                new { Mes = 11, NombreMes = "Nov." },
-                new { Mes = 12, NombreMes = "Dic." }
-            };
-            using (var context = new NorthwindTradersDataContext())
-            {
-                // 2. Subconsulta: ventas agrupadas por mes
-                var ventasPorMesQuery = from o in context.Orders
-                                        where o.OrderDate.HasValue && o.OrderDate.Value.Year == año
-                                        join od in context.Order_Details on o.OrderID equals od.OrderID
-                                        group od by o.OrderDate.Value.Month into g
-                                        select new
-                                        {
-                                            Mes = g.Key,
-                                            Total = g.Sum(x => x.UnitPrice * x.Quantity * (1 - (decimal)x.Discount))
-                                        };
-                // 3. Left join entre meses y ventasPorMesQuery
-                var resultado = from m in meses
-                                join v in ventasPorMesQuery on m.Mes equals v.Mes into grp
-                                from v in grp.DefaultIfEmpty()
-                                orderby m.Mes
-                                select new 
-                                {
-                                    Mes = m.Mes,
-                                    NombreMes = m.NombreMes,
-                                    Total = v != null ? v.Total : 0m
-                                };
-                // 4. Construir el DataTable con la misma estructura que tu consulta T-SQL
-                var dt = new DataTable();
-                dt.Columns.Add("Mes", typeof(int));
-                dt.Columns.Add("Total", typeof(decimal));
-                dt.Columns.Add("NombreMes", typeof(string));
-                foreach (var row in resultado)
-                    dt.Rows.Add(row.Mes, row.Total, row.NombreMes);
-                MDIPrincipal.ActualizarBarraDeEstado();
-                return dt;
+                // 1. Arreglo in-memory de meses con su nombre abreviado
+                var meses = new[]
+                {
+                    new { Mes = 1, NombreMes = "Ene." },
+                    new { Mes = 2, NombreMes = "Feb." },
+                    new { Mes = 3, NombreMes = "Mar." },
+                    new { Mes = 4, NombreMes = "Abr." },
+                    new { Mes = 5, NombreMes = "May." },
+                    new { Mes = 6, NombreMes = "Jun." },
+                    new { Mes = 7, NombreMes = "Jul." },
+                    new { Mes = 8, NombreMes = "Ago." },
+                    new { Mes = 9, NombreMes = "Sep." },
+                    new { Mes = 10, NombreMes = "Oct." },
+                    new { Mes = 11, NombreMes = "Nov." },
+                    new { Mes = 12, NombreMes = "Dic." }
+                };
+                using (var context = new NorthwindTradersDataContext())
+                {
+                    // 2. Subconsulta: ventas agrupadas por mes
+                    var ventasPorMesQuery = from o in context.Orders
+                                            where o.OrderDate.HasValue && o.OrderDate.Value.Year == año
+                                            join od in context.Order_Details on o.OrderID equals od.OrderID
+                                            group od by o.OrderDate.Value.Month into g
+                                            select new
+                                            {
+                                                Mes = g.Key,
+                                                Total = g.Sum(x => x.UnitPrice * x.Quantity * (1 - (decimal)x.Discount))
+                                            };
+                    // 3. Left join entre meses y ventasPorMesQuery
+                    var resultado = from m in meses
+                                    join v in ventasPorMesQuery on m.Mes equals v.Mes into grp
+                                    from v in grp.DefaultIfEmpty()
+                                    orderby m.Mes
+                                    select new
+                                    {
+                                        Mes = m.Mes,
+                                        NombreMes = m.NombreMes,
+                                        Total = v != null ? v.Total : 0m
+                                    };
+                    // 4. Construir el DataTable con la misma estructura que tu consulta T-SQL
+                    dt.Columns.Add("Mes", typeof(int));
+                    dt.Columns.Add("Total", typeof(decimal));
+                    dt.Columns.Add("NombreMes", typeof(string));
+                    foreach (var row in resultado)
+                        dt.Rows.Add(row.Mes, row.Total, row.NombreMes);
+                }
             }
+            catch (SqlException ex)
+            {
+                Utils.MsgCatchOueclbdd(ex);
+            }
+            catch (Exception ex)
+            {
+                Utils.MsgCatchOue(ex);
+            }
+            MDIPrincipal.ActualizarBarraDeEstado();
+            return dt;
         }
     }
 }

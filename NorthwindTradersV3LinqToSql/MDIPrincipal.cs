@@ -12,6 +12,7 @@ namespace NorthwindTradersV3LinqToSql
         public static MDIPrincipal Instance { get; private set; }
         public string UsuarioLogueado { get; set; }
         public int IdUsuarioLogueado { get; set; }
+        private HashSet<int> permisosUsuarioLogueado = new HashSet<int>();
 
         public ToolStripStatusLabel ToolStripEstado
         {
@@ -65,18 +66,33 @@ namespace NorthwindTradersV3LinqToSql
             toolStripTextBox1.Width = sizeTextoParaToolStripTextBox1.Width + 20; // se suman 20 píxeles para un margen adicional
             this.toolStripTextBox1.Text = textoParaToolStripTextBox1;
             IniciarSesion();
+            if (permisosUsuarioLogueado.Contains(10))
+            {
+                FrmTableroControlAltaDireccion frmTableroControlAltaDireccion = new FrmTableroControlAltaDireccion
+                {
+                    MdiParent = this
+                };
+                frmTableroControlAltaDireccion.Show();
+            }
+            else if (permisosUsuarioLogueado.Contains(12))
+            {
+                FrmTableroControlVendedores frmTableroControlVendedores = new FrmTableroControlVendedores
+                {
+                    MdiParent = this
+                };
+                frmTableroControlVendedores.Show();
+            }
         }
 
         private void IniciarSesion()
         {
             // Obtener los permisos del usuario logueado
-            var permisos = ObtenerPermisosUsuario(IdUsuarioLogueado);
+            permisosUsuarioLogueado = ObtenerPermisosUsuario(IdUsuarioLogueado);
             // Ajustar el menú por permisos
-            AjustarMenuPorPermisos(permisos);
-            if (permisos.Count == 0)
+            AjustarMenuPorPermisos(permisosUsuarioLogueado);
+            if (permisosUsuarioLogueado.Count == 0)
             {
                 MessageBox.Show("El usuario no tiene permisos asignados.", Utils.nwtr, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //return;
             }
             ActualizarBarraDeEstado("Sesión iniciada correctamente");
         }
@@ -90,6 +106,7 @@ namespace NorthwindTradersV3LinqToSql
             toolStripMenuItem1.Enabled = false; // tsmiProductos.Enabled = false;
             tsmiPedidos.Enabled = false;
             tsmiAdministracion.Enabled = false;
+            tsmiGraficas.Enabled = false;
             foreach (int permisoId in permisos)
             {
                 if (permisoId == 1)
@@ -106,6 +123,8 @@ namespace NorthwindTradersV3LinqToSql
                     tsmiPedidos.Enabled = true; // Permiso para Pedidos
                 else if (permisoId == 7)
                     tsmiAdministracion.Enabled = true; // Permiso para Administración
+                else if (permisoId == 8)
+                    tsmiGraficas.Enabled = true; 
             }
         }
 

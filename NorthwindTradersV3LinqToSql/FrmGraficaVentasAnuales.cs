@@ -124,6 +124,7 @@ namespace NorthwindTradersV3LinqToSql
 
         private DataTable ObtenerVentasMensuales(int year)
         {
+            MDIPrincipal.ActualizarBarraDeEstado(Utils.clbdd);
             DataTable dt = new DataTable();
             // 1. Arreglo in-memory de meses con su nombre abreviado
             var meses = new[]
@@ -184,6 +185,7 @@ namespace NorthwindTradersV3LinqToSql
             {
                 Utils.MsgCatchOue(ex);
             }
+            MDIPrincipal.ActualizarBarraDeEstado();
             return dt;
         }
     }

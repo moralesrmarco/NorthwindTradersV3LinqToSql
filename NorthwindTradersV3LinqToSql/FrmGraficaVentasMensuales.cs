@@ -30,7 +30,7 @@ namespace NorthwindTradersV3LinqToSql
             MDIPrincipal.ActualizarBarraDeEstado(Utils.clbdd);
             try
             {
-                using (NorthwindTradersDataContext context = new NorthwindTradersDataContext(NorthwindTradersV3LinqToSql.Properties.Settings.Default.NwCn))
+                using (NorthwindTradersDataContext context = new NorthwindTradersDataContext())
                 {
                     var years = context.Orders
                         .Where(o => o.OrderDate != null)
