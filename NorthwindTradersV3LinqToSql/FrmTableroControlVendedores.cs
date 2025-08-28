@@ -23,8 +23,11 @@ namespace NorthwindTradersV3LinqToSql
 
         private void GrbPaint(object sender, PaintEventArgs e) => Utils.GrbPaint(this, sender, e);
 
-        private void FrmTableroControlVendedores_Load(object sender, EventArgs e)
+        private void FrmTableroControlAltaVendedores_Load(object sender, EventArgs e)
         {
+            //LlenarCmbVentasMensualesDelAnio();
+            //LlenarCmbTipoGrafica1();
+            //CmbTipoGrafica1.SelectedIndex = 12; // SeriesChartType.Line
             LlenarCmbVentasMensualesPorVendedorPorAño();
             LlenarCmbTipoGrafica1();
             CmbTipoGrafica1.SelectedItem = SeriesChartType.Line;
@@ -39,13 +42,13 @@ namespace NorthwindTradersV3LinqToSql
 
             CargarVentasPorVendedores();
 
-            LlenarCmbVentasMensualesDelAnio();
+            LlenarCmbVentasVendedorAnio();
             LlenarCmbTipoGrafica5();
             CmbTipoGrafica5.SelectedItem = SeriesChartType.Doughnut;
 
             LlenarCmbTipoGrafica();
         }
-
+        /******************************************************************************************************/
         private void LlenarCmbVentasMensualesPorVendedorPorAño()
         {
             cmbVentasMensualesPorVendedorPorAño.SelectedIndexChanged -= cmbVentasMensualesPorVendedorPorAño_SelectedIndexChanged;
@@ -225,16 +228,16 @@ namespace NorthwindTradersV3LinqToSql
                         }
                         ).ToList();
                     var resultadoConMeses = from m in meses
-                                        join v in resultado on m.Mes equals v.Mes into grp
-                                        from v in grp.DefaultIfEmpty()
-                                        orderby m.Mes
-                                        select new
-                                        {
-                                            Vendedor = v?.Vendedor ?? "Sin Vendedor",
-                                            Mes = m.Mes,
-                                            TotalVentas = v?.TotalVentas ?? 0m,
-                                            NombreMes = m.NombreMes
-                                        };
+                                            join v in resultado on m.Mes equals v.Mes into grp
+                                            from v in grp.DefaultIfEmpty()
+                                            orderby m.Mes
+                                            select new
+                                            {
+                                                Vendedor = v?.Vendedor ?? "Sin Vendedor",
+                                                Mes = m.Mes,
+                                                TotalVentas = v?.TotalVentas ?? 0m,
+                                                NombreMes = m.NombreMes
+                                            };
                     dt.Columns.Add("Vendedor", typeof(string));
                     dt.Columns.Add("Mes", typeof(int));
                     dt.Columns.Add("TotalVentas", typeof(decimal));
@@ -261,7 +264,7 @@ namespace NorthwindTradersV3LinqToSql
             MDIPrincipal.ActualizarBarraDeEstado();
             return dt;
         }
-
+        /******************************************************************************************************/
         private void LlenarCmbUltimosAnios()
         {
             cmbUltimosAnios.SelectedIndexChanged -= cmbUltimosAnios_SelectedIndexChanged;
@@ -436,7 +439,7 @@ namespace NorthwindTradersV3LinqToSql
             MDIPrincipal.ActualizarBarraDeEstado();
             return dt;
         }
-
+        /******************************************************************************************************/
         private void LlenarCmbNumeroProductos()
         {
             cmbNumeroProductos.SelectedIndexChanged -= cmbNumeroProductos_SelectedIndexChanged;
@@ -572,7 +575,7 @@ namespace NorthwindTradersV3LinqToSql
             MDIPrincipal.ActualizarBarraDeEstado();
             return dt;
         }
-
+        /******************************************************************************************************/
         private void CargarVentasPorVendedores()
         {
             chart4.Series.Clear();
@@ -662,8 +665,8 @@ namespace NorthwindTradersV3LinqToSql
             MDIPrincipal.ActualizarBarraDeEstado();
             return dt;
         }
-
-        private void LlenarCmbVentasMensualesDelAnio()
+        /******************************************************************************************************/
+        private void LlenarCmbVentasVendedorAnio()
         {
             MDIPrincipal.ActualizarBarraDeEstado(Utils.clbdd);
             cmbVentasVendedorAnio.SelectedIndexChanged -= cmbVentasVendedorAnio_SelectedIndexChanged;
@@ -727,19 +730,16 @@ namespace NorthwindTradersV3LinqToSql
             chart5.Series.Clear();
             chart5.Titles.Clear();
             chart5.Legends.Clear();
-            //if (tipoGrafica == SeriesChartType.Doughnut || tipoGrafica == SeriesChartType.Pie)
-            //{
-                var leyenda = new Legend("Vendedores")
-                {
-                    Title = "Vendedores",
-                    TitleFont = new Font("Segoe UI", 7, FontStyle.Bold),
-                    Docking = Docking.Right,
-                    LegendStyle = LegendStyle.Table,
-                    Font = new Font("Segoe UI", 7, FontStyle.Regular),
-                    IsTextAutoFit = false
-                };
-                chart5.Legends.Add(leyenda);
-            //}
+            var leyenda = new Legend("Vendedores")
+            {
+                Title = "Vendedores",
+                TitleFont = new Font("Segoe UI", 7, FontStyle.Bold),
+                Docking = Docking.Right,
+                LegendStyle = LegendStyle.Table,
+                Font = new Font("Segoe UI", 7, FontStyle.Regular),
+                IsTextAutoFit = false
+            };
+            chart5.Legends.Add(leyenda);
             Title titulo = new Title
             {
                 Text = $"Ventas por vendedores del año {year}",
@@ -765,7 +765,6 @@ namespace NorthwindTradersV3LinqToSql
             area.Area3DStyle.Inclination = 30;
             area.Area3DStyle.Rotation = 20;
             area.Area3DStyle.LightStyle = LightStyle.Realistic;
-            area.Area3DStyle.WallWidth = 0;
             serie["PieLabelStyle"] = "Disabled";
             serie["PieDrawingStyle"] = "Cylinder";
             serie["DoughnutRadius"] = "60";
@@ -822,7 +821,7 @@ namespace NorthwindTradersV3LinqToSql
             MDIPrincipal.ActualizarBarraDeEstado();
             return dt;
         }
-
+        /******************************************************************************************************/
         private void LlenarCmbTipoGrafica()
         {
             // Obtiene todos los valores del enum
@@ -877,6 +876,5 @@ namespace NorthwindTradersV3LinqToSql
             // Establecer fuente más pequeña para el nombre de la serie en la leyenda
             chart6.Legends[0].Font = new Font("Segoe UI", 7); // Tamaño de fuente reducido
         }
-
     }
 }

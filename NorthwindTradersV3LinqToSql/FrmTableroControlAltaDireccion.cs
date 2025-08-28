@@ -25,9 +25,9 @@ namespace NorthwindTradersV3LinqToSql
 
         private void FrmTableroControlAltaDireccion_Load(object sender, EventArgs e)
         {
-            LlenarCmbVentasVendedorAnio();
+            LlenarCmbVentasMensualesDelAnio();
             LlenarCmbTipoGrafica1();
-            CmbTipoGrafica1.SelectedIndex = 12; 
+            CmbTipoGrafica1.SelectedIndex = 12; // SeriesChartType.Line
 
             LlenarCmbUltimosAnios();
             LlenarCmbTipoGrafica2();
@@ -39,14 +39,14 @@ namespace NorthwindTradersV3LinqToSql
 
             CargarVentasPorVendedores();
 
-            LlenarCmbVentasMensualesDelAnio();
+            LlenarCmbVentasVendedorAnio();
             LlenarCmbTipoGrafica5();
             CmbTipoGrafica5.SelectedItem = SeriesChartType.Doughnut;
 
             LlenarCmbTipoGrafica();
         }
-
-        private void LlenarCmbVentasVendedorAnio()
+        /******************************************************************************************************/
+        private void LlenarCmbVentasMensualesDelAnio()
         {
             cmbVentasMensualesDelAnio.SelectedIndexChanged -= cmbVentasMensualesDelAnio_SelectedIndexChanged;
             MDIPrincipal.ActualizarBarraDeEstado(Utils.clbdd);
@@ -220,6 +220,7 @@ namespace NorthwindTradersV3LinqToSql
             MDIPrincipal.ActualizarBarraDeEstado();
             return dt;
         }
+        /******************************************************************************************************/
 
         private void LlenarCmbUltimosAnios()
         {
@@ -395,7 +396,7 @@ namespace NorthwindTradersV3LinqToSql
             MDIPrincipal.ActualizarBarraDeEstado();
             return dt;
         }
-
+        /******************************************************************************************************/
         private void LlenarCmbNumeroProductos()
         {
             cmbNumeroProductos.SelectedIndexChanged -= cmbNumeroProductos_SelectedIndexChanged;
@@ -531,7 +532,7 @@ namespace NorthwindTradersV3LinqToSql
             MDIPrincipal.ActualizarBarraDeEstado();
             return dt;
         }
-
+        /******************************************************************************************************/
         private void CargarVentasPorVendedores()
         {
             chart4.Series.Clear();
@@ -621,8 +622,8 @@ namespace NorthwindTradersV3LinqToSql
             MDIPrincipal.ActualizarBarraDeEstado();
             return dt;
         }
-
-        private void LlenarCmbVentasMensualesDelAnio()
+        /******************************************************************************************************/
+        private void LlenarCmbVentasVendedorAnio()
         {
             MDIPrincipal.ActualizarBarraDeEstado(Utils.clbdd);
             cmbVentasVendedorAnio.SelectedIndexChanged -= cmbVentasVendedorAnio_SelectedIndexChanged;
@@ -686,19 +687,16 @@ namespace NorthwindTradersV3LinqToSql
             chart5.Series.Clear();
             chart5.Titles.Clear();
             chart5.Legends.Clear();
-            //if (tipoGrafica == SeriesChartType.Doughnut || tipoGrafica == SeriesChartType.Pie)
-            //{
-                var leyenda = new Legend("Vendedores")
-                {
-                    Title = "Vendedores",
-                    TitleFont = new Font("Segoe UI", 7, FontStyle.Bold),
-                    Docking = Docking.Right,
-                    LegendStyle = LegendStyle.Table,
-                    Font = new Font("Segoe UI", 7, FontStyle.Regular),
-                    IsTextAutoFit = false
-                };
-                chart5.Legends.Add(leyenda);
-            //}
+            var leyenda = new Legend("Vendedores")
+            {
+                Title = "Vendedores",
+                TitleFont = new Font("Segoe UI", 7, FontStyle.Bold),
+                Docking = Docking.Right,
+                LegendStyle = LegendStyle.Table,
+                Font = new Font("Segoe UI", 7, FontStyle.Regular),
+                IsTextAutoFit = false
+            };
+            chart5.Legends.Add(leyenda);
             Title titulo = new Title
             {
                 Text = $"Ventas por vendedores del año {year}",
@@ -724,7 +722,6 @@ namespace NorthwindTradersV3LinqToSql
             area.Area3DStyle.Inclination = 30;
             area.Area3DStyle.Rotation = 20;
             area.Area3DStyle.LightStyle = LightStyle.Realistic;
-            area.Area3DStyle.WallWidth = 0;
             serie["PieLabelStyle"] = "Disabled";
             serie["PieDrawingStyle"] = "Cylinder";
             serie["DoughnutRadius"] = "60";
@@ -781,7 +778,7 @@ namespace NorthwindTradersV3LinqToSql
             MDIPrincipal.ActualizarBarraDeEstado();
             return dt;
         }
-
+        /******************************************************************************************************/
         private void LlenarCmbTipoGrafica()
         {
             // Obtiene todos los valores del enum
