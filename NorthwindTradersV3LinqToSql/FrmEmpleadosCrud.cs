@@ -129,7 +129,8 @@ namespace NorthwindTradersV3LinqToSql
                                     emp.Fecha_de_nacimiento,
                                     emp.Ciudad,
                                     emp.País,
-                                    Photo = emp.Foto.ToArray(),
+                                    //Photo = emp.Foto.ToArray(),
+                                    Photo = emp.Foto == null ? null : emp.Foto.ToArray(),
                                     emp.Reporta_a
                                 };
                     dgv.DataSource = query.ToList();
@@ -177,7 +178,7 @@ namespace NorthwindTradersV3LinqToSql
         private void ConfDgvEmpleados(DataGridView dgv)
         {
             dgv.Columns["Id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dgv.Columns["Photo"].Width = 20;
+            dgv.Columns["Photo"].Width = 10;
             dgv.Columns["Photo"].DefaultCellStyle.Padding = new Padding(2, 2, 2, 2);
             ((DataGridViewImageColumn)dgv.Columns["Photo"]).ImageLayout = DataGridViewImageCellLayout.Zoom;
             dgv.Columns["Título"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -338,7 +339,7 @@ namespace NorthwindTradersV3LinqToSql
             return valida;
         }
 
-        private void FrmEmpleadosCrud_FormClosed(object sender, FormClosedEventArgs e) => Utils.ActualizarBarraDeEstado(this.Owner);
+        private void FrmEmpleadosCrud_FormClosed(object sender, FormClosedEventArgs e) => MDIPrincipal.ActualizarBarraDeEstado();
 
         private void FrmEmpleadosCrud_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -583,6 +584,7 @@ namespace NorthwindTradersV3LinqToSql
                     }
                     HabilitarControles();
                     btnOperacion.Enabled = true;
+                    btnCargar.Enabled = true;
                     LlenarCombos();
                     ActualizaDgv();
                 }
